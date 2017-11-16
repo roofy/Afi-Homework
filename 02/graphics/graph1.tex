@@ -1,0 +1,59 @@
+\documentclass[border=1mm]{standalone}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\pgfmathsetmacro{\PI}{3.141592654}
+\pgfplotsset{
+    axis lines=middle,
+    no markers,
+    samples=200,
+    grid=both,
+    minor grid style={line width=.1pt,draw=gray!50},
+    major grid style={line width=.1pt,draw=gray!50},
+    enlargelimits={abs=0.5},
+    trig format plots=rad,
+    every axis plot/.append style={
+        line width=0.75pt,
+        smooth,
+    },
+}
+
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel=$x$,
+    ylabel=$y$,
+    x label style={at={(axis description cs:1.01,0.435)}},
+    width=15cm,
+    height=7.5cm,
+    domain=-2*pi:2*pi,
+    ymin=-2, ymax=2,
+    scaled x ticks={real:\PI},
+    xtick scale label code/.code={},
+    xtick distance=\PI/2,
+    xticklabel={%
+        \ifdim \tick pt = 1 pt
+            \strut$\pi$%
+        \else\ifdim \tick pt = -1 pt
+            \strut $-\pi$%
+        \else
+            \pgfmathparse{round(10*\tick)/10}
+            \pgfmathifisint{\pgfmathresult}{%
+                \strut$\pgfmathprintnumber[int detect]{\pgfmathresult}\pi$%
+            }{%
+                \strut$\pgfmathprintnumber{\pgfmathresult}\pi$%
+            }
+        \fi\fi
+    },
+    xticklabel style={
+        /pgf/number format/frac,
+        /pgf/number format/frac whole=false,
+    },
+    minor tick num=1,
+    restrict y to domain=-10:10
+]
+    \addplot {sin(2*x)} node[above,pos=1] {$\sin(x)$};
+    \addplot {1/cos(x)} node[above,pos=1] {$\frac{1}{\cos(x)}$};
+
+\end{axis}
+\end{tikzpicture}
+\end{document}

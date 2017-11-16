@@ -1,0 +1,203 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 6}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+\aufgabe{1}
+Wir zeigen zuerst, dass $a_n$ nach unten durch $\sqrt{x}$ beschränkt ist:
+Sei $A(n) := a_n \geq \sqrt{x}$
+
+\textbf{(IA)}
+Für $a_0 = 1$ folgt $a_0 \geq \sqrt{1}$ und für $a_0 = x > 1$ folgt $a_0 \geq \sqrt{x}$. Also gilt $A(1)$.
+
+\textbf{(IS)} Es gelte $A(n)$ für ein $n\in \mathbb{N}_0$. $n\mapsto n+1\colon$
+Zu zeigen ist $a_{n+1} \geq \sqrt{x}\colon$
+$$
+    a_{n+1} \geq \sqrt{x} \,\Longleftrightarrow\, {a_n}^2+x \geq 2a_n\sqrt{x}
+    \,\Longleftrightarrow\, (a_n-\sqrt{x})^2 \geq 0
+$$
+Letzteres ist stets erfüllt, da $\forall x \in \mathbb{R}\colon x^2 \geq 0$ gilt. Es folgt
+nun nach dem Prinzip der vollständigen Induktion $A(n)$ für alle $n\in \mathbb{N}_0$.
+Also ist $a_n$ mit $\sqrt{x}$ nach unten beschränkt.
+
+Zu zeigen ist nun, dass $a_n$ monoton fällt, also $a_{n+1} - a_n \leq 0$:
+$$
+    a_{n+1} - a_n = \frac{1}{2}\left(a_n+\frac{x}{a_n}\right) - a_n
+    = \frac{a_n}{2} - \frac{x}{2a_n} - \frac{2a_n}{2} = x - (a_n)^2\quad
+    \up{\leq}{$a_n \geq \sqrt{x}$} \quad x-(\sqrt{x})^2 = 0
+$$
+Da nun stets $a_{n+1}-a_n \leq 0$ gilt, ist $a_n$ monoton fallend und damit nach 1.4 auch
+nach oben beschränkt, also insgesamt beschränkt.
+Der Grenzwert dieser rekursiven Folge lässt sich wie folgt bestimmen:
+$$
+    L = \lim_{n \to \infty} a_n = \lim_{n \to \infty} a_{n+1}
+    = \frac{1}{2}\left(L + \frac{x}{L}\right)
+$$
+Wir lösen nach $L$ auf:
+$$
+    L = \frac{1}{2}\left(L + \frac{x}{L}\right) \,\Longleftrightarrow\, L^2 = x
+    \,\Longleftrightarrow\, L = \pm \sqrt{x}
+$$
+Da $a_n$ jedoch von unten durch $\sqrt{x}$ beschränkt ist gilt stets
+$L = \lim_{n \to \infty}\limits a_n \not< \sqrt{x}$, d.h. $a_n$ kann niemals $-\sqrt{x}$
+erreichen. Somit kommt für uns als Lösung nur $\lim_{n \to \infty}\limits a_n = \sqrt{x}$
+in Frage, da es nach Satz 4.13 (Kapitel 2) nur genau eine positive reelle Zahl
+$\sqrt[n]{x}\in \mathbb{R}_+ $ mit $n \in \mathbb{N}$ gibt.
+Also konvergiert $a_n$ gegen $\sqrt{x}$.
+
+\textbf{b)} Für $c = 1$ folgt durch $\forall n \in \mathbb{N}_0 \colon a_n \geq \sqrt{x} \,\Longrightarrow\, a_n \geq 0$, dass folgendes stets gilt:
+$$
+    |(a_n - \sqrt{x})^2| \leq 2a_n|a_n - \sqrt{x}|^2 \,\Longleftrightarrow\,
+    \left|\frac{{a_n}^2-2a_n\sqrt{x}+x}{2a_n}\right| \leq |a_n - \sqrt{x}|^2
+$$$$
+    \,\Longleftrightarrow\,\left|\frac{1}{2}\left(a_n+\frac{x}{a_n}\right) -\sqrt{x}\right|
+    \leq |a_n-\sqrt{x}|^2
+    \,\Longleftrightarrow\, |a_{n+1} -\sqrt{x}| \leq 1\cdot |a_n-\sqrt{x}|^2
+$$
+Somit existiert ein $c = 1 > 0$, sodass gilt:
+$$
+    \forall n \in \mathbb{N}_0 \colon |a_{n+1}-\sqrt{x}| \leq c\cdot |a_n-\sqrt{x}|^2
+$$
+Also konvergiert $a_n$ quadratisch gegen $\sqrt{x}$.
+\newpage
+\aufgabe{2}
+Für $(a_n)_{n \in \mathbb{N}} = \dfrac{1}{(n+1)^2}$ gilt $\lim_{n \to \infty}\limits
+\dfrac{1}{(n+1)^2} = 0$. Zu $\varepsilon > 0$ wählt man ein $n_0 \in \mathbb{N}$ mit
+$\displaystyle n_0 > \sqrt{\frac{1}{\varepsilon}}-1$.
+Es folgt:
+$$
+    \forall n \geq n_0 \colon \left|\frac{1}{(n+1)^2}-0\right| = \frac{1}{(n+1)^2}
+    \leq \frac{1}{(n_0+1)^2} <
+    \frac{1}{\left(\left(\sqrt{1/\varepsilon}-1\right)+1\right)^2} = \varepsilon
+$$
+Es folgt nach Definition 1.5 dass $\lim_{n \to \infty}\limits a_n = 0$.
+
+\aufgabe{3}
+
+\textbf{a)}
+
+Wir wählen zu jedem $\varepsilon > 0$ ein $N \in \mathbb{N}$ sodass
+$2^{(N-1)} > \varepsilon^{-1}$ gilt.
+Seien nun $m,n \in \mathbb{N}$ mit $m, n\geq N$ gegeben. Es lässt sich in diesem Fall
+ohne Beschränkung der Allgemeinheit annehmen, dass $n \geq m$. Somit gilt $n = m+k$ für
+ein $k \in \mathbb{N}_0$. Es folgt nun durch die Dreiecksungleichung (*) und die Gegebenheit
+der Aufgabe (**):
+$$
+    |a_m - a_n| = |a_m - a_{m+k}| = \left|\sum_{i=1}^{k} a_{m+i-1} - a_{m+i}\right|
+    \up{\ \leq\ }{(*)} \sum_{i=1}^{k} |a_{m+i-1} - a_{m+i}|
+$$$$
+    \up{\ \leq\ }{(**)} \sum_{i=1}^{k} 2^{-(m+i-1)}
+    = \sum_{i=1}^{k} \frac{1}{2^{m+i-1}} < \frac{1}{2^{m-1}}
+    \leq \frac{1}{2^{N-1}} < \frac{1}{\varepsilon^{-1}} = \varepsilon
+$$
+Also gilt das Cauchy-Kriterium, da zu jedem $\varepsilon$ ein $N\in \mathbb{N}$ mit
+$2^{-(N-1)} < \varepsilon$ existiert, sodass gilt:
+$$
+    \forall m,n \geq N \colon |a_m-a_n| < \varepsilon
+$$
+
+
+\textbf{b)}\\
+Für $b_n=\dfrac{8n^2-5}{4n^2+7}$ gilt $\lim_{n \to\infty}\limits \dfrac{8n^2-5}{4n^2+7}=2$.
+Wir wählen ein $n_0 \in \mathbb{N}$ mit $n_0 > n_0(\varepsilon)$:
+$$
+    n_0(\varepsilon) := \begin{cases}
+        \Big\lceil\left(\sqrt{\frac{19}{4\varepsilon} - \frac{7}{4}}\right)\Big\rceil
+            & \text{falls}\ \varepsilon < \frac{19}{11}\\
+        2
+            & \text{falls}\ \varepsilon \geq \frac{19}{11}
+    \end{cases}
+$$
+Es folgt für $\varepsilon < \frac{19}{11}\colon$
+$$
+    \forall n \geq n_0\colon \vert b_n -2\vert = \left|\frac{8n^2-5}{4n^2+7}-2\right| <
+    \left|\frac{8\left(\sqrt{\frac{19}{4\varepsilon}-\frac{7}{4}} \right)^2-5}{4\left(\sqrt{\frac{19}{4\varepsilon} - \frac{7}{4}} \right)^2+7} -2\right|
+    =\left|\frac{2(\frac{19}{\varepsilon})-19}{\frac{19}{\varepsilon}} -2\right| = \varepsilon
+$$
+Und für $\varepsilon \geq \frac{19}{11}\colon$
+$$
+    \forall n\geq n_0 \colon \vert b_n -2\vert \leq \left|\frac{8(n_0)^2-5}{4(n_0)^2+7}-2\right|
+    < \left|\frac{8(2)^2-5}{4(2)^2+7}-2\right| = \frac{19}{23} < \varepsilon
+$$
+Somit gilt $\lim_{n \to \infty}\limits b_n = 2$.
+\newpage
+\aufgabe{4}
+\textbf{a)}
+Für ein beliebiges $\varepsilon > 0$ existiert nach Definition ein $N \in \mathbb{N}$ sodass
+gilt:
+$$
+    \forall m,n \geq N\colon |a_n-a_m| < \varepsilon
+$$
+Da jedoch $|b_n - b_m| \leq |a_n-a_m|$ für alle $m,n \in \mathbb{N}$ gilt, also insbesondere
+auch für $m,n \geq N$, folgt durch die Transitivität von Ungleichungen:
+$$
+    \forall m,n \geq N\colon |b_n-b_m| < \varepsilon
+$$
+Also existiert zu jedem $\varepsilon$ ein $N$ sodass $|b_n-b_m| < \varepsilon$ für alle
+$m,n \geq N$ gilt. Somit ist auch $b_n$ eine Cauchy-Folge.
+
+
+\textbf{b)}
+Sei $(a_n)_{n \in \mathbb{N}}$ eine gegebene Cauchy-Folge. Nach Definition existiert
+für jedes $\varepsilon >0$ ein $N \in \mathbb{N}$ sodass mit der Dreiecksungleichung gilt:
+$$
+    \forall m,n \geq N \colon |a_m|-|a_n|<|a_m-a_n| < \varepsilon 
+    \,\Longleftrightarrow\, |a_m| < |a_n| + \varepsilon
+$$
+Da dies für alle $m,n \geq N$ gilt, folgt es auch insbesondere für $n=N$:
+$$
+    \forall m \geq N \colon |a_m| \leq |a_N|+\varepsilon
+$$
+Somit ist $a_n$ für alle $n \geq N$ durch $|a_N|+\varepsilon$ beschränkt.
+Die endliche Anzahl an Werten von $a_m$ für $m<N$ haben ein Maximum $M$, sodass $\forall n <N\colon a_n < M$ gilt. Es folgt also:
+$$
+    \forall n \in \mathbb{N} \colon |a_n| \leq \text{max}(\ \{|a_m|\colon m\in \mathbb{N} \land m < N\}
+    \cup \{|a_N|+\varepsilon\})
+$$
+Also entweder ist das Maximum des Bildes von $a_n$ über alle $n<N$ größer als
+$|a_N|+\varepsilon$ und somit die Schranke der Folge, oder $|a_N|+\varepsilon$
+bleibt die Schranke. In jedem Fall ist dann jede Cauchy-Folge beschränkt.
+
+\textbf{c)}
+Da $a_n$ eine Cauchy-Folge ist, existiert zu jedem $\varepsilon > 0$ ein $N\in \mathbb{N}$
+sodass $|a_m-a_n| < \varepsilon$ für alle $m,n \geq N$ gilt. Umgeschrieben muss also gelten
+$$
+    \forall i,j\in \mathbb{N}_0\colon |a_{N+i}-a_{N+j}| < \varepsilon
+$$
+Insbesondere muss dies also auch als Spezialfall für
+$n,k \in \mathbb{N}, n \geq N$ und $m=n+k$ gelten:
+$$
+    \forall k,n \in \mathbb{N},\ n \geq N\colon |a_m-a_n| = |a_{n+k}-a_n| < \varepsilon
+$$
+Folglich gibt es zu jedem $\varepsilon > 0$ ein $N \in \mathbb{N}$ sodass für beliebige
+$k \in \mathbb{N}$ gilt:
+$$
+    \forall n \geq N \colon |a_{n+k}-a_n| = |{b_n}^{(k)}|< \varepsilon
+$$
+Also ist auch ${b_n}^{(k)}$ für beliebige $k \in \mathbb{N}$ eine Cauchy-Folge.
+\end{document}

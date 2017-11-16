@@ -1,0 +1,259 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+
+\begin{center}
+     \LARGE{\textbf{Hausaufgabe 5}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+Seien $M_1$ und $M_2$ zwei abzählbare Mengen. Wir können ohne Einschränkung annehmen,
+dass $M_1 \neq \o$ und $M_2 \neq \o$. Da $M_1$ und $M_2$ abzählbar sind, existieren
+injektive Abbildungen $f_1\colon M_1 \rightarrow \mathbb{N}$ und $f_2 \colon M_2 \rightarrow \mathbb{N}$. Sei nun $C = A \up{\cup}{.}B$. Wir definieren
+$$
+    f_3\colon C \rightarrow \mathbb{N} \colon c\mapsto \begin{cases}
+        2\cdot f_1(c) & \text{falls}\ c \in A\\
+        2\cdot f_2(c)+1 & \text{falls}\ c \in B
+    \end{cases}
+$$
+Wir unterscheiden nun für beliebig aber feste $a,b \in C$ folgende Fälle:
+
+\textbf{Fall 1:} $a,b \in A$:\\
+Da $f_1$ injektiv ist, muss $f_1(x)\neq f_1(y)$ gelten. Somit auch $2\cdot f_1(x) \neq 2\cdot f_1(y) \,\Leftrightarrow\, f_3(x)\neq f_3(y)$
+
+\textbf{Fall 2:} $a,b \in B$:\\
+Dies ist analog zu Fall 1. Es muss gelten: $2\cdot f_2(x)+1 \neq 2\cdot f_2(y)+1
+\,\Leftrightarrow\, f_3(x)\neq f_3(y)$
+
+\textbf{Fall 3:} $a \in A \land b \in B$\\
+Ohne Beschränkung der Allgemeinheit ist dieser Fall analog zum Fall $a \in B \land b \in A$.
+Da $f_1$ und $f_2$ beide auf $\mathbb{N}$ abbilden, folgt mit $M_1=\{x\mid\text{x ist gerade}\}$ und $M_2=\{x\mid\text{x ist ungerade}\}$:
+$$
+    \forall c \in C \colon 2\cdot f_1(c) \in M_1
+    \quad\text{sowie}\quad
+    \forall c \in C \colon 2\cdot f_2(c)+1 \in M_2
+$$
+Da eine natürliche Zahl nicht gerade und ungerade gleichzeitig sein kann, folgt nach\\
+Konstruktion von $f_3$ :
+$$
+    f_3(a) \neq f_3(b)
+$$
+Somit gilt für jeden Fall, bzw. $\forall a\in A, b\in B\colon f_3(a) \neq f_3(b)$. Also ist $f_3$ injektiv.
+Daher gibt es eine injektive Abbildung $f_3 \colon C\rightarrow \mathbb{N}$.
+Nach Definition ist dann die Vereinigung zweier disjunkter abzählbarer Mengen ebenfalls abzählbar.
+
+Da $\mathbb{Q}^\complement := \mathbb{R}\setminus \mathbb{Q}$, folgt $\mathbb{Q} \cup \mathbb{Q}^\complement = \mathbb{R}$. Somit auch $\mathbb{Q} \cap \mathbb{Q}^\complement = \o$.
+Da $\mathbb{Q}$ abzählbar ist und die Vereinigung zweier disjunkter abzählbarer Mengen
+wie gerade bewiesen ebenfalls abzählbar ist, muss $\mathbb{Q}^\complement$ überabzählbar sein, da sonst folgen würde, dass $\mathbb{R}$ abzählbar ist:
+\begin{alignat*}{1}
+    &(\mathbb{R} = \mathbb{Q} \cup \mathbb{Q}^\complement)
+    \land(\mathbb{R}\ \text{überabzählbar}) \land (\mathbb{Q}\ \text{abzählbar})\\
+    \,\Longrightarrow\quad&(\mathbb{Q}\ \text{nicht abzählbar} \lor \mathbb{Q}^\complement\ \text{nicht abzählbar}) \land (\mathbb{Q}\ \text{abzählbar})\\
+    \,\Longrightarrow\quad&(\mathbb{Q}^\complement\ \text{nicht abzählbar})\\
+\end{alignat*}
+
+\newpage
+\aufgabe{2}
+\textbf{a)} $\lim_{n \to \infty}\limits \frac{\sqrt{n} + \sqrt[3]{n}}{3\sqrt{n} +1}$\\[5pt]
+Nach den Limitenregeln lässt sich der Grenzwert wie folgt bestimmen:
+$$
+    \lim_{n \to \infty} \frac{\sqrt{n} + \sqrt[3]{n}}{3\sqrt{n} +1}
+    = \lim_{n \to \infty}\limits \frac{1+\frac{\sqrt[3]{n}}{\sqrt{n}}}{3+\frac{1}{\sqrt{n}}}
+    = \frac{\lim_{n \to \infty}\limits\left(1+\frac{\sqrt[3]{n}}{\sqrt{n}}\right)}{\lim_{n \to \infty}\limits\left(3+\frac{1}{\sqrt{n}}\right)}
+    = \frac{\lim_{n \to \infty}\limits 1+ \lim_{n \to \infty}\limits\frac{\sqrt[3]{n}}{\sqrt{n}}}{\lim_{n \to \infty}\limits3+\lim_{n \to \infty}\limits\frac{1}{\sqrt{n}}}\\[10pt]
+$$
+$$
+    = \frac{1+ \lim_{n \to \infty}\limits\frac{\sqrt[3]{n}}{\sqrt{n}}}{3+\lim_{n \to \infty}\limits\frac{1}{\sqrt{n}}}
+    = \frac{1+ \lim_{n \to \infty}\limits\frac{\sqrt[3]{n}}{\sqrt{n}}}{3+0}
+    = \frac{1+ \lim_{n \to \infty}\limits\frac{1}{\sqrt[6]{n}}}{3}
+    = \frac{1+ \lim_{n \to \infty}\limits\frac{1}{n^{1/6}}}{3}
+    = \frac{1+0}{3}
+    = \frac{1}{3}
+$$
+Somit ist der Grenzwert der Folge $\dfrac{1}{3}$. Da die Folge einen Grenzwert besitzt, konvergiert sie auch gegen diesen.
+
+\textbf{b)} $a_n = n\cdot \left(\sqrt{n^3+2} -\sqrt{n^3+1}\right)$\\[5pt]
+Durch Umformungen erhält man:
+$$
+    n\left(\sqrt{n^3+2} - \sqrt{n^3+1}\right) = \frac{n}{\sqrt{n^3+2} + \sqrt{n^3+1}}
+$$
+Wir gehen nach dem Sandwich-Lemma und definieren vorerst:
+$$
+    (b_n)_{n \in \mathbb{N}} := \frac{1}{\sqrt{n^3+2}+\sqrt{n^3+1}}\quad \text{und}\quad
+    (c_n)_{n \in \mathbb{N}} := \frac{1}{\sqrt{n}}
+$$
+Es folgt für alle $n\in \mathbb{N}\colon$ 
+$$
+    \frac{1}{\sqrt{n}} \geq \frac{n}{\sqrt{n^3+2}+\sqrt{n^3+1}}\quad\text{und}\quad
+    \frac{1}{\sqrt{n^3+2} + \sqrt{n^3+1}} \leq \frac{n}{\sqrt{n^3+2} + \sqrt{n^3+1}}
+$$
+Also gilt stets $b_n \leq a_n \leq c_n$. Wir wissen nach 1.6, dass
+$\lim_{n \to \infty}\limits c_n = 0$ gilt. Außerdem folgt analog zu Beispiel 1.11, dass
+$\sqrt{n^3+2} + \sqrt{n^3+1} $ unbeschränkt nach oben ist und damit $b_n$ gegen 0
+konvergiert; Zu jedem $C\in \mathbb{R}$ mit $C>0$ gibt es ein $N = \lceil C^2 \rceil \in \mathbb{N}$ sodass gilt:
+$$
+    \forall n \in \mathbb{N}, n\geq N \colon \sqrt{n^3+2} + \sqrt{n^3+1} \geq \sqrt{n^3} \geq \sqrt{n} \geq \sqrt{N}
+    \geq \sqrt{C^2} = C
+$$
+Also ist $(b^{-1})_{n\in \mathbb{N}} := \sqrt{n^3+2} + \sqrt{n^3+1}$ nach oben unbeschränkt. Weiterhin lässt sich
+durch Induktion zeigen, dass $(b^{-1})_n$ monoton steigt:
+Sei $A(n) := \left(\forall n \in \mathbb{N}\colon (b^{-1})_{n+1} \geq (b^{-1})_n \right)$\\[5pt]
+\textbf{(IA)} Es gilt $\sqrt{2^3+2} + \sqrt{2^3+1} \geq \sqrt{1^3+2} + \sqrt{1^3+1}$. Also
+gilt $A(1)$.
+
+\textbf{(IS)} Es gelte $A(n)$ für ein $n\in \mathbb{N}$. $n\mapsto n+1\colon$
+$$
+\sqrt{(n+2)^3+2} + \sqrt{(n+2)^3+1} \geq \sqrt{(n+1)^3+2} + \sqrt{(n+1)^3+1}
+$$
+Nach Prinzip der vollständigen Induktion gilt nun $\forall n \in \mathbb{N}\colon A(n)$.
+Somit ist $\sqrt{n^3+2} + \sqrt{n^3+1}$ monoton steigend und unbeschränkt, und der Kehrwert,
+$b_n$, geht dann für $n\mapsto \infty$ gegen 0.
+Es folgt, dass $\lim_{n \to \infty}\limits b_n = \lim_{n \to \infty}\limits c_n = 0$ und
+$\forall n \in \mathbb{N}\colon b_n \leq a_n \leq c_n$, also gilt nach Sandwich-Lemma nun
+auch:
+$$
+    \lim_{n \to \infty} n\left(\sqrt{n^3+2} -\sqrt{n^3+1}\right) = 0
+$$
+
+\newpage
+\textbf{c)} $\lim_{n \to \infty}\limits \left(\frac{n^2+2nz+z^2}{n^2}\right)^n$\\[5pt]
+Zuerst zeigen wir eine Umformung:
+$$
+    \left(\frac{n^2+2nz+z^2}{n^2}\right)^n = \left(\frac{(n+z)^2}{n^2}\right)^n
+    = \left(\frac{n+z}{n}\right)^{2n} = \left(1+\frac{z}{n}\right)^{2n}
+$$
+Somit folgt nun durch den Hinweis und die Grenzwertgesetze:
+$$
+    \lim_{n \to \infty} \left(1+\frac{x}{n}\right)^n = e^x\quad\Longrightarrow\quad
+    \lim_{n \to \infty} \left(\frac{n^2+2nz+z^2}{n^2}\right)^n
+    = \lim_{n \to \infty} \left(1+\frac{z}{n}\right)^{2n}
+    = \lim_{n \to \infty} \left(\left(1+\frac{z}{n}\right)^n\right)^2
+$$$$
+    = \lim_{n \to \infty} \left(\left(1+\frac{z}{n}\right)^{n} \cdot 
+    \left(1+\frac{z}{n}\right)^{n}\right)
+    = \lim_{n \to \infty} \left(1+\frac{z}{n}\right)^{n} \cdot 
+    \lim_{n \to \infty} \left(1+\frac{z}{n}\right)^{n}
+    = e^z \cdot e^z = e^{2z}
+$$
+Es folgt, dass die Folge gegen $e^{2z}$ konvergiert, da wie gezeigt $e^{2z}$ der Grenzwert
+ist und somit die Folge auch gegen diesen konvergiert.
+\aufgabe{3}
+\textbf{a)} Sei $A(n) := \left(\forall n \in \mathbb{N}\colon a_n \geq \frac{1}{3}\right)$\\[5pt]
+\textbf{(IA)} Wir zeigen, dass die Aussage für $n=1$ gilt: $a_1 := 1 \geq \dfrac{1}{3}$. Also gilt $A(1)$.\\[5pt]
+\textbf{(IS)} Es gelte nun $A(n)$ für ein $n\in \mathbb{N}$, d.h. $a_n \geq \frac{1}{3}$. Nun für $n\mapsto n+1$:
+$$
+    a_n \geq \frac{1}{3} \,\Longrightarrow\, a_{n+1} = \frac{4a_n}{3a_n+3} \geq \frac{\frac{4}{3}}{\frac{3}{3} +3} = \frac{1}{3}
+$$
+Somit gilt nach Prinzip der Induktion $\forall n \in \mathbb{N}\colon A(n)$. $a_n$ ist also nach unten beschränkt.\\
+\textbf{b)}
+Wir zeigen nun durch Induktion, dass $a_n$ monoton fallend ist.\\Sei $A(n):=\left(\forall n \in \mathbb{N} \colon a_n \geq a_{n+1}\right)$:\\[5pt]
+\textbf{(IA)} $n=1$. Es gilt $a_1 := 1$ und $a_2 = \frac{4}{6}$. Da $1 > \frac{4}{6}$ gilt nun $A(1)$.\\[5pt]
+\textbf{(IS)} Es gelte $A(n)$ für ein $n \in \mathbb{N}$. $n\mapsto n+1$:
+$$
+    a_{n+1} = \frac{4a_n}{3a_n+3} \up{\quad\geq\quad}{$a_n \geq \frac{1}{3}$}
+    \frac{4\left(\frac{4a_n}{3a_n+3}\right)}{3\left(\frac{4a_n}{3a_n+3}\right)+3}
+    = \frac{4a_{n+1}}{3a_{n+1}+3} = a_{n+2}
+$$
+Somit gilt nach Prinzip der vollständigen Induktion $\forall n \in \mathbb{N}\colon A(n)$.
+Damit ist $a_n$ monoton fallend und beschränkt. Also konvergiert $a_n$.
+
+\textbf{c)} 
+Da $a_n$ monoton fallend ist, gilt nun $\forall n \in \mathbb{N} \colon 1\geq a_n \geq \frac{1}{3}$. Es folgt:
+$$
+ L = \lim_{n \to \infty}\limits a_n = \lim_{n \to \infty} a_{n+1} = \frac{4L}{3L+3}
+$$
+Wir lösen also nach $L$:
+$$
+    L = \frac{4L}{3L+3} \,\Longleftrightarrow\, 3L^2-L = 0
+$$
+Durch die Mitternachtsformel erhalten wir also:
+$$
+    \frac{-(-1)\pm\sqrt{(-1)^2-4\cdot3\cdot0}}{2\cdot 3} = \frac{1\pm1}{6}
+    \,\Longrightarrow\, L_1 = 0, L_2 = \frac{2}{6} = \frac{1}{3}
+$$
+Da jedoch $(a_n)_{n\in \mathbb{N}} \geq \frac{1}{3}$ gilt, kann $L_1$ für unseren Fall ignoriert
+werden. Somit ist
+$$
+    L=L_2 = \frac{1}{3} = \lim_{n \to \infty} (a_n)_{n \in \mathbb{N}}
+$$
+Also konvergiert $(a_n)_{n\in \mathbb{N}}$ gegen $\frac{1}{3}$.
+
+\newpage
+\aufgabe{4}
+Wir zeigen zunächst die Identitäten:\\[5pt]
+\begin{equation}
+\begin{aligned}
+   \frac{1+\sqrt{5}}{2} +1 = \frac{1 +\sqrt{5}}{2} + \frac{2}{2} = \frac{3+\sqrt{5}}{2}
+   = \frac{6+2\sqrt{5}}{4} = \frac{1^2+2\sqrt{5}+5}{2^2} = \left(\frac{1+\sqrt{5}}{2}\right)^2\\
+    \frac{1-\sqrt{5}}{2} +1 = \frac{1 -\sqrt{5}}{2} + \frac{2}{2} = \frac{3-\sqrt{5}}{2}
+   = \frac{6-2\sqrt{5}}{4} = \frac{1^2-2\sqrt{5}+5}{2^2} = \left(\frac{1-\sqrt{5}}{2}\right)^2
+\end{aligned}
+\end{equation}
+Nun die Induktion:\\
+\textbf{(IA)} Wir zeigen dass $a_0$ hält, also für $n=0$\,:
+$$
+    \frac{1}{\sqrt{5}}\left(\left(\frac{1+\sqrt{5}}{2}\right)^1-\left(\frac{1-\sqrt{5}}{2}\right)^1\right)
+    = \frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5} - 1 + \sqrt{5}}{2}\right)
+    = \frac{1}{\sqrt{5}} \cdot \frac{2\sqrt{5}}{2} = 1
+$$
+Da $n_0 := 1$, gilt unsere Annahme nun für $n = 0$.\\[5pt]
+\textbf{(IS)} Es gelte $A(n)$ für ein $n \in \mathbb{N}$. 
+Sei $x := \dfrac{1+\sqrt{5}}{2}$ und $y:= \dfrac{\sqrt{5}-1}{2}$, $n\mapsto n+1$\,:
+$$
+    a_{n+1} = \frac{1}{\sqrt{5}}\left(\left(\frac{1+\sqrt{5}}{2}\right)^{n+2}-\left(\frac{1-\sqrt{5}}{2}\right)^{n+2}\right)
+    = \frac{1}{\sqrt{5}} \left(x^{n+2} - y^{n+2}\right)
+$$$$
+    = \frac{1}{\sqrt{5}} \left(x^2x^n - y^2y^n\right)
+    \up{=}{(1)} \frac{1}{\sqrt{5}} \left(\left(x+1\right)\cdot x^n - \left(y+1\right)\cdot y^n\right)
+$$$$
+    = \frac{1}{\sqrt{5}} (x^{n+1}+x^n - y^{n+1}-y^n)
+    = \frac{1}{\sqrt{5}} (x^{n+1}-y^{n+1}+x^n-y^n)
+$$$$
+    = \frac{1}{\sqrt{5}} (x^{n+1}-y^{n+1}) + \frac{1}{\sqrt{5}}(+x^n-y^n)
+    = a_{n} + a_{n-1}
+$$
+Da nach Definition $a_{n+1} := a_n + a_{n-1}$ gilt die Aussage $A(n)$ nach dem Prinzip der vollständigen Induktion nun für alle $n\in \mathbb{N}.\hfill\square$\\
+Da die Fibonacci-folge eine Summe aus natürlichen Zahlen ist, ist $a_n \geq 1$. Somit:
+\begin{equation}
+    \frac{a_{n+2}}{a_{n+1}} = 1+\frac{a_{n}}{a_{n+1}} = 1+\frac{1}{\left(\dfrac{a_{n+1}}{a_{n}}\right)}
+\end{equation}
+Für den Grenzwert $L$ folgt durch $n\mapsto \infty$:
+$$
+    L = \lim_{n \to \infty}\frac{a_{n+1}}{a_n} = \lim_{n \to \infty}\frac{a_{n+2}}{a_{n+1}}
+    \up{\,\Longrightarrow\,}{(2)} L = 1+ \frac{1}{L} \,\Longrightarrow\, L^2-L-1 = 0
+$$
+Die vorgegebene Grenzwert erfüllt genau diese Eigenschaft:
+$$
+    L^2-L-1 = \left(\frac{1+\sqrt{5}}{2}\right)^2-\frac{1+\sqrt{5}}{2}-1
+    \up{=}{(1)} \left(\frac{1+\sqrt{5}}{2}+1\right) -\frac{1+\sqrt{5}}{2}-1 = 0
+$$
+Da zu jeder Folge immer nur ein Grenzwert existiert (Satz 1.7), gilt nun
+$$\lim_{n \to \infty} \frac{a_{n+1}}{a_n} = \frac{1+\sqrt{5}}{2}$$
+\end{document}

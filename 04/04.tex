@@ -1,0 +1,454 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 4}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\textbf{a)} 
+$M_1 = \{1+(-1)^n\mid n\in \mathbb{N}\}$\\[1pt]
+Diese Menge besitzt sowohl Supremum als auch Infimum, da $(-1)^n$ für alle
+$n \in \mathbb{N}$ nur zwei Werte annehmen kann:\\[5pt]
+\textbf{Proposition:} Sei $n \in \mathbb{N}$. Dann ist $(-1)^n = 1$ falls n gerade, und 
+$(-1)^n = -1$ für n ungerade:\\
+Beweis (direkt). Wir betrachten zwei Fälle:\\
+\textbf{Fall 1:} $n$ gerade. So gibt es ein $k \in \mathbb{N}$ mit $n = 2k$. Es folgt:
+$$ (-1)^n = (-1)^{2k} \up{\ =\ }{4.16} ((-1)^{2})^k = 1^k = 1$$ 
+\textbf{Fall 2:} $n$ ungerade. So gibt es ein $k \in \mathbb{N}_0$ mit $n = 2k+1$. Es folgt:
+$$
+    (-1)^n = (-1)^{2k+1} \up{\ =\ }{4.16} (-1)^{2k}\cdot (-1)
+    \up{\ =\ }{4.16} ((-1)^2)^k \cdot (-1) = 1^k \cdot (-1) = 1\cdot (-1) = -1
+$$
+\strut\hfill $\square$\\[5pt]
+Da jede natürliche Zahl entweder gerade oder ungerade ist, kann$(-1)^n$ für $n\in \mathbb{N}$ somit nur die Werte $1$ und $-1$ annehmen.
+Daraus folgt, dass $M_1 = \{1+(-1), 1+1\} = \{0,2\}$.\\
+Nach Definition 4.1 ist $s = 2$ nun eine obere Schranke von $M_1$, da $\forall m\in M_1\colon s\geq m$ gilt.\\
+Wir zeigen nun, dass $s$ die kleinstmögliche obere Schranke von $M_1$ ist:\\[2pt]
+Sei $s' \in \mathbb{N}$ eine weitere obere Schranke von $M_1$. Somit muss $s' \geq 2$ gelten, da $2 \in M_1$.\\
+Für $s' = 2$ folgt $s' = s$.\quad Für $s' > 2$ folgt $s' > s$\\
+Somit ist jede beliebige andere obere Schranke von $M_1$  in $\mathbb{N}$ entweder größer oder
+gleich $s$:
+$$
+    \forall s' \in \{x \in \mathbb{R} \mid \forall m \in M_1\colon x \geq m\} \colon s' \geq s = 2
+$$
+Nach Definition 4.3 ist $s$ nun Supremum von $M_1$. Außerdem ist $s \in M_1$.
+Es folgt nach 4.4, dass $s=2$ Supremum und Maximum von $M_1$ ist:
+$$
+    \text{sup}\ M_1 = \text{max}\ M_1 = 2
+$$
+Analog dazu gilt, dass $0$ Infimum und Minimum von $M_1$ ist:\\
+$\forall m \in M_1\colon 0 \leq m$ gilt, also ist $i=0$ eine untere Schranke von $M_1$. 
+Sei nun $i'$ eine weiter untere Schranke von $M_1$. Somit muss $i' \leq 0$ gelten.\\
+Für $i'=0$ folgt $i' = i$.\quad Für $i' < 0$ folgt $i'<i$. Also ist jede beliebige andere
+untere Schranke von $M_1$ kleiner oder gleich $i$:
+$$
+    \forall i' \in \{x \in \mathbb{R} \mid \forall m \in M_1\colon x \leq m\} \colon i' \leq i = 0
+$$
+Nach Definition 4.3 ist $i$ nun Infimum von $M_1$. Außerdem ist $i \in M_1$. Es folgt nach 
+4.4, dass $i=0$ Infimum und Minimum von $M_1$ ist:
+$$\text{inf}\ M_1 = \text{min}\ M_1 = 0$$
+
+\newpage
+
+\textbf{b)} $M_2 = \{x \in \mathbb{R} \mid x^2+x+1 > 0\}$\\
+Durch quadratische Ergänzung lässt sich die Ungleichung wie folgt umformen:
+\begin{alignat*}{3}
+    x^2+x+1 \geq 0\quad&\,\Longleftrightarrow\quad&& \left(x^2+x+\frac{1}{4}\right) + \frac{3}{4} \geq 0\\[1pt]
+    &\,\Longleftrightarrow\,&& \left(x+\frac{1}{2}\right)^2 + \frac{3}{4} \geq 0\\[1pt]
+    &\,\Longleftrightarrow\,&& \left(x+\frac{1}{2}\right)^2 \geq -\frac{3}{4}\\[1pt]
+    &\,\Longleftrightarrow\,&& \frac{4}{3} \cdot \left(x+\frac{1}{2}\right)^2 \geq -1\\[1pt]
+\end{alignat*}
+Nach Satz 2.8 b4) gilt $\forall r \in \mathbb{R},\,r\neq 0\colon r^2>0$. Da für unsere
+Gleichung $x\in \mathbb{R}$ ist, folgt auch $\left(x+\frac{1}{2}\right)\in \mathbb{R}$.
+Hinzukommend gilt $\forall a,b \in \mathbb{R},\ a>0,b>0 \colon a\cdot b >0$. Unsere
+Ungleichung lässt sich in eben dieser Form schreiben:
+$$
+    q \cdot r >0\geq -1\quad \text{mit}\quad q = \frac{4}{3}>0,\  r =\left(x+\frac{1}{2}\right)^2> 0,\ x \neq -\frac{1}{2},\ q,r,x \in \mathbb{R}
+$$
+Wir betrachten zwei Fälle für $x \in \mathbb{R}$\,:\\[5pt]
+\textbf{Fall 1:} $x\neq -\dfrac{1}{2}$. Somit ist $\left(x+\frac{1}{2}\right) \neq 0$,
+Satz 2.8 b4 hält und es folgt nach oben stehendem Weg, dass
+$$
+    \forall x \in \mathbb{R},\ x \neq -\frac{1}{2}\colon\ \frac{4}{3}\cdot\left(x+\frac{1}{2}\right)^2 > 0 \geq -1
+$$
+\textbf{Fall 2:} $x = -\dfrac{1}{2}$. Es folgt:
+$$
+    \frac{4}{3} \cdot \left(x+\frac{1}{2}\right)
+    = \frac{4}{3} \cdot \left(-\frac{1}{2} +\frac{1}{2}\right)
+    = \frac{4}{3} \cdot 0 = 0 \geq -1
+$$
+Damit ist die Ungleichung für alle $x \in \mathbb{R}$ erfüllt, da $M_2 = \mathbb{R}$. Da
+$\mathbb{R}$ jedoch nicht beschränkt ist, kann $M_2 = \mathbb{R}$ weder Supremum noch
+Infimum besitzen.\\
+\\
+\\
+
+
+\textbf{c)} $M_3 = \{x \in \mathbb{R} \mid x^2<9\}$\\
+Nach Satz 4.13 und analog zu Beispiel 4.9 existiert genau ein $x>0$ mit $x^2 = 9$.\\
+Für das Supremum $s$ von $M_3$ kann wie in Beispiel 4.5 e) weder $s^2>9$ noch $s^2<9$ gelten:
+\\Wir führen den Beweis trotzdem einmal durch:
+
+\textbf{Fall 1:} $s^2 < 9$. Somit ist $s \in M_3$. Nach Korollar 4.12 gibt es zu jedem
+$a,b \in \mathbb{R}$ ein $q \in \mathbb{Q} \subset \mathbb{R}$,\\
+sodass $a<q<b$ gilt. Folglich gibt es ein $q \in \mathbb{R}$ mit $s<q<3 = \vert \sqrt{9} \vert$.\\
+Nun folgt aus Satz 2.8 b4)\,:
+$$ s <q <3 \,\Longleftrightarrow\, s^2<q^2<9$$
+Somit gibt es ein weiteres Element $q \in M_3$, welches größer als $s$ ist. Also kann $s$
+im Fall $s^2<9$ keine obere Schranke von $M_3$ sein.
+\newpage
+\textbf{Fall 2:} $s^2>9$. Für $h \in \mathbb{R},\,h>0$ ist
+$$(s-h)^2 = s^2 -2sh +h^2 >s^2 -2sh$$
+$$
+    \text{also}\quad (s-h)^2 > 9,\quad\text{falls}\quad
+    s^2-2sh >9 \Longleftrightarrow h<\dfrac{s^2-9}{2s}.
+$$
+$$
+    \text{Mit}\quad h_0 := \dfrac{s^2-9}{4s}\quad\text{gilt für}\quad r:= s-h_0
+    \quad\text{somit}\quad(r<s)\land(r^2>9).
+$$
+Daher lässt sich zu jedem $s$ mit $s^2 > 9$ eine kleinere obere Schranke $r$ finden.
+
+Somit muss für das Supremum $s^2 = 9$ gelten. Da es nach Satz 4.13 nur eine positive
+Zahl $x \in \mathbb{R}$ mit $x^2 = 9$ gibt, gilt nun $s = \vert \sqrt{9}\vert = 3$.
+Da $3 \notin M_3$, existiert für $M_3$ kein Maximum.
+
+Die Existenz des Infimums  $i = -\vert\sqrt{9}\vert = -3$ ist analog zu beweisen und geht daraus hervor, dass
+$$
+    x<-3 \,\Longleftrightarrow\,-x > 3 \,\Longleftrightarrow\, x^2>9\notin M_3
+$$
+Analog zum Supremum Fall 1, gibt es durch Korollar 4.12 für $i>-3$ immer
+ein $q \in \mathbb{Q}\subset \mathbb{R}$ mit $-3<q<i$, wodurch $i$ keine untere Schranke von $M_3$ ist.\\
+Weiterhin kann $i<-3$ ebenfalls nicht gelten, da sich analog zu Fall 2 vom Supremum dann eine größere untere Schranke $r \in \mathbb{Q}$ finden lässt:
+$$
+    r:= i + \dfrac{9-i^2}{4i}\quad\text{mit}\quad (i<r) \land (r^2>9)
+$$
+Somit muss $\text{inf}\ M_3 = -3$ gelten. Wieder gibt es kein Minimum, da $-3 \notin M_3$.\\
+\\
+
+\textbf{d)} $M_4 = \{2^{-m}+n^{-1}\mid m,n \in \mathbb{N}\}$\\[5pt]
+Nach Korollar 2.9 d4) und Satz 2.8 b3) folgt für $n \in \mathbb{N}$\,:
+$$
+    1\leq n \up{\,\Longleftrightarrow\,}{2.9 d4} 1^{-1} = 1 > n^{-1} \quad\text{und}\quad
+    n>0 \up{\,\Longleftrightarrow\,}{2.8 b3} n^{-1} > 0
+$$
+Somit folgt $1 \geq n^{-1} > 0$. Weiterhin für $m \in \mathbb{N}$\,:
+$$
+    2 \leq 2^m \up{\,\Longleftrightarrow\,}{2.9 d4} 2^{-1} \geq (2^{m})^{-1} \up{\ =\ }{4.16} 2^{-m} \quad\text{und}\quad 2^m > 0 \up{\,\Longleftrightarrow\,}{2.8 b3} 2^{-m} > 0
+$$
+Somit folgt $2^{-1} \geq 2^{-m}>0$. Also nun:
+$$
+    0<2^{-m} + n^{-1} \leq 1 + 2^{-1} \up{\ =\ }{4.16} 1+\frac{1}{2} = \frac{3}{2}
+$$
+Also ist $s=\dfrac{3}{2}$ nach Definition das Supremum von $M_4$. Denn:\\
+\textbf{(S.1)} Es gilt $\forall m \in M_4 \colon s \geq m$. Also ist $\dfrac{3}{2}$ eine obere Schranke.\\[2pt]
+\textbf{(S.2)} Sei $s'$ eine weiter obere Schranke von $M_4$. Dann muss
+$s'\geq\dfrac{3}{2}$ gelten, da $\dfrac{3}{2}\in M_4$. Es folgt:
+$$
+    s' > \frac{3}{2} \,\Longrightarrow\, s'>s\quad\text{und}\quad s'
+    = \dfrac{3}{2} \,\Longrightarrow\, s' = s
+$$
+Also wäre $s'$ immer größer oder gleich $s$, was $s$ nach Definition zum Supremum macht.\\[2pt]
+Durch $s =\dfrac{3}{2} \in M_4$ gilt dann $s =\text{sup}\ M_4 = \text{max}\ M_4$.
+\newpage
+Weiterhin ist $i = 0$ das Infimum von $M_4$. Denn:\\[5pt]
+\textbf{(I.1)} Es gilt $\forall m \in M_4\colon i \leq m$. Also ist 0 eine untere Schranke.\\[5pt]
+\textbf{(I.2)} Sei $i'$ eine weiter untere Schranke von $M_4$. Es folgt für $i' > 0$ nach 4.12:
+$$
+    \exists a,b \in \mathbb{N}\colon i' > \frac{a}{b}\in \mathbb{Q} >0
+$$
+Durch $\forall n \in \mathbb{N}\colon 2^n > n$ folgt nach Korollar 2.9 d4)
+$\forall n \in \mathbb{N}\colon 2^{-n} < n^{-1}$.\\
+Somit lassen sich einfach $m,n \in \mathbb{N}$ für ein $q \in \mathbb{Q}$ mit
+$q = \dfrac{a}{b},\ a,b \in \mathbb{N}$ bestimmen, welche ein
+kleineres Element als $q$ in $M_4$ darstellen. Zum Beispiel folgt mit $m = b$ und
+$n=4^b \in \mathbb{N}$\,:
+$$
+    \forall a,b \in \mathbb{N}\colon \frac{a}{b}
+    > (2^{-m} + n^{-1}) \in M_4 = 2^{-b} + (4^{b})^{-1} > 0
+$$
+Somit gibt es zu jedem $i' > 0$ ein $q \in \mathbb{Q}$ mit $i'>q>0$ und dazu wiederum ein
+$m\in M_4$ mit $i'>q>m>0$. Also kann $i' > 0$ keine untere Schranke von $M_4$ sein.
+
+Ist $i' < 0$, so gilt $i'<i$, also ist $i'$ keine größere untere Schranke als $i$.\\[5pt]
+Somit ist $i = 0 = \text{inf}\ M_4$ nach Definition des Infimums(4.3). $M_4$ hat kein 
+Minimum, da $0 \notin M_4$.
+\aufgabe{2}
+\textbf{(i)} $p = \text{sup}\ A \,\Longleftrightarrow\, (\forall a \in A\colon p\geq a)
+\land (\forall \epsilon \in \mathbb{R},\, \epsilon > 0\colon
+\exists x\in A\colon x>p-\epsilon)$\\
+
+Zuerst zeigen wir die Richtung ''$\,\Longrightarrow\,$''.\\
+Es folgt nach Definition des Supremums, dass $p$ eine obere Schranke sein muss:
+$$ p = \text{sup}\ A \,\Longrightarrow\, \forall a \in A \colon p \geq a$$
+Da $\mathbb{Q}$ nach 4.12 dicht in $\mathbb{R}$ ist, und $A\subset \mathbb{R}$, lässt sich zu jedem
+$\epsilon \in \mathbb{R},\, \epsilon > 0$ ein $x \in \mathbb{Q} \subset \mathbb{R}$ finden,
+sodass $p>x>p-\epsilon$ gilt.
+Nach Beschränktheit von Teilmengen der reellen Zahlen folgt
+$$
+    A\subset \mathbb{R} \colon \forall a \in \mathbb{R} \colon \text{inf}\ A \leq a \leq \text{sup}\ A
+    \,\Longrightarrow\,a \in A
+$$
+Wir unterscheiden nun zwei Fälle:
+
+\textbf{Fall 1:} $p-\epsilon \geq \text{inf}\ A$.\\
+Nach Dichte von $\mathbb{Q}$ in $\mathbb{R}$ (4.12) lässt sich also ein
+$x\in \mathbb{Q}$ mit $p>x>p-\epsilon>\text{inf}\ A$ finden,
+also $p = \text{sup}\ A > x > \text{inf}\ A$. Daraus folgt $x \in A$, da auch $x \in \mathbb{Q}$ und $A \subset \mathbb{R}$ gelten.
+
+\textbf{Fall 2:} $p-\epsilon < \text{inf}\ A$.\\
+Analog zu Fall 1 existiert ein $x \in \mathbb{Q}$ mit
+$p = \text{sup}\ A > x > \text{inf}\ A > p-\epsilon$. Daraus folgt wieder,
+dass $x \in A$, da $x \in \mathbb{Q}$ und $A \subset \mathbb{R}$.
+
+Wir haben gezeigt, dass wenn $p = \text{sup}\ A$ gilt, $p$ eine obere Schranke von
+$A$ ist und zu jedem $\epsilon > 0$ ein $x \in A$ mit $p>x>p-\epsilon$ existiert.
+
+Nun zeigen wir die Richtung ''$\,\Longleftarrow\,$''.\\
+Gegeben ist, dass $p$ eine obere Schranke von $A$ ist. Wir zeigen, dass $p$ die kleinstmögliche obere Schranke von $A$ ist, also $p = \text{sup}\ A$\,:
+Sei $p'$ eine weiter obere Schranke von $A$. Wir unterscheiden zwei Fälle:
+
+\newpage
+
+\textbf{Fall 1:} $p' \geq p$. Dann ist $p$ immernoch die kleinstmögliche obere Schranke von $A$.
+
+\textbf{Fall 2:} $p' < p$. Es ist gegeben, dass zu jedem $\epsilon > 0$ ein $x\in A$ mit
+$x > p-\epsilon$ existiert.\\
+Durch $p'<p$ folgt $p-p' > 0$. Sei nun also $\epsilon = p-p'$.
+Es folgt nach Gegebenheit, dass ein $x \in A$ mit $x > p-\epsilon = p-(p-p') = p'$
+existiert. Somit kann $p'$ keine obere Schranke von $A$ sein.
+
+Wir haben nun beide Richtungen der Äquivalenz gezeigt.
+Somit ist das zu Zeigende bewiesen:\\
+$p$ ist genau dann das Supremum von $A$, wenn $p$ eine obere Schranke von $A$ ist und es
+zu jedem $\epsilon > 0$ ein $x \in A$ mit $x>p-\epsilon$ gibt.\hfill $\square$
+
+\textbf{(ii)} $A \subset B \,\Longrightarrow\, (\text{sup}\ A \leq \text{sup}\ B) \land
+(\text{inf}\ A \geq \text{inf}\ B)$
+
+Wir zeigen zuerst $A \subset B \,\Longrightarrow\, \text{sup}\ A \leq \text{sup}\ B$:\\
+Beweis (Kontraposition). Wir nehmen an, es gelte $\text{sup}\ A > \text{sup}\ B$.
+Da das Supremum die kleinste obere Schranke darstellt, folgt nun, dass mindestens ein
+Element in $A$ größer als alle anderen in $B$ ist. Das bedeutet aber wiederum, dass eben dieses Element nicht in $B$ vertreten ist, also kann $A$ keine Teilmenge von $B$ sein:
+$$
+    \text{sup}\ A > \text{sup}\ B \,\Longrightarrow\,
+    \exists a \in A\colon \forall b \in B \colon a>b \,\Longrightarrow\,
+    \exists a \in A \colon a \notin B \,\Longrightarrow\,
+    A \not\subset B
+$$
+Somit nach Prinzip der Kontraposition bewiesen:
+$$
+    (\text{sup}\ A > \text{sup}\ B \,\Longrightarrow\, A \not\subset B)
+    \up{\quad\Longleftrightarrow\quad}{Kontrapos.}(A \subset B \,\Longrightarrow\, \text{sup}\ A \leq \text{sup}\ B)
+$$
+Nun zeigen wir analog dazu $A \subset B \,\Longrightarrow\, \text{inf}\ A \geq \text{inf}\ B:\\$
+Beweis (Kontraposition). Wir nehmen an, es gelte $\text{inf}\ A < \text{inf}\ B$. Nach dem
+gleichen Prinzip wie zuvor folgt nun:
+$$
+     \text{inf}\ A < \text{inf}\ B \,\Longrightarrow\,
+    \exists a \in A\colon \forall b \in B \colon a<b \,\Longrightarrow\,
+    \exists a \in A \colon a \notin B \,\Longrightarrow\,
+    A \not\subset B
+$$
+Somit ist wieder nach dem Prinzip der Kontraposition bewiesen:
+$$
+    (\text{inf}\ A < \text{inf}\ B \,\Longrightarrow\, A \not\subset B)
+    \up{\quad\Longleftrightarrow\quad}{Kontrapos.}(A \subset B \,\Longrightarrow\, \text{inf}\ A \geq \text{inf}\ B)
+$$
+Also nun:
+\begin{align*}
+    &(A \subset B \,\Longrightarrow\, \text{sup}\ A \leq \text{sup}\ B) \land
+    (A \subset B \,\Longrightarrow\, \text{inf}\ A \geq \text{inf}\ B)\\
+    \,\Longleftrightarrow\ &(A \subset B \,\Longrightarrow\,
+        (\text{sup}\ A \leq \text{sup}\ B) \land
+        (\text{inf}\ A \geq \text{sup}\ B)
+    )
+\end{align*}
+\strut\hfill$\square$
+
+\textbf{(iii)} $\lambda \geq 0 \,\Longrightarrow\, (\text{inf}\ \lambda A = \lambda \text{inf}\ A)
+\land (\text{sup}\ \lambda A = \lambda \text{sup}\ A)$
+
+Wir zeigen zuerst $\lambda \geq 0 \,\Longrightarrow\, \text{sup}\ \lambda A = \lambda \text{sup}\ A$:\\
+Für $\lambda = 0$ folgt:
+$$
+    \lambda \text{sup}\ A = 0 \cdot \text{sup}\ A = 0 = \text{sup}\ \{0\}
+    = \text{sup}\ \{0\cdot x \mid x \in A\} = \text{sup}\ \lambda A
+$$
+Für $\lambda > 0$ folgt:
+\begin{alignat*}{3}
+    \ s = \text{sup}\ A&\Longleftrightarrow\,&& \forall a \in A \colon s \geq a\\[1pt]
+    &\Longleftrightarrow\ && \forall a \in A \colon \lambda s\geq \lambda a\\[1pt]
+    &\Longleftrightarrow&& \forall a \in \lambda A \colon \lambda s\geq a\\[1pt]
+    &\Longleftrightarrow&& \lambda s = \text{sup}\ \lambda A\\[1pt]
+    &\Longleftrightarrow&& \lambda \text{sup}\ A = \text{sup}\ \lambda A
+\end{alignat*}
+In beiden Fällen folgt, dass $\text{sup}\ \lambda A = \lambda \text{sup}\ A$.
+
+\newpage
+
+Analog dazu lässt sich zeigen, dass $\lambda \geq 0 \,\Longrightarrow\,
+\text{inf}\ \lambda A = \lambda \text{inf}\ A$.
+Wir unterscheiden zwei Fälle.\\
+\textbf{Fall 1:} $\lambda = 0$. Es folgt:
+$$
+    \lambda \text{inf}\ A = 0 \cdot \text{inf}\ A = 0 = \text{inf}\ \{0\}
+    = \text{inf}\ \{0\cdot x \mid x \in A\} = \text{inf}\ \lambda A
+$$
+\textbf{Fall 2:} $\lambda > 0$. Es folgt:
+\begin{alignat*}{3}
+    \ i = \text{inf}\ A &\Longleftrightarrow&& \forall a \in A \colon i \leq a\\[1pt]
+    &\Longleftrightarrow\ && \forall a \in A \colon \lambda i\leq \lambda a\\[1pt]
+    &\Longleftrightarrow&& \forall a \in \lambda A \colon \lambda i\leq a\\[1pt]
+    &\Longleftrightarrow&& \lambda i = \text{inf}\ \lambda A\\[1pt]
+    &\Longleftrightarrow&& \lambda \text{inf}\ A = \text{inf}\ \lambda A
+\end{alignat*}
+In beiden Fällen folgt, dass $\text{inf}\ \lambda A = \lambda \text{inf}\ A$\\
+Wir haben nun gezeigt, dass
+$\lambda \geq 0 \,\Longrightarrow\, (\text{inf}\ \lambda A = \lambda \text{inf}\ A)
+\land (\text{sup}\ \lambda A = \lambda \text{sup}\ A) \hfill \square$\\
+
+\textbf{(iv)} $\text{sup}\ A+B = \text{sup}\ A + \text{sup}\ B$
+\begin{alignat*}{3}
+    \ s = \text{sup}\ A+ \text{sup}\ B \quad&\Longleftrightarrow\quad&& \forall a \in A, \forall b \in B \colon s \geq a+b\\[1pt]
+    &\Longleftrightarrow&& \forall x \in \{a+b\mid a \in A, b\in B\} \colon s \geq x\\[1pt]
+    &\Longleftrightarrow&& \forall x \in A+B \colon s \geq x
+\end{alignat*}
+Daraus folgt, dass $\text{sup}\ A + \text{sup}\ B$ eine obere Schranke von $A+B$ ist.
+Sei nun $s'$ eine andere obere Schranke von $A+B$. Wir unterscheiden zwei Fälle:
+
+\textbf{Fall 1:} $s'>s$. Es folgt, dass $s$ immernoch die kleinste obere Schranke von $A+B$ ist.
+
+\textbf{Fall 2:} $s'<s$.\\
+Dann exisitert ein $\epsilon > 0$ mit $s-\epsilon = s'$.
+Es folgt, dass $s' = (\text{sup}\ A -\frac{\epsilon}{2}) + (\text{sup}\ B - \frac{\epsilon}{2})$.\\
+Nach Nr 2 (i) folgt nun, dass ein $x \in A$ mit
+$\text{sup}\ A > x > \text{sup}\ A - \frac{\epsilon}{2}$ und ein $y \in B$ mit
+$\text{sup}\ B > y > \text{sup}\ B - \frac{\epsilon}{2}$ existiert.
+Also:
+$$
+   s'<(x+y)\in A+B
+$$
+Folglich kann $s'$ keine obere Schranke von $A+B$ sein.
+Somit ist $s$ die kleinstmögliche obere Schranke von $A+B$, das Supremum:
+$\text{sup}\ A + \text{sup}\ B = \text{sup}\ A+B.\hfill\square$
+
+\textbf{(v)} $\text{sup}_{x\in A}(f(x)+g(x))\leq\text{sup}_{x\in A}f(x)+\text{sup}_{x\in A}g(x)$\\[5pt]
+Wir definieren zur Leserlichkeit:
+\begin{align*}
+    S_f := \text{sup}_{x\in A}(f(x)) && S_g := \text{sup}_{x\in A}(g(x)) && S_{f+g}
+    := \text{sup}_{x\in A}(f(x)+g(x))
+\end{align*}
+Der wesentlich Unterschied ist, dass $f$ und $g$ für $S_{f+g}$ immer an dem gleichen
+$x\in A$ ausgewertet werden, während $S_f$ und $S_g$ unabhängig voneinander bestimmt werden.
+\\
+Es seien $a, b \in A$ gegeben sodass $f(a) = S_f$ und $g(b) = S_g$. Wir unterscheiden zwei
+Fälle:
+
+\textbf{Fall 1:} $a = b$\\
+Es folgt, dass auch $g(a) = S_g$ ist. Somit ist das Supremum von $f$ und $g$ das
+Bild von $a$ unter der jeweiligen Funktion. Es folgt:
+$$
+    \forall x \in A\colon f(a)+g(a) \geq f(x)+g(x) \,\Longrightarrow\, S_f+S_g = S_{f+g}
+$$
+\newpage
+\textbf{Fall 2:} $a \neq b$\\
+Es folgt, dass $g(a) \leq S_g$ bzw. $f(b) \leq S_f$. Somit gilt:
+$$
+    g(a) \leq S_g \,\Longrightarrow\, f(a)+g(a) \leq S_f+S_g\quad\text{und}\quad
+    f(b) \leq S_f \,\Longrightarrow\, f(b)+g(b) \leq S_f+S_g
+$$
+oder generell:
+$$
+    \forall x\in A\colon f(x)+g(x) \leq S_f+S_g \,\Longleftrightarrow\, S_{f+g} \leq S_f+S_g
+$$
+
+Somit gilt für alle Fälle, dass $S_{f+g} \leq S_f + S_g.\hfill\square$
+\aufgabe{3}
+Zu zeigen: $\sqrt{2} \notin \mathbb{Q}$\\
+Beweis (indirekt). Wir nehmen an, dass $\sqrt{2} \in \mathbb{Q}$.\\
+Also gibt es teilerfremde $a \in \mathbb{Z} ,b \in \mathbb{N}$ (insbesondere sind nicht a und beide gerade) sodass gilt:
+$$
+    \frac{a}{b} = \sqrt{2} \,\Longleftrightarrow\, \frac{a^2}{b^2} = 2
+    \,\Longleftrightarrow\, a^2 = 2b^2
+$$
+Daraus folgt, dass $a^2$ gerade ist.
+
+\textbf{Lemma} Wenn $a^2$ gerade ist, so ist auch $a$ gerade.\\
+Beweis (Kontraposition). Wir nehmen an $a$ ist ungerade. Somit gibt es ein $k \in \mathbb{Z}$ mit $a = 2k+1$.\\
+$$
+    a^2 = (2k+1)^2 = 4k^2+4k+1 = 2(2k^2+2k) + 1
+$$
+Somit ist $a^2$ auch ungerade. Also ist $a^2$ nicht gerade wenn $a$ nicht gerade ist.
+Es folgt:
+$$
+    (a\ \text{ungerade} \,\Longrightarrow\, a^2\ \text{ungerade})
+    \up{\quad\Longleftrightarrow\quad}{Kontrapos.}(a^2\ \text{gerade} \,\Longrightarrow\, a\ \text{gerade})
+$$
+\strut\hfill$\square$
+
+Somit wissen wir nun, dass $a$ auch gerade ist. Also gibt es ein $k \in \mathbb{Z}$ mit
+$a = 2k$ und $a^2 = 4k^2$. Aus vorheriger Gleichung folgt:
+$$
+    a^2 = 2b^2 \,\Longleftrightarrow\, 4k^2 = 2b^2 \,\Longleftrightarrow\, 2k^2 = b^2 
+$$
+Somit ist $b^2$ gerade. Wir wissen aber nach dem Lemma, dass nun $b$ ebenfalls gerade
+sein muss. Wir haben jedoch angenommen, dass $a$ und $b$ teilerfremd sind, insbesondere,
+dass nicht beide gerade sind.
+Somit ergibt sich ein Widerspruch (und man könnte dieses $\frac{a}{b}$ unendlich oft
+nach dem gleichen Schema kürzen). Somit muss unsere Annahme, dass $\sqrt{2} \in \mathbb{Q}$
+falsch sein. Es folgt, das $\sqrt{2}$ irrational ist, also $\sqrt{2} \notin \mathbb{Q}$.
+\hfill$\square$
+
+\newpage
+
+\aufgabe{4}
+
+Da $\mathbb{Q}$ dicht in $\mathbb{R}$ ist, gibt es für alle $x,y \in\mathbb{R}$ mit $x<y$ 
+ein $r \in \mathbb{Q}$ sodass $x<r<y$.\\[5pt]
+Aus $r<y$ folgt weiterhin $y-r>0$, also auch $\dfrac{y-r}{2}>0$. Durch die 
+archimedische Eigenschaft\\[2pt] von $\mathbb{N}$ in $\mathbb{R}$ (Satz 4.10)
+existiert nun ein $n \in \mathbb{N}$ mit 
+$$
+    n\cdot \frac{y-r}{2}>1 \,\Longleftrightarrow\, \frac{y-r}{2} > \frac{1}{n}
+    \,\Longleftrightarrow\, y > r+ \frac{2}{n}
+$$
+Durch $x<r$ sowie $2  > \sqrt{2}$ (4.14 b) folgt dann:
+$$
+    y > r + \frac{2}{n} > r+ \frac{\sqrt{2}}{n} > x
+$$
+Somit gibt es ein $r \in \mathbb{Q}$ und $n \in \mathbb{N}$ für alle $x,y \in \mathbb{R}$ mit
+$x<y$ sodass:
+$$s = r+ \frac{\sqrt{2}}{n} \in \mathbb{Q}^\complement,\quad x<s<y$$
+Dies zeigt, dass die irrationalen Zahlen $\mathbb{Q}^\complement$ dicht in
+$\mathbb{R}\text{ sind.}\hfill\square$
+\end{document}

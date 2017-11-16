@@ -1,0 +1,580 @@
+\documentclass[a4paper,graphics,12pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\allowdisplaybreaks
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\pair}[2]{(\ #1\ ,\ #2\ )}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 03}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+    Zu zeigen sind die Körperaxiome (K1) bis (K5) für die Menge $Q$ mit Operationen
+    $\#$ und $*$.\\
+
+\textbf{(K1)(Assoziativität)}
+    \begin{align*}
+        (\,(a,b) \# (c,d)\,) \# (e,f) &\up{=}{\#} \pair{ad + bc}{bd} \# (e,f) \\[1pt]
+        &\up{=}{\#}\pair{(ad + bc)\cdot f + (bd)\cdot e}{(bd)\cdot f} \\[15pt]
+        %
+        (a,b) \# (\,(c,d) \# (e,f)\,) &\up{=}{\#} (a,b) \# \pair{cf+de}{df} \\[1pt]
+        &\up{=}{\#}\pair{a\cdot (df) + b\cdot (cf+de)}{b\cdot (df)} \\[1pt]
+        &\up{=}{viii} \pair{a\cdot (df) + b\cdot (cf) + b\cdot (de)}{ b\cdot (df)} \\[1pt]
+        &\up{=}{vi} \pair{(ad)\cdot f + (bc)\cdot f + (bd)\cdot e}{(bd)\cdot f} \\[1pt]
+        &\up{=}{viii} \pair{(ad + bc)\cdot f + (bd)\cdot e}{(bd)\cdot f} \\[15pt]
+        %
+        \,\Longrightarrow\, (\,(a,b) \# (c,d)\,) \# (e,f) &= (a,b) \# (\,(c,d) \# (e,f)\,)
+    \end{align*}
+    %
+    Somit ist die Assoziativität von $\#$ gezeigt. Analog dazu für $*$\,:
+    %
+    \begin{align*}
+        (\,(a,b) * (c,d)\,) * (e,f) &\up{=}{$*$} \pair{ac}{bd} * (e,f)\qquad\qquad\qquad\ \ \ \\[1pt]
+        &\up{=}{$*$} \pair{(ac)\cdot e}{(bd)\cdot f}\\[15pt]
+        %
+        (a,b) * (\,(c,d) * (e,f)\,) &\up{=}{$*$} (a,b) * \pair{ce}{df}\\[1pt]
+        &\up{=}{*} \pair{a\cdot (ce)}{b\cdot (df)}\\[1pt]
+        &\up{=}{vi} \pair{(ac)\cdot e}{(bd)\cdot f}\\[15pt]
+        %
+        \,\Longrightarrow\, (\,(a,b) * (c,d)\,) * (e,f) &= (a,b) * (\,(c,d) * (e,f)\,)
+    \end{align*}
+    Somit ist die Assoziativität von $*$ gezeigt. Es folgt, dass $Q$ bzgl. $\#$ und $*$ 
+    assoziativ ist.
+
+\newpage
+
+\textbf{(K2)(Kommutativität)}
+    \begin{align*}
+        (a,b) \# (c,d) &= \pair{ad+bc}{bd} \\[12pt]
+        %
+        (c,d) \# (a,b) &= \pair{cb+da}{db} \\[1pt]
+        &\up{=}{i} \pair{da+cb}{db} \\[1pt]
+        &\up{=}{v} \pair{ad+bc}{bd} \\[12pt]
+        %
+        \,\Longrightarrow\, (a,b) \# (c,d) &= (c,d) \# (a,b)
+    \end{align*}
+    %
+    Somit ist die Kommutativität von $\#$ gezeigt. Analog dazu für $*$\,:
+    %
+    \begin{align*}
+        (a,b) * (c,d) &= \pair{ac}{bd} \\[12pt]
+        %
+        (c,d) * (a,b) &= \pair{ca}{db} \\[1pt]
+        &\up{=}{v} \pair{ac}{bd} \\[12pt]
+        %
+        \,\Longrightarrow\, (a,b) * (c,d) &= (c,d) * (a,b)
+    \end{align*}
+    Somit ist die Kommutativität von $*$ gezeigt. $Q$ ist bzgl. $\#$ und $*$
+    kommutativ.
+
+\textbf{(K3)(Existenz neutraler Elemente)}
+
+    Zuerst bestimmen wir das Nullelement $\bar{0} = (\bar{0}_1,\bar{0}_2)$, das neutrale Element von $\#$.
+    \begin{alignat*}{3}
+        &                                       & (a,b)
+            &= (a,b) \# (\bar{0}_1,\bar{0}_2) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{\#}\quad      & (a,b)
+            &= \pair{a\cdot \bar{0}_2 + b\cdot \bar{0}_1}{b\cdot \bar{0}_2} \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{Gleichheit}   & a \cdot (b\cdot \bar{0}_2)
+            &= b\cdot (a\cdot \bar{0}_2 + b\cdot \bar{0}_1) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{viii}         & a\cdot (b\cdot \bar{0}_2)
+            &= b\cdot (a\cdot \bar{0}_2) + b\cdot (b\cdot \bar{0}_1) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{v,vi}         & a \cdot (b\cdot \bar{0}_2)
+            &= a\cdot (b\cdot \bar{0}_2) + b\cdot (b\cdot \bar{0}_1) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{}             & 0
+            &= b\cdot (b\cdot \bar{0}_1) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{v,vi}         & 0
+            &= b^2\cdot \bar{0}_1 \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{ix}           & 0
+            &= \bar{0}_1
+    \end{alignat*}
+    Die Gleichung ist nun schon durch $\bar{0}_1 = 0$ erfüllt,
+    also auch für $\bar{0}_2 = n\,, n\in \mathbb{N}$.\\
+    Aus dem Gleichheitskriterium folgt dann, dass $(0,n) = (0,1)$:
+    \begin{equation}
+        \tag{a}
+        0 = 0 \up{\,\Longleftrightarrow\,}{ix} 0\cdot n = 0\cdot 1
+        \up{\ \Longleftrightarrow\ }{Gleichheit} (0,1) = (0,n)
+    \end{equation}
+    Wir verwenden diese Eigenschaft (a) in weiteren Beweisen.
+    Somit ist das Nullelement $\bar{0} = (0,1) = (0,n)\,,n \in \mathbb{N}$.
+    Es existiert nun ein definitiongemäßes Nullelement:
+    $$
+        (a,b) \# \bar{0} = (a,b) \# (0,1) \up{=}{\#} \pair{a\cdot 1+ b\cdot0}{b\cdot 1}
+        \up{=}{vii} \pair{a+b\cdot 0}{b} \up{=}{ix} \pair{a+0}{b} \up{=}{iii} (a,b)
+    $$
+
+\newpage
+
+    Nun bestimmen wir das Einselement $\bar{1} = (\bar{1}_1,\bar{1}_2)$, das neutrale Element von $*$\,:
+    \begin{alignat*}{3}
+        &                                       & (a,b)
+            &= (a,b) * (\bar{1}_1,\bar{1}_2) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{$*$}\quad     & (a,b)
+            &= \pair{a\cdot \bar{1}_1}{b\cdot \bar{1}_2} \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{Gleichheit}   & a\cdot (b\cdot \bar{1}_2)
+            &= b \cdot (a\cdot \bar{1}_1) \\[1pt]
+        %
+        &\up{\Longleftrightarrow}{v,vi}         & (ab)\cdot \bar{1}_2
+            &= (ab)\cdot \bar{1}_1\\[1pt] 
+        %
+        &\up{\Longleftrightarrow}{}             & \bar{1}_2
+            &= \bar{1}_1
+    \end{alignat*}
+    Die Gleichung ist nun schon durch $\bar{1}_1 = \bar{1}_2$ erfüllt,
+    also für jedes $(n,n)$ mit $n \in \mathbb{N}$, da nach Definition
+    $\forall (a,b) \in Q: b \in \mathbb{N}$ gelten muss.\\
+    Aus dem Gleichheitskriterium folgt dann, dass $(n,n) = (1,1)$:
+    \begin{equation}
+        \tag{b}
+        n = n \up{\,\Longleftrightarrow\,}{vii} 1\cdot n = 1\cdot n
+        \up{\,\Longleftrightarrow\,}{v} n\cdot 1 = 1\cdot n
+        \up{\ \Longleftrightarrow\ }{Gleichheit} (n,n) = (1,1)
+    \end{equation}
+    Wir verwenden diese Eigenschaft (b) in weiteren Beweisen.\\
+    Somit ist $\bar{1} = (1,1) = (n,n)\,,n \in \mathbb{N}$ das neutrale Element von $*$\,.
+    Es existiert nun ein definitiongemäßes Einselement:
+    $$
+        (a,b) * \bar{1} = (a,b) * (1,1) \up{=}{$*$} (a\cdot 1\,,\,b\cdot 1)
+        \up{=}{vii} (a,b)
+    $$
+
+\textbf{(K4)(Existenz inverser Elemente)}
+
+Wir zeigen, dass es zu jedem $(a,b) \in Q$ ein inverses Element $(c,d) \in Q$ bzgl. \# gibt,
+sodass $(a,b) \# (c,d) = \bar{0}$ gilt. Sei $(a,b)$ gegeben. Wir nehmen an $c=-a$ und $b=d$.\\Es folgt:
+\begin{align*}
+    (a,b) \# (c,d) &\up{=}{} (a,b) \# (-a,b) \\[1pt]
+    &\up{=}{\#} \pair{ab + b\cdot (-a)}{b^2} \\[1pt]
+    &\up{=}{viii} \pair{b\cdot(a + (-a))}{b^2} \\[1pt]
+    &\up{=}{iv} \pair{b\cdot 0}{b^2} \\[1pt]
+    &\up{=}{ix} (0,b^2) \\[1pt]
+    &\up{=}{(a)} (0,1) = \bar{0}
+\end{align*}
+Somit ist gezeigt, dass $(c,d) = (-a, b) \in Q$ die gewünschte Eigenschaft erfüllt.\\
+Es existiert nun für jedes Element $(a,b) \in Q$ ein definitionsgemäßes Inverses bzgl. \#\,:
+$$
+\forall (a,b) \in Q\colon \exists (-a,b) \in Q \colon (a,b) \# (-a,b) = \bar{0}
+$$
+\textbf{Notationshinweis:}\\
+Für alle $(a,b) \in Q$ ist $-(a,b)$ definiert als dieses Inverses von $(a,b)$ bzgl. \#.\\
+
+Nun zeigen wir analog zu $\#$, dass es zu jedem $(a,b) \in Q$ ein inverses Element bzgl. $*$ gibt,
+sodass $(a,b) * (c,d) = \bar{1}$ gilt.\\
+Man bemerke, dass für ein beliebiges $(a,b) \in Q$ nach Definition von $Q$
+$b \in \mathbb{N}$ gelten muss. \\
+Damit wir im folgenden diese Eigenschaft garantieren können,\\
+sodass für ein Inverses $(c,d) \in Q$ stets $d \in \mathbb{N}$ gilt,
+beweisen wir noch kurz ein Lemma:
+
+\newpage
+
+\textbf{Proposition:} Für ein beliebig aber festes $a \in \mathbb{Z}$ gilt $(-1)\cdot a = -a$\\
+Beweis. Sei $a$ gegeben. Es gilt:
+\begin{alignat*}{3}
+    &                               & a &= a\\[1pt]
+    &\up{\Longleftrightarrow}{}\quad    & a\cdot 0 &= a\cdot 0\\[1pt]
+    &\up{\Longleftrightarrow}{ix}       & 0 &= a\cdot 0 \\[1pt]
+    &\up{\Longleftrightarrow}{iv}       & 0 &= a\cdot (1+(-1)) \\[1pt]
+    &\up{\Longleftrightarrow}{viii}     & 0 &= a\cdot 1+a\cdot (-1) \\[1pt]
+    &\up{\Longleftrightarrow}{vii}      & 0 &= a+a\cdot (-1) \\[1pt]
+    \tag{c}
+    &\up{\Longleftrightarrow}{}         & -a &= a\cdot (-1)
+\end{alignat*}
+
+Nun zurück zur Existenz eines Inversen bzgl. $*$\,:\\
+Sei $(a,b) \in Q$ gegeben. Zu zeigen ist $(a,b) * (c,d) = \bar{1}\ , (c,d) \in Q$.
+Wir unterscheiden nun zwei Fälle:
+
+\textbf{Fall} $a>0$ bzw. $a \in \mathbb{N}$.
+Dann sei $c = b$ und $d = a$. Es folgt:
+\begin{align*}
+    (a,b) * (c,d) &= (a,b) * (b,a) \\[1pt]
+    &\up{=}{$*$} \pair{ab}{ba} \\[1pt]
+    &\up{=}{v} \pair{ab}{ab} \\[1pt]
+    &\up{=}{(b)} (1,1) = \bar{1}
+\end{align*}
+\textbf{Fall} $a<0$ bzw. $(a \in \mathbb{Z}) \land (a \notin \mathbb{N})$.
+Dann sei $c = -b$ und $d = -a$. Es folgt:
+\begin{align*}
+    (a,b) * (c,d) &= (a,b) * (-b,-a) \\[1pt]
+    &\up{=}{$*$} \pair{a\cdot (-b)}{b\cdot (-a)} \\[1pt]
+    &\up{=}{(c)} \pair{a\cdot (b\cdot (-1))}{b\cdot (-a)} \\[1pt]
+    &\up{=}{vi} \pair{ab\cdot (-1)}{b \cdot (-a)} \\[1pt]
+    &\up{=}{v,vi} \pair{b\cdot (a\cdot (-1)}{b \cdot (-a)} \\[1pt]
+    &\up{=}{(c)} \pair{b\cdot (-a)}{b\cdot (-a)} \\[1pt]
+    &\up{=}{(b)} (1,1) = \bar{1}
+\end{align*}
+Da es nach Definition von (K4) kein multiplikativ inverses Element für $\bar{0}$ geben kann,
+können wir den Fall $a = 0$ wegen $(0,b) \up{=}{(a)} (0,1) = \bar{0}$ ignorieren.\\
+Somit ist gezeigt, dass $(c,d) = (b,a) \in Q$ für $a>0$,
+und $(c,d) = (-b,-a)$ für $a<0$ die gewünschte Eigenschaft erfüllt.\\
+Es existiert nun für jedes Element $(a,b)\in Q$ ein definitionsgemäßes Inverses bzgl. *\,.\\
+\textbf{Notationshinweise:}\\
+Dieses Inverses lässt sich auch ohne Fallbetrachtung durch Definition 2.11 für $\vert x \vert$ und die Vorzeichenfunktion sgn$(x)$ in einem ausdrücken:
+$$ 
+\forall (a,b) \in Q\colon \exists \pair{\text{sgn}(a)\cdot b}{\vert a\vert} \in Q \colon
+(a,b) * \pair{\text{sgn}(a)\cdot b}{\vert a\vert} = \bar{1}
+$$
+Weiterhin ist $(a,b)^{-1}$ für alle $(a,b) \in Q$ definiert als dieses Inverses von $(a,b)$ bzgl. $*$.
+\newpage
+
+\textbf{(K5)(Distributivgesetz)}
+\begin{align*}
+    (a,b) * (\,(c,d) \# (e,f)\,) &\up{=}{\#} (a,b) * \pair{cf+de}{df} \\[1pt]
+    &\up{=}{$*$} \pair{a\cdot (cf+de)}{b\cdot(df)} \\[15pt]
+    %
+    (\,(a,b) * (c,d)\,) \# (\,(a,b) * (e,f)\,) &\up{=}{$*$} \pair{ac}{bd} \# \pair{ae}{bf} \\[1pt]
+    &\up{=}{\#} \pair{(ac)\cdot (bf) + (bd)\cdot (ae)}{(bd)\cdot (bf)} \\[1pt]
+    &\up{=}{v,vi} \pair{(ab)\cdot (cf) + (ab)\cdot (de)}{(bb)\cdot (df)} \\[1pt]
+    &\up{=}{viii} \pair{(ab)\cdot (cf+de)}{(bb)\cdot (df)} \\[1pt]
+    &\up{=}{vi} \pair{b\cdot (a\cdot (cf+de)}{b\cdot(b\cdot (df)}
+    %
+\end{align*}
+\begin{alignat*}{3}
+    &                                       & \pair{a\cdot (cf+de)}{b\cdot(df)}
+        &\up{=}{!} \pair{(b\cdot (a\cdot (cf+de))}{b\cdot(b\cdot (df)} \\[1pt]
+    %
+    &\up{\Longleftrightarrow}{Gleichheit}\quad  & (a\cdot (cf+de)) \cdot (b\cdot(b\cdot (df)))
+        &\up{=}{} (b \cdot (df)) \cdot (b\cdot (a\cdot (cf+de)) \\[1pt]
+    %
+    &\up{\Longleftrightarrow}{vi}               & (a\cdot (cf+de)) \cdot b \cdot(bdf)
+        &\up{=}{} (bdf) \cdot b\cdot (a\cdot (cf+de)) \\[1pt]
+    %
+    &\up{\Longleftrightarrow}{v}                & b \cdot (a\cdot (cf+de)) \cdot(bdf)
+        &\up{=}{} b\cdot (a\cdot (cf+de)) \cdot (bdf) \\[1pt]
+    %
+    &\up{\Longleftrightarrow}{}                 & 1
+        &= 1
+\end{alignat*}
+Somit ist die Distributivität von $Q$ bzgl. $\#$ und $*$ gezeigt.
+
+Nun wurde gezeigt, dass alle Körperaxiome (K1) bis (K5) für $Q$ mit \# und $*$ gelten.
+Somit ist $Q$ mit Operationen \# und $*$ ein Körper.
+
+\newpage
+
+\aufgabe{2}
+\textbf{a)} $\forall a \in \mathbb{R}\colon 0\cdot a = 0$\\[5pt]
+    Beweis. Sei $a \in \mathbb{R}$ gegeben. Es gilt:
+    \begin{alignat*}{3}
+        &                                   & a\cdot 0 &\up{=}{K3} a\cdot (0+0)\\[1pt]
+        &\up{\Longleftrightarrow}{K5}\quad  & a\cdot 0 &= a\cdot 0+ a\cdot 0\\[1pt]
+        &\up{\Longleftrightarrow}{}         & (a \cdot 0)+(-(a\cdot 0))
+            &= (a\cdot 0+a\cdot 0)+(-(a\cdot 0))\\[1pt]
+        %
+        &\up{\Longleftrightarrow}{K1}       & (a \cdot 0)+(-(a\cdot 0))
+            &= a\cdot 0+((a\cdot 0)+(-(a\cdot 0)))\\[1pt]
+        %
+        &\up{\Longleftrightarrow}{K4}\quad  & 0 &= (a\cdot 0) + 0\\[1pt]
+        &\up{\Longleftrightarrow}{K3}\quad  & 0 &= (a\cdot 0)
+        \shortintertext{\hfill$\square$}
+    \end{alignat*}
+\textbf{b)} $\forall a,b \in \mathbb{R}\colon a\cdot b = 0 \,\Longleftrightarrow\, a = 0 \lor b = 0$\\[5pt]
+    Beweis. Zuerst zeigen wir $a = 0 \lor b = 0 \,\Longrightarrow\, a\cdot b = 0$. Wir betrachten zwei Fälle.\\
+    \textbf{Fall} $a = 0 \land b = 0$:
+    $$a \cdot b = 0 \cdot 0 \up{=}{a)} 0$$
+    \textbf{Fall} $a = 0 \land b \neq 0$:
+    $$a \cdot b = a \cdot 0 \up{=}{a)} 0$$
+    Dies gilt analog für $a\neq 0 \land b = 0$.\\
+    Nun zeigen wir $a\cdot b = 0 \,\Longrightarrow\, a=0 \lor b=0$.
+    Wir betrachten wieder zwei Fälle.\\
+    \textbf{Fall} $a = 0$:
+    $$ a\cdot b = 0 \cdot b \up{=}{a)} 0$$
+    \textbf{Fall} $a \neq 0$:
+    \begin{alignat*}{3}
+        &                                       & 0 &= a\cdot b\\[1pt]
+        &\up{\Longleftrightarrow}{}\quad    & a^{-1} \cdot 0 &= a^{-1}\cdot (a\cdot b) \\[1pt]
+        &\up{\Longleftrightarrow}{a)}       & 0 &= a^{-1}\cdot (a\cdot b) \\[1pt]
+        &\up{\Longleftrightarrow}{K1}       & 0 &= (a^{-1}\cdot a) \cdot b \\[1pt]
+        &\up{\Longleftrightarrow}{K4}       & 0 &= 1 \cdot b \\[1pt]
+        &\up{\Longleftrightarrow}{K3}       & 0 &= b\\[1pt]
+    \end{alignat*}
+    Somit ist gezeigt, dass $(a = 0)\lor(b = 0) \,\Longrightarrow\, a\cdot b = 0$ und $a\cdot b = 0 \,\Longrightarrow\, (a = 0) \lor (b = 0)$.\\
+    Daher gilt $a\cdot b = 0 \,\Longleftrightarrow\, (a = 0) \lor (b = 0).\hfill\square$
+
+\newpage
+
+\textbf{c)} $\forall a \in \mathbb{R}: (-1) \cdot a = -a$\\[5pt]
+    Beweis. Wir beweisen dies nach dem gleichen Schema wie bereits in Aufgabe 1(K4).
+    Sei $a \in \mathbb{R}$ gegeben. Es gilt:
+\begin{alignat*}{3}
+        &                                 & a &= a\\[1pt]
+        &\up{\Longleftrightarrow}{}\quad   & a\cdot 0 &= a\cdot 0\\[1pt]
+        &\up{\Longleftrightarrow}{a)} & 0 &= a\cdot 0\\[1pt]
+        &\up{\Longleftrightarrow}{K4} & 0 &= a\cdot (1+(-1))\\[1pt]
+        &\up{\Longleftrightarrow}{K5} & 0 &= a\cdot 1 + a \cdot (-1)\\[1pt]
+        &\up{\Longleftrightarrow}{K3} & 0 &= a + a \cdot (-1)\\[1pt]
+        &\up{\Longleftrightarrow}{}   & -a&= a \cdot (-1)
+        \shortintertext{\hfill$\square$}
+    \end{alignat*}
+
+\textbf{d)} $\displaystyle\forall a,b \in \mathbb{R},\ a,b \neq 0 \colon \frac{1}{a} + \frac{1}{b} = \frac{a+b}{ab}$\\[10pt]
+    Beweis. Es seien $a,b \in \mathbb{R}$ mit $a,b \neq 0$ gegeben. Es folgt:\\
+\begin{alignat*}{4}
+    \frac{1}{a} + \frac{1}{b}\quad
+    &\up{=}{K3}\quad&& \left(\frac{1}{a} + \frac{1}{b}\right)\cdot 1
+    &&\up{=}{K4}\quad&& \left(\frac{1}{a} + \frac{1}{b}\right)\cdot \left(\frac{1}{a}\cdot a\right)\\[10pt]
+    %
+    &\up{=}{K3}&& \left(\frac{1}{a} + \frac{1}{b}\right)\cdot \left(\frac{1}{a}\cdot a\right)\cdot 1
+    &&\up{=}{K4}&& \left(\frac{1}{a} + \frac{1}{b}\right)\cdot \left(\frac{1}{a}\cdot a\right) \cdot \left(\frac{1}{b} \cdot b\right)\\[10pt]
+    %
+    &\up{=}{K1}&& \left(\left(\frac{1}{a} + \frac{1}{b}\right)\cdot \frac{1}{a}\cdot a\right) \cdot \left(\frac{1}{b} \cdot b\right)
+    &&\up{=}{K2}&& \left(\left(\frac{1}{a} + \frac{1}{b}\right)\cdot a\cdot \frac{1}{a}\right) \cdot \left(\frac{1}{b} \cdot b\right)\\[10pt]
+    %
+    &\up{=}{K1}&& \left(\left(\left(\frac{1}{a} + \frac{1}{b}\right)\cdot a\right)\cdot \frac{1}{a}\right) \cdot \left(\frac{1}{b} \cdot b\right)
+    &&\up{=}{K5}&& \left(\left(1 + \frac{a}{b}\right)\cdot \frac{1}{a}\right) \cdot \left(\frac{1}{b} \cdot b\right)\\[10pt]
+    %
+    &\up{=}{K1}&& \left(1 + \frac{a}{b}\right)\cdot \frac{1}{a} \cdot \left(\frac{1}{b} \cdot b\right)
+    &&\up{=}{K2}&& \left(1 + \frac{a}{b}\right)\cdot \left(\frac{1}{b} \cdot b\right)\cdot \frac{1}{a}\\[10pt]
+    %
+    &\up{=}{K2}&& \left(1 + \frac{a}{b}\right)\cdot \left(b\cdot \frac{1}{b} \right)\cdot \frac{1}{a}\quad
+    &&\up{=}{K1}&& \left(\left(1 + \frac{a}{b}\right)\cdot b\right)\cdot \frac{1}{b} \cdot \frac{1}{a}\\[10pt]
+    %
+    &\up{=}{K5}&& (b + a)\cdot \frac{1}{b} \cdot \frac{1}{a}
+    &&\up{=}{K5}&& \left(\frac{a+b}{b}\right)\cdot \frac{1}{a}\\[10pt]
+    %
+    &\up{=}{K5}&& \frac{a+b}{ab} \shortintertext{\hfill$\square$}
+\end{alignat*}
+
+\newpage
+
+\aufgabe{3}
+
+\textbf{a)} $a,b,c \in \mathbb{K} \colon (a<b) \land (b<c) \,\Longrightarrow\, a<c$\\[5pt]
+Beweis. Es seien $a,b,c \in \mathbb{K}$ gegeben. Es folgt:
+\begin{alignat*}{4}
+    &&&\,(a<b) \land (b<c) &&\up{\Longrightarrow}{2.6b}&& (b-a) \in P \land (c-b) \in P\\[1pt]
+    %
+    &\up{\Longrightarrow}{P2}\quad&& ((b-a)+(c-b)) \in P
+        &&\up{\Longrightarrow}{Not}\quad&& ((b+(-a))+(c+(-b))) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K1}&& (b+(-a)+c+(-b)) \in P
+        &&\up{\Longrightarrow}{K2}&& (b+(-b)+(-a)+c) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K1}&& ((b+(-b))+(-a)+c) \in P
+        &&\up{\Longrightarrow}{K4}&& (0+(-a)+c) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K3}&& ((-a)+c) \in P
+        &&\up{\Longrightarrow}{K2}&& (c+(-a)) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{Not}&& (c-a) \in P
+        &&\up{\Longrightarrow}{2.6b}&& a<c
+    \shortintertext{\hfill$\square$}
+\end{alignat*}
+%
+\textbf{b)} $a,b,c \in \mathbb{K} \colon a<b \,\Longrightarrow\, (a+c)<(b+c)$ \\[5pt]
+Beweis. Es seien $a,b,c \in \mathbb{K}$ gegeben. Es folgt:
+\begin{alignat*}{4}
+    &&&a<b &&\up{\Longrightarrow}{2.6b}&& (b-a) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{Not}\quad&& (b+(-a)) \in P
+        &&\up{\Longrightarrow}{K3}\quad&& (b+(-a)+0) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K4}&& (b+(-a)+(c-c)) \in P
+        &&\up{\Longrightarrow}{Not}&& (b+(-a)+(c+(-c))) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K1}&& (b+(-a)+c+(-c)) \in P
+        &&\up{\Longrightarrow}{K2}&& (b+c+(-a)+(-c)) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K1}&& ((b+c)+((-a)+(-c))) \in P
+        &&\up{\Longrightarrow}{Nr.2c}&& ((b+c)+((-1)\cdot a+(-1)\cdot c)) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K5}&& ((b+c)+(-1)\cdot (a+c)) \in P
+        &&\up{\Longrightarrow}{Nr.2c}&& ((b+c)+(-(a+c))) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{Not}&& ((b+c)-(a+c)) \in P
+        &&\up{\Longrightarrow}{2.6b}&& (a+c)<(b+c)
+    \shortintertext{\hfill$\square$}
+\end{alignat*}
+\textbf{c)} $a,b,c \in \mathbb{K}\colon (a<b) \land (c>0) \,\Longrightarrow\, ac<bc$ \\[5pt]
+Beweis. Es seien $a,b,c \in \mathbb{K}$ gegeben. Es folgt:
+$$
+    c>0 \up{\,\Longrightarrow\,}{Not} 0 < c
+    \up{\,\Longrightarrow\,}{2.6b} (c-0)\in P \up{\,\Longrightarrow\,}{K3} c \in P
+$$
+\begin{alignat*}{4}
+    &&&a<b &&\up{\Longrightarrow}{2.6b}&& (b-a) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{P3}\quad&& c\cdot (b-a) \in P
+        &&\up{\Longrightarrow}{Not}\quad&& c\cdot (b+(-a)) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K5}&& (cb+c\cdot (-a)) \in P
+        &&\up{\Longrightarrow}{Nr.2c}&& (cb+c\cdot (-1)\cdot a) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{K2}&& (bc+(-1)\cdot ac) \in P
+        &&\up{\Longrightarrow}{Nr.2c}&& (bc+(-ac)) \in P \\[1pt]
+    %
+    &\up{\Longrightarrow}{Not}&& (bc-ac) \in P
+        &&\up{\Longrightarrow}{2.6b}&& ac<bc
+    \shortintertext{\hfill$\square$}
+\end{alignat*}
+
+\newpage
+
+\textbf{d)} $a \in \mathbb{K}\colon a\neq0 \,\Longrightarrow\, a^2 > 0$ \\[5pt]
+Beweis. Es sei $a \in \mathbb{K}$ gegeben. Durch P1 sind zwei Fälle zu betrachten:\\[5pt]
+\textbf{Fall} $a \in P$\,:
+$$
+    a\in P \up{\,\Longrightarrow\,}{P3} (a\cdot a) \in P
+    \up{\,\Longrightarrow\,}{Not} a^2 \in P
+$$
+\textbf{Fall} $-a \in P$\,:
+\begin{align*}
+    -a \in P &\up{\,\Longrightarrow\,}{P3} ((-a) \cdot (-a)) \in P \\[1pt]
+    &\up{\,\Longrightarrow\,}{Nr.2c} ((-1)\cdot a \cdot (-1) \cdot (a))\in P \\[1pt]
+    &\up{\,\Longrightarrow\,}{K2} ((-1) \cdot (-1) \cdot a^2)\in P \\[1pt]
+    &\up{\,\Longrightarrow\,}{K1} (((-1) \cdot (-1)) \cdot a^2)\in P \\[1pt]
+    &\up{\,\Longrightarrow\,}{K4} (1 \cdot a^2)\in P \\[1pt]
+    &\up{\,\Longrightarrow\,}{K3} a^2 \in P \\[12pt]
+    \shortintertext{Es folgt in beiden Fällen, dass $a^2 \in P$.\hfill $\square$}
+\end{align*}
+
+\textbf{e)} 1 > 0\\[5pt]
+Beweis (Indirekt). Wir wissen $1 \neq 0$. Nehmen wir an, dass $1<0$ gelte.\\
+Es folgt:
+\begin{align*}
+    1<0 &\up{\,\Longrightarrow\,}{2.6b} (0-1) \in P\\
+    &\up{\,\Longrightarrow\,}{K3} -1 \in P\\
+    &\up{\,\Longrightarrow\,}{P3} (-1)\cdot (-1) \in P\\
+    &\up{\,\Longrightarrow\,}{} 1 \in P\\
+    &\up{\,\Longrightarrow\,}{} 1-0 \in P\\
+    &\up{\,\Longrightarrow\,}{2.6b} 0 < 1 \,\Longleftrightarrow\, 1 > 0
+\end{align*}
+Das Ergebnis der Folgerung widerspricht unserer Annahme. Somit muss $1 > 0$ gelten.\\
+\strut\hfill$\square$
+
+%
+\newpage
+\aufgabe{4}
+\textbf{a)} $\vert 2x\vert > \vert 5-2x\vert$ mit $x \in \mathbb{R}$.
+Wir unterscheiden insgesamt 4 Fälle:\\[5pt]
+\textbf{Fall} $(2x \geq 0) \land (5-2x \geq 0)$.
+Somit ist x enthalten in
+$$
+    x \in \{x \in \mathbb{R} \mid (2x \geq 0) \land (5-2x \geq 0)\}
+    = \left[0,\ \dfrac{5}{2}\right]
+$$
+Es folgt dann nach Definition vom Betrag:
+\begin{alignat*}{4}
+    &                       &2x &> 5-2x\qquad   &|& +h(x)=2x \\[1pt]
+    &\,\Longrightarrow\quad &4x &> 5            &|& \cdot h(x)=\frac{1}{4} \\[1pt]
+    &\,\Longrightarrow      &x &> \frac{5}{4}   &&
+\end{alignat*}
+Somit ist die Lösungsmenge
+$
+    D_1 = \left(\dfrac{5}{4},\ \infty\right) \cap \left[0,\ \dfrac{5}{2}\right]
+        = \left(\dfrac{5}{4},\ \dfrac{5}{2}\right]
+$
+
+\textbf{Fall} $(2x \geq 0) \land (5-2x < 0)$.
+Somit ist x enthalten in
+$$
+    x\in \{x \in \mathbb{R} \mid (2x \geq 0) \land (5-2x <0)\}
+    = \left(\dfrac{5}{2},\ \infty\right)
+$$
+Es folgt dann nach Definition vom Betrag:
+\begin{alignat*}{4}
+    &                       &2x &> -(5-2x)\qquad   && \\[1pt]
+    &\,\Longrightarrow\quad &2x &> 2x-5            &|& +h(x)=-2x \\[1pt]
+    &\,\Longrightarrow\quad &0 &> -5     &&
+\end{alignat*}
+Dies ist immer erfüllt, also ist die Lösungsmenge
+$
+    D_2 = \mathbb{R}\ \cap \left(\dfrac{5}{2},\ \infty\right)
+        = \left(\dfrac{5}{2},\ \infty\right)
+$\\
+
+\textbf{Fall} $(2x < 0) \land (5-2x \geq 0)$.
+Somit ist x enthalten in
+$$x\in \{x \in \mathbb{R} \mid (2x<0) \land (5-2x \geq 0)\} = (-\infty,\ 0)$$
+Es folgt dann nach Definition vom Betrag:
+\begin{alignat*}{4}
+    &                       &-2x &> 5-2x\qquad      &|& +h(x)=2x \\[1pt]
+    &\,\Longrightarrow\quad &0 &> 5     &&
+\end{alignat*}
+Dies ist nie erfüllt, also ist die Lösungsmenge $D_3 = \o \cap (-\infty,\ 0) = \o$\\
+
+\textbf{Fall} $(2x < 0) \land (5-2x < 0)$.
+Somit ist $x$ enthalten in
+$$x\in \{x \in \mathbb{R} \mid (2x<0) \land (5-2x <0)\} = \o$$
+Daher ist die Lösungsmenge $D_4 = \o$\\
+Die Lösung der ganzen Ungleichung ist nun
+$D_1 \cup D_2 \cup D_3 \cup D_4 = \left(\dfrac{5}{4},\ \infty\right)$ 
+
+\newpage
+
+\textbf{b)}\ $\dfrac{x+4}{x-2}<x$ mit $x\in\mathbb{R}$. Wir unterscheiden 2 Fälle:\\[10pt]
+\textbf{Fall} $x-2 > 0$. Somit ist x enthalten in
+$$ x \in \{x \in \mathbb{R} \mid x-2 > 0\} = (2,\infty)$$
+Es folgt:
+\begin{alignat*}{4}
+    &                   &\frac{x+4}{x-2} &<x &|& \cdot h(x)=x-2 \\[1pt]
+    &\,\Longrightarrow\quad     &x+4 &< x\cdot (x-2) && \\[1pt]
+    &\,\Longrightarrow\         &x+4 &< x^2-2x \qquad&|& +h(x)=-x-4 \\[1pt]
+    &\,\Longrightarrow\         &0 &< x^2-3x-4 && \\[1pt]
+    &\,\Longrightarrow\         &0 &< (x-4)(x+1) &&
+\end{alignat*}
+Da $x+1$ nun unter gegebenen Umständen niemals 0 sein kann:
+$$x \in (2,\infty) \,\Longrightarrow\, x+1 > 0\\$$
+und $x-4$ für $x > 4$ immer positiv ist:
+$$ x-4 > 0 \,\Longrightarrow\, x > 4$$
+lässt sich folgern, dass $x > 4$  gelten muss, damit die Ungleichung erfüllt ist.\\
+Somit ist die Lösungsmenge $D_1 = (4,\infty)$
+
+\textbf{Fall} $x-2 < 0$. Somit ist x enthalten in
+$$ x \in \{x \in \mathbb{R} \mid x-2 < 0\} = (-\infty, 2)$$
+Es folgt:
+\begin{alignat*}{4}
+    &                   &\frac{x+4}{x-2} &<x &|& \cdot h(x)=x-2 \\[1pt]
+    &\,\Longrightarrow\quad     &x+4 &> x\cdot (x-2) && \\[1pt]
+    &\,\Longrightarrow\         &x+4 &> x^2-2x \qquad&|& +h(x)=-x-4 \\[1pt]
+    &\,\Longrightarrow\         &0 &> x^2-3x-4 && \\[1pt]
+    &\,\Longrightarrow\         &0 &> (x-4)(x+1) &&
+\end{alignat*}
+Damit $(x-4)(x+1)$ negativ ist, darf nur eine Klammer von beiden positiv sein, da
+$(-1)\cdot (-1) \up{\ =\ }{Nr.2c} -(-1) = 1$.
+Es gilt jedoch $\forall x \in (-\infty, 2)\colon x-4 < 0$, somit muss $x+1 > 0$ gelten,
+damit die Ungleichung erfüllt ist.
+$$x+1 > 0 \,\Longrightarrow\, x>-1$$
+Somit ist die Lösungsmenge $D_2 = (-1,\infty) \cap (-\infty,2) = (-1,2)$. Die Lösung
+der\\
+Ungleichung ist dann
+$$D_1 \cup D_2 = (-1,\infty) \setminus [2,4] = \{x \in \mathbb{R} \mid (-1 < x < 2) \lor (x > 4)\}$$
+\end{document}

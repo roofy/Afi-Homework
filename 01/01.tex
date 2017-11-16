@@ -1,0 +1,158 @@
+\documentclass[a4paper,graphics,11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{enumerate}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\floatname{algorithm}{Algorithmus}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\abs[1]{\left\vert#1\right\vert}
+
+\newcommand\aufgabe[1]{\subsection*{Aufgabe #1}}
+
+\pagestyle{empty}
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Phil Pützstück, 377247 \\
+\noindent Analysis für Informatiker             \hfill Tobias Riedel, 379133\\
+
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 1}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\begin{tasks}(2)
+    \task $A \,\Rightarrow\,(C \land D)$
+    \task $B \,\Rightarrow\,A$
+    \task $D \,\Leftrightarrow\, B$
+    \task $A \,\Rightarrow\,(\lnot B\,\Rightarrow\,D)$
+    \task $(C \,\Rightarrow\, \lnot D)\ \land\ (D \,\Rightarrow\, \lnot B)$ 
+    \task $C \,\Rightarrow\,((A \land D)\,\Rightarrow\, \lnot B)$
+\end{tasks}
+
+
+\aufgabe{2}
+Es seien $B_{1..3}$ die Möglichkeiten für den Schatz und $A_{1..3}$ die Hinweise der jeweiligen Boxen
+
+\begin{minipage}{0.5\linewidth}
+    $B_{1}:= $ Der Schatz ist in der ersten Box \\
+    $B_{2}:= $ Der Schatz ist in der zweiten Box \\
+    $B_{3}:= $ Der Schatz ist in der dritten Box \\
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+    $A_{1}:= \lnot B_{1}$ \\
+    $A_{2}:= \lnot B_{2}$ \\
+    $A_{3}:= B_{2}$ \\
+\end{minipage}
+
+Zu betrachten sind nun 3 Fälle, da der Schatz nur in einer Box sein kann:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Fall & $A_{1}$ & $A_{2}$ & $A_{3}$ \\
+        \hline
+        $B_{1} \land \lnot B_{2} \land \lnot B_{3}$ & 0 & 1 & 0 \\
+        \hline
+        $\lnot B_{1} \land B_{2} \land \lnot B_{3}$ & 1 & 0 & 1 \\
+        \hline
+        $\lnot B_{1} \land \lnot B_{2} \land B_{3}$ & 1 & 1 & 0 \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Die Aufgabe beschreibt, dass immer nur einer der Hinweise Wahr ist. Somit ergibt
+sich im 2. und 3. Fall ein Widerspruch, da mehr als ein Hinweis dort die Wahrheit
+beschreibt.\\
+Somit muss der Schatz in der ersten Box sein.
+
+
+\aufgabe{3}
+\textbf{(fig.1)}
+    \begin{center}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            schuldig & erhängt & schuldig $\,\Rightarrow\,$ erhängt \\
+            \hline
+            1 & 1 & 1 \\
+            \hline
+            1 & 0 & 0 \\
+            \hline
+            0 & 1 & 1 \\
+            \hline
+            0 & 0 & 1 \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+\begin{tasks}[counter-format=tsk[r])](1)
+    \task Dieser Satz ist logisch korrekt. Schuldig impliziert eine Erhängung und ist
+        somit auch hinreichend für eine (schuldig $\,\Rightarrow\,$ gehängt).
+        Es wäre ein logischer Widerspruch, wenn er nicht gehängt würde insofern er
+        schuldig ist (siehe fig.1 Zeile 2).
+
+    \task Dieser Satz is nicht logisch korrekt. Schuldig sein ist zwar eine hinreichende,
+        jedoch nicht notwendige Bedingung um erhängt zu werden. Somit können
+        auch andere Ereignisse seine Erhängung verursachen.
+        Es ist zu erkennen, dass erhängt werden ohne schuldig zu sein keinen
+        logischen Widerspruch darstellt (siehe fig.1 Zeile 3).
+
+    \task Dieser Satz ist nicht logisch korrekt. Schuldig sein mag eine Erhängung
+        implizieren, jedoch gilt dies nicht unbedingt andersherum. Dieser Fall ist ähnlich
+        zu dem in ii), es stellt keinen logischen Widerspruch dar, erhängt zu werden ohne
+        schuldig zu sein. (s.o.)
+
+    \task Dieser Satz ist logisch korrekt. Da schuldig sein hinreichend für eine Erhängung
+        ist, wäre es ein logischer Widerspruch nicht erhängt zu werden insofern man
+        schuldig ist (zu erkennen in fig.1 Zeile 2)
+\end{tasks}
+
+
+\aufgabe{4}
+
+\begin{itemize}
+    \item[] $\mathbb{N} :=$ Menge aller natürlichen Zahlen
+    \item[] $x \in M :=$ x ist Teil der Menge M
+    \item[] $x \notin M :=$ x ist nicht Teil der Menge M
+    \item[] $\forall x :=$ ''für alle x''
+    \item[] $\forall x_{1},x_{2},... \in M: L :=$ ''für alle $x_{1},x_{2},...$ aus der
+        Menge $M$ gilt der Ausdruck $L$''
+    \item[] $x \land y:=$ logisches und; ''es gilt x und y''
+    \item[] $x\,\Rightarrow\,y:=$ logische Implikation, ''x impliziert y'', ''x ist hinreichend für y''
+    \item[] $x\,\Leftrightarrow\,y:=$ logische Äquivalenz, ''x genau dann, wenn y''
+    \item[] $N \subseteq M:=$ $\forall x \in N: x \in M$, ''N ist eine Teilmenge von M''
+\end{itemize}
+
+
+
+\begin{tasks}(1)
+    \task $1 \in \mathbb{N}$
+    \task $\forall x \in \mathbb{N}: x=x$
+    \task $\forall x,y \in \mathbb{N}: (x=y) \,\Rightarrow\, (y=x)$
+    \task $\forall x,y,z \in \mathbb{N}: ((x=y) \land (y=z)) \,\Rightarrow\, (x=z)$
+    \task $(y \in \mathbb{N}) \land (x=y) \,\Rightarrow\, (x \in \mathbb{N})$ 
+    \task $\forall x \in \mathbb{N}: (x+1) \in \mathbb{N}$
+    \task $\forall x,y \in \mathbb{N}: (x=y) \Leftrightarrow (x+1=y+1)$
+    \task $(y+1=1) \,\Rightarrow\, (y \notin \mathbb{N})$\qquad bzw.\qquad $\lnot\,(\exists y \in \mathbb{N}: y+1=1)$
+    \task $(1 \in K) \land (\forall x \in K: (x+1) \in K) \,\Rightarrow\, \mathbb{N} \subseteq K$
+\end{tasks}
+
+
+\end{document}
