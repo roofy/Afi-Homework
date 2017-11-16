@@ -9,7 +9,6 @@
 \usepackage{amsmath, tabu}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{complexity}
 \usepackage{mathtools}
 \usepackage{setspace}
 \usepackage{graphicx,color,curves,epsf,float,rotating}
@@ -166,10 +165,10 @@ $m,n \geq N$ gilt. Somit ist auch $b_n$ eine Cauchy-Folge.
 Sei $(a_n)_{n \in \mathbb{N}}$ eine gegebene Cauchy-Folge. Nach Definition existiert
 für jedes $\varepsilon >0$ ein $N \in \mathbb{N}$ sodass mit der Dreiecksungleichung gilt:
 $$
-    \forall m,n \geq N \colon |a_m|-|a_n|<|a_m-a_n| < \varepsilon 
+    \forall m,n \geq N \colon |a_m|-|a_n|\leq|a_m-a_n| < \varepsilon 
     \,\Longleftrightarrow\, |a_m| < |a_n| + \varepsilon
 $$
-Da dies für alle $m,n \geq N$ gilt, folgt es auch insbesondere für $n=N$:
+Da dies für alle $m,n \geq N$ gilt, folgt insbesondere für $n=N$:
 $$
     \forall m \geq N \colon |a_m| \leq |a_N|+\varepsilon
 $$
@@ -179,9 +178,9 @@ $$
     \forall n \in \mathbb{N} \colon |a_n| \leq \text{max}(\ \{|a_m|\colon m\in \mathbb{N} \land m < N\}
     \cup \{|a_N|+\varepsilon\})
 $$
-Also entweder ist das Maximum des Bildes von $a_n$ über alle $n<N$ größer als
+Also entweder ist das Maximum der Wertemenge von $a_n$ über alle $n<N$ größer als
 $|a_N|+\varepsilon$ und somit die Schranke der Folge, oder $|a_N|+\varepsilon$
-bleibt die Schranke. In jedem Fall ist dann jede Cauchy-Folge beschränkt.
+bleibt die Schranke. In jedem Fall existiert eine Schranke, wodurch $a_n$ beschränkt ist.
 
 \textbf{c)}
 Da $a_n$ eine Cauchy-Folge ist, existiert zu jedem $\varepsilon > 0$ ein $N\in \mathbb{N}$
