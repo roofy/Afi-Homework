@@ -29,7 +29,7 @@
 \end{center}
 \aufgabe{1}
 Wir zeigen zuerst, dass $a_n$ nach unten durch $\sqrt{x}$ beschränkt ist:
-Sei $A(n) := a_n \geq \sqrt{x}$
+Sei $A(n) := (a_n \geq \sqrt{x})$
 
 \textbf{(IA)}
 Für $a_0 = 1$ folgt $a_0 \geq \sqrt{1}$ und für $a_0 = x > 1$ folgt $a_0 \geq \sqrt{x}$. Also gilt $A(1)$.
@@ -41,8 +41,8 @@ $$
     \,\Longleftrightarrow\, (a_n-\sqrt{x})^2 \geq 0
 $$
 Letzteres ist stets erfüllt, da $\forall x \in \mathbb{R}\colon x^2 \geq 0$ gilt. Es folgt
-nun nach dem Prinzip der vollständigen Induktion $A(n)$ für alle $n\in \mathbb{N}_0$.
-Also ist $a_n$ mit $\sqrt{x}$ nach unten beschränkt.
+nun nach dem Prinzip der vollständigen Induktion, dass $A(n)$ für alle $n\in \mathbb{N}_0$
+gilt. Also ist $a_n$ mit $\sqrt{x}$ nach unten beschränkt.
 
 Zu zeigen ist nun, dass $a_n$ monoton fällt, also $a_{n+1} - a_n \leq 0$:
 $$
@@ -62,11 +62,10 @@ $$
     L = \frac{1}{2}\left(L + \frac{x}{L}\right) \,\Longleftrightarrow\, L^2 = x
     \,\Longleftrightarrow\, L = \pm \sqrt{x}
 $$
-Da $a_n$ jedoch von unten durch $\sqrt{x}$ beschränkt ist gilt stets
-$L = \lim_{n \to \infty}\limits a_n \not< \sqrt{x}$, d.h. $a_n$ kann niemals $-\sqrt{x}$
-erreichen. Somit kommt für uns als Lösung nur $\lim_{n \to \infty}\limits a_n = \sqrt{x}$
-in Frage, da es nach Satz 4.13 (Kapitel 2) nur genau eine positive reelle Zahl
-$\sqrt[n]{x}\in \mathbb{R}_+ $ mit $n \in \mathbb{N}$ gibt.
+Da $a_n$ jedoch von unten durch $\sqrt{x}$ beschränkt ist kann $a_n$ kann niemals
+$-\sqrt{x}$ erreichen. Somit kommt für uns als Lösung nur
+$\lim_{n \to \infty}\limits a_n = \sqrt{x}$ in Frage, da es nach Satz 4.13 (Kapitel 2) nur
+genau eine positive reelle Zahl $\sqrt[n]{x}\in \mathbb{R}_+ $ mit $n \in \mathbb{N}$ gibt.
 Also konvergiert $a_n$ gegen $\sqrt{x}$.
 
 \textbf{b)} Für $c = 1$ folgt durch $\forall n \in \mathbb{N}_0 \colon a_n \geq \sqrt{x} \,\Longrightarrow\, a_n \geq 0$, dass folgendes stets gilt:
@@ -166,7 +165,7 @@ Sei $(a_n)_{n \in \mathbb{N}}$ eine gegebene Cauchy-Folge. Nach Definition exist
 für jedes $\varepsilon >0$ ein $N \in \mathbb{N}$ sodass mit der Dreiecksungleichung gilt:
 $$
     \forall m,n \geq N \colon |a_m|-|a_n|\leq|a_m-a_n| < \varepsilon 
-    \,\Longleftrightarrow\, |a_m| < |a_n| + \varepsilon
+    \,\Longleftrightarrow\, |a_m| \leq |a_n| + \varepsilon
 $$
 Da dies für alle $m,n \geq N$ gilt, folgt insbesondere für $n=N$:
 $$
@@ -175,12 +174,13 @@ $$
 Somit ist $a_n$ für alle $n \geq N$ durch $|a_N|+\varepsilon$ beschränkt.
 Die endliche Anzahl an Werten von $a_m$ für $m<N$ haben ein Maximum $M$, sodass $\forall n <N\colon a_n < M$ gilt. Es folgt also:
 $$
-    \forall n \in \mathbb{N} \colon |a_n| \leq \text{max}(\ \{|a_m|\colon m\in \mathbb{N} \land m < N\}
+    \forall n \in \mathbb{N} \colon |a_n| \leq \text{max}(\ \{|a_m|\mid m\in \mathbb{N} \land m < N\}
     \cup \{|a_N|+\varepsilon\})
 $$
 Also entweder ist das Maximum der Wertemenge von $a_n$ über alle $n<N$ größer als
 $|a_N|+\varepsilon$ und somit die Schranke der Folge, oder $|a_N|+\varepsilon$
-bleibt die Schranke. In jedem Fall existiert eine Schranke, wodurch $a_n$ beschränkt ist.
+bleibt die Schranke. In jedem Fall existiert eine Schranke $S$, sodass
+$|a_n| \leq S$ stets gilt und $a_n$ somit beschränkt ist.
 
 \textbf{c)}
 Da $a_n$ eine Cauchy-Folge ist, existiert zu jedem $\varepsilon > 0$ ein $N\in \mathbb{N}$
@@ -189,7 +189,7 @@ $$
     \forall i,j\in \mathbb{N}_0\colon |a_{N+i}-a_{N+j}| < \varepsilon
 $$
 Insbesondere muss dies also auch als Spezialfall für
-$n,k \in \mathbb{N}, n \geq N$ und $m=n+k$ gelten:
+$m,n,k \in \mathbb{N}, n \geq N$ und $m=n+k$ gelten:
 $$
     \forall k,n \in \mathbb{N},\ n \geq N\colon |a_m-a_n| = |a_{n+k}-a_n| < \varepsilon
 $$
