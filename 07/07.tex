@@ -1,0 +1,156 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 7}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\textbf{a)}\\[5pt]
+Die Folge der Partialsummen lässt sich wie folgt darstellen:
+$$
+    (s_n)_{n\in \mathbb{N}} := \sum_{k=1}^{n} a_k
+$$
+\textbf{b)}\\[5pt]
+Wir zeigen, dass die Folge $s_n$ der Partialsummen monoton steigt.
+Man betrachte $s_{n+1}-s_n\colon$
+$$
+    s_{n+1} - s_n = \left(\sum_{k=1}^{n+1} a_k\right) - \left(\sum_{k=1}^{n} a_k\right)
+    = a_{k+1} + \left(\sum_{k=1}^{n} a_k\right) -\left(\sum_{k=1}^{n} a_k\right)
+    = a_{k+1}
+$$
+Wir wissen weiterhin, dass $a_k \geq 0$ für alle $k \in \mathbb{N}$. Beweis (Induktion):\\
+\textbf{(IA)} $k=1$. Es gilt 
+$$
+    \frac{3^1}{5^1+1} = \frac{3}{5} \geq 0
+$$
+Also gilt die Aussage für $k=1$.
+
+\textbf{(IS)} Die Behauptung gelte für ein $k \in \mathbb{N}$. $k\mapsto k+1\colon$
+$$
+    \frac{3^{k+1}}{5^{k+1}+1} = \frac{3^k\cdot3}{5^k\cdot5+1}
+    = \frac{3}{5}\cdot \frac{3^k}{5^k+\frac{1}{5}}
+    \geq \frac{3}{5}\cdot \frac{3^k}{5^k+1}
+$$
+Wir wissen, dass $\displaystyle\frac{3^k}{5^k+1}\geq 0$, also folgt auch
+$\displaystyle\frac{3}{5} \cdot \frac{3^k}{5^k+1} \geq 0$.
+Insgesamt gilt also die Behauptung auch für $k+1$.
+
+Damit ist $a_k$ stets größer 0 und es folgt $s_{n+1}-s_n = a_{k+1} \geq 0$. Also
+ist $s_n$ monoton wachsend.
+
+\textbf{c)}\\[5pt]
+Es gilt:
+$$
+    \forall k \in \mathbb{N} \colon a_k = \frac{3^k}{5^k+1} \leq \frac{3^k}{5^k} \leq \frac{1}{5^k}
+    = \left(\frac{1}{5}\right)^k
+$$
+\newpage
+\textbf{d)}\\[5pt]
+Da $\frac{1}{5}\neq1$ lässt sich die geometrische Summenformel (II Satz 3.5)
+wie folgt einsetzen:
+$$
+    \forall n \in \mathbb{N} \colon s_n = \sum_{k=1}^{n} a_k
+    \leq \sum_{k=1}^{n} \left(\frac{1}{5}\right)^k
+    = \frac{1-\left(\frac{1}{5}\right)^{n+1}}{1-\frac{1}{5}}
+$$
+Sei also $(c_n)_{n \in \mathbb{N}} := \sum_{k=1}^{n} \left(\frac{1}{5}\right)^k$.
+Durch $\forall k \in \mathbb{N} \colon a_k \geq 0$ folgt $|a_k| = a_k$.\\
+Weiterhin gilt $\forall k \in N\colon a_k = |a_k| \leq c_k$. Da $c_k$ nach
+Satz 3.5 (Geometrische Reihe) konvergiert, folgt nach dem Minorantenkriterium (3.17), dass
+auch $a_k$ konvergiert.
+\newpage
+\aufgabe{2}
+Wir wenden Partialbruchzerlegung auf den gegebenen Bruch an:
+$$
+    \frac{1}{(2k+1)(2k+5)} = \frac{a}{(2k+1)} + \frac{b}{(2k+5)} \,\Longleftrightarrow\,
+    1 = a(2k+5) + b(2k+1)
+$$
+Nun stellen wir nach $k$ um:
+$$
+    1 = a(2k+5) + b(2k+1) = 2ak+5a+2bk+b = k(2a+2b) + (5a+b)
+$$
+Somit haben wir nach Koeffizientenvergleich zwei Gleichungen: $ \mathbb{I}:=(2a+2b = 0)$
+und \\$\mathbb{II}:=(5a+b = 1)$. Wir lösen dies durch addieren der Gleichungen:
+$$
+    \mathbb{I} + \mathbb{II}\cdot(-2) \,\Longrightarrow\, 2a-10a+2b-2b=0-2
+    \,\Longleftrightarrow\, -8a = -2
+    \,\Longleftrightarrow\, a = \frac{1}{4}
+$$
+Nun lässt sich $a = \frac{1}{4}$ in die andere Gleichung einsetzen:
+$$
+    5\cdot \frac{1}{4}+b = 1 \,\Longleftrightarrow\, b = -\frac{1}{4}
+$$
+Also gilt nach Prinzip der Partialbruchzerlegung nun
+$$
+    \frac{1}{(2k+1)(2k+5)} = \frac{1}{4(2k+1)} - \frac{1}{4(2k+5)}
+$$
+Ebenso gilt also
+$$
+    \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)}
+    = \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \frac{1}{4(2k+5)}
+    = \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+$$
+Durch Indizienverschiebung erhalten wir
+$$
+    \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+    = \sum_{k=0}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+$$
+Dies entspricht einer teleskopischen Summe, also folgt:
+$$
+    \sum_{k=0}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+    = \sum_{k=0}^{1} \frac{1}{4(2k+5)} +
+    \sum_{k=2}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}\\
+$$$$
+    = \sum_{k=0}^{1} \frac{1}{4(2k+5)} = \frac{1}{4\cdot 5} + \frac{1}{4\cdot 7} 
+    = \frac{1}{9} + \frac{1}{28} = \frac{3}{35}
+$$
+Insgesamt folgt also
+$$
+    \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)} = \frac{3}{35}
+$$
+Also konvergiert die Reihe
+$$
+    (s_n)_{n\geq 2} := \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)}\quad\text{mit}\quad
+    \lim_{n \to \infty} s_n = \frac{3}{35}
+$$
+\newpage
+\aufgabe{3}
+\newpage
+\aufgabe{4}
+\newpage
+\aufgabe{5}
+
+
+
+
+
+\end{document}
