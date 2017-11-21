@@ -144,8 +144,60 @@ $$
 $$
 \newpage
 \aufgabe{3}
+\textbf{a)}\\[5pt]
+
+\textbf{b)}\\[5pt]
+Wir wissen, dass $(a_n)_{n\in \mathbb{N}} = \frac{1}{\sqrt{n}}$ eine monoton fallende und
+reelle Nullfolge ist. Nach dem Leibniz-Kriterium (Satz 3.12) folgt dann, dass
+$\sum_{k=1}^{\infty} (-1)^ka_k = \sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergiert.
+Weiterhin gilt
+$$
+    \sum_{k=1}^{\infty} \left|\frac{(-1)^k}{\sqrt{k}}\right|
+    = \sum_{k=1}^{\infty} \frac{1}{\sqrt{k}}
+$$
+Weiterhin gilt $\sqrt{k} \leq k \,\Longleftrightarrow\, \frac{1}{\sqrt{k}}\geq \frac{1}{k}$.
+Somit lässt sich durch das Majorantenkriterium \\
+(Satz 3.17) folgendes schließen:
+
+Sei $\sum_{k=1}^{\infty} (d_k)_{k\in \mathbb{N}}= \sum_{k=1}^{\infty} \frac{1}{k}$ die
+harmonische Reihe. Wir wissen nach Satz 3.6, dass diese bestimmt gegen $\infty$ divergiert.
+Weiterhin gilt:
+$$
+    \forall k \in \mathbb{N}\colon \frac{1}{\sqrt{k}} = |a_k| \geq d_k = \frac{1}{k} \geq 0
+$$
+Somit divergiert die Reihe $\sum_{k=1}^{\infty}\left|\frac{(-1)^k}{\sqrt{k}}\right|$
+ebenfalls. Also ist die Reihe $\sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergent, aber nicht
+absolut konvergent.
+
+\textbf{c)}\\[5pt]
+Es sei $\displaystyle(a_k)_{k \in \mathbb{N}} := \frac{k^2}{2^k}$. Es gilt:
+$$
+    \left|\frac{a^{k+1}}{a_k}\right|
+    = \left|\frac{\dfrac{(k+1)^2}{2^{k+1}}}{{\dfrac{k^2}{2^k}}}\right|
+    = \left|\frac{(k+1)^2 \cdot 2^k}{2^{k+1}\cdot k^2}\right|
+    = \left|\frac{(k+1)^2}{2\cdot k^2}\right|
+    = \left|\frac{k^2+2k+1}{2k^2} \right|
+    = \frac{1+\dfrac{2}{k}+\dfrac{1}{k^2}}{2}
+$$
+Wir betrachten nun $\displaystyle\lim_{k \to \infty}\limits \left|\frac{a_{k+1}}{a_k}\right|
+= \frac{1+\frac{2}{k}+\frac{1}{k^2}}{2}$. Da $1$ und $2$ konstante Folgen sind und
+$x_k=\frac{2}{k}$ und $y_k=\frac{2}{k^2}$ Nullfolgen sind (Bsp. 1.11), lassen sich
+die Limitenregeln wie folgt anwenden:
+$$
+    \lim_{k \to \infty} \frac{1+\frac{2}{k}+\frac{1}{k^2}}{2}
+    = \frac{\lim_{k\to\infty}\limits1+\frac{2}{k}+\frac{1}{k^2}}{\lim_{k \to \infty}\limits 2}
+    = \frac{\lim_{k \to \infty}\limits 1 + \lim_{k \to \infty}\limits \frac{2}{k}+ \lim_{k \to \infty} \frac{1}{k^2}}{2}
+    = \frac{1+0+0}{2} = \frac{1}{2}
+$$
+Daher gilt das Quotientenkriterium für die gegebene Reihe:
+$$
+    \lim_{k \to \infty} \left|\frac{a_{k+1}}{a_k}\right| = \frac{1}{2} < 1
+$$
+und somit ist die Reihe $\displaystyle\sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{k^2}{2^k}$
+absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16).
 \newpage
 \aufgabe{4}
+\textbf{d)}\\[5pt]
 \newpage
 \aufgabe{5}
 
