@@ -196,8 +196,22 @@ $$
 und somit ist die Reihe $\displaystyle\sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{k^2}{2^k}$
 absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16).
 \newpage
-\aufgabe{4}
 \textbf{d)}\\[5pt]
+\newpage
+\aufgabe{4}
+Da $\sum_{k=1}^{\infty} a_k$ absolut konvergiert, muss auch $\sum_{k=1}^{\infty} |a_k|$
+konvergieren. Nach Korollar 3.9 ist $|a_k|$ also eine Nullfolge.
+Also existiert ein $N \in \mathbb{N}$ sodass gilt:
+$$
+    \forall k > N \colon |a_k| < 1
+$$
+Weiterhin gilt $x^2 < x$ für $|x| < 1$, also gibt es eine Majorante $|a_k|$ und ein
+$N \in \mathbb{N}$ sodass das Majorantenkriterium für ${a_k}^2$ gilt:
+$$
+    \forall k > N \colon |{a_k}|^2 \leq |a_k|
+$$
+Damit gilt nach dem Majorantenkriterium, dass die Reihe $\sum_{k=1}^{\infty} {a_k}^2$
+absolut konvergiert und damit auch konvergiert.
 \newpage
 \aufgabe{5}
 
