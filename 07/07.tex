@@ -214,9 +214,34 @@ Damit gilt nach dem Majorantenkriterium, dass die Reihe $\sum_{k=1}^{\infty} {a_
 absolut konvergiert und damit auch konvergiert.
 \newpage
 \aufgabe{5}
-
-
-
-
-
+$|e^x - s_n(x)|$ lässt sich wie folgt 
+nach oben abschätzen. Wir benutzen den Satz 3.5 der geometrischen Reihe (G) und
+dass $x\in \left(-\frac{1}{2},\frac{1}{2}\right)$ gilt (X):
+$$
+    |e^x-s_n(x)|
+    \ =\ \left|\sum_{k=0}^{\infty} \frac{x^k}{k!} - \sum_{k=0}^{n} \frac{x^k}{k!}\right|
+    \ =\ \left|\sum_{k=n+1}^{\infty} \frac{x^k}{k!}\right|
+    \ <\ \left|\sum_{k=n+1}^{\infty} \frac{x^k}{(n+1)!}\right|
+$$$$
+    \ =\ \frac{1}{(n+1)!} \left|\sum_{k=n+1}^{\infty} x^k\right|
+    \ \leq\ \frac{1}{(n+1)!} \sum_{k=n+1}^{\infty} |x^k|
+    \up{\ <\ }{(X)}\frac{1}{(n+1)!} \sum_{k=n+1}^{\infty} \left(\frac{1}{2}\right)^k
+$$$$
+    \ <\ \frac{1}{(n+1)!} \sum_{k=0}^{\infty} \left(\frac{1}{2}\right)^k
+    \up{\ =\ }{(G)}\frac{1}{(n+1)!}\cdot \frac{1}{1-\frac{1}{2}}
+    \ =\ \frac{2}{(n+1)!}
+$$
+Da $e^x$ streng monoton wachsend ist (Satz 3.21) gilt außerdem:
+$$
+    \forall x \in \left(-\frac{1}{2}, \frac{1}{2}\right)\colon e^{-0.5} < e^{x}
+$$
+Also lässt sich die gegebene Ungleichung nun wie folgt darstellen. Sei $x \in \left(-\frac{1}{2}, \frac{1}{2} \right)\colon$
+$$
+    |e^x - s_n(x)| < \frac{2}{(n+1)!} \leq \frac{e^{-1/2}}{10^{16}} < \frac{e^x}{10^{16}}
+$$
+Durch ausprobieren von ein paar Werten für $n$ lässt sich dies schnell eingrenzen:
+$$
+    \frac{2}{(18+1)!} < \frac{e^{-1/2}}{10^16} < \frac{2}{(17+1)!}
+$$
+Also kann die Gültigkeit dieser Ungleichung für alle $n\geq 18$ gewährleistet werden.
 \end{document}
