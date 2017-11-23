@@ -85,9 +85,8 @@ $$
 Sei also $(c_n)_{n \in \mathbb{N}} := \sum_{k=1}^{n} \left(\frac{1}{5}\right)^k$.
 Durch $\forall k \in \mathbb{N} \colon a_k \geq 0$ folgt $|a_k| = a_k$.\\
 Weiterhin gilt $\forall k \in N\colon a_k = |a_k| \leq c_k$. Da $c_k$ nach
-Satz 3.5 (Geometrische Reihe) konvergiert, folgt nach dem Minorantenkriterium (3.17), dass
+Satz 3.5 (geometrische Reihe) konvergiert, folgt nach dem Minorantenkriterium (3.17), dass
 auch $a_k$ konvergiert.
-\newpage
 \aufgabe{2}
 Wir wenden Partialbruchzerlegung auf den gegebenen Bruch an:
 $$
@@ -116,22 +115,22 @@ $$
 Ebenso gilt also
 $$
     \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)}
-    = \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \frac{1}{4(2k+5)}
-    = \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+    \ =\ \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \frac{1}{4(2k+5)}
+    \ =\ \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
 $$
 Durch Indizienverschiebung erhalten wir
 $$
     \sum_{k=2}^{\infty} \frac{1}{4(2k+1)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
-    = \sum_{k=0}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
+    \ =\ \sum_{k=0}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
 $$
 Dies entspricht einer teleskopischen Summe, also folgt:
 $$
     \sum_{k=0}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}
-    = \sum_{k=0}^{1} \frac{1}{4(2k+5)} +
+    \ =\ \sum_{k=0}^{1} \frac{1}{4(2k+5)} +
     \sum_{k=2}^{\infty} \frac{1}{4(2k+5)} - \sum_{k=2}^{\infty} \frac{1}{4(2k+5)}\\
 $$$$
-    = \sum_{k=0}^{1} \frac{1}{4(2k+5)} = \frac{1}{4\cdot 5} + \frac{1}{4\cdot 7} 
-    = \frac{1}{9} + \frac{1}{28} = \frac{3}{35}
+    \ =\ \sum_{k=0}^{1} \frac{1}{4(2k+5)} = \frac{1}{4\cdot 5} + \frac{1}{4\cdot 7} 
+    \ =\ \frac{1}{20} + \frac{1}{28} = \frac{3}{35}
 $$
 Insgesamt folgt also
 $$
@@ -142,7 +141,6 @@ $$
     (s_n)_{n\geq 2} := \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)}\quad\text{mit}\quad
     \lim_{n \to \infty} s_n = \frac{3}{35}
 $$
-\newpage
 \aufgabe{3}
 \textbf{a)}\\[5pt]
 
@@ -155,15 +153,16 @@ $$
     \sum_{k=1}^{\infty} \left|\frac{(-1)^k}{\sqrt{k}}\right|
     = \sum_{k=1}^{\infty} \frac{1}{\sqrt{k}}
 $$
-Weiterhin gilt $\sqrt{k} \leq k \,\Longleftrightarrow\, \frac{1}{\sqrt{k}}\geq \frac{1}{k}$.
-Somit lässt sich durch das Majorantenkriterium \\
-(Satz 3.17) folgendes schließen:
+Hinzukommend gilt $\forall k \geq 1\colon \sqrt{k}\leq k \,\Longleftrightarrow\, \frac{1}{\sqrt{k}}\geq \frac{1}{k}$.
+Somit lässt sich durch das\\
+Majorantenkriterium (Satz 3.17) folgendes schließen:
 
-Sei $\sum_{k=1}^{\infty} (d_k)_{k\in \mathbb{N}}= \sum_{k=1}^{\infty} \frac{1}{k}$ die
-harmonische Reihe. Wir wissen nach Satz 3.6, dass diese bestimmt gegen $\infty$ divergiert.
+Sei $\sum_{k=1}^{\infty} (d_k)_{k\in \mathbb{N}}= \sum_{k=1}^{\infty} \frac{1}{k}$
+die harmonische Reihe. Wir wissen nach Satz 3.6, dass diese\\
+bestimmt gegen $\infty$ divergiert.
 Weiterhin gilt:
 $$
-    \forall k \in \mathbb{N}\colon \frac{1}{\sqrt{k}} = |a_k| \geq d_k = \frac{1}{k} \geq 0
+    \forall k \in \mathbb{N}\colon |a_k| = \frac{1}{\sqrt{k}} \geq \frac{1}{k} = d_k \geq 0
 $$
 Somit divergiert die Reihe $\sum_{k=1}^{\infty}\left|\frac{(-1)^k}{\sqrt{k}}\right|$
 ebenfalls. Also ist die Reihe $\sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergent, aber nicht
@@ -175,18 +174,18 @@ $$
     \left|\frac{a^{k+1}}{a_k}\right|
     = \left|\frac{\dfrac{(k+1)^2}{2^{k+1}}}{{\dfrac{k^2}{2^k}}}\right|
     = \left|\frac{(k+1)^2 \cdot 2^k}{2^{k+1}\cdot k^2}\right|
-    = \left|\frac{(k+1)^2}{2\cdot k^2}\right|
-    = \left|\frac{k^2+2k+1}{2k^2} \right|
+    = \frac{(k+1)^2}{2\cdot k^2}
+    = \frac{k^2+2k+1}{2k^2}
     = \frac{1+\dfrac{2}{k}+\dfrac{1}{k^2}}{2}
 $$
 Wir betrachten nun $\displaystyle\lim_{k \to \infty}\limits \left|\frac{a_{k+1}}{a_k}\right|
-= \frac{1+\frac{2}{k}+\frac{1}{k^2}}{2}$. Da $1$ und $2$ konstante Folgen sind und
+= \frac{1+\frac{2}{k}+\frac{1}{k^2}}{2}$. Da 1 und 2 Konstanten sind und
 $x_k=\frac{2}{k}$ und $y_k=\frac{2}{k^2}$ Nullfolgen sind (Bsp. 1.11), lassen sich
 die Limitenregeln wie folgt anwenden:
 $$
     \lim_{k \to \infty} \frac{1+\frac{2}{k}+\frac{1}{k^2}}{2}
     = \frac{\lim_{k\to\infty}\limits1+\frac{2}{k}+\frac{1}{k^2}}{\lim_{k \to \infty}\limits 2}
-    = \frac{\lim_{k \to \infty}\limits 1 + \lim_{k \to \infty}\limits \frac{2}{k}+ \lim_{k \to \infty} \frac{1}{k^2}}{2}
+    = \frac{\lim_{k \to \infty}\limits 1 + \lim_{k \to \infty}\limits \frac{2}{k}+ \lim_{k \to \infty}\limits \frac{1}{k^2}}{2}
     = \frac{1+0+0}{2} = \frac{1}{2}
 $$
 Daher gilt das Quotientenkriterium für die gegebene Reihe:
@@ -199,20 +198,20 @@ absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16
 \textbf{d)}\\[5pt]
 \newpage
 \aufgabe{4}
-Da $\sum_{k=1}^{\infty} a_k$ absolut konvergiert, muss auch $\sum_{k=1}^{\infty} |a_k|$
-konvergieren. Nach Korollar 3.9 ist $|a_k|$ also eine Nullfolge.
+Da $\sum_{k=1}^{\infty} a_k$ absolut konvergiert, muss nach Definition auch
+$\sum_{k=1}^{\infty} |a_k|$ konvergieren.\\
+Nach Korollar 3.9 ist $|a_k|$ also eine Nullfolge.
 Also existiert ein $N \in \mathbb{N}$ sodass gilt:
 $$
     \forall k > N \colon |a_k| < 1
 $$
-Weiterhin gilt $x^2 < x$ für $|x| < 1$, also gibt es eine Majorante $|a_k|$ und ein
+Weiterhin gilt $x^2 < x$ für $|x| < 1$, also ist $|a_k|$ eine Majorante und es gibt ein
 $N \in \mathbb{N}$ sodass das Majorantenkriterium für ${a_k}^2$ gilt:
 $$
-    \forall k > N \colon |{a_k}|^2 \leq |a_k|
+    \forall k > N \colon |{a_k}^2| \leq |a_k|
 $$
 Damit gilt nach dem Majorantenkriterium, dass die Reihe $\sum_{k=1}^{\infty} {a_k}^2$
 absolut konvergiert und damit auch konvergiert.
-\newpage
 \aufgabe{5}
 $|e^x - s_n(x)|$ lässt sich wie folgt 
 nach oben abschätzen. Wir benutzen den Satz 3.5 der geometrischen Reihe (G) und
@@ -241,7 +240,7 @@ $$
 $$
 Durch ausprobieren von ein paar Werten für $n$ lässt sich dies schnell eingrenzen:
 $$
-    \frac{2}{(18+1)!} < \frac{e^{-1/2}}{10^16} < \frac{2}{(17+1)!}
+    \frac{2}{(18+1)!} < \frac{e^{-1/2}}{10^{16}} < \frac{2}{(17+1)!}
 $$
 Also kann die Gültigkeit dieser Ungleichung für alle $n\geq 18$ gewährleistet werden.
 \end{document}
