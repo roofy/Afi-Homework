@@ -143,6 +143,34 @@ $$
 $$
 \aufgabe{3}
 \textbf{a)}\\[5pt]
+Sei $(a_k)_{k \in \mathbb{N}} := (-1)^{k-1}\dfrac{2^k}{k^k}$. Wir betrachten
+
+$$
+    \left| \frac{a_{k+1}}{a_k}\right|
+    = \left|\frac{\left(\dfrac{(-1)^k\cdot2^{k+1}}{(k+1)^{k+1}}\right)}{\left(\dfrac{(-1)^{k-1}\cdot 2^k}{k^k}\right)}\right|
+    = \frac{\left(\dfrac{2^{k+1}}{(k+1)^{k+1}}\right)}{\left(\dfrac{2^k}{k^k}\right)}
+    = \frac{2^{k+1}\cdot k^k}{(k+1)^{k+1} \cdot 2^k} = \frac{2k^k}{(k+1)^{k+1}}
+$$$$
+    =\frac{2}{k+1} \cdot \left(\frac{k}{k+1}\right)^k \quad\up{=}{k\geq 0}\quad
+    \frac{2}{k+1} \cdot \frac{1}{\left(\frac{k+1}{k}\right)^k}
+    = \frac{2}{k+1} \cdot \frac{1}{\left(1+\frac{1}{k}\right)^k}
+$$
+
+Wir wissen aus Hausaufgabe 5, dass
+$$
+    \lim_{k \to \infty} \left(1+\frac{x}{k}\right)^k = e^x\quad \text{also auch}\quad
+    \lim_{k \to \infty} \frac{1}{\left(1+\frac{1}{k}\right)^k} = \frac{1}{e}
+$$
+Somit lassen sich die Grenzwertsätze wie folgt anwenden:
+$$
+    \lim_{k \to \infty} \left |\frac{a_{k+1}}{a_k}\right|
+    = \lim_{k \to \infty} \frac{2}{k+1} \cdot \frac{1}{\left(1+\frac{1}{k}\right)^k}
+    = \lim_{k \to \infty} \frac{2}{k+1} \cdot \lim_{k \to \infty} \frac{1}{\left(1+\frac{1}{k} \right)^k}
+    = 0 \cdot \frac{1}{e} = 0
+$$
+Damit gilt nun $\lim_{k \to \infty}\limits \left|\frac{a_{k+1}}{a_k} \right| < 1$ und nach dem
+Quotientenkriterium konvergiert die gegebene Reihe $\sum_{k=0}^{\infty} a_k$ absolut.
+Offensichtlich konvergiert die Reihe dann auch (3.14).
 
 \textbf{b)}\\[5pt]
 Wir wissen, dass $(a_n)_{n\in \mathbb{N}} = \frac{1}{\sqrt{n}}$ eine monoton fallende und
