@@ -52,8 +52,7 @@ Wir wissen weiterhin, dass $a_k \geq 0$ für alle $k \in \mathbb{N}$. Beweis (In
 $$
     \frac{3^1}{5^1+1} = \frac{3}{5} \geq 0
 $$
-Also gilt die Aussage für $k=1$.
-
+Also gilt die Aussage für $k=1$.\\
 \textbf{(IS)} Die Behauptung gelte für ein $k \in \mathbb{N}$. $k\mapsto k+1\colon$
 $$
     \frac{3^{k+1}}{5^{k+1}+1} = \frac{3^k\cdot3}{5^k\cdot5+1}
@@ -62,8 +61,7 @@ $$
 $$
 Wir wissen, dass $\displaystyle\frac{3^k}{5^k+1}\geq 0$, also folgt auch
 $\displaystyle\frac{3}{5} \cdot \frac{3^k}{5^k+1} \geq 0$.
-Insgesamt gilt also die Behauptung auch für $k+1$.
-
+Insgesamt gilt also die Behauptung auch für $k+1$.\\
 Damit ist $a_k$ stets größer 0 und es folgt $s_{n+1}-s_n = a_{k+1} \geq 0$. Also
 ist $s_n$ monoton wachsend.
 
@@ -73,7 +71,6 @@ $$
     \forall k \in \mathbb{N} \colon a_k = \frac{3^k}{5^k+1} \leq \frac{3^k}{5^k} \leq \frac{1}{5^k}
     = \left(\frac{1}{5}\right)^k
 $$
-\newpage
 \textbf{d)}\\[5pt]
 Da $\frac{1}{5}\neq1$ lässt sich die geometrische Summenformel (II Satz 3.5)
 wie folgt einsetzen:
@@ -156,7 +153,6 @@ $$$$
     \quad\up{=}{$k\geq 0$}\quad \frac{2}{k+1} \cdot \frac{1}{\left(\frac{k+1}{k}\right)^k}
     = \frac{2}{k+1} \cdot \frac{1}{\left(1+\frac{1}{k}\right)^k}
 $$
-
 Wir wissen aus Hausaufgabe 5, dass
 $$
     \lim_{k \to \infty} \left(1+\frac{x}{k}\right)^k = e^x\quad \text{also auch}\quad
@@ -171,20 +167,23 @@ $$
 $$
 Damit gilt nun $\lim_{k \to \infty}\limits \left|\frac{a_{k+1}}{a_k} \right| < 1$ und nach dem
 Quotientenkriterium konvergiert die gegebene Reihe $\sum_{k=0}^{\infty} a_k$ absolut.
-Offensichtlich konvergiert die Reihe dann auch (3.14).
+Offensichtlich konvergiert die Reihe dann auch (3.14).\\
 
 \textbf{b)}\\[5pt]
-Wir wissen, dass $(a_n)_{n\in \mathbb{N}} = \frac{1}{\sqrt{n}}$ eine monoton fallende und
+Wir wissen nach Skript und den letzten Hausaufgaben, dass
+$(a_n)_{n\in \mathbb{N}} = \dfrac{1}{\sqrt{n}}$ eine monoton fallende und
 reelle Nullfolge ist. Nach dem Leibniz-Kriterium (Satz 3.12) folgt dann, dass
-$\sum_{k=1}^{\infty} (-1)^ka_k = \sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergiert.
+$\displaystyle\sum_{k=1}^{\infty} (-1)^ka_k = \sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergiert.
 Weiterhin gilt
 $$
     \sum_{k=1}^{\infty} \left|\frac{(-1)^k}{\sqrt{k}}\right|
     = \sum_{k=1}^{\infty} \frac{1}{\sqrt{k}}
 $$
-Hinzukommend gilt $\forall k \geq 1\colon \sqrt{k}\leq k \,\Longleftrightarrow\, \frac{1}{\sqrt{k}}\geq \frac{1}{k}$.
-Somit lässt sich durch das\\
-Majorantenkriterium (Satz 3.17) folgendes schließen:
+Hinzukommend gilt
+$$
+    \forall k \geq 1\colon \sqrt{k}\leq k \,\Longleftrightarrow\, \frac{1}{\sqrt{k}}\geq \frac{1}{k}
+$$
+Somit lässt sich durch das Majorantenkriterium (Satz 3.17) folgendes schließen:
 
 Sei $\sum_{k=1}^{\infty} (d_k)_{k\in \mathbb{N}}= \sum_{k=1}^{\infty} \frac{1}{k}$
 die harmonische Reihe. Wir wissen nach Satz 3.6, dass diese\\
@@ -223,8 +222,29 @@ $$
 $$
 und somit ist die Reihe $\displaystyle\sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\infty} \frac{k^2}{2^k}$
 absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16).
-\newpage
+
 \textbf{d)}\\[5pt]
+\textbf{e)}\\[5pt]
+Die gegebene Reihe lässt sich wie folgt umformen
+$$
+    \sum_{k=0}^{\infty} \frac{\pi^k}{4^kk!}
+    = \sum_{k=0}^{\infty} \frac{\pi^k}{4^k}\cdot \frac{1}{k!}
+    = \sum_{k=0}^{\infty} \left(\frac{\pi}{4}\right)^k \cdot \frac{1}{k!}
+    = \sum_{k=0}^{\infty} \frac{\left(\frac{\pi}{4}\right)^k}{k!}
+$$
+Da $\frac{\pi}{4} \in \mathbb{R}$ gilt, folgt nach Satz 3.19:
+$$
+    \sum_{k=0}^{\infty} \frac{\left(\frac{\pi}{4}\right)^k}{k!}
+    = \exp\left(\frac{\pi}{4}\right)= e^{\pi/4}
+$$
+Weiterhin gilt
+$$
+    \sum_{k=0}^{\infty} \left|\frac{\left(\frac{\pi}{4}\right)^k}{k!} \right|
+    = \sum_{k=0}^{\infty}\frac{\left(\frac{\pi}{4}\right)^k}{k!} 
+$$
+
+Somit konvergiert die Reihe $\displaystyle\sum_{k=0}^{\infty} \frac{\pi^k}{4^kk!}$ generell
+und absolut gegen $e^{\pi/4}$.
 \newpage
 \aufgabe{4}
 Da $\sum_{k=1}^{\infty} a_k$ absolut konvergiert, muss nach Definition auch
