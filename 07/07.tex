@@ -224,7 +224,27 @@ und somit ist die Reihe $\displaystyle\sum_{k=1}^{\infty} a_k = \sum_{k=1}^{\inf
 absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16).
 
 \textbf{d)}\\[5pt]
-\textbf{FEHLT NOCH}\\
+Es sei $(a_k)_{k\in \mathbb{N}} := \dfrac{(-1)^kk}{k+1}$. Die Grenzwertsätze lassen sich
+wie folgt anwenden:
+$$
+    \displaystyle\lim_{k \to \infty} |a_k|
+    = \lim_{k \to \infty} \frac{k}{k+1}
+    = \lim_{k \to \infty} \frac{1}{1+\frac{1}{k}}
+    = \frac{\lim_{k \to \infty}\limits 1}{\lim_{k \to \infty}\limits 1 + \lim_{k \to \infty}\limits \frac{1}{k}}
+    = \frac{1}{1+0}
+    = 1
+$$
+Damit ist $|a_k|$ keine Nullfolge, und die Reihe $\sum_{k=0}^{\infty} |a_k|$ kann nicht
+konvergieren (3.9). Damit\\[2pt]
+kann die gegebene Reihe $\sum_{k=0}^{\infty} a_k$ nicht absolut konvergieren.
+Wir wissen nun, dass\\[2pt]
+$\frac{k}{k+1}$ für $k\to \infty$ gegen 1 konvergiert. Es folgt,
+dass $a_k$ im unendlichen zwischen $-\frac{1}{1} = -1$\\[2pt]
+und $\frac{1}{1} = 1$ alterniert, sich also wie die Folge $(-1)^k$ verhält, welche
+wie im Skript bewiesen\\[2pt]
+(1.10) unbestimmt divergiert. Da $a_k$ folglich keine Nullfolge sein
+kann, folgt, dass $\sum_{k=1}^{\infty} a_k$ nicht konvergiert (3.9).
+
 \textbf{e)}\\[5pt]
 Die gegebene Reihe lässt sich wie folgt umformen
 $$
@@ -237,9 +257,7 @@ Da $\frac{\pi}{4} \in \mathbb{R}$ gilt, folgt nach Satz 3.19:
 $$
     \sum_{k=0}^{\infty} \frac{\left(\frac{\pi}{4}\right)^k}{k!}
     = \exp\left(\frac{\pi}{4}\right)= e^{\pi/4}
-$$
-Weiterhin gilt
-$$
+    \quad\text{und außerdem}\quad
     \sum_{k=0}^{\infty} \left|\frac{\left(\frac{\pi}{4}\right)^k}{k!} \right|
     = \sum_{k=0}^{\infty}\frac{\left(\frac{\pi}{4}\right)^k}{k!} 
 $$
