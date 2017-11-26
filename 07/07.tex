@@ -68,22 +68,24 @@ ist $s_n$ monoton wachsend.
 \textbf{c)}\\[5pt]
 Es gilt:
 $$
-    \forall k \in \mathbb{N} \colon a_k = \frac{3^k}{5^k+1} \leq \frac{3^k}{5^k} \leq \frac{1}{5^k}
-    = \left(\frac{1}{5}\right)^k
+    \forall k \in \mathbb{N} \colon a_k
+    = \frac{3^k}{5^k+1}
+    \leq \frac{3^k}{5^k}
+    = \left(\frac{3}{5}\right)^k
 $$
 \textbf{d)}\\[5pt]
-Da $\frac{1}{5}\neq1$ lässt sich die geometrische Summenformel (II Satz 3.5)
+Da $\frac{3}{5}\neq1$ lässt sich die geometrische Summenformel (II Satz 3.5)
 wie folgt einsetzen:
 $$
-    \forall n \in \mathbb{N} \colon s_n = \sum_{k=1}^{n} a_k
-    \leq \sum_{k=1}^{n} \left(\frac{1}{5}\right)^k
-    = \frac{1-\left(\frac{1}{5}\right)^{n+1}}{1-\frac{1}{5}}
+    \forall n \in \mathbb{N} \colon s_n
+    = \sum_{k=1}^{n} a_k
+    \leq \sum_{k=1}^{n} \left(\frac{3}{5}\right)^k
+    = \frac{1-\left(\frac{3}{5}\right)^{n+1}}{1-\frac{3}{5}}
 $$
-Sei also $(c_n)_{n \in \mathbb{N}} := \sum_{k=1}^{n} \left(\frac{1}{5}\right)^k$.
+Sei also $(c_n)_{n \in \mathbb{N}} := \sum_{k=1}^{n} \left(\frac{3}{5}\right)^k$.
 Durch $\forall k \in \mathbb{N} \colon a_k \geq 0$ folgt $|a_k| = a_k$.\\
-Weiterhin gilt $\forall k \in N\colon a_k = |a_k| \leq c_k$. Da $c_k$ nach
-Satz 3.5 (geometrische Reihe) konvergiert, folgt nach dem Minorantenkriterium (3.17), dass
-auch $a_k$ konvergiert.
+Weiterhin gilt $\forall k \in N\colon a_k = |a_k| \leq c_k$. Da $\frac{3}{5}< 1$ gilt, konvergiert
+$c_k$ nach Satz 3.5 (geometrische Reihe), und es folgt nach dem Minorantenkriterium (3.17), dass auch $a_k$ konvergiert.
 \aufgabe{2}
 Wir wenden Partialbruchzerlegung auf den gegebenen Bruch an:
 $$
@@ -132,8 +134,10 @@ $$
 Insgesamt folgt also
 $$
     \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)} = \frac{3}{35}
+    \quad\text{und ausserdem}\quad
+    \left|\frac{1}{(2k+1)(2k+5)} \right| = \frac{1}{(2k+1)(2k+5)}
 $$
-Also konvergiert die Reihe
+Also konvergiert die Reihe absolut und damit auch generell
 $$
     (s_n)_{n\geq 2} := \sum_{k=2}^{\infty} \frac{1}{(2k+1)(2k+5)}\quad\text{mit}\quad
     \lim_{n \to \infty} s_n = \frac{3}{35}
@@ -170,7 +174,7 @@ Quotientenkriterium konvergiert die gegebene Reihe $\sum_{k=0}^{\infty} a_k$ abs
 Offensichtlich konvergiert die Reihe dann auch (3.14).\\
 
 \textbf{b)}\\[5pt]
-Wir wissen nach Skript und den letzten Hausaufgaben, dass
+Wir wissen nach Skript, dass
 $(a_n)_{n\in \mathbb{N}} = \dfrac{1}{\sqrt{n}}$ eine monoton fallende und
 reelle Nullfolge ist. Nach dem Leibniz-Kriterium (Satz 3.12) folgt dann, dass
 $\displaystyle\sum_{k=1}^{\infty} (-1)^ka_k = \sum_{k=1}^{\infty} \frac{(-1)^k}{\sqrt{k}}$ konvergiert.
@@ -225,7 +229,7 @@ absolut konvergent. Offensichtlich ist die Reihe dann auch konvergent (Satz 3.16
 
 \textbf{d)}\\[5pt]
 Es sei $(a_k)_{k\in \mathbb{N}} := \dfrac{(-1)^kk}{k+1}$. Die Grenzwertsätze lassen sich
-wie folgt anwenden:
+wieder wie folgt anwenden:
 $$
     \displaystyle\lim_{k \to \infty} |a_k|
     = \lim_{k \to \infty} \frac{k}{k+1}
@@ -234,9 +238,9 @@ $$
     = \frac{1}{1+0}
     = 1
 $$
-Damit ist $|a_k|$ keine Nullfolge, und die Reihe $\sum_{k=0}^{\infty} |a_k|$ kann nicht
+Damit ist $|a_k|$ keine Nullfolge, und die Reihe $\sum_{k=1}^{\infty} |a_k|$ kann nicht
 konvergieren (3.9). Damit\\[2pt]
-kann die gegebene Reihe $\sum_{k=0}^{\infty} a_k$ nicht absolut konvergieren.
+kann die gegebene Reihe $\sum_{k=1}^{\infty} a_k$ nicht absolut konvergieren.
 Wir wissen nun, dass\\[2pt]
 $\frac{k}{k+1}$ für $k\to \infty$ gegen 1 konvergiert. Es folgt,
 dass $a_k$ im unendlichen zwischen $-\frac{1}{1} = -1$\\[2pt]
@@ -262,8 +266,8 @@ $$
     = \sum_{k=0}^{\infty}\frac{\left(\frac{\pi}{4}\right)^k}{k!} 
 $$
 
-Somit konvergiert die Reihe $\displaystyle\sum_{k=0}^{\infty} \frac{\pi^k}{4^kk!}$ generell
-und absolut gegen $e^{\pi/4}$.
+Somit konvergiert die Reihe $\displaystyle\sum_{k=0}^{\infty} \frac{\pi^k}{4^kk!}$ absolut und
+damit auch generell gegen $e^{\pi/4}$.
 \newpage
 \aufgabe{4}
 Da $\sum_{k=1}^{\infty} a_k$ absolut konvergiert, muss nach Definition auch
@@ -279,11 +283,12 @@ $$
     \forall k > N \colon |{a_k}^2| \leq |a_k|
 $$
 Damit gilt nach dem Majorantenkriterium, dass die Reihe $\sum_{k=1}^{\infty} {a_k}^2$
-absolut konvergiert und damit auch konvergiert.
+absolut konvergiert und damit auch konvergiert (3.16).
 \aufgabe{5}
 $|e^x - s_n(x)|$ lässt sich wie folgt 
-nach oben abschätzen. Wir benutzen den Satz 3.5 der geometrischen Reihe (G) und
-dass $x\in \left(-\frac{1}{2},\frac{1}{2}\right)$ gilt (X):
+nach oben abschätzen. Wir benutzen den Satz 3.5 der\\
+geometrischen Reihe (gekennzeichnet G) und
+dass $x\in \left(-\frac{1}{2},\frac{1}{2}\right)$ gilt (gekz. X):
 $$
     |e^x-s_n(x)|
     \ =\ \left|\sum_{k=0}^{\infty} \frac{x^k}{k!} - \sum_{k=0}^{n} \frac{x^k}{k!}\right|
