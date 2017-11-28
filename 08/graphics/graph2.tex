@@ -1,0 +1,22 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{arrows,intersections}
+\begin{document}
+\begin{tikzpicture}
+    \begin{scope}[thick,font=\scriptsize]
+
+        \draw [->] (-5,0) -- (5,0) node [above left]  {Re$(z)$};
+        \draw [->] (0,-3) -- (0,3) node [below right] {Im$(z)$};
+
+        \draw [color=blue] (-5,2.2) -- (5,-1.8) node[pos=0.8, above right] {\large$M_2$};
+        \foreach \n in {-3,...,-2,-1,1,2,...,3}{%
+            \draw (\n,-3pt) -- (\n,3pt)   node [above] {$\n$};
+            \draw (-3pt,\n) -- (3pt,\n)   node [right] {$\n i$};
+        }
+            \draw (4,-3pt) -- (4,3pt)   node [above] {$4$};
+            \draw (-4,-3pt) -- (-4,3pt)   node [above] {$-4$};
+            \draw (5,-3pt) -- (5,3pt)   node [above] {$5$};
+            \draw (-5,-3pt) -- (-5,3pt)   node [above] {$-5$};
+    \end{scope}
+
+\end{tikzpicture}
+\end{document}
