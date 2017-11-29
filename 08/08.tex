@@ -9,7 +9,6 @@
 \usepackage{amsmath, tabu}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{complexity}
 \usepackage{mathtools}
 \usepackage{setspace}
 \usepackage{graphicx,color,curves,epsf,float,rotating}
@@ -121,6 +120,16 @@ $$
 Weiterhin wissen wir, dass für alle $a \in \mathbb{R}\colon a^2 \geq 0$, gilt und nehmen
 an, dass\\
 $\lnot(x = 1 \land y = 0) \,\Longrightarrow\, (x-1)^2+y^2 > 0$ gilt. Es folgt also:
+
+Es ist $y^2 \geq 0$ für alle $y \in \mathbb{R}$. Also gilt
+$$
+    \left( x^2-2x+1 \geq 0 \Longrightarrow x^2-2x+y^2+1 \geq 0 \right)
+    \Longleftrightarrow
+    \left( \left( x-1 \right)^2 \geq 0 \Longrightarrow x^2-2x+y^2+1 \geq 0 \right)
+$$
+Da $\left( x-1 \right)^2 \geq 0$ für alle $x \in \mathbb{R}$ gilt, ist der Nenner des Quotienten nie negativ.
+
+Also gilt
 $$
     \frac{1-x^2-y^2}{(x-1)^2+y^2} \geq 0
     \,\Longleftrightarrow\, 1-x^2-y^2 \geq 0
