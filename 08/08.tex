@@ -106,8 +106,8 @@ Also ist die Ungleichung für alle $z \in \mathbb{C}$ mit $\im(z) \leq 0$ erfül
 \qquad\qquad\qquad\includegraphics{graphics/graph5.pdf}\\
 \textbf{d)}
 Es seien $x,y \in \mathbb{R}$ mit $x=\re(z)$ und $y=\im(z)$.
-Grundsätzlich ist $\frac{z+1}{z-1}$ für $x=1$ und $y=0$ schonmal nicht definiert, da wir
-dann durch 0 teilen würden. Wir gehen also für weiter Rechnungen davon aus, dass
+$\frac{z+1}{z-1}$ ist für $x=1 \land y=0$ schonmal grundsätzlich nicht definiert, da wir
+dann durch 0 teilen würden. Wir gehen also für weitere Rechnungen davon aus, dass
 $x=1 \land y=0$ nicht eintreffen kann. Es gilt:
 $$
     \re\left(\frac{1+z}{1-z}\right)
@@ -134,7 +134,7 @@ der Lösungsmenge enthalten.
 \aufgabe{2}
 
 \textbf{a)}
-Mit $|z| = \sqrt{\re(z)^2+\im(z)^2}$ folgt
+Mit $|z| = \sqrt{\re(z)^2+\im(z)^2}$ folgt eine typische Kreisgleichung:
 \begin{center}
     \includegraphics{graphics/graph1.pdf}
 \end{center}
@@ -151,15 +151,16 @@ $$
     \re(z) + \im(z) -1 > 2
     \,\Longleftrightarrow\, \im(z) > 3-\re(z)
 $$
-Damit haben wir eine Geradengleichung. Alle werte ''über'' dieser gerade gehören zu $M_3$:\\
-\strut\qquad\qquad\qquad\qquad\quad\includegraphics[scale=0.86]{graphics/graph3.pdf}
+Damit haben wir eine lineare Ungleichung in 2 Variablen, welche sich als folgende
+Fläche darstellen lässt:\\
+\strut\qquad\qquad\qquad\qquad\quad\includegraphics[scale=0.84]{graphics/graph3.pdf}
 
 \textbf{d)}
 Aus $\re(z) \geq 0$ folgt, dass alle Elemente von $M_4$ schonmal im 1. Quadranten liegen
 müssen. Weiterhin muss $\im(z) \geq \re(z)$ gelten, also liegen alle Elemente von $M_4$
 überhalb und auf der Geradengleichung $\im(z) = \re(z)$. Als letztes muss $|z| < 9$ gelten
 wordurch das ganze mit dem Radius 9 beschränkt wird, daher das runde Ende:\\
-\strut\qquad\qquad\qquad\qquad\quad\includegraphics[scale=0.86]{graphics/graph4.pdf}
+\strut\qquad\qquad\qquad\qquad\quad\includegraphics[scale=0.85]{graphics/graph4.pdf}
 \newpage
 \aufgabe{3}
 Wir definieren:
@@ -173,13 +174,13 @@ Es gilt
 $$
     \forall n \in \mathbb{N}\colon i^{4n} = (i^2\cdot i^2)^n = ((-1)(-1))^n = 1^n = 1\\
 $$
-Es folgt
+Dann folgt
 \begin{align*}
     \forall n \in \mathbb{N}\colon i^{4n+1} = i^{4n} \cdot i = i\\
     \forall n \in \mathbb{N}\colon i^{4n+2} = i^{4n} \cdot i^2 = i^2 = -1\\
     \forall n \in \mathbb{N}\colon i^{4n+3} = i^{4n} \cdot i^3 = i^3 = -i
 \end{align*}
-Weiterhin seien:
+Weiterhin seien definiert:
 \begin{align*}
     &(w_n)_{n\in \mathbb{N}} := 4n&
     (x_n)_{n\in \mathbb{N}} := 4n+1\\
@@ -193,8 +194,9 @@ Dann gilt für alle $n\in \mathbb{N}$ stets:
     &d_n = -\left(1+\frac{1}{n^3}\right) = 5i^{4n+2}\left(1+\frac{1}{n^3}\right) = a_{y_n}&
     e_n = -i\cdot\left(1+\frac{1}{n^3}\right)=5i^{4n+3}\left(1+\frac{1}{n^3}\right) = a_{z_n}
 \end{align*}
-Folglich sind $b_n,c_n,d_n$ und $e_n$ alle Teilfolgen von $a_n$.
-Die Grenzwertsätze lassen sich wie folgt anwenden:
+Folglich sind $b_n,c_n,d_n$ und $e_n$ nach Definition Teilfolgen von $a_n$.
+Die Grenzwertsätze lassen sich dann wie folgt anwenden, da alle Teilfolgen nun
+nicht mehr alternieren:
 $$
     \lim_{n \to \infty} b_n
     = \lim_{n \to \infty} 1+ \lim_{n \to \infty} \frac{1}{n^3}
@@ -223,7 +225,7 @@ $$
 $$
 \newpage
 \aufgabe{4}
-Durch Benutzung des Cauchyprodukts (*) sowie der geometrischen Summenformel (**) folgt:
+Mit dem Cauchyprodukt (*) lässt sich wie folgt umformen:
 $$
     \sum_{k=1}^{\infty} kz^{k-1}
     = \sum_{k=0}^{\infty} (k+1)z^k
@@ -247,7 +249,9 @@ $N \in \mathbb{N}, N = N(\varepsilon)$ finden lässt sodass gilt:
 $$
     \forall n \geq N\colon |a_n - 0| = |a_n| < \varepsilon
 $$
-Nach Satz 1.6 c) folgt durch Induktion, dass $|z^{n+1}| = |z|^{n+1}$. Weiterhin ist $|z| \in \mathbb{R}$
+Nach Satz 1.6 c) folgt durch Induktion, dass $|z^{n+1}| = |z|^{n+1}$ (Prof. Stamm hat auf
+meine Frage hin versichert, dass dies hier nicht bewiesen werden muss, insofern erwähnt wird, dass
+es aus Induktion folgt). Weiterhin ist $|z| \in \mathbb{R}$
 und $|z| < 1$, also ist $|a_n| = |z|^{n+1}$ eine Nullfolge nach (III 1.14). Hinzukommend
 ist eine Nullfolge nach Definition auch konvergent. Also lässt sich ein $N\in \mathbb{N}$ 
 zu jedem $\varepsilon$ finden, sodass die Nullfolge $|z|^{n+1}$ konvergiert.
@@ -258,7 +262,7 @@ $$
 $$
 Folglich konvergiert $a_n = z^{n+1}$ ebenfalls gegen 0.
 
-Damit lässt sich nun mit Hilfe der Grenzwertsätze (Satz 2.4) folgern:
+Somit lässt sich nun mit Hilfe der Grenzwertsätze (Satz 2.4) folgern:
 $$
     \lim_{n \to \infty} \frac{1-z^{n+1}}{1-z}
     = \frac{\lim_{n \to \infty}\limits 1-z^{n+1}}{\lim_{n \to \infty}\limits 1-z}
