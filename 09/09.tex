@@ -1,0 +1,75 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 9}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{2}
+\textbf{a)}\\[5pt]
+Zuerst sollten wir die Gleichung so umformen, dass nur noch ein $x$ vorkommt:
+\begin{alignat*}{4}
+    &ax^2+bx+c\ &=\ & 0 &|&\div a\\[2pt]
+    &x^2+\frac{b}{a}x + \frac{c}{a}\ &=\ & 0 \quad &|& - \frac{c}{a}\\[2pt]
+    &x^2+\frac{b}{a}x\ &=\ & -\frac{c}{a}&|& + \left(\frac{b}{2a}\right)^2\\[2pt]
+    &x^2+\frac{b}{a}x\ + \left(\frac{b}{2a}\right)^2 &=\ & \left(\frac{b}{2a}\right)^2-\frac{c}{a}\quad&|&\ \text{quad. Ergänzung}\\[2pt]
+    &\left(x+ \frac{b}{2a}\right)^2&=\ & \left(\frac{b}{2a}\right)^2-\frac{c}{a}\quad&&
+\end{alignat*}
+Nun lässt sich die Gleichung nach $x$ lösen:
+\begin{alignat*}{4}
+    &\left(x+\frac{b}{2a}\right)^2 = \left(\frac{b}{2a}\right)^2 - \frac{c}{a}\quad&|& \sqrt{\ }\\[2pt]
+    &x+\frac{b}{2a} = \pm\sqrt{\left(\frac{b}{2a}\right)^2 - \frac{c}{a}}\quad&|& - \frac{b}{2a}\\[2pt]
+    &x = -\frac{b}{2a}\pm\sqrt{\left(\frac{b}{2a}\right)^2 - \frac{c}{a}} \\[2pt]
+\end{alignat*}
+Dies lässt sich weiter vereinfachen:
+$$
+    x = -\frac{b}{2a} \pm \sqrt{\left(\frac{b}{2a}\right)^2 -\frac{c}{a}}
+    \ =\ -\frac{b}{2a} \pm \sqrt{\left(\frac{b}{2a}\right)^2-\frac{c}{a}} \cdot \frac{2a}{2a}
+    \ =\ \frac{-b\pm \sqrt{\left(\frac{b}{2a}\right)^2\cdot (2a)^2-\frac{c}{a}\cdot (2a)^2}}{2a}
+$$$$
+    = \frac{-b\pm \sqrt{b^2-4ac}}{2a}
+$$
+Damit wären wir bei der allbekannten Mitternachtsformel. Die sogenannte Diskriminante,\\
+$b^2-4ac$, welche unter der Wurzel steht, bestimmt die Anzahl der Lösungen (Nullstellen).
+Gilt $b^2-4ac < 0$, so gibt es keine Lösungen (Nullstellen) in $\mathbb{R}$, gilt $b^2-4ac = 0$ so
+gibt es genau eine Lösung (Nullstelle) in $\mathbb{R}$, da stets $\pm\sqrt{0}= 0$ gilt. Ist $b^2-4ac > 0$ so gibt
+es genau 2 Lösungen (Nullstellen) in $\mathbb{R}$.
+\newpage
+\textbf{b)}
+
+
+
+
+
+
+
+\end{document}
