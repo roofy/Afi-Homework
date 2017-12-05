@@ -87,11 +87,81 @@ $$
 
 \textbf{c)}
 
-Oft gibt es für Polynome dieser Form (quadratisch bzw. biquadratisch) weniger als 2 bzw 4
-reelle Lösungen, da evtl. die Wurzel einer negativen Zahl gezogen wird.
-Wählt man jedoch $a,b,c \in \mathbb{C}$ und sucht nach komplexen Nullstellen,
-so wird man nach dem Fundamentalsatz der Algebra (IV 1.7) auch stets 2 bzw. 4, genauso viele
-wie der Grad des Polynoms, finden. Dies liegt grundlegend daran, dass die Gleichung
-$x = \sqrt{z}$ für $x,z \in \mathbb{C}$ stets in $\mathbb{C}$ lösbar ist, auch wenn $z \in \mathbb{R}$ mit $z < 0$, da $\sqrt{-1} = i$ gilt, wo $i$ die imaginäre Einheit von $\mathbb{C}$ ist.
+Wählt man nun $a,b,c \in \mathbb{C}$ und sucht nach komplexen Nullstellen,
+so wird man nach dem Fundamentalsatz der Algebra (IV 1.7) auch stets mindestens eine finden.
+Dies liegt grundlegend daran, dass die Gleichung $x = \sqrt{z}$ für $x,z \in \mathbb{C}$
+stets in $\mathbb{C}$ lösbar ist, auch wenn $z \in \mathbb{R}$ mit $z < 0$, da $\sqrt{-1} = i$
+gilt, wo $i$ die imaginäre Einheit von $\mathbb{C}$ ist.
 
+
+\aufgabe{3}
+\textbf{a)}
+
+Zu gegebenem $\varepsilon > 0$ wählen wir $0 < \delta < \varepsilon$. Da stets
+$x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$\\
+(II 2.8 a4 und II 2.12) gilt, folgt:
+$$
+    \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \colon
+    |f(x)-0| = \left|\frac{x^2}{|x|}\right| = \frac{x^2}{|x|} < \frac{\delta^2}{\delta} 
+    = \delta < \varepsilon
+$$
+Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
+
+\textbf{b)}
+
+
+\newpage
+\aufgabe{4}
+Wir benutzen im folgenden, dass $\lim_{x \to x_0}\limits f(x) = f(x_0)$ gilt, insofern $f$ an
+der Stelle $x_0$ definiert ist. Dies ist zu interpretieren als eine unendlich nahe
+Annäherung von $x$ an $x_0$, was in diesen Fällen eben äquivalent zum Einsetzen von $x_0$ in
+$f$ ist.
+
+\textbf{a)}
+
+Da $f$ im Punkt $-1$ definiert ist, lässt sich $x\to-1$ durch Einsetzen von -1 unendlich
+nahe approximieren:
+$$
+    \lim_{x \to -1} f(x)
+    = \lim_{x \to -1} \frac{3x-1}{2x-2}
+    = \frac{3(-1)-1}{2(-1)-2} 
+    = \frac{-4}{-4}
+    = 1
+$$
+
+\textbf{b)}
+
+Die gegebene Funktion lässt sich wie folgt umformen:
+$$
+    g(x) = \frac{1}{2-x} - \frac{12}{8-x^3}
+    = \frac{1}{2-x} - \frac{12}{(2-x)(x^2+2x+4)} 
+    = \frac{x^2+2x+4-12}{(2-x)(x^2+2x+4)}
+$$$$
+    = \frac{(x-2)(x+4)}{-(x-2)(x^2+2x+4)}
+    = -\frac{x+4}{x^2+2x+4}
+$$
+Nun lässt sich 2 einsetzen, um 2 mit $x$ unendlich nahe zu approximieren:
+$$
+    \lim_{x \to 2} g(x)
+    = \lim_{x \to 2} \frac{1}{2-x} - \frac{12}{8-x^3}
+    = \lim_{x \to 2} -\frac{x+4}{x^2+2x+4}
+    = - \frac{2+4}{2^2+2\cdot 2 +4}
+    = -\frac{1}{2}
+$$
+
+\textbf{c)}
+
+Die gegebene Funktion lässt sich wieder umformen, sodass der Grenzwert wie in den vorherigen
+Aufgabenteilen durch Einsetzen bestimmt werden kann. Mit Polynomdivision folgt:
+$$
+    h(x) = \frac{2x^4-6x^3+x^2+3}{x-1} = 2x^3-4x^2-3x-3
+$$
+Dieses Polynom ist für $x=1$ definiert. Somit gilt:
+$$
+    \lim_{x \to 1} h(x)
+    = \lim_{x \to 1} \frac{2x^4-6x^3+x^2+3}{x-1}
+    = \lim_{x \to 1} 2x^3-4x^2-3x-3
+$$$$
+    = 2(1)^3-4(1)^2-3(1)-3 = -8
+$$
 \end{document}
