@@ -34,6 +34,55 @@
 
 
 
+\aufgabe{1}
+\textbf{a)}
+
+Die Exponentialfunktion $\exp(x)$ ist grundsätzlich für ganz $\mathbb{R}$ definiert.
+Wir können in der gegebenen Funktion nie durch 0 teilen noch die Wurzel einer
+negativen Zahl ziehen. Es folgt, dass der maximale Definitionsbereich der
+reellen Funktion $\exp(1-4x^2)$ durch $\mathbb{R}$ gegeben ist.
+
+\textbf{b) (i)}\\
+Das größte offene Intervall in dem die Funktion streng monoton steigend ist, ist
+$(-\infty, 0)$. Das größte offene Intervall in dem die Funktion streng monoton
+fallend ist, ist $(0, \infty)$.
+
+\textbf{(ii)}\\
+Die Funktion ist im Intervall $(-\infty, 0)$ streng monoton steigend,
+da die Exponentialfunktion streng monoton wachsend ist (III 3.21 c) und
+das Polynom $1-4x^2$ im Intervall $(-\infty, 0)$ ebenfalls streng monoton wächst.\\
+Die Funktion ist im Intervall $(0, \infty)$ streng monoton fallend,
+da die Exponentialfunktion streng monoton wachsend ist (III 3.21 c) und
+das Polynom $1-4x^2$ im Intervall $(0, \infty)$ streng monoton fällt, somit
+also die ''Eingabe'' von $\exp$ immer geringer wird, also Insgesamt auch monoton fällt.
+
+\textbf{(iii)}\\
+Wenn man nun die Intervall $(-\infty, 0]$ und $[0, \infty)$ betrachtet, ändert sich
+nichts daran, dass $f$ in diesen streng monoton wächst bzw. fällt, denn für
+$|x| > 0$ folgt $x^2 > 0^2 = 0$ und damit $1-4\cdot0^2 > 1-4x^2$, d.h.
+$f(0) > f(x)$ für $x \in (-\infty, 0)$ oder $x \in (0, \infty)$. Also
+bleibt $f$ in beiden nun geschlossenen Intervallen streng monoton steigend bzw. fallend.
+\textbf{EVTL. VERBESSERUNG}
+
+\textbf{c)}
+
+Für $x \in \mathbb{R}$ gilt grundsätzlich $\exp(x) > 0$ (III 3.21 b), also kann die
+Exponentialfunktion keine Nullstellen besitzen. Damit kann die gegebene Funktion
+ebenfalls keine Nullstellen besitzen.
+
+Da wir in Aufgabenteil b) festgestellt haben, dass $f$ im Intervall $(-\infty, 0]$
+streng monoton wächst und im Intervall $[0, \infty)$ streng monoton fällt, folgt,
+dass $\forall x \in \mathbb{R}\colon f(0) > f(x)$ gilt. Damit ist 0 eine Extremal-
+und insbesondere auch Maximalstelle von $f$. Hinzukommend kann es keine weiteren
+(lokalen) Maximal- bzw. Minimalstellen geben. Denn es folgt aus der strengen Monotonie:
+
+Es gilt für jedes $x \in (-\infty, 0)$, dass $y, z \in (-\infty, 0)$ mit $y<x<z$ existieren.
+Analog gilt für jedes $x \in (0, \infty)$, dass $y,z \in (0, \infty)$ mit
+$y<x<z$ existieren.\\
+Insgesamt gilt aber $\{0\}\cup(-\infty,0)\cup(0,\infty) = \mathbb{R}$.
+Somit kann es abgesehen von 0 keine weiteren Extremalwerte für $f$ geben.
+
+\newpage
 \aufgabe{2}
 \textbf{a)}\\[5pt]
 Zuerst sollten wir die Gleichung so umformen, dass nur noch ein $x$ vorkommt:
@@ -108,7 +157,7 @@ $$
 Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 
 \textbf{b)}
-
+\textbf{FEHLT NOCH}
 
 \newpage
 \aufgabe{4}
@@ -210,5 +259,4 @@ $$
     = - \frac{1}{2+2}
     = -\frac{1}{4}
 $$
-
 \end{document}
