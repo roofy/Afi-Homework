@@ -9,7 +9,6 @@
 \usepackage{amsmath, tabu}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{complexity}
 \usepackage{mathtools}
 \usepackage{setspace}
 \usepackage{graphicx,color,curves,epsf,float,rotating}
@@ -48,20 +47,22 @@ $(-\infty, 0)$. Das größte offene Intervall in dem die Funktion streng monoton
 fallend ist, ist $(0, \infty)$.
 
 \textbf{(ii)}\\
-Die Funktion ist im Intervall $(-\infty, 0)$ streng monoton steigend,
-da die Exponentialfunktion streng monoton wachsend ist (III 3.21 c) und
-das Polynom $1-4x^2$ im Intervall $(-\infty, 0)$ ebenfalls streng monoton wächst.\\
-Die Funktion ist im Intervall $(0, \infty)$ streng monoton fallend,
-da die Exponentialfunktion streng monoton wachsend ist (III 3.21 c) und
-das Polynom $1-4x^2$ im Intervall $(0, \infty)$ streng monoton fällt, somit
-also die ''Eingabe'' von $\exp$ immer geringer wird, also Insgesamt auch monoton fällt.
+Seien $x,y \in \mathbb{R}$ mit $x<y$ gegeben.
+
+Falls $x,y \in (-\infty, 0)$, dann gilt $1-4x^2 < 1-4y^2$ und da die Exponentialfunktion
+streng monoton wachsend ist (III 3.21 c) auch $\exp(1-4x^2) < \exp(1-4y^2)$.
+Also ist $\exp(1-4x^2)$ streng monoton wachsend im Intervall $(-\infty, 0)$ (V 1.7a).
+
+Falls $x,y \in (0, \infty)$, dann gilt $1-4x^2 > 1-4y^2$ und da die Exponentialfunktion
+streng monoton wachsend ist (III 3.21 c) auch $\exp(1-4x^2) > \exp(1-4y^2)$.
+Also ist $\exp(1-4x^2)$ streng monoton fallend im Intervall $(-\infty, 0)$ (V 1.7b).
 
 \textbf{(iii)}\\
-Wenn man nun die Intervall $(-\infty, 0]$ und $[0, \infty)$ betrachtet, ändert sich
+Wenn man nun die Intervalle $(-\infty, 0]$ und $[0, \infty)$ betrachtet, ändert sich
 nichts daran, dass $f$ in diesen streng monoton wächst bzw. fällt, denn für
 $|x| > 0$ folgt $x^2 > 0^2 = 0$ und damit $1-4\cdot0^2 > 1-4x^2$, d.h.
 $f(0) > f(x)$ für $x \in (-\infty, 0)$ oder $x \in (0, \infty)$. Also
-bleibt $f$ in beiden nun geschlossenen Intervallen streng monoton steigend bzw. fallend.
+bleibt $f$ in beiden halboffenen Intervallen streng monoton steigend bzw. fallend.
 \textbf{EVTL. VERBESSERUNG}
 
 \textbf{c)}
