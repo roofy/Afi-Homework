@@ -151,14 +151,34 @@ Zu gegebenem $\varepsilon > 0$ wählen wir $0 < \delta < \varepsilon$. Da stets
 $x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$\\
 (II 2.8 a4 und II 2.12) gilt, folgt:
 $$
-    \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \colon
+    \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \Longrightarrow
     |f(x)-0| = \left|\frac{x^2}{|x|}\right| = \frac{x^2}{|x|} < \frac{\delta^2}{\delta} 
     = \delta < \varepsilon
 $$
 Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 
 \textbf{b)}
-\textbf{FEHLT NOCH}
+Wegen $1 \not\in [0,1) \cup (1,2]$ gilt
+$$
+	g(x) = \frac{x^3+x^2-x-1}{x-1} = \frac{(x-1)(x+1)^2}{x+1} = (x+1)^2
+$$
+
+Seien $x \in [0,1) \cup (1,2]$ und $\delta > 0$. $\varepsilon$ sei so gewählt, dass $\delta^2 < \varepsilon$. Außerdem gelte
+$$
+	|x-1| < \delta
+	\Leftrightarrow |x| + 1 < \delta
+$$
+
+Nun ist
+$$
+	|g(x) - g(1)| = |(x+1)^2 - 4| \leq |(|x|+1)^2 - 4| < |\delta^2 - 4| < \varepsilon
+$$
+
+Folglich gilt die Definition des Grenzwerts
+$$
+	\forall x \in [0,1) \cup (1,2]:\ |x-1| < \delta \Rightarrow |f(x)-f(1)| < \varepsilon
+$$
+Also $\lim_{x \to 1}\limits f(x) = 4$.
 
 \newpage
 \aufgabe{4}
