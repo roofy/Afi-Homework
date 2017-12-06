@@ -160,25 +160,25 @@ Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 \textbf{b)}
 Wegen $1 \not\in [0,1) \cup (1,2]$ gilt
 $$
-	g(x) = \frac{x^3+x^2-x-1}{x-1} = \frac{(x-1)(x+1)^2}{x+1} = (x+1)^2
+	g(x) = \frac{x^3+x^2-x-1}{x-1} = \frac{(x-1)(x+1)^2}{x-1} = (x+1)^2
 $$
 
-Seien $x \in [0,1) \cup (1,2]$ und $\delta > 0$. $\varepsilon$ sei so gewählt, dass $\delta^2 < \varepsilon$. Außerdem gelte
+Seien $x \in [0,1) \cup (1,2]$ und $\epsilon > 0$. $\delta$ sei so gewählt, dass $\delta < \frac{\varepsilon}{5}$. Außerdem gelte
 $$
 	|x-1| < \delta
-	\Leftrightarrow |x| + 1 < \delta
+	\Leftrightarrow |x| + 1 = x + 1 < \delta
 $$
 
 Nun ist
 $$
-	|g(x) - g(1)| = |(x+1)^2 - 4| \leq |(|x|+1)^2 - 4| < |\delta^2 - 4| < \varepsilon
+	|(x+1)^2-4| \leq (x+1)^2 + 4 \leq 5(x+1) < 5 \delta < \varepsilon
 $$
 
 Folglich gilt die Definition des Grenzwerts
 $$
-	\forall x \in [0,1) \cup (1,2]:\ |x-1| < \delta \Rightarrow |f(x)-f(1)| < \varepsilon
+	\forall x \in [0,1) \cup (1,2]:\ |x-1| < \delta \Rightarrow |g(x)-g(1)| < \varepsilon
 $$
-Also $\lim_{x \to 1}\limits f(x) = 4$.
+Also $\lim_{x \to 1}\limits g(x) = 4$.
 
 \newpage
 \aufgabe{4}
