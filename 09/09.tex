@@ -148,10 +148,10 @@ gilt, wo $i$ die imaginäre Einheit von $\mathbb{C}$ ist.
 \textbf{a)}
 
 Zu gegebenem $\varepsilon > 0$ wählen wir $0 < \delta < \varepsilon$. Da stets
-$x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$\\
-(II 2.8 a4 und II 2.12) gilt, folgt:
+$x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$ gilt\\
+(II 2.8 a4 und II 2.12), folgt:
 $$
-    \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \Longrightarrow
+    \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \colon
     |f(x)-0| = \left|\frac{x^2}{|x|}\right| = \frac{x^2}{|x|} < \frac{\delta^2}{\delta} 
     = \delta < \varepsilon
 $$
@@ -159,13 +159,17 @@ Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 
 \textbf{b)}
 \textbf{FEHLT NOCH}
+$$
+
+
+$$
 
 \newpage
 \aufgabe{4}
 Wir benutzen im folgenden, dass $\lim_{x \to x_0}\limits f(x) = f(x_0)$ gilt, insofern $f$ an
 der Stelle $x_0$ definiert ist. Dies ist zu interpretieren als eine unendlich nahe
 Annäherung von $x$ an $x_0$, was in diesen Fällen eben äquivalent zum Einsetzen von $x_0$ in
-$f$ ist.
+$f$ ist (Siehe Satz 1.6).
 
 \textbf{a)}
 
@@ -224,15 +228,31 @@ Die gegebene Funktion lässt sich wie folgt umschreiben:
 $$
     f(x) = \frac{x^4-2x}{2x^4+1} = \frac{1-\dfrac{2}{x^3}}{2+\dfrac{1}{x^4}}
 $$
-Wir wissen mittlerweile, dass $\lim_{x \to \infty}\limits \dfrac{c}{x^n}$ für
-$n \in \mathbb{N}$ und eine Konstante $c \in \mathbb{R}$ gegen 0 konvergiert.\\[2pt]
-Dies ist nicht nur bei Folgen so.
-Grundsätzlich folgt dies aus dem Satz von Archimedes (II 4.10), also
-daraus dass $\mathbb{N}$ in $\mathbb{R}$ nicht nach oben beschränkt ist, da dann
-zu jedem $x \in \mathbb{R}$ ein $x' \in \mathbb{N}$ mit $x'>x$ existiert, wobei
-dann die Folge $\left(\dfrac{c}{x'^n}\right)_{x \in \mathbb{N}}$ eine Nullfolge ist.\\[2pt]
-Weiterhin konvergieren auch konstante Funktionen gegen ihre Konstante.
-Insgesamt sind Nenner und Zähler konvergent, sodass folgt:
+Wir zeigen, dass $\dfrac{c}{x^n}$ mit $c \in \mathbb{R}$ und $n\in \mathbb{N}$ für $x\to \infty$ gegen 0 konvergiert.\\
+Nach Beispiel 1.13 a) ist $f(x) = \frac{1}{x}$ konvergent gegen 0 (*). Nun lassen sich
+die Grenzwertsätze\\
+(Satz 1.5) anwenden (**). Für $\frac{1}{x^n}$ mit $n \in \mathbb{N}$ folgt:
+$$
+    \lim_{x \to \infty} \frac{1}{x^n}
+    = \lim_{x \to \infty} \prod_{k=1}^{n} \frac{1}{x}
+    \up{=}{**} \prod_{k=1}^{n} \lim_{x \to \infty} \frac{1}{x}
+    \up{=}{*} \prod_{k=1}^{n} 0 = 0
+$$
+Damit ist $f_n(x) = \frac{1}{x^n}$ mit $n \in \mathbb{N}$ für $x\to \infty$ kovergent gegen
+0. Sei nun ein beliebiges $c \in \mathbb{R}$\\
+gegeben. Wir wissen $f_n(x) = \dfrac{1}{x^n}$ konvergiert für
+$n\in \mathbb{N}$ (*), die konstante Funktion ist grundsätzlich konvergent und können
+wieder die Grenzwertsätze anwenden (**).
+Für $\dfrac{c}{x^n}$ mit $n \in \mathbb{N}$ folgt:
+$$
+    \lim_{x \to \infty} \frac{c}{x^n}
+    = \lim_{x \to \infty} c\cdot \frac{1}{x^n}
+    = \lim_{x \to \infty} c \cdot \lim_{x \to \infty} \frac{1}{x^n}
+    = c \cdot 0 = 0
+$$
+Insgesamt ist $\dfrac{c}{x^n}$ mit beliebigen $c \in \mathbb{R}, n \in \mathbb{N}$
+für $x \to \infty$ konvegent gegen 0. Damit sind Nenner und Zähler unserer umgeformten
+Funktion ebenfalls konvergent und die Grenzwertsätze lassen sich wie folgt anwenden:
 $$
     \lim_{x \to \infty} f(x)
     = \lim_{x \to \infty} \frac{1-\dfrac{2}{x^3}}{2+\dfrac{1}{x^4}}
