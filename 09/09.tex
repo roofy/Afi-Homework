@@ -147,22 +147,33 @@ gilt, wo $i$ die imaginäre Einheit von $\mathbb{C}$ ist.
 \aufgabe{3}
 \textbf{a)}
 
-Zu gegebenem $\varepsilon > 0$ wählen wir $0 < \delta < \varepsilon$. Da stets
+Zu gegebenem $\varepsilon > 0$ wählen wir $\delta = \varepsilon$. Da stets
 $x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$ gilt\\
 (II 2.8 a4 und II 2.12), folgt:
 $$
     \forall x \in \mathbb{R}\setminus \{0\},\ |x-0| < \delta \colon
     |f(x)-0| = \left|\frac{x^2}{|x|}\right| = \frac{x^2}{|x|} < \frac{\delta^2}{\delta} 
-    = \delta < \varepsilon
+    = \delta = \varepsilon
 $$
 Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 
 \textbf{b)}
-\textbf{FEHLT NOCH}
+Wir benutzen Polynomdivision (*) und die gegebenen Eigenschaften, dass stets $0\leq x \leq 2$ (**),
+sowie die Betragssätze (II 2.12) (***).
+Zu gegebenem $\varepsilon > 0$ wähle $\delta = \dfrac{\varepsilon}{5}$. Es folgt:
 $$
-
-
+    \forall x \in [0,1)\cup(1,2],\ |x-1| < \delta \colon
+    |f(x) - 4|
+    \up{=}{*} |x^2+2x+1 - 4|
+    = |(x-1)(x+3)|
+$$$$
+    \up{=}{***} |x-1|\cdot|x+3|
+    < \delta|x+3|
+    \up{=}{**} x\delta + 3\delta
+    \up{\leq}{**} 5\delta
+    = \varepsilon
 $$
+Somit gilt $\lim_{x \to 1} f(x) = 4$.
 
 \newpage
 \aufgabe{4}
