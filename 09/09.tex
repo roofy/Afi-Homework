@@ -63,7 +63,6 @@ nichts daran, dass $f$ in diesen streng monoton wächst bzw. fällt, denn für
 $|x| > 0$ folgt $x^2 > 0^2 = 0$ und damit $1-4\cdot0^2 > 1-4x^2$, d.h.
 $f(0) > f(x)$ für $x \in (-\infty, 0)$ oder $x \in (0, \infty)$. Also
 bleibt $f$ in beiden halboffenen Intervallen streng monoton steigend bzw. fallend.
-\textbf{EVTL. VERBESSERUNG}
 
 \textbf{c)}
 
@@ -98,7 +97,7 @@ Nun lässt sich die Gleichung nach $x$ lösen:
 \begin{alignat*}{4}
     &\left(x+\frac{b}{2a}\right)^2 = \left(\frac{b}{2a}\right)^2 - \frac{c}{a}\quad&|& \sqrt{\ }\\[2pt]
     &x+\frac{b}{2a} = \pm\sqrt{\left(\frac{b}{2a}\right)^2 - \frac{c}{a}}\quad&|& - \frac{b}{2a}\\[2pt]
-    &x = -\frac{b}{2a}\pm\sqrt{\left(\frac{b}{2a}\right)^2 - \frac{c}{a}} \\[2pt]
+    &x = -\frac{b}{2a}\pm\sqrt{\left(\frac{b}{2a}\right)^2 - \frac{c}{a}}
 \end{alignat*}
 Dies lässt sich weiter vereinfachen:
 $$
@@ -113,9 +112,8 @@ $b^2-4ac$, welche unter der Wurzel steht, bestimmt die Anzahl der Lösungen (Nul
 Gilt $b^2-4ac < 0$, so gibt es keine Lösungen (Nullstellen) in $\mathbb{R}$, gilt $b^2-4ac = 0$ so
 gibt es genau eine Lösung (Nullstelle) in $\mathbb{R}$, da stets $\pm\sqrt{0}= 0$ gilt. Ist $b^2-4ac > 0$ so gibt
 es genau 2 Lösungen (Nullstellen) in $\mathbb{R}$.
-\newpage
-\textbf{b)}
 
+\textbf{b)}\\
 Hier lässt sich einfach $z = x^2$ substituieren. Dann lassen sich die Nullstellen dieses
 Polynoms in $z$ wie in a) beschrieben finden:
 $$
@@ -134,7 +132,7 @@ Insgesamt lässt sich dies auch alles in einem schreiben:
 $$
     x = \pm\sqrt{\frac{-b\pm \sqrt{b^2-4ac}}{2a}}
 $$
-
+\newpage
 \textbf{c)}
 
 Wählt man nun $a,b,c \in \mathbb{C}$ und sucht nach komplexen Nullstellen,
@@ -145,8 +143,7 @@ gilt, wo $i$ die imaginäre Einheit von $\mathbb{C}$ ist.
 
 
 \aufgabe{3}
-\textbf{a)}
-
+\textbf{a)}\\
 Zu gegebenem $\varepsilon > 0$ wählen wir $\delta = \varepsilon$. Da stets
 $x^2 > 0$  sowie $|x| > 0$ für $x \in \mathbb{R}\setminus\{0\}$ gilt\\
 (II 2.8 a4 und II 2.12), folgt:
@@ -157,8 +154,7 @@ $$
 $$
 Somit gilt $\lim_{x \to 0}\limits f(x) = 0$.
 
-\textbf{b)}
-
+\textbf{b)}\\
 Wir benutzen Polynomdivision (*) und die gegebenen Eigenschaften, dass stets $0\leq x \leq 2$ (**),
 sowie die Betragssätze (II 2.12) (***).
 Zu gegebenem $\varepsilon > 0$ wähle $\delta = \dfrac{\varepsilon}{5}$. Es folgt:
@@ -175,18 +171,14 @@ $$$$
     = \varepsilon
 $$
 Somit gilt $\lim_{x \to 1}\limits f(x) = 4$.
-
-\newpage
 \aufgabe{4}
 Wir benutzen im folgenden, dass $\lim_{x \to x_0}\limits f(x) = f(x_0)$ gilt, insofern $f$ an
 der Stelle $x_0$ definiert ist. Dies ist zu interpretieren als eine unendlich nahe
 Annäherung von $x$ an $x_0$, was in diesen Fällen eben äquivalent zum Einsetzen von $x_0$ in
 $f$ ist (Siehe Satz 1.6).
 
-\textbf{a)}
-
-Da $f$ im Punkt $-1$ definiert ist, lässt sich $x\to-1$ durch Einsetzen von -1 unendlich
-nahe approximieren:
+\textbf{a)}\\
+Da $f$ im Punkt $-1$ definiert ist, durch Einsetzen von $-1$ in $f$ berechnen:
 $$
     \lim_{x \to -1} f(x)
     = \lim_{x \to -1} \frac{3x-1}{2x-2}
@@ -195,8 +187,7 @@ $$
     = 1
 $$
 
-\textbf{b)}
-
+\textbf{b)}\\
 Die gegebene Funktion lässt sich wie folgt umformen:
 $$
     g(x) = \frac{1}{2-x} - \frac{12}{8-x^3}
@@ -206,7 +197,7 @@ $$$$
     = \frac{(x-2)(x+4)}{-(x-2)(x^2+2x+4)}
     = -\frac{x+4}{x^2+2x+4}
 $$
-Nun lässt sich 2 einsetzen, um 2 mit $x$ unendlich nahe zu approximieren:
+Nun lässt sich 2 einsetzen, um den Grenzwert zu berechnen:
 $$
     \lim_{x \to 2} g(x)
     = \lim_{x \to 2} \frac{1}{2-x} - \frac{12}{8-x^3}
@@ -230,20 +221,18 @@ $$
 $$$$
     = 2(1)^3-4(1)^2-3(1)-3 = -8
 $$
-
-\newpage
-
 \aufgabe{5}
-\textbf{(i)}
-
+\textbf{(i)}\\
 Die gegebene Funktion lässt sich wie folgt umschreiben:
 $$
     f(x) = \frac{x^4-2x}{2x^4+1} = \frac{1-\dfrac{2}{x^3}}{2+\dfrac{1}{x^4}}
 $$
 Wir zeigen, dass $\dfrac{c}{x^n}$ mit $c \in \mathbb{R}$ und $n\in \mathbb{N}$ für $x\to \infty$ gegen 0 konvergiert.\\
-Nach Beispiel 1.13 a) ist $f(x) = \frac{1}{x}$ konvergent gegen 0 (*). Nun lassen sich
-die Grenzwertsätze\\
-(Satz 1.5), welche nach Bemerkung (1.14) auch für $\lim_{n \to \infty}\limits$ gelten, anwenden (**). Für $\frac{1}{x^n}$ mit $n \in \mathbb{N}$ folgt:
+Nach Beispiel 1.13 a) ist $f(x) = \frac{1}{x}$ konvergent gegen 0 (*). Mit den Grenzwertsätzen
+(Satz 1.5), welche nach Bemerkung (1.14) auch für $\lim_{n \to \infty}\limits$ gelten,
+lässt sich einfach mit Induktion zeigen, dass
+$\lim_{x \to \infty}\limits \prod g(x) = \prod \lim_{x \to \infty}\limits g(x)$ gilt (**).
+Für $\frac{1}{x^n}$ mit $n \in \mathbb{N}$ folgt:
 $$
     \lim_{x \to \infty} \frac{1}{x^n}
     = \lim_{x \to \infty} \prod_{k=1}^{n} \frac{1}{x}
@@ -252,17 +241,17 @@ $$
 $$
 Damit ist $f_n(x) = \frac{1}{x^n}$ mit $n \in \mathbb{N}$ für $x\to \infty$ kovergent gegen
 0. Sei nun ein beliebiges $c \in \mathbb{R}$\\
-gegeben. Wir wissen $f_n(x) = \dfrac{1}{x^n}$ konvergiert für
+gegeben. Wir wissen $f_n(x) = \frac{1}{x^n}$ konvergiert für
 $n\in \mathbb{N}$ (*), die konstante Funktion ist grundsätzlich konvergent und können
 wieder die Grenzwertsätze anwenden (**).
-Für $\dfrac{c}{x^n}$ mit $n \in \mathbb{N}$ folgt:
+Für $\frac{c}{x^n}$ mit $n \in \mathbb{N}$ folgt:
 $$
     \lim_{x \to \infty} \frac{c}{x^n}
     = \lim_{x \to \infty} c\cdot \frac{1}{x^n}
     = \lim_{x \to \infty} c \cdot \lim_{x \to \infty} \frac{1}{x^n}
     = c \cdot 0 = 0
 $$
-Insgesamt ist $\dfrac{c}{x^n}$ mit beliebigen $c \in \mathbb{R}, n \in \mathbb{N}$
+Insgesamt ist $\frac{c}{x^n}$ mit beliebigen $c \in \mathbb{R}, n \in \mathbb{N}$
 für $x \to \infty$ konvegent gegen 0. Damit sind Nenner und Zähler unserer umgeformten
 Funktion ebenfalls konvergent und die Grenzwertsätze lassen sich wie folgt anwenden:
 $$
@@ -276,8 +265,8 @@ $$
 
 \textbf{(ii)}
 
-Dies lässt sich analog zu den Teilaufgaben aus Nr. 4 umformen, um dann durch Einsetzen,
-unendlich nahe zu approximieren. Die gegebene Funktion lässt sich wie folgt umformen:
+Dies lässt sich analog zu den Teilaufgaben aus Nr. 4 umformen, um dann durch Einsetzen
+unendlich nahe zu approximieren und den Grenzwert zu berechnen. Die gegebene Funktion lässt sich wie folgt umformen:
 $$
     g(x) = \frac{1}{2-x} - \frac{4}{4-x^2}
     = \frac{1}{2-x} - \frac{4}{(2-x)(2+x)}
