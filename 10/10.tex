@@ -1,0 +1,119 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 10}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\textbf{a)}
+
+Für den Grenzwert $\lim_{x \downarrow 3}\limits f(x)$ gilt stets $x > 3$ und damit
+$|x-3| = x-3 > 0$, also auch:
+$$
+    \lim_{x \downarrow 3} f(x)
+    = \lim_{x \downarrow 3} \frac{|x-3|}{x-3}
+    = \lim_{x \downarrow 3} \frac{x-3}{x-3}
+    = 1
+$$
+Für den Grenzwert $\lim_{x \uparrow 3}\limits f(x)$ gilt stets $x < 3$ und damit
+$x-3 < 0 < |x-3|$, also auch:
+$$
+    \lim_{x \uparrow 3} f(x)
+    = \lim_{x \uparrow 3} \frac{|x-3|}{x-3}
+    = \lim_{x \uparrow 3} \frac{-(x-3)}{x-3}
+    = -1
+$$
+Da nun $\lim_{x \downarrow 3}\limits f(x) \neq \lim_{x \uparrow 3}\limits f(x)$ gilt,
+lässt sich schließen, dass der Grenzwert $\lim_{x \to 3}\limits f(x)$ nicht existiert und
+$f(x)$ nicht stetig ist.
+
+\textbf{b)}
+
+Da die Polynome $x^2+5$ und $1-3x$ für $x = -2$ wohldefiniert sind, lässt sich hier der
+Grenzwert durch Einsetzen individuell bestimmen. Daraus folgt auch, dass (wie bei prakitsch
+jedem Polynom) der Grenzwert $\lim_{x \to -2}$ existiert (1.6) und dann mit (1.10) gilt:
+$$ \lim_{x \uparrow -2} x^2+5 = \lim_{x \to -2} x^2+5
+    \quad\text{und}\quad
+    \lim_{x \downarrow -2} 1-3x = \lim_{x \to -2} 1-3x
+$$
+Es folgt also:
+$$
+    \lim_{x \uparrow -2} x^2+5 = (-2)^2+5 = 9
+    \quad\text{und}\quad
+    \lim_{x \downarrow -2} 1-3x = 1-3(-2) = 7
+$$
+Weiterhin ist gilt wie in a) für den Grenzwert $\lim_{x \uparrow -2}\limits g(x)$, dass $x<-2$
+und damit nach Konstruktion $g(x) = x^2+5$. Analog dazu gilt für $\lim_{x \downarrow -2}$,
+dass $x>-2$ und damit nach Konstruktion $g(x) = 1-3x$. Es folgt also
+$$
+    \lim_{x \uparrow -2} g(x) = \lim_{x \uparrow -2} x^2+5 = 9
+    \quad\text{und}\quad
+    \lim_{x \downarrow -2} g(x) = \lim_{x \downarrow -2} 1-3x = 7
+$$
+Da nun $\lim_{x \uparrow -2}\limits g(x) \neq \lim_{x \downarrow -2}\limits g(x)$ gilt,
+lässt sich schließen, dass der Grenzwert $\lim_{x \to -2}\limits g(x)$ nicht existiert und
+$g(x)$ nicht stetig ist.
+\newpage
+
+\textbf{c)}
+Analog zu Beispiel 1.18 lässt sich begründen, dass
+$\lim_{x \uparrow 0}\limits\dfrac{1}{x^3} = -\infty$ und
+$\lim_{x \downarrow 0}\limits\dfrac{1}{x^3} = \infty$ gilt:
+
+Zu gegebenem $M > 0$ wähle $a= \dfrac{1}{\sqrt[3]{M}}$. Dann ist für $0 < x < a$:
+$$
+    \frac{1}{x^3} > \frac{1}{a^3} = M
+$$
+Also gilt $\lim_{x \downarrow 0}\limits \dfrac{1}{x^3} = \infty$. Analog dazu
+wählen wir zu gegebenm $M>0$ wieder $b= -\dfrac{1}{\sqrt[3]{M}}$.\\
+Dann ist für $b < x < 0$:
+$$
+    \frac{1}{x^3} < \frac{1}{b^3} = -M
+$$
+Also gilt $\lim_{x \uparrow 0}\limits \dfrac{1}{x^3} = -\infty$.\\
+Weiterhin gilt für $\lim_{x \downarrow 0} j(x)$ bzw. $\lim_{x \uparrow 0} j(x)$ stets $x\neq0$ und damit auch
+$$
+    \lim_{x \downarrow 0} j(x) = \lim_{x \downarrow 0} \frac{1}{x^3} = \infty
+    \qquad\text{sowie}\qquad
+    \lim_{x \uparrow 0} j(x) = \lim_{x \uparrow 0} \frac{1}{x^3} = -\infty
+$$
+Da nun $\lim_{x \uparrow 0}\limits j(x) \neq \lim_{x \downarrow 0}\limits j(x)$ gilt,
+lässt sich schließen, dass der Grenzwert $\lim_{x \to 0}\limits j(x)$ nicht existiert und
+$j(x)$ nicht stetig ist.
+
+\aufgabe{2}
+
+
+
+
+\end{document}
