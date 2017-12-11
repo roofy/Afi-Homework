@@ -73,7 +73,8 @@ $$
     \lim_{x \downarrow -2} 1-3x = 1-3(-2) = 7
 $$
 Weiterhin ist gilt wie in a) für den Grenzwert $\lim_{x \uparrow -2}\limits g(x)$, dass $x<-2$
-und damit nach Konstruktion $g(x) = x^2+5$. Analog dazu gilt für $\lim_{x \downarrow -2}$,
+und damit nach\\
+Konstruktion $g(x) = x^2+5$. Analog dazu gilt für $\lim_{x \downarrow -2}\limits g(x)$,
 dass $x>-2$ und damit nach Konstruktion $g(x) = 1-3x$. Es folgt also
 $$
     \lim_{x \uparrow -2} g(x) = \lim_{x \uparrow -2} x^2+5 = 9
@@ -113,6 +114,47 @@ $j(x)$ nicht stetig ist.
 
 \aufgabe{2}
 
+\textbf{a)}\\
+Es gilt für $x,y \in [0,2]$ stets $|x-y| \leq \text{max}\,[0,2] = 2$,
+ebenso $|x^2-y^2| < \text{max} [0,2^2] = 4$.\\
+Wir wählen also $L = 2$. Es folgt:
+$$
+    \forall x,y \in [0,2] \colon |f(x)-f(y)| = |x^2-y^2| \leq L \cdot |x-y| = |2x-2y| \leq 4
+$$
+Dies gilt, da stets $x^2 = x\cdot x \leq 2\cdot x$ für $x \in [0,2]$.
+Damit ist $f$ im Intervall $[0,2]$ Lipschitz-stetig.
+
+
+\textbf{b)}\\
+Wäre $f$ im Intervall $[0,1]$ Lipschitz-stetig (Widerspruchsannahme), so gäbe es
+ein $L \in \mathbb{R}, L \geq 0$ sodass gilt:
+$$
+    \forall x,y \in [0,1] \colon |f(x)-f(y)| = |\sqrt{x} -\sqrt{y} | \leq L |x-y|
+$$
+Sei nun $x = 2y \in [0,1]$. Wir formen die das Libschitz-Kriterium leicht um. Es müsste
+gelten:
+$$
+    \forall y \in \left[0,\frac{1}{2}\right], x \in [0,1], x = 2y\colon
+    \frac{|\sqrt{x} - \sqrt{y}|}{|x-y|}
+    = \frac{\sqrt{2y} - \sqrt{y}}{2y-y}
+    = \frac{\sqrt{2} - 1}{\sqrt{y}} \leq L
+$$
+Es lässt sich jedoch zu jedem $M > 0$ ein $a = \dfrac{1}{M^2}$ wählen, sodass für $0 < x < a$ gilt:
+$$
+    \frac{\sqrt{2}-1}{x} > \frac{1}{\sqrt{x}} > \frac{1}{\sqrt{a}} = M
+$$
+Es gilt also $\lim_{x \downarrow 0}\limits \dfrac{\sqrt{2} - 1}{\sqrt{x}} = \infty$,
+damit wäre die Funktion im gegebenen Intervall für $x = 2y$ nach oben unbeschränkt.
+Dies stellt einen Widerspruch dar, da sonst $L$ eine obere Schranke
+für eine nach oben unbeschränkte Funktion darstellen würde. Damit haben wir ein
+Gegenbeispiel gezeigt, folglich ist $f$ nicht Lipschitz-stetig.
+\newpage
+
+\textbf{c)}\\
+\textbf{FEHLT NOCH}
+
+
+\aufgabe{3}
 
 
 
