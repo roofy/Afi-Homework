@@ -155,7 +155,44 @@ Gegenbeispiel gezeigt, folglich ist $f$ nicht Lipschitz-stetig.
 
 
 \aufgabe{3}
+\textbf{a)}
 
+Es sei eine beliebige Folge $x_n$ mit $\lim_{n \to \infty}\limits x_n = 0$ gegeben.
+Die Exponentialfunktion ist stets größer 0 und streng monoton steigend (III 3.21).
+Weiterhin gilt:
+$$
+    \exp(0) = 1
+    \qquad\text{und}\qquad
+    \exp(-1) = \frac{1}{e} < 1
+    \quad\text{also durch strenge Monotonie}\quad
+    \forall x < 0 \colon \exp(x) < 1
+$$
+Weiterhin gilt für $x \neq 0$ stets $x^2 > 0$ und somit auch $\dfrac{-1}{x^2} < 0$.
+Da folgt also
+$$
+    0 < \left|\exp\left(\frac{-1}{{x_n}^2}\right)\right| < 1
+    \quad \Longleftrightarrow\quad
+    0 < \left|x_n\cdot\exp\left(\frac{-1}{{x_n}^2}\right)\right| < |x_n|
+$$
+Es gilt jedoch nach Konstruktion von $x_n\colon$
+$$
+    \lim_{n \to \infty}\limits x_n
+    = \lim_{n \to \infty}\limits |x_n|
+    = 0
+    = \lim_{n \to \infty}\limits 0
+$$
+Somit folgt nach dem Sandwich Lemma:
+$$
+    \lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} \left|x_n\cdot\exp\left(\frac{-1}{{x_n}^2}\right)\right| = 0
+$$
+Weiterhin gilt nach Definition auch $f(0) = 0$, also folgt für jede beliebege Nullfolge $x_n$:
+$$
+    \lim_{n \to \infty} f(x_n) = f(\lim_{n \to \infty} x_n) = f(0) = 0
+$$
+Damit ist $f$ stetig in 0.
+
+
+\textbf{b)}
 
 
 \end{document}
