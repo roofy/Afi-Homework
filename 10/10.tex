@@ -221,4 +221,50 @@ Damit ist $f$ stetig in 0.
 \aufgabe{4}
 \textbf{a)}
 
+Sei als Abkürzung $f\colon \mathbb{R} \to \mathbb{R}\colon x \mapsto \cos(x) -x$, da
+$\cos$  auf ganz $\mathbb{R}$ definiert ist.
+
+Für $a = 0 < b = 2\pi$ gilt:
+$$
+    f(a) = \cos(0)-0 = 1 > \frac{1}{2} = h(0)
+    \quad\text{und}\quad
+    f(b) = \cos(2\pi)-2\pi = 1 -2\pi < \frac{1}{2} = h(\pi)
+$$
+Sei nun $m = \min\{f(x) \mid x\in[0, 2\pi]\}$ sowie
+$M = \max\{f(x)\mid x\in[0,2\pi]\}$.\\[2pt]
+Es folgt, dass $m \leq f(b) = 1-2\pi$ und $M \geq f(a) = 1$, also auch
+$[1-2\pi, 1] \subseteq [m,M]$.\\[2pt]
+Weiterhin gilt nach Zwischenwertsatz (2.9 b) nun $f([a,b]) = [m,M]$.\\[2pt]
+Da aber $\frac{1}{2} \in [1-2\pi, 1] \subseteq [m,M]$ ist und $f$ stetig ist, gilt also:
+$$
+    \exists c \in (a,b) \colon f(c) = \frac{1}{2} = h(c)
+$$
+Damit gibt es mindestens eine Lösung für die Gleichung $h(x) = \cos(x)-x = f(x)$.
+
+
+\textbf{b)}
+
+Wir definieren $g\colon [0,1] \to \mathbb{R}\colon x \mapsto f(x) -f(x-1)$.
+Es gilt:
+$$
+    g(0) = f(0)-f(-1) = f(0)-f(1)
+    \qquad\text{und}\qquad
+    g(1) = f(1)-f(0)
+$$
+Wir Unterscheiden nun 3 Fälle:
+
+\textbf{Fall 1:} $f(0) > f(1)\colon$\\
+Dann gilt $g(0) = f(0) - f(1) > 0$ und $g(1) = f(1) - f(0) <0 $. Da $f$ stetig ist gibt
+es also nach Zwischenwertsatz ein $x \in (0,1)$ sodass $g(x) = f(x) - f(x-1) = 0$, also $f(x) = f(x-1)$ gilt.
+
+\textbf{Fall 2:} $f(1) > f(0)\colon$\\
+Dies ist analog zu Fall 1:
+$$
+    (g(0) < 0) \land (g(1) > 0)\land(\text{f stetig}) \,\Longrightarrow\, \exists x \in (0,1)\colon g(x) = 0
+    \,\Longrightarrow\, f(x) = f(x-1)
+$$
+\textbf{Fall 3:} $f(1) = f(0)\colon$\\
+Damit ist die Aussage schon bewiesen, da $1 \in [0,1]$ und dann $f(1) = f(1-1) = f(0)$ gilt.
+
+Insgesamt gibt es stets mindestens ein $x \in [0,1]$, sodass $f(x) = f(x-1)$ gilt.
 \end{document}
