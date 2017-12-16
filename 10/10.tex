@@ -61,7 +61,7 @@ $f(x)$ nicht stetig ist.
 
 Da die Polynome $x^2+5$ und $1-3x$ für $x = -2$ wohldefiniert sind, lässt sich hier der
 Grenzwert durch Einsetzen individuell bestimmen. Daraus folgt auch, dass (wie bei prakitsch
-jedem Polynom) der Grenzwert $\lim_{x \to -2}$ existiert (1.6) und dann mit (1.10) gilt:
+jedem Polynom) der Grenzwert $\lim_{x \to -2}\limits$ existiert (1.6) und dann mit (1.10) gilt:
 $$ \lim_{x \uparrow -2} x^2+5 = \lim_{x \to -2} x^2+5
     \quad\text{und}\quad
     \lim_{x \downarrow -2} 1-3x = \lim_{x \to -2} 1-3x
@@ -102,7 +102,7 @@ $$
     \frac{1}{x^3} < \frac{1}{b^3} = -M
 $$
 Also gilt $\lim_{x \uparrow 0}\limits \dfrac{1}{x^3} = -\infty$.\\
-Weiterhin gilt für $\lim_{x \downarrow 0} j(x)$ bzw. $\lim_{x \uparrow 0} j(x)$ stets $x\neq0$ und damit auch
+Weiterhin gilt für $\lim_{x \downarrow 0}\limits j(x)$ bzw. $\lim_{x \uparrow 0}\limits j(x)$ stets $x\neq0$ und damit auch
 $$
     \lim_{x \downarrow 0} j(x) = \lim_{x \downarrow 0} \frac{1}{x^3} = \infty
     \qquad\text{sowie}\qquad
@@ -208,11 +208,11 @@ Damit ist $f$ stetig in 0.
 
 Da $\mathbb{R}$ dicht ist, folgt, dass 0 ein Häufingspunkt von $\mathbb{R}$ ist.\\
 Zu gegebenem $\varepsilon > 0$ wählen wir $\delta = \varepsilon$.
-Mit $\forall x \in \mathbb{R}\colon -1 \leq \sin(x) \leq 1$ folgt:
+Mit $\forall x \in \mathbb{R}\colon -1 \leq \sin(x) \leq 1$ (*) folgt:
 $$
     \forall x \in \mathbb{R},\, |x-0| < \delta\colon
     |f(x) - f(0)| = |f(x)| = \left|x \sin\left(\frac{1}{x}\right)\right|
-    \leq |x| < \delta = \varepsilon
+    \up{\leq}{*} |x| < \delta = \varepsilon
 $$
 Damit ist $f$ stetig in 0.
 
