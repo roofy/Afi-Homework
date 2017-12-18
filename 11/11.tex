@@ -212,4 +212,95 @@ Damit ist $x = -1$ eine strikte lokale Maximalstelle von $f$.
 \newpage
 
 \aufgabe{3}
+
+\textbf{a)}
+$$
+    f' = \frac{df}{dx} = \left[\exp(2x^4-x^2-1)\right]'
+    = \exp(2x^4-x^2-1)\cdot \left[2x^4-x^2-1\right]'
+$$$$
+    = \exp(2x^4-x^2-1) \cdot (8x^3-2x)
+$$
+
+$$
+    f'' = \frac{df'}{dx} = \left[\exp(2x^4-x^2-1)\cdot (8x^3-2x)\right]'
+$$$$
+    = [\exp(2x^4-x^2-1)]'\cdot(8x^3-2x) + \exp(2x^4-x^2-1)\cdot[8x^3-2x]'
+$$$$
+    = \left(\exp(2x^4-x^2-1) \cdot (8x^3-2x)\right) \cdot(8x^3-2x) + \exp(2x^4-x^2-1)\cdot(24x^2-2)
+$$$$
+    = \exp(2x^4-x^2-1)(64x^6-32x^4+28x^2-2)
+$$
+
+Wir setzen $f'=0$. Da nach (III 3.21) stets $\exp(x) \neq 0$ ist und $\mathbb{R}$ ein Körper,
+also ein Integritätsbereich mit Nullteilerfreiheit ist, genügt es hier das Polynom
+$8x^3-2x$ gleich 0 zu setzen. Weiterhin ist $8x^3-2x = x(8x^2-2)$ also ist $x=0$ eine
+Nullstelle von $8x^3-2x$. Wir lösen also $8x^2-2$ mit der quadratischen Formel:
+$$
+    8x^2-2 = 0
+    \,\Longrightarrow\, x = \frac{\pm\sqrt{-4\cdot8\cdot(-2)}}{2\cdot 8}
+    = \frac{\pm \sqrt{64}}{16} = \frac{\pm8}{16} = \pm \frac{1}{2}
+$$
+Somit haben wir mögliche Extremalstellen $x_1 = 0, x_2 = \frac{1}{2}, x_3 = - \frac{1}{2}$.
+Wir überprüfen dies durch einsetzen in $f''$. Wir verwenden wieder, dass stets $\exp(x) > 0$ (*):
+$$
+    f''(0) = \exp(-1)(-2) \up{<}{*} 0
+$$$$
+    f''\left(\frac{1}{2}\right)
+    = \exp\left(\frac{1}{8}- \frac{1}{4} -1\right)\left(1- 2 + 7 - 2\right)
+    = 4\exp\left(-\frac{9}{8}\right) \up{>}{*} 0
+$$$$
+     f''\left(-\frac{1}{2}\right)
+    = \exp\left(\frac{1}{8}- \frac{1}{4} -1\right)\left(1- 2 + 7 - 2\right)
+    = 4\exp\left(-\frac{9}{8}\right) \up{>}{*} 0
+$$
+Also gilt nach (VII 2.9), dass $x_1 = 0$ eine strikte lokale Maximalstelle ist,
+und $x_2=\frac{1}{2}$ und $x_3 = - \frac{1}{2}$ strikte lokale Minimalstellen sind.
+Weiterhin ist $e^x$ sowie $2x^4-x^2-1$ nach oben unberschränkt, daher kann es kein
+globales Maximum geben. Durch $\lim_{x \to -\infty}\limits 2x^4-x^2-1 = \infty$ sowie
+$\lim_{x \to \infty}\limits 2x^4-x^2-1 = \infty$ folgt auch $\lim_{x \to -\infty}\limits
+f = \infty$ und $\lim_{x \to \infty}\limits f = \infty$. Da also $f$ keine weiteren
+Extremalstellen besitzt und für $x\to \infty$ und $x\to -\infty$ bestimmt gegen $\infty$ 
+divergiert, folgt, dass $x_2 = \frac{1}{2}$ und $x_3 = -\frac{1}{2}$
+mit $f(x_3) = f(x_2) = \exp\left(\frac{1}{8}-\frac{1}{4} -1\right)
+= \exp\left(-\frac{9}{8}\right)$ wegen der strengen Monotonie der Exponentialfunktion
+(III 3.21) auch globale Minimalstellen von $f$ sind.
+
+\newpage
+
+\textbf{b)}
+
+$$
+    g' = \frac{dg}{dx} = [3\ln(3x^2+1)]'
+    = 3[\ln(3x^2+1)]'
+    = 3\left(\frac{[3x^2+1]'}{3x^2+1}\right)
+    = \frac{18x}{3x^2+1}
+$$
+
+$$
+    g'' = \frac{dg'}{dx} = \left[\frac{18x}{3x^2+1}\right]'
+    = \frac{[18x]'(3x^2+1)-(18x)[3x^2+1]'}{(3x^2+1)^2}
+    = \frac{54x^2-108x+18}{(3x^2+1)^2}
+$$
+
+Wir setzen also $g' = 0$:
+$$
+    g' = 0 \,\Longrightarrow\, \frac{18x}{3x^2+1} = 0
+    \,\Longrightarrow\, 18x = 0 \,\Longrightarrow\, x_1 = 0
+$$
+Es ist $0 \in D_g = [-1, 1]$, also überprüfen wir durch Einsetzen in $g''$:
+$$
+    g''(0) = \frac{18}{1} = 18 > 0
+$$
+Damit ist nach (VII 2.9) $x_1=0$ eine lokale strikte Minimalstelle von $g$.
+Wir überprüfen die Randwerte und den wert von $g(0)$:
+$$
+    g(0) = 3\ln(1) = 0
+$$$$
+    g(-1) = 3\ln(4) > 0 \qquad\text{und}\qquad g(1) = 3\ln(4) >0
+$$
+Da $g$ keine weitern Extremalstellen besitzt, folgt, dass $x_1=0$ mit $g(x_1) = 0$ auch das
+globale Minimum von $g$ darstellt.
+
+\aufgabe{4}
+
 \end{document}
