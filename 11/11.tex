@@ -1,0 +1,144 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 11}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\textbf{a)}
+
+\textbf{(i)}
+Mit (VII 1.11) folgt:
+$$
+    \frac{df}{dx} = \left[x^{\alpha} \cdot \ln\left(x+|\alpha-1|\right)\right]'
+    = \left[x^{\alpha}\right]'\cdot \ln(x+|\alpha-1|) + x^{\alpha} \cdot [\ln(x+|\alpha-1|)]'
+$$$$
+    = \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
+        + x^{\alpha} \cdot \left(\frac{[x+|\alpha-1|]'}{x+|\alpha-1|}\right)
+$$$$
+    = \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
+        + x^{\alpha} \cdot \frac{1}{x+|\alpha-1|}
+$$
+
+
+
+\textbf{(ii)}
+Es ist $g(x) = \cos\left(\sin\left(x^2+\frac{1}{x}\right)\right)$ nicht für $x = 0$ definiert,
+da sonst durch $0$ geteilt werden würde. $\cos$ und $\sin$ sind wie Polynome sonst für ganz
+$\mathbb{R}$ definiert, also ist $D_g =  \mathbb{R}\setminus \{0\}$ der Definitionsbereich
+von $g$. Weiterhin sind nach (VI 2.2) $\cos, \sin$  und Polynome, sowie rationale Funktionen
+auf ihrem Definitionsbereich stetig. Also ist $g$ stetig auf $\mathbb{R}\setminus\{0\}$.
+Mit der Kettenregel und (VII 1.5, 1.7) folgt nun:
+$$
+    \frac{dg}{dx} = \left[\cos\left(\sin\left(x^2+\frac{1}{x}\right)\right)\right]'
+    = \cos'\left(\sin\left(x^2+\frac{1}{x}\right)\right)\cdot \left[\sin\left(x^2+\frac{1}{x}\right)\right]'
+$$$$
+    = -\sin\left(\sin\left(x^2+\frac{1}{x}\right)\right) \cdot \left(\sin'\left(x^2+\frac{1}{x}\right)\cdot\left[x^2+\frac{1}{x}\right]'\right)
+$$$$
+    = -\sin\left(\sin\left(x^2+\frac{1}{x}\right)\right) \cdot \left(\cos\left(x^2+\frac{1}{x}\right)\cdot\left(\left[x^2\right]'+\left[\frac{1}{x}\right]'\right)\right)
+$$$$
+    = -\sin\left(\sin\left(x^2+\frac{1}{x}\right)\right) \cdot \cos\left(x^2+\frac{1}{x}\right)\cdot\left(2x-\frac{1}{x^2}\right)
+$$
+\newpage
+\textbf{b)}
+
+\textbf{(iii)}
+
+$$
+    \frac{dh}{dx} = \left[\cos\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right)\right]'
+    = -\sin\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right) \cdot
+        \left[\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right]'
+$$$$
+    = -\sin\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right) \cdot
+        \left(\frac{\left[e^x+\sqrt{1+x^2}\right]'\cdot (\arctan x) -
+        (e^x+\sqrt{1+x^2}) \cdot [\arctan x]'}{(\arctan x)^2} \right)
+$$$$
+    = -\sin\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right) \cdot
+        \left(\frac{\left(e^x+\left(\dfrac{2x}{2\sqrt{1+x^2}}\right)\right)\cdot (\arctan x) -
+        (e^x+\sqrt{1+x^2}) \cdot \left(\dfrac{1}{\tan^{-1}(\arctan x)}\right)}{(\arctan x)^2} \right)
+$$$$
+    = -\sin\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right) \cdot
+        \left(\frac{\left(e^x+\dfrac{x}{\sqrt{1+x^2}}\right)\cdot (\arctan x) -
+        (e^x+\sqrt{1+x^2}) \cdot \left(\dfrac{1}{x^2+1}\right)}{(\arctan x)^2}
+        \right)
+$$
+
+\textbf{(iv)}
+
+$$
+    \frac{di}{dx} = [\cosh x]'
+    = \left[\frac{e^x+e^{-x}}{2}\right]'
+    = \frac{1}{2} \left[e^x+e^{-x}\right]'
+    = \frac{1}{2} \left([e^x]' + [e^{(-1)x}]'\right)
+    = \frac{e^x-e^{-x}}{2}
+    = \sinh x
+$$
+
+
+\textbf{c)}
+
+\textbf{(v)}
+
+$$
+    \frac{dj}{dx} = [x^x]' = \left[e^{x\ln(x)}\right]'
+    = e^{x\ln(x)} \cdot [x\ln(x)]'
+    = e^{x\ln(x)} \cdot ([x]' \cdot \ln(x) + [\ln(x)]' \cdot x)
+$$$$
+    = e^{x\ln(x)} \cdot (1 \cdot \ln(x) + \frac{1}{x} \cdot x)
+    = e^{x\ln(x)} \cdot (\ln(x) + 1)
+$$
+
+\textbf{(vi)}
+$$
+    \frac{dk}{dx} = \left[\left(1 + \sqrt{x} + x^2\right)^{\sin x}\right]'
+    = \left[\exp\left(\sin(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)\right) \right]'
+$$$$
+    = \exp\left(\sin(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)\right)
+        \cdot \left[\sin(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)\right]'
+$$$$
+    = \left(1+\sqrt{x} + x^2\right)^{\sin x}
+        \cdot \left[\sin(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)\right]'
+$$$$
+    = \left(1+\sqrt{x} + x^2\right)^{\sin x}
+        \cdot \left([\sin(x)]'\cdot \ln\left(1 + \sqrt{x} + x^2\right)
+        + \sin(x) \cdot \left[\ln\left(1+\sqrt{x} + x^2\right)\right]'\right)
+$$$$
+    = \left(1+\sqrt{x} + x^2\right)^{\sin x}
+        \cdot \left(\cos(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)
+        + \sin(x) \cdot \frac{[1+\sqrt{x}+x^2]'}{1+\sqrt{x} + x^2}\right)
+$$$$
+    = \left(1+\sqrt{x} + x^2\right)^{\sin x}
+        \cdot \left(\cos(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)
+        + \sin(x) \cdot \frac{\frac{1}{2\sqrt{x}}+2x}{1+\sqrt{x} + x^2}\right)
+$$
+\end{document}
