@@ -141,4 +141,75 @@ $$$$
         \cdot \left(\cos(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)
         + \sin(x) \cdot \frac{\frac{1}{2\sqrt{x}}+2x}{1+\sqrt{x} + x^2}\right)
 $$
+\newpage
+
+\aufgabe{2}
+Der maximal Def. Bereich ist $\left[-\frac{3}{2} , 3\right)$, da für $x < - \frac{3}{2}$ dann
+$3 - 2x < 0$ währe und wir dann die Wurzel einer negativen Zahl ziehen würden.
+Des weiteren gilt für $x \geq 3$,\\ dass $\sqrt{3+2x} - x \leq \sqrt{9} - 3= 0$, und da
+der natürliche Logarithmus nur für $x > 0$ definiert ist, gibt dies eine Definitionslücke.
+Insgesamt ist also $D_f = \left[-\frac{3}{2}, 3\right)$.
+
+Für die Nullstellen setzen wir $f = 0$:
+$$
+    f = 0 \,\Longrightarrow\, \ln\left(\sqrt{3+2x}-x\right) = 0
+    \,\Longrightarrow\, \exp\left(\ln\left(\sqrt{3+2x}-x\right)\right) = \exp(0)
+$$$$
+    \,\Longrightarrow\, \sqrt{3+2x} -x = 1 \,\Longrightarrow\, \sqrt{3+2x} = x+1
+    \,\Longrightarrow\, 3+2x = x^2+2x+1
+$$$$
+    \,\Longrightarrow\, 2 = x^2 \,\Longrightarrow\, x = \pm\sqrt{2}
+$$
+Wir testen nun:
+$$
+    f(\sqrt{2}) = \ln\left(\sqrt{3+2\sqrt{2}}-\sqrt{2}\right)
+    = \ln\left(\sqrt{(1+\sqrt{2})^2} -\sqrt{2}\right)
+    = \ln(1) = 0
+$$$$
+    f(-\sqrt{2}) = \ln\left(\sqrt{3-2\sqrt{2}}+\sqrt{2}\right)
+    = \ln\left(\sqrt{(1-\sqrt{2})^2} +\sqrt{2}\right)
+    = \ln(2\sqrt{2}-1) \neq 0
+$$
+Also hat $f$ eine Nullstelle bei $\sqrt{2} \in D_f$, aber nicht bei $-\sqrt{2}$.
+
+Für Extrema bestimmen wir zuerst $f'\colon$
+$$
+    \frac{df}{dx} = \left[\ln\left(\sqrt{3+2x}-x\right)\right]'
+    = \frac{\left[\sqrt{3+2x}-x\right]'}{\sqrt{3+2x} -x}
+    = \frac{\frac{2}{2\sqrt{3+2x}}-1}{\sqrt{3+2x} -x}
+    = \frac{\frac{1}{\sqrt{3+2x}}-1}{\sqrt{3+2x}-x}
+$$
+
+Für die Extrema setzen wir $f' = 0\colon$
+$$
+    f'=0 \,\Longrightarrow\, \frac{\frac{1}{\sqrt{3+2x}} -1}{\sqrt{3+2x} -x} = 0
+    \,\Longrightarrow\, \frac{1}{\sqrt{3+2x}} -1 = 0
+    \,\Longrightarrow\, 1 = \sqrt{3+2x}
+$$$$
+    \,\Longrightarrow\, 3+2x = 1
+    \,\Longrightarrow\, x = -1
+$$
+
+Wir prüfen $x=-1$ auf die hinreicheinde Bedingung der Extremalstelle und bestimmten $f''$:
+$$
+    f'' = \left[\frac{\frac{1}{\sqrt{3+2x}}-1}{\sqrt{3+2x} -x}\right]'
+$$$$
+    = \frac{\left[\frac{1}{\sqrt{3+2x}} -1\right]'\cdot \left(\sqrt{3+2x}-x\right)
+        - \left(\frac{1}{\sqrt{3+2x}-1}\right) \cdot \left[\sqrt{3+2x}-x\right]'}
+        {\left(\sqrt{3+2x} -x\right)^2}
+$$$$
+    = \frac{-\dfrac{\sqrt{2x+3} -x}{\sqrt{(2x+3)^3}}
+        - \left(\dfrac{1}{\sqrt{2x+3}}-1\right)^2}{\left(\sqrt{2x+3}-x\right)^2}
+$$
+Es gilt nun:
+$$
+    f''(-1) = \frac{-\dfrac{\sqrt{-2+3} +1}{\sqrt{(-2+3)^3}}
+        - \left(\dfrac{1}{\sqrt{-2+3}}-1\right)^2}{\left(\sqrt{-2+3}+1\right)^2}
+    = \frac{-\frac{1+1}{1} - 0^2}{4} = -\frac{1}{2} < 0
+$$
+Damit ist $x = -1$ eine strikte lokale Maximalstelle von $f$.
+
+\newpage
+
+\aufgabe{3}
 \end{document}
