@@ -307,5 +307,50 @@ Da $g$ keine weitern Extremalstellen besitzt, folgt, dass $x_1=0$ mit $g(x_1) = 
 globale Minimum von $g$ darstellt.
 
 \aufgabe{4}
+\textbf{a)}\\
+Da sowohl $x^2$ als auch $\ln x$ für $(0, \infty)$ stetig und differenzierbar sind, ist auch $f$ im\\
+Definitionsbereich $[a,b] \subset (0, \infty)$ stetig und differenzierbar.
 
+\textbf{b)}\\
+Da $\ln x$ die Umkehrfunktion von $e^x$ ist und $e^x$ streng monoton steigend auf ganz $\mathbb{R}$ ist,
+ist auch $\ln x$ streng monoton steigen auf ihrem Definitionsbereich. Weiterhin ist nach V 1.8 auch
+$x^2$ im Intervall $(0, \infty)$ streng monoton steigend.
+Es gilt also stets
+$$
+    \forall x,y \in [a,b], x<y \colon (\ln x < \ln y) \land (x^2 < y^2)
+$$
+Daher folgt auch dass das Produkt der Funktionen streng monoton steigt. Im fall $f$ ist $a+1$ ja eine Konstante,
+welche die Monotonie nicht beeinflusst. Daher ist $f$ stets streng monoton steigend.
+
+\textbf{c)}\\
+Aus Aufgabenteil b) folgt, dass die Extremalstellen von $f$ die Randwerte von $f$ sind. Da $f$ also streng monoton
+steigt gilt stets:
+$$
+    \forall x \in [a,b] \colon f(a) \leq f(x) \leq f(b)
+$$
+Damit ist $a$ die globale Minimalstelle von $f$ und $b$ die globale Maximalstelle von $f$.
+\newpage
+\textbf{d)}\\
+
+Es hat $b$ die höchste Steigung. Also wählen wir $L = f'(b)$. Es folgt mit dem Mittelwertsatz:
+$$
+    \forall x,y \in [a,b]\ \exists c \in [a,b] \colon \frac{|f(x)-f(y)|}{|x-y|} = f'(c) \leq L
+    \,\Longleftrightarrow\, |f(x)-f(y)| \leq L|x-y|
+$$
+
+\aufgabe{5}
+
+Seien $x,y \in (a,b)$ gegeben. Es gelte o.B.d.A., dass $x<y$. Nach dem Mittelwertsatz existiert nun ein
+$c \in (a,b)$ sodass durch $\forall x \in (a,b) \colon f'(x) > 0$ nun gilt:
+$$
+    \frac{f(y) - f(x)}{y-x} = f'(c) > 0 \,\Longleftrightarrow\, f(y) > f(x)
+$$
+Damit ist $f$ auf $(a,b)$ streng monoton steigend.
+
+Seien $x,y \in (a,b)$ gegeben. Es gelte o.B.d.A., dass $x < y$. Nach dem Mittelwertsatz existiert nun ein
+$c \in (a,b)$ sodass durch $\forall x \in (a,b) \colon f'(x) = 0$ nun gilt:
+$$
+    \frac{f(y) - f(x)}{y-x} = f'(c) = 0 \,\Longleftrightarrow\, f(y) = f(x)
+$$
+Damit ist $f$ auf $(a,b)$ konstant.
 \end{document}
