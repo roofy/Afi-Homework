@@ -35,15 +35,19 @@
 
 
 \aufgabe{1}
+In dieser Aufgabe steht ''Verkettung'' für Addition, Subtraktion, Multiplikation, Skalierung oder Komponierung
+von Funktionen.
 \textbf{a)}
 
 \textbf{(i)}
-Mit (VII 1.11) folgt:
+Nach Skript ist jedes Polynom und $\ln x$ als Umkehrfunktion von $e^x$ differenzierbar und Verkettung dieser Funktionen erhält dies.
+$|a-1|$ ist hier nur eine konstante, deswegen ist $f$ auf ihrem Definitionsbereich differenzierbar.\\
+Mit VII 1.11 sowie der Produkt und Kettenregel folgt:
 $$
     \frac{df}{dx} = \left[x^{\alpha} \cdot \ln\left(x+|\alpha-1|\right)\right]'
-    = \left[x^{\alpha}\right]'\cdot \ln(x+|\alpha-1|) + x^{\alpha} \cdot [\ln(x+|\alpha-1|)]'
+    \up{=}{P} \left[x^{\alpha}\right]'\cdot \ln(x+|\alpha-1|) + x^{\alpha} \cdot [\ln(x+|\alpha-1|)]'
 $$$$
-    = \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
+    \up{=}{*K} \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
         + x^{\alpha} \cdot \left(\frac{[x+|\alpha-1|]'}{x+|\alpha-1|}\right)
 $$$$
     = \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
@@ -53,12 +57,10 @@ $$
 
 
 \textbf{(ii)}
-Es ist $g(x) = \cos\left(\sin\left(x^2+\frac{1}{x}\right)\right)$ nicht für $x = 0$ definiert,
-da sonst durch $0$ geteilt werden würde. $\cos$ und $\sin$ sind wie Polynome sonst für ganz
-$\mathbb{R}$ definiert, also ist $D_g =  \mathbb{R}\setminus \{0\}$ der Definitionsbereich
-von $g$. Weiterhin sind nach (VI 2.2) $\cos, \sin$  und Polynome, sowie rationale Funktionen
-auf ihrem Definitionsbereich stetig. Also ist $g$ stetig auf $\mathbb{R}\setminus\{0\}$.
-Mit der Kettenregel und (VII 1.5, 1.7) folgt nun:
+Nach Skript ist jedes Polynom, $\sin x$, $\cos x$ auf $\mathbb{R}$ und jede rationale Funktion auf ihrem
+Definitionsbereich differenzierbar. Verkettung dieser Funktionen erhält Differenzierbarkeit, also ist $g$
+auf ihrem Definitionsbereich differenzierbar.\\
+Mit Satz 1.7 und der Kettenregel folgt:
 $$
     \frac{dg}{dx} = \left[\cos\left(\sin\left(x^2+\frac{1}{x}\right)\right)\right]'
     = \cos'\left(\sin\left(x^2+\frac{1}{x}\right)\right)\cdot \left[\sin\left(x^2+\frac{1}{x}\right)\right]'
@@ -73,6 +75,14 @@ $$
 \textbf{b)}
 
 \textbf{(iii)}
+Nach Skript ist jedes Polynom, $\sin x$, $\cos x$, $e^x$ auf $\mathbb{R}$ und jede rationale Funktion auf ihrem
+Definitionsbereich differenzierbar. Ebenso ist die Umkehfunktion $f^{-1}$ einer differenzierbaren, stetigen und
+injektiven Funktion $f$ ebenfalls differenzierbar in den Punkten $x$ wo $f'(x) \neq 0$ ist. Verkettung dieser
+Funktionen erhält Differenzierbarkeit.\\
+Es ist $\sqrt{x}$ die Umkehrfunktion des Polynoms $x^2$ und damit auch differenzierbar auch ihrem Definitionsbereich.
+Analog dazu ist $\arctan$ die Umkehrfunktion von $\tan = \frac{\sin}{\cos}$ und damit auch differenzierbar
+auf ihrem Definitionsbereich. Insgesamt ist also $h$ auf ihrem Definitionsbereich differenzierbar.\\
+Mit Satz 1.7, 1.10 und der Ketten und Quotientenregel folgt:
 
 $$
     \frac{dh}{dx} = \left[\cos\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right)\right]'
@@ -94,7 +104,9 @@ $$$$
 $$
 
 \textbf{(iv)}
-
+Nach Skript ist $e^x$ auf $\mathbb{R}$ differenzierbar, also ist $i$ auf ihrem Definitionsbereich\\
+differenzierbar.\\
+Mit Satz 1.7 und der Kettenregel folgt:
 $$
     \frac{di}{dx} = [\cosh x]'
     = \left[\frac{e^x+e^{-x}}{2}\right]'
@@ -106,9 +118,10 @@ $$
 
 
 \textbf{c)}
-
 \textbf{(v)}
-
+Nach Skript ist jedes Polynom sowie $e^x$ und $\ln x$ als dessen Umkehrfunktion differenzierbar auf ihrem
+Definitionsbereich. Also ist auch $j$ als Verkettung dieser differenzierbar.\\
+Mit Satz 1.7, 1.11 und der Kettenregel folgt:
 $$
     \frac{dj}{dx} = [x^x]' = \left[e^{x\ln(x)}\right]'
     = e^{x\ln(x)} \cdot [x\ln(x)]'
@@ -116,9 +129,15 @@ $$
 $$$$
     = e^{x\ln(x)} \cdot (1 \cdot \ln(x) + \frac{1}{x} \cdot x)
     = e^{x\ln(x)} \cdot (\ln(x) + 1)
+$$$$
+    = x^x \cdot (\ln(x) + 1)
 $$
-
+\newpage
 \textbf{(vi)}
+Wie zuvor erwähnt sind alle Polynome, $e^x$, $\sin x$, $\cos x$ und auch $\ln x$ als Umkehrfunktion von $e^x$
+sowie $\sqrt{x}$ als Umkehrfunktion von $x^2$ auf ihrem Definitionsbereich differenzierbar.
+Damit ist $k$ als Verkettung dieser Funktionen ebenfalls auf ihrem Definitionsbereich differenzierbar.\\
+Mit Satz 1.7, 1.10, 1.11 und der Produkt und Kettenregel folgt:
 $$
     \frac{dk}{dx} = \left[\left(1 + \sqrt{x} + x^2\right)^{\sin x}\right]'
     = \left[\exp\left(\sin(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)\right) \right]'
@@ -144,7 +163,7 @@ $$
 \newpage
 
 \aufgabe{2}
-Der maximal Def. Bereich ist $\left[-\frac{3}{2} , 3\right)$, da für $x < - \frac{3}{2}$ dann
+Der maximale reelle Def. Bereich ist $\left[-\frac{3}{2} , 3\right)$, da für $x < - \frac{3}{2}$ dann
 $3 - 2x < 0$ währe und wir dann die Wurzel einer negativen Zahl ziehen würden.
 Des weiteren gilt für $x \geq 3$,\\ dass $\sqrt{3+2x} - x \leq \sqrt{9} - 3= 0$, und da
 der natürliche Logarithmus nur für $x > 0$ definiert ist, gibt dies eine Definitionslücke.
@@ -172,15 +191,16 @@ $$$$
 $$
 Also hat $f$ eine Nullstelle bei $\sqrt{2} \in D_f$, aber nicht bei $-\sqrt{2}$.
 
-Für Extrema bestimmen wir zuerst $f'\colon$
+Für mögliche Extrema bestimmen wir zuerst $f'\colon$
+Nach Satz 1.10 und wie in Aufgabe 1 bereits erwähnt sind $\ln x$, $\sqrt{x}$ und jedes Polynom auf ihrem
+Definitionsbereich differenzierbar. $f$ ist eine Verkettung dieser Funktionen und erhält damit die Differenzierbarkeit.
 $$
     \frac{df}{dx} = \left[\ln\left(\sqrt{3+2x}-x\right)\right]'
     = \frac{\left[\sqrt{3+2x}-x\right]'}{\sqrt{3+2x} -x}
     = \frac{\frac{2}{2\sqrt{3+2x}}-1}{\sqrt{3+2x} -x}
     = \frac{\frac{1}{\sqrt{3+2x}}-1}{\sqrt{3+2x}-x}
 $$
-
-Für die Extrema setzen wir $f' = 0\colon$
+Nun setzen wir $f' = 0\colon$
 $$
     f'=0 \,\Longrightarrow\, \frac{\frac{1}{\sqrt{3+2x}} -1}{\sqrt{3+2x} -x} = 0
     \,\Longrightarrow\, \frac{1}{\sqrt{3+2x}} -1 = 0
@@ -189,38 +209,22 @@ $$$$
     \,\Longrightarrow\, 3+2x = 1
     \,\Longrightarrow\, x = -1
 $$
-
-Wir prüfen $x=-1$ auf die hinreicheinde Bedingung der Extremalstelle und bestimmten $f''$:
-$$
-    f'' = \left[\frac{\frac{1}{\sqrt{3+2x}}-1}{\sqrt{3+2x} -x}\right]'
-$$$$
-    = \frac{\left[\frac{1}{\sqrt{3+2x}} -1\right]'\cdot \left(\sqrt{3+2x}-x\right)
-        - \left(\frac{1}{\sqrt{3+2x}-1}\right) \cdot \left[\sqrt{3+2x}-x\right]'}
-        {\left(\sqrt{3+2x} -x\right)^2}
-$$$$
-    = \frac{-\dfrac{\sqrt{2x+3} -x}{\sqrt{(2x+3)^3}}
-        - \left(\dfrac{1}{\sqrt{2x+3}}-1\right)^2}{\left(\sqrt{2x+3}-x\right)^2}
-$$
-Es gilt nun:
-$$
-    f''(-1) = \frac{-\dfrac{\sqrt{-2+3} +1}{\sqrt{(-2+3)^3}}
-        - \left(\dfrac{1}{\sqrt{-2+3}}-1\right)^2}{\left(\sqrt{-2+3}+1\right)^2}
-    = \frac{-\frac{1+1}{1} - 0^2}{4} = -\frac{1}{2} < 0
-$$
-Damit ist $x = -1$ eine strikte lokale Maximalstelle von $f$.
+Damit ist $x = -1$ ein möglicher Kandidat für Extrema von $f$.
 
 \newpage
 
 \aufgabe{3}
 
 \textbf{a)}
+Da jedes Polynom und $e^x$ sowie deren Komponierung auf ganz $\mathbb{R}$ differenzierbar sind, ist auch $f$
+differenzierbar.
 $$
     f' = \frac{df}{dx} = \left[\exp(2x^4-x^2-1)\right]'
     = \exp(2x^4-x^2-1)\cdot \left[2x^4-x^2-1\right]'
 $$$$
     = \exp(2x^4-x^2-1) \cdot (8x^3-2x)
 $$
-
+$f$ immernoch differenzierbar, da es wieder nur eine Verkettung von Polynomen und Exponentialfunktionen ist.
 $$
     f'' = \frac{df'}{dx} = \left[\exp(2x^4-x^2-1)\cdot (8x^3-2x)\right]'
 $$$$
@@ -268,14 +272,15 @@ mit $f(x_3) = f(x_2) = \exp\left(\frac{1}{8}-\frac{1}{4} -1\right)
 \newpage
 
 \textbf{b)}
-
+Nach Satz 1.10 und wie zuvor erwähnt ist $\ln x$ auf ihrem Definitionsbereich differenzierbar. Da also $g$ eine
+Verkettung von Polynomen und dem natürlichen Logarithmus ist, ist auch $g$ differenzierbar.
 $$
     g' = \frac{dg}{dx} = [3\ln(3x^2+1)]'
     = 3[\ln(3x^2+1)]'
     = 3\left(\frac{[3x^2+1]'}{3x^2+1}\right)
     = \frac{18x}{3x^2+1}
 $$
-
+Nach Skript ist jede rationale Funktion auf ihrem Definitionsbereich differnzierbar, also $g''$.
 $$
     g'' = \frac{dg'}{dx} = \left[\frac{18x}{3x^2+1}\right]'
     = \frac{[18x]'(3x^2+1)-(18x)[3x^2+1]'}{(3x^2+1)^2}
@@ -292,7 +297,7 @@ $$
     g''(0) = \frac{18}{1} = 18 > 0
 $$
 Damit ist nach (VII 2.9) $x_1=0$ eine lokale strikte Minimalstelle von $g$.
-Wir überprüfen die Randwerte und den wert von $g(0)$:
+Wir überprüfen die Randwerte und den Wert von $g(0)$:
 $$
     g(0) = 3\ln(1) = 0
 $$$$
