@@ -32,11 +32,10 @@
 \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
-
+In den folgenden Aufgaben steht ''Verkettung'' für Addition, Subtraktion, Multiplikation, Skalierung oder Komponierung
+von Funktionen.
 
 \aufgabe{1}
-In dieser Aufgabe steht ''Verkettung'' für Addition, Subtraktion, Multiplikation, Skalierung oder Komponierung
-von Funktionen.
 \textbf{a)}
 
 \textbf{(i)}
@@ -51,7 +50,7 @@ $$$$
         + x^{\alpha} \cdot \left(\frac{[x+|\alpha-1|]'}{x+|\alpha-1|}\right)
 $$$$
     = \alpha x^{\alpha-1}\cdot \ln(x+|\alpha-1|)
-        + x^{\alpha} \cdot \frac{1}{x+|\alpha-1|}
+        +\frac{x^{\alpha}}{x+|\alpha-1|}
 $$
 
 
@@ -101,6 +100,9 @@ $$$$
         \left(\frac{\left(e^x+\dfrac{x}{\sqrt{1+x^2}}\right)\cdot (\arctan x) -
         (e^x+\sqrt{1+x^2}) \cdot \left(\dfrac{1}{x^2+1}\right)}{(\arctan x)^2}
         \right)
+$$$$
+    = -\sin\left(\frac{e^x+\sqrt{1+x^2}}{\arctan x}\right) \cdot
+        \left(\frac{e^x+\dfrac{x}{\sqrt{1+x^2}}}{\arctan(x)} - \frac{e^x+\sqrt{1+x^2}}{(x^2+1)\arctan^2(x)}\right)
 $$
 
 \textbf{(iv)}
@@ -121,7 +123,7 @@ $$
 \textbf{(v)}
 Nach Skript ist jedes Polynom sowie $e^x$ und $\ln x$ als dessen Umkehrfunktion differenzierbar auf ihrem
 Definitionsbereich. Also ist auch $j$ als Verkettung dieser differenzierbar.\\
-Mit Satz 1.7, 1.11 und der Kettenregel folgt:
+Mit Satz VI 2.14, VII 1.7, 1.11 und der Kettenregel folgt:
 $$
     \frac{dj}{dx} = [x^x]' = \left[e^{x\ln(x)}\right]'
     = e^{x\ln(x)} \cdot [x\ln(x)]'
@@ -158,9 +160,8 @@ $$$$
 $$$$
     = \left(1+\sqrt{x} + x^2\right)^{\sin x}
         \cdot \left(\cos(x)\cdot \ln\left(1 + \sqrt{x} + x^2\right)
-        + \sin(x) \cdot \frac{\frac{1}{2\sqrt{x}}+2x}{1+\sqrt{x} + x^2}\right)
+        + \sin(x) \cdot \frac{\dfrac{1}{2\sqrt{x}}+2x}{1+\sqrt{x} + x^2}\right)
 $$
-\newpage
 
 \aufgabe{2}
 Der maximale reelle Def. Bereich ist $\left[-\frac{3}{2} , 3\right)$, da für $x < - \frac{3}{2}$ dann
@@ -190,7 +191,7 @@ $$$$
     = \ln(2\sqrt{2}-1) \neq 0
 $$
 Also hat $f$ eine Nullstelle bei $\sqrt{2} \in D_f$, aber nicht bei $-\sqrt{2}$.
-
+\newpage
 Für mögliche Extrema bestimmen wir zuerst $f'\colon$
 Nach Satz 1.10 und wie in Aufgabe 1 bereits erwähnt sind $\ln x$, $\sqrt{x}$ und jedes Polynom auf ihrem
 Definitionsbereich differenzierbar. $f$ ist eine Verkettung dieser Funktionen und erhält damit die Differenzierbarkeit.
@@ -210,8 +211,6 @@ $$$$
     \,\Longrightarrow\, x = -1
 $$
 Damit ist $x = -1$ ein möglicher Kandidat für Extrema von $f$.
-
-\newpage
 
 \aufgabe{3}
 
@@ -269,8 +268,6 @@ mit $f(x_3) = f(x_2) = \exp\left(\frac{1}{8}-\frac{1}{4} -1\right)
 = \exp\left(-\frac{9}{8}\right)$ wegen der strengen Monotonie der Exponentialfunktion
 (III 3.21) auch globale Minimalstellen von $f$ sind.
 
-\newpage
-
 \textbf{b)}
 Nach Satz 1.10 und wie zuvor erwähnt ist $\ln x$ auf ihrem Definitionsbereich differenzierbar. Da also $g$ eine
 Verkettung von Polynomen und dem natürlichen Logarithmus ist, ist auch $g$ differenzierbar.
@@ -306,21 +303,22 @@ $$
 Da $g$ keine weitern Extremalstellen besitzt, folgt, dass $x_1=0$ mit $g(x_1) = 0$ auch das
 globale Minimum von $g$ darstellt.
 
+\newpage
 \aufgabe{4}
 \textbf{a)}\\
-Da sowohl $x^2$ als auch $\ln x$ für $(0, \infty)$ stetig und differenzierbar sind, ist auch $f$ im\\
-Definitionsbereich $[a,b] \subset (0, \infty)$ stetig und differenzierbar.
+Da sowohl $x^2$ als auch $\ln x$ auf $(0, \infty)$ stetig und differenzierbar sind, ist auch $f$ als Verkettung
+dieser im Definitionsbereich $[a,b] \subset (0, \infty)$ stetig und differenzierbar.
 
 \textbf{b)}\\
 Da $\ln x$ die Umkehrfunktion von $e^x$ ist und $e^x$ streng monoton steigend auf ganz $\mathbb{R}$ ist,
-ist auch $\ln x$ streng monoton steigen auf ihrem Definitionsbereich. Weiterhin ist nach V 1.8 auch
+ist auch $\ln x$ streng monoton steigen auf ihrem Definitionsbereich (V 1.9). Weiterhin ist nach V 1.8 auch
 $x^2$ im Intervall $(0, \infty)$ streng monoton steigend.
 Es gilt also stets
 $$
     \forall x,y \in [a,b], x<y \colon (\ln x < \ln y) \land (x^2 < y^2)
 $$
-Daher folgt auch dass das Produkt der Funktionen streng monoton steigt. Im fall $f$ ist $a+1$ ja eine Konstante,
-welche die Monotonie nicht beeinflusst. Daher ist $f$ stets streng monoton steigend.
+Daher folgt auch dass das Produkt der Funktionen streng monoton steigt. In unserem Fall ist $a+1$ ja eine Konstante,
+welche die Monotonie nicht beeinflusst. Daher ist $f$ ebenfalls auf ihrem Definitionsbereich streng monoton steigend.
 
 \textbf{c)}\\
 Aus Aufgabenteil b) folgt, dass die Extremalstellen von $f$ die Randwerte von $f$ sind. Da $f$ also streng monoton
@@ -329,10 +327,22 @@ $$
     \forall x \in [a,b] \colon f(a) \leq f(x) \leq f(b)
 $$
 Damit ist $a$ die globale Minimalstelle von $f$ und $b$ die globale Maximalstelle von $f$.
-\newpage
-\textbf{d)}\\
 
-Es hat $b$ die höchste Steigung. Also wählen wir $L = f'(b)$. Es folgt mit dem Mittelwertsatz:
+\textbf{d)}\\
+Es ist
+$$
+    f' = \left[x^2\ln(x-a+1)\right]'
+    = [x^2]'\ln(x-a+1) + x^2[\ln(x-a+1)]'
+$$$$
+    = 2x\ln(x-a+1) + \frac{x^2}{x-a+1} \leq 2x\ln(x-a+1)+x^2
+$$
+Es sind $x$ sowie $x^2$ und $\ln x$ streng monoton steigend auf $[a,b] \subset (0, \infty)$,
+also wählen wir den oberen Randwert, $b$, um eine von $a,b$ abhängige obere Schranke der Ableitung
+von $f$ zu erhalten:
+$$
+    \forall x \in [a,b] \colon f'(x) \leq 2x\ln(x-a+1)+x^2 \leq 2b\ln(b-a+1)+b^2
+$$
+Sei also im folgenden $L(a,b) = 2b\ln(b-a+1)+b^2$. Es folgt durch den Mittelwertsatz:
 $$
     \forall x,y \in [a,b]\ \exists c \in [a,b] \colon \frac{|f(x)-f(y)|}{|x-y|} = f'(c) \leq L
     \,\Longleftrightarrow\, |f(x)-f(y)| \leq L|x-y|
