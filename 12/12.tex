@@ -1,0 +1,155 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 12}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+\textbf{a)}
+$$
+    \lim_{h \to 0} \frac{f(x_0+h)-f(x_0)}{h}
+    = \lim_{h \to 0} \frac{|h\sin(h)|}{h}
+    = \left\{\begin{array}{lr}
+        \lim_{h \to 0}\limits |\sin(h)| & \text{für } h \geq 0\\
+        \\
+        \lim_{h \to 0}\limits -|\sin(h)| & \text{für } h < 0
+    \end{array}\right\} = 0
+$$
+Da nun der Grenzwert existiert, folgt Differenzierbarkeit von $f$ in $x_0$.
+
+\textbf{b)}
+$$
+    \lim_{h \to 0} \frac{g(x_0+h)-g(x_0)}{h}
+    = \lim_{h \to 0} \frac{g(h)-\sin(0)}{h}
+    = \left\{\begin{array}{lr}
+        \lim_{h \to 0}\limits \frac{\sin(h)}{h} = 1& \text{für } h \geq 0\\
+        \\
+        \lim_{h \to 0}\limits \frac{0}{h} = 0 & \text{für } h < 0
+    \end{array}\right\}
+$$
+Da nun also der rechtsseitige Grenzwert ungleich dem linksseitigem ist, existiert der Grenzwert nicht.
+Es ist also $g$ in $x_0$ nicht differenzierbar.
+
+\textbf{c)}
+$$
+    \lim_{h \to 0} \frac{j(x_0+h)-j(x_0)}{h}
+    = \lim_{h \to 0} \frac{j(h)-\sin^n(0)}{h}
+    = \left\{\begin{array}{lr}
+        \lim_{h \to 0}\limits \frac{\sin^n(h)}{h} = ?& \text{für } h \geq 0\\
+        \\
+        \lim_{h \to 0}\limits \frac{0}{h} = 0 & \text{für } h < 0
+    \end{array}\right\}
+$$
+
+
+\aufgabe{2}
+\textbf{a)}
+Es sei $x \in \mathbb{R}$ gegeben. Es gilt:
+$$
+    \lim_{h \to 0} \frac{f(x+h)-f(x)}{h}
+    = \lim_{h \to 0} \frac{x+h-x}{h}
+    = \lim_{h \to 0} \frac{h}{h} = 1
+$$
+
+\textbf{b)}
+Es sei $x \in \mathbb{R}\setminus \{0\}$ gegeben. Es gilt:
+$$
+    \lim_{h \to 0} \frac{g(x+h)-g(x)}{h}
+    = \lim_{h \to 0} \frac{\frac{1}{x+h} - \frac{1}{x}}{h}
+    = \lim_{h \to 0} \frac{x-x+h}{(x^2+hx)h}
+    = \lim_{h \to 0} \frac{-1}{x^2+hx}
+    = -\frac{1}{x^2}
+$$
+\newpage
+
+\textbf{c)}
+Es sei $n=1$. Es gilt für gegebenes $x \in \mathbb{R}\colon$
+$$
+    \lim_{h \to 0} \frac{k_n(x+h)-k_n(x)}{h}
+    = \lim_{h \to 0} \frac{x+h-x}{h}
+    = 1
+$$
+Also gilt die Behauptung für ein $n \in \mathbb{N}$.
+Sei nun ein $n \in \mathbb{N}$ gegeben sodass die Behauptung gilt, also $k(x) = x^n$ auf ganz $\mathbb{R}$
+differenzierbar ist. Es folgt für $n+1\colon$
+$$
+    \lim_{h \to 0} \frac{k_{n+1}(x+h)-k_{n+1}(x)}{h}
+    = \lim_{h \to 0} \frac{(x+h)^{n+1}-x^{n+1}}{h}
+$$$$
+    = \lim_{h \to 0} \frac{\displaystyle\left(\sum_{k=0}^{n+1}\binom{n+1}{k}x^{n+1-k}h^k\right)-x^{n+1}}{h}
+    = \lim_{h \to 0} \frac{\displaystyle\sum_{k=1}^{n+1}\binom{n+1}{k}x^{n+1-k}h^k}{h}
+$$$$
+    = \lim_{h \to 0} \sum_{k=1}^{n+1}\binom{n+1}{k}x^{n+1-k}h^{k-1}
+    = \lim_{h \to 0} \binom{n+1}{1}x^{n}h^0+\sum_{k=2}^{n+1} \binom{n+1}{k}x^{n+1-k}h^{k-1}
+$$$$
+    = (n+1)x^n + \sum_{k=2}^{n+1} \binom{n+1}{k}x^{n+1-k}0^{k-1}
+    = (n+1)x^n
+$$
+
+Der Differenzenquotient existiert dann also auch für $k_{n+1}$ und ist ein Skalar von $k_n$, welche
+ebenfalls differenzierbar ist.
+Nach dem Prinzip der vollständigen Induktion existiert nun also der Differenzenquotient von $k_n$ für
+alle $n \in \mathbb{N}$.
+
+\textbf{d)}
+Mit der geometrischen Summe lässt sich herleiten:
+$$
+    (a-b)\sum_{k=0}^{n-1} a^{n-1-k}b^k
+    = (a-b)a^{n-1}\sum_{k=0}^{n-1} \left(\frac{b}{a}\right)^k
+    = (a-b)a^{n-1}\frac{1-\left(\frac{b}{a}\right)^n}{1-\frac{b}{a}}
+$$$$
+    = (a-b)a^{n-1} \frac{\left(\frac{a^n-b^n}{a^n}\right)}{\left(\frac{a-b}{a}\right)}
+    = (a-b)a^{n-1} \frac{a(a^n-b^n)}{a^n(a-b)} = a^n-b^n
+$$
+
+Damit folgt nun für gegebenes $n \in \mathbb{N}$ und $x \in \mathbb{R}\setminus \{0\}\colon$
+$$
+    \lim_{h \to 0} \frac{j(x+h)-j(x)}{h}
+    = \lim_{h \to 0} \frac{\frac{1}{(x+h)^n} - \frac{1}{x^n}}{h}
+    = \lim_{h \to 0} \frac{\left(\frac{x^n-(x+h)^n}{x^n(x+h)^n}\right)}{h}
+$$$$
+    = \lim_{h \to 0} \frac{(x-(x+h))\sum_{k=0}^{n-1} x^{n-k-1}(x+h)^k}{hx^n(x+h)^n} 
+    = \lim_{h \to 0} -\sum_{k=0}^{n-1} x^{-k-1}(x+h)^{k-n}
+$$$$
+    = -\sum_{k=0}^{n-1} x^{-(n+1)} = \frac{-n}{x^{n+1}}
+$$
+
+Also existiert der Differenzenquotient von $j_n(x)$ für beliebige $n \in \mathbb{N}$.
+
+\newpage
+
+\aufgabe{3}
+
+
+
+\end{document}
