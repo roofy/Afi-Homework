@@ -150,6 +150,156 @@ Also existiert der Differenzenquotient von $j_n(x)$ für beliebige $n \in \mathb
 
 \aufgabe{3}
 
+\textbf{a)}
+Mit partieller Integration (gekz. P) sowie der Gleichung $\sin^2(x)+\cos^2(x) = 1$ folgt:
+\begin{alignat*}{2}
+    \int \cos^2(x)\, \mathrm{d}x &\ \up{=}{P}\ \cos(x)\sin(x) - \int -\sin(x)\sin(x)\, \mathrm{d}x \\[2pt]
+    &\ =\ \cos(x)\sin(x)+\int \sin^2(x)\, \mathrm{d}x \\[2pt]
+    &\ =\ \cos(x)\sin(x)+\int 1-\cos^2(x)\, \mathrm{d}x \\[2pt]
+    &\ =\ \cos(x)\sin(x)+\int 1\, \mathrm{d}x - \int \cos^2(x)\, \mathrm{d}x \\[2pt]
+    &\ =\ \cos(x)\sin(x)+x - \int \cos^2(x)\, \mathrm{d}x
+\end{alignat*}
+Damit folgt:
+\begin{alignat*}{3}
+    &\int \cos^2(x)\, \mathrm{d}x &\ =\ &\cos(x)\sin(x)+x - \int \cos^2(x)\, \mathrm{d}x \\[2pt]
+    \Longleftrightarrow\quad & 2\int \cos^2(x)\, \mathrm{d}x &\ =\ & \cos(x)\sin(x)+x\\[2pt]
+    \Longleftrightarrow\quad & \int \cos^2(x)\, \mathrm{d}x &\ =\ & \frac{\cos(x)\sin(x)+x}{2}\\[2pt]
+\end{alignat*}
+Als Probe folgt mit der Produktregel und der oben genannten Gleichung:
+$$
+    \left[\frac{\cos(x)\sin(x)+x}{2}\right]'
+    = \frac{1}{2}[\cos(x)\sin(x)]'+\frac{1}{2}[x]'
+$$$$
+    = \frac{1}{2}(-\sin(x)\sin(x)+\cos(x)\cos(x))+\frac{1}{2}
+$$$$
+    = \frac{1}{2}(1-\sin^2(x)+\cos^2(x))
+$$$$
+    = \cos^2(x)
+$$
+
+Daher ist also $\dfrac{\cos(x)\sin(x)+x}{2}$ eine Stammfunktion von $\cos^2(x)$.
+
+\textbf{b)}
+Nach IV 2.13 gilt $\sin(2x) = 2\sin(x)\cos(x)$. Es folgt mit der Substitutionsregel (gekz. S):
+$$
+    \int \frac{\sin(2x)}{\cos^2(x)}\, \mathrm{d}x
+    = 2\int \frac{\sin(x)}{\cos(x)}\, \mathrm{d}x
+    = -2\int \frac{-\sin(x)}{\cos(x)}\, \mathrm{d}x
+    \up{=}{S} -2\ln(|\cos(x)|)
+$$
+
+Als Probe folgt mit der Kettenregel und wieder der Gleichung:
+$$
+    [-2\ln(|\cos(x)|)]'
+    = \frac{-2[|\cos(x)|]'}{\cos(x)}
+    = \frac{2\sin(x)}{\cos(x)}
+    = \frac{\sin(2x)}{\cos^2(x)}
+$$
+
+Damit ist $-2\ln(\cos(x))$ eine Stammfunktion von $\dfrac{\sin(2x)}{\cos^2(x)}$.
+\newpage
+
+\textbf{c)}
+
+$
+    \displaystyle\int \frac{e^{2x}}{\sqrt{(3e^x+1)^3}}\, \mathrm{d}x
+$
+\quad Wir substituieren mit $u = 3e^x+1$, woraus sich auch $e^{2x} = \dfrac{(u-1)^2}{9}$ ergibt.\\[5pt]
+Weiterhin gilt nun
+$\frac{\mathrm{d}u}{\mathrm{d}x}
+= [3e^x+1]'
+= 3e^x \,\Longleftrightarrow\, \mathrm{d}x
+= \dfrac{\mathrm{d}u}{3e^x}
+= \dfrac{\mathrm{d}u}{3\frac{u-1}{3}}
+= \dfrac{\mathrm{d}u}{u-1}
+$. Wir lösen also:
+$$
+    \int \frac{(u-1)^2}{9} \cdot \frac{1}{\sqrt{u^3}}\cdot \frac{\mathrm{d}u}{u-1}
+    = \frac{1}{9}\int \frac{u-1}{\sqrt{u^3}}\, \mathrm{d}u
+$$$$
+    = \frac{1}{9}\left(\int \frac{1}{\sqrt{u}}\, \mathrm{d}u - \int \frac{1}{\sqrt{u^3}}\, \mathrm{d}u\right)
+    = \frac{1}{9}\left(\frac{u^{\frac{1}{2}}}{\frac{1}{2}} - \frac{u^{-\frac{1}{2}}}{-\frac{1}{2}}\right)
+    = \frac{1}{9}\left(2\sqrt{u} + \frac{2}{\sqrt{u}}\right)
+$$
+Nun resubstituieren wir $u = 3e^x+1$ und erhalten damit:
+$$
+    \int \frac{e^2x}{\sqrt{(3e^x+1)^3}}\,\mathrm{d}x = \frac{1}{9}\left(2\sqrt{3e^x+1} + \frac{2}{\sqrt{3e^x+1}}\right)
+$$$$
+    = \frac{6e^x+4}{9\sqrt{3e^x+1}}
+$$
+
+Als Probe folgt mit der Kettenregel:
+$$
+    \left[\frac{6e^x+4}{9\sqrt{3e^x+1}}\right]'
+    = \frac{6}{9}\left[\frac{e^x}{\sqrt{3e^x+1}}\right]' + \frac{4}{9}\left[\frac{1}{\sqrt{3e^x+1}}\right]'
+$$$$
+    = \frac{6}{9}\left(\frac{[e^x]'\sqrt{3e^x+1} -e^x\left[\sqrt{3e^x+1}\right]'}{\left(\sqrt{3e^x+1}\right)^2} \right)
+        +\frac{4}{9}\left(-\frac{[3e^x+1]'}{2\sqrt{(3e^x+1)^3}}\right)
+$$$$
+    = \frac{6}{9}\left(\frac{e^x\sqrt{3e^x+1} - \dfrac{3e^{2x}}{2\sqrt{3e^x+1}}}{3e^x+1} \right)
+        +\frac{4}{9}\left(-\frac{3e^x}{2\sqrt{(3e^x+1)^3}}\right)
+$$$$
+    = \frac{6}{9}\left(\frac{e^x}{\sqrt{3e^x+1}} - \frac{3e^{2x}}{2\sqrt{(3e^x+1)^3}}\right)
+        +\frac{4}{9}\left(-\frac{3e^x}{2\sqrt{(3e^x+1)^3}}\right)
+$$$$
+    = \frac{6e^x}{9\sqrt{3e^x+1}} - \frac{18e^{2x}}{18\sqrt{(3e^x+1)^3}} -\frac{12e^x}{18\sqrt{(3e^x+1)^3}}
+$$$$
+     = \frac{2e^x}{3\sqrt{3e^x+1}} - \frac{3e^{2x}+2e^x}{3\sqrt{(3e^x+1)^3}}
+$$$$
+     = \frac{2e^x(3e^x+1) - 3e^{2x}-2e^x}{3\sqrt{(3e^x+1)^3}}
+$$$$
+    = \frac{e^{2x}}{3\sqrt{(3e^x+1)^3}}
+$$
+
+Damit ist $\dfrac{6e^x+4}{9\sqrt{3e^x+1}}$ eine Stammfunktion von $\dfrac{e^{2x}}{3\sqrt{(3e^x+1)^3}}$.
+
+\newpage
+
+\aufgabe{4}
+
+\textbf{a)}
+
+$$
+    \int \frac{\sqrt{3}}{5x}+e^{4x}\, \mathrm{d}x
+    = \frac{\sqrt{3}}{5}\int \frac{1}{x}\, \mathrm{d}x + \int e^{4x}\, \mathrm{d}x
+    = \frac{\sqrt{3}\ln(|x|)}{5} + \frac{e^{4x}}{4} + C,\quad C \in \mathbb{R}
+$$
+Wir machen die Probe durch differenzieren:
+$$
+    \left[\frac{\sqrt{3}\ln(|x|)}{5} + \frac{e^{4x}}{4} + C\right]'
+    = \frac{\sqrt{3}}{5}[\ln(|x|)]' + e^{4x}
+    = \frac{\sqrt{3}}{5x} + e^{4x}
+$$
+
+\textbf{b)}
+
+$$
+    \int \frac{3}{7}x^8+\frac{25}{3} x^4-2x^3\, \mathrm{d}x
+    = \frac{3}{7}\int x^3\, \mathrm{d}x + \frac{25}{3} \int x^4\, \mathrm{d}x - 2 \int x^3\, \mathrm{d}x
+$$$$
+    = \frac{3}{21}x^9+\frac{5}{3}x^5-\frac{1}{2}x^4 + C,\quad C \in \mathbb{R}
+$$
+Wir machen die Probe durch differenzieren:
+$$
+    \left[\frac{3}{21}x^9+\frac{5}{3}x^5-\frac{1}{2}x^4+C\right]'
+    = \frac{3}{7}x^8+\frac{25}{3}x^4-2x^3
+$$
+
+\textbf{c)}
+$$
+    \int \cos(3x)+7x^4-\frac{4}{x}\, \mathrm{d}x
+    = \int \cos(3x)\, \mathrm{d}x +7\int x^4\, \mathrm{d}x -4\int \frac{1}{x}\, \mathrm{d}x
+    = \frac{1}{3}\int 3\cos(3x)\, \mathrm{d}x +\frac{7}{5}x^5-4\ln(|x|)
+$$$$
+    = \frac{1}{3}\sin(3x)+\frac{7}{5}x^5-4\ln(|x|) + C,\quad C \in \mathbb{R}
+$$
+Wir machen die Probe durch differenzieren:
+$$
+    \left[\frac{1}{3}\sin(3x)+\frac{7}{5}x^5-4\ln(|x|)+C\right]'
+    =\cos(3x)+7x^4-\frac{4}{x}
+$$
+
+
 
 
 \end{document}
