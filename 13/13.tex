@@ -35,7 +35,39 @@
 
 
 \aufgabe{1}
+Wir nutzen aufgrund der Äquivalenz hier die Untersumme und zerlegen das Intervall $[1,b]$ wie im Hinweis
+durch die Folge $x_i = b^{\frac{i}{n}}$. Es folgt:
+$$
+	\int_{1}^{b} \frac{1}{x}\, \mathrm{d}x
+	= \lim_{n \to \infty} \sum_{i=1}^{n} \frac{1}{x_{i-1}}(x_i-x_{i-1})
+	= \lim_{n \to \infty} \sum_{i=1}^{n} b^{-\frac{i-1}{n}}\left(b^{\frac{i}{n}} - b^{\frac{i-1}{n}}\right)
+$$$$
+	= \lim_{n \to \infty} \sum_{i=1}^{n} b^{\frac{i-(i-1)}{n}}-b^{\frac{i-1-(i-1)}{n}}
+	= \lim_{n \to \infty} \sum_{i=1}^{n}\left(b^{\frac{1}{n}}-b^0\right)
+$$$$
+	= \lim_{n \to \infty} n\left(b^{\frac{1}{n}}-1\right)
+	= \lim_{n \to \infty} \frac{\exp\left(\frac{\ln(b)}{n}\right)-1}{\frac{1}{n}}
+$$
+Auf die gegebene Folge lässt sich nun der Satz von l'Hopital anwenden, da sowohl die Exponentialfunktion 
+als auch $\frac{1}{n}$ stetig auf $\mathbb{R}$ sind. Weiterhin gilt nach Skript auch
+$$
+	\lim_{n \to \infty} \frac{1}{n} = 0\qquad\text{und}\qquad
+	\lim_{n \to \infty} \exp\left(\frac{\ln(b)}{n}\right)-1 = \exp(0)-1 = 0
+$$
+Also versuchen wir l'Hopital anzuwenden und überprüfen, ob der Grenzwert der Ableitungen existiert:
+$$
+	 \lim_{n \to \infty} \frac{\left[\exp\left(\frac{\ln(b)}{n}\right)-1\right]'}{\left[\frac{1}{n}\right]'}
+	= \lim_{n \to \infty} \frac{-\frac{\exp\left(\frac{\ln(b)}{n}\right)\ln(b)}{n^2}}{-\frac{1}{n^2}}
+$$$$
+	= \lim_{n \to \infty} \exp\left(\frac{\ln(b)}{n}\right)\ln(b)
+	= \exp(0)\ln(b) = \ln(b)
+$$
+Nach l'Hopital gilt nun auch:
+$$
+	\ln(b) = \lim_{n \to \infty} \frac{\exp\left(\frac{\ln(b)}{n}\right)-1}{\frac{1}{n}} = \int_{1}^{b} \frac{1}{x}\, \mathrm{d}x
+$$
 
+\newpage
 
 \aufgabe{2}
 \textbf{a)}
@@ -156,7 +188,20 @@ $$
 	\int_{1}^{\infty} x^\alpha\, \mathrm{d}x
 	= \lim_{b \to \infty} \int_{1}^{b} x^\alpha\, \mathrm{d}x
 	= \lim_{b \to \infty} \frac{b^{\alpha+1}-1}{\alpha+1}
+	= \lim_{b \to \infty} \frac{\exp(\alpha+1\ln(b))-1}{\alpha+1}
+$$
+Nach Skirpt gilt $\lim_{x \to \infty}\limits \ln(x) = \infty$ sowie
+$\lim_{x \to \infty}\limits e^x = \infty$, weiterhin gilt $\alpha+1 > 0$, daher existiert der
+Grenzwert nicht und es gilt:
+$$
+	\lim_{b \to \infty} \frac{\exp((\alpha+1)\ln(b))-1}{\alpha+1} = \infty
 $$
 
+Zusammenfassnd existiert das Integral $\int_{0}^{1} x^\alpha\, \mathrm{d}x$ nicht für
+$\alpha \leq -1$, und das Integral $\int_{1}^{\infty} x^\alpha\, \mathrm{d}x$ nicht für
+$0 > \alpha >-1$. Daher existiert das Integral $\int_{0}^{\infty} x^\alpha\, \mathrm{d}x$ für
+kein $\alpha < 0$.
 
+
+\aufgabe{4}
 \end{document}
