@@ -45,7 +45,7 @@ $$
         \lim_{h \to 0}\limits -|\sin(h)| & \text{für } h < 0
     \end{array}\right\} = 0
 $$
-Da nun der Grenzwert existiert, folgt Differenzierbarkeit von $f$ in $x_0$.
+Da nun der Grenzwert existiert (da er von beiden Seiten gleich ist), folgt Differenzierbarkeit von $f$ in $x_0$.
 
 \textbf{b)}
 $$
@@ -62,15 +62,20 @@ Es ist also $g$ in $x_0$ nicht differenzierbar.
 
 \textbf{c)}
 $$
-    \lim_{h \to 0} \frac{j(x_0+h)-j(x_0)}{h}
-    = \lim_{h \to 0} \frac{j(h)-\sin^n(0)}{h}
+    \lim_{h \to 0} \frac{j_n(x_0+h)-j(x_0)}{h}
+    = \lim_{h \to 0} \frac{j_n(h)-\sin^n(0)}{h}
+	= \lim_{h \to 0} \frac{j_n(h)}{h}\\[5pt]
+$$$$
     = \left\{\begin{array}{lr}
-        \lim_{h \to 0}\limits \frac{\sin^n(h)}{h} = ?& \text{für } h \geq 0\\
+		\lim_{h \to 0}\limits \frac{\sin^n(h)}{h}
+		= \lim_{h \to 0}\limits\sin^{n-1}(h)\lim_{h \to 0}\limits\frac{\sin(h)}{h}
+		= 0\cdot 1 & \text{für } h \geq 0\\
         \\
         \lim_{h \to 0}\limits \frac{0}{h} = 0 & \text{für } h < 0
     \end{array}\right\}
+		= 0
 $$
-
+Da nun der Grenzwert existiert (da er von beiden Seiten gleich ist), folgt Differenzierbarkeit von $f$ in $x_0$.
 
 \aufgabe{2}
 \textbf{a)}

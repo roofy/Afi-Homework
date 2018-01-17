@@ -1,0 +1,162 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe  13}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{1}
+
+
+\aufgabe{2}
+\textbf{a)}
+Da $\forall x \in [a,b] \colon m \leq f(x) \leq M$, sowie $\forall x \in [a,b]\colon g(x) \geq 0$, folgt auch:
+$$
+	\forall x \in [a,b] \colon mg(x)\leq f(x)g(x) \leq Mg(x)
+$$
+Nach Skript Satz 1.5 folgt durch betrachtung von $mg(x), Mg(x)$ und $f(x)$ als eigene Funktion:
+$$
+	m\int_{a}^{b} g(x)\, \mathrm{d}x
+	= \int_{a}^{b} mg(x)\, \mathrm{d}x
+	\leq \int_{a}^{b} f(x)g(x)\, \mathrm{d}x
+	\leq \int_{a}^{b} Mg(x)\, \mathrm{d}x
+	= M\int_{a}^{b} g(x)\, \mathrm{d}x
+$$
+
+\textbf{b)}
+Da die Stammfunktionen von $f, g, f\cdot g$ existieren, muss also eine Zerlegungssumme folgender Form existieren:
+$$
+	\sum_{i=1}^{n} h_i(x_i-x_{i-1}) = \int_{a}^{b} g(x)\, \mathrm{d}x
+$$
+für ein $n \in \mathbb{N}, n \to \infty$, eine reelle Folge $x$ mit $a = x_0 < x_1 < ... < x_n = b$ und eine
+reelle Folge $h_i \in g([x_{i-1}, x_i])$.
+
+Ebenso muss die Zerlegugssumme für $f\cdot g$ existieren:
+$$
+	\sum_{i=1}^{n} k_ih_i(x_i-x_{i-1}) = \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
+$$
+mit der zusätzlichen reellen Folgen $k_i \in f([x_{i-1}, x_i])$.
+Es gilt nun:
+$$
+	\forall x \in [a,b]\colon f(x) \geq m \,\Longrightarrow\, \forall i \in [1,n]\colon \forall x \in f([y_{i-1}, y_i])\colon x \geq m \,\Longrightarrow\, \forall i \in [1,n]\colon k_i \geq m
+$$$$
+	\,\Longrightarrow\, m\int_{a}^{b} g(x)\, \mathrm{d}x
+	= \sum_{i=1}^{n} mh_i(x_i-x_{i-1}) 
+	\leq \sum_{i=1}^{n} k_ih_i(x_i-x_{i-1})
+	= \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
+$$
+Analog gilt:
+$$
+	\forall x \in [a,b]\colon f(x) \leq M \,\Longrightarrow\, \forall i \in [1,n]\colon \forall x \in f([x_{i-1}, x_i])\colon x \leq M \,\Longrightarrow\, \forall i \in [1,n]\colon k_i \leq M
+$$$$
+	\,\Longrightarrow\, \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
+	= \sum_{i=1}^{n} k_ih_i(x_i-x_{i-1})
+	\leq \sum_{i=1}^{n} Mh_i(x_i-x_{i-1}) 
+	= M\int_{a}^{b} g(x)\, \mathrm{d}x
+$$
+
+\newpage
+\aufgabe{3}
+\textbf{a)}
+Die Exponentialfunktion ist differenzierbar, integrierbar und stetig auf $\mathbb{R}$.\\
+$$
+	\int_{0}^{\infty} 1-\frac{e^x-e^{-x}}{e^x+e^{-x}}\, \mathrm{d}x
+	= \lim_{b \to \infty}\left( \int_{0}^{b} 1\, \mathrm{d}x -\int_0^b \frac{1}{z}\, \mathrm{d}z\right)
+	= \lim_{b \to \infty}\left(x-\ln(|z|)\right)_0^b
+$$$$
+	= \lim_{b \to \infty}\left(x-\ln(e^x+e^{-x})\right)_0^b
+	= \lim_{b \to \infty}\left(b-\ln(e^b+e^{-b}) - (0 -\ln(e^0+e^{-0}))\right)
+$$$$
+	= \lim_{b \to \infty}\left(b-\ln(e^b+e^{-b}) +\ln(2)\right)
+	= \ln(2) + \lim_{b \to \infty} \ln\left(\exp\left(b-\ln(e^b+e^{-b})\right)\right)
+$$$$
+	= \ln(2) + \lim_{b \to \infty} \ln\left(\frac{e^b}{e^b+e^{-b}}\right)
+	= \ln(2) + \lim_{b \to \infty} \ln\left(\frac{1}{1+e^{-2b}}\right)
+	= \ln(2) + \ln\left(\frac{1}{1+0}\right)
+$$$$
+	= \ln(2) + \ln(1) = \ln(2)
+$$
+
+Da der Grenzwert $\displaystyle\lim_{b \to \infty} \int_{0}^{b} 1-\frac{e^x-e^{-x}}{e^x+e^{-x}}\, \mathrm{d}x = \ln(2)$
+existiert, gilt nun auch
+$$
+	\int_{0}^{\infty} 1-\frac{e^x-e^{-x}}{e^x+e^{-x}}\, \mathrm{d}x = \ln(2)
+$$
+
+\textbf{b)}
+Nach Skript Satz 2.13 gilt $\lim_{a \to 0} \ln(a) = -\infty$, also ist $\ln(x)$ für $x\to 0$ bestimmt divergent
+gegen $-\infty$ (*). Daher gilt, dass für $\alpha \leq -1$ das gegebene uneigentliche Integral nicht existiert:\\
+Wir unterteilen das Integral bei $c=1$, da $x^\alpha$ für $\alpha <0$ in $x_0=0$ nicht definiert ist, also zwei
+uneigentliche Integrationsgrenzen hat:
+$$
+	\int_{0}^{\infty} x^\alpha\, \mathrm{d}x
+	= \int_{0}^{1} x^\alpha\, \mathrm{d}x + \int_{1}^{\infty} x^\alpha\, \mathrm{d}x
+$$
+Wir betrachten zuerst das Integral $\int_{0}^{1} x^\alpha\, \mathrm{d}x$ für $\alpha = -1$:
+$$
+	\int_{0}^{1} \frac{1}{x}\, \mathrm{d}x
+	= \lim_{a \to 0} \int_{a}^{1} \frac{1}{x}\, \mathrm{d}x
+	= \lim_{a \to 0} \ln(1)-\ln(a)
+$$
+Da der Grenzwert nicht existiert (s.o.), existiert auch das uneigentliche Integral nicht für $\alpha = -1$.
+Wir betrachten zunächst das Integral $\int_{0}^{1} x^\alpha\, \mathrm{d}x$:
+$$
+	\int_{0}^{1} x^\alpha\, \mathrm{d}x
+	= \lim_{a \to 0} \int_{a}^{1} x^\alpha\, \mathrm{d}x
+	= \lim_{a \to 0} \left(\frac{x^{\alpha+1}}{\alpha+1}\right)\bigg|_a^1
+	= \lim_{a \to 0} \left(\frac{1^{\alpha+1}-a^{\alpha+1}}{\alpha+1}\right)
+$$
+Für $\alpha < -1$ ist $\alpha+1 < 0$, d.h. $\lim_{a \to 0}\limits a^{\alpha+1}$ existiert nicht und
+divergiert bestimmt gegen unendlich. Also kann das gegebene uneigentliche Integral schonmal
+nicht für $\alpha \leq -1$ existieren.\\
+Für $0 > \alpha > -1$ gilt jedoch:
+$$
+	\lim_{a \to 0} \left(\frac{1^{\alpha+1}-a^{\alpha+1}}{\alpha+1}\right)
+	= \frac{1^{\alpha+1}-0^{\alpha+1}}{\alpha+1}
+	= \frac{1}{\alpha+1}
+$$
+Und damit auch
+$$
+	\forall 0 > \alpha > -1\colon \int_{0}^{1} x^\alpha\, \mathrm{d}x = \frac{1}{\alpha+1}
+$$
+\newpage
+
+Wir überprüfen also nun ob auch das Integral $\int_{1}^{\infty} x^\alpha\, \mathrm{d}x$ für
+$0 > \alpha > -1$ existiert:
+$$
+	\int_{1}^{\infty} x^\alpha\, \mathrm{d}x
+	= \lim_{b \to \infty} \int_{1}^{b} x^\alpha\, \mathrm{d}x
+	= \lim_{b \to \infty} \frac{b^{\alpha+1}-1}{\alpha+1}
+$$
+
+
+\end{document}
