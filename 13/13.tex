@@ -35,8 +35,8 @@
 
 
 \aufgabe{1}
-Wir nutzen aufgrund der Äquivalenz hier die Untersumme und zerlegen das Intervall $[1,b]$ wie im Hinweis
-durch die Folge $x_i = b^{\frac{i}{n}}$. Es folgt:
+Wir zerlegen das Intervall $[1,b]$ wie im Hinweis durch die Folge $x_i = b^{\frac{i}{n}}$. Da 
+$\frac{1}{x}$ auf dem Intervall $[1,\infty)$ streng monoton fallend ist, lässt sich die Obersumme wie folgt bilden:
 $$
 	\int_{1}^{b} \frac{1}{x}\, \mathrm{d}x
 	= \lim_{n \to \infty} \sum_{i=1}^{n} \frac{1}{x_{i-1}}(x_i-x_{i-1})
@@ -49,22 +49,30 @@ $$$$
 	= \lim_{n \to \infty} \frac{\exp\left(\frac{\ln(b)}{n}\right)-1}{\frac{1}{n}}
 $$
 Auf die gegebene Folge lässt sich nun der Satz von l'Hopital anwenden, da sowohl die Exponentialfunktion 
-als auch $\frac{1}{n}$ stetig auf $\mathbb{R}$ sind. Weiterhin gilt nach Skript auch
+als auch $\frac{1}{n}$ stetig auf $\mathbb{R}$ sind. Weiterhin gilt nach Skript dann auch
 $$
 	\lim_{n \to \infty} \frac{1}{n} = 0\qquad\text{und}\qquad
-	\lim_{n \to \infty} \exp\left(\frac{\ln(b)}{n}\right)-1 = \exp(0)-1 = 0
+	\lim_{n \to \infty} \exp\left(\frac{\ln(b)}{n}\right)-1
+	= \exp\left(\lim_{n \to \infty}\frac{\ln(b)}{n}\right)
+	= \exp(0) = 1
 $$
-Also versuchen wir l'Hopital anzuwenden und überprüfen, ob der Grenzwert der Ableitungen existiert:
+Also wenden wir l'Hopital und überprüfen, ob der Grenzwert der Ableitungen existiert:
 $$
 	 \lim_{n \to \infty} \frac{\left[\exp\left(\frac{\ln(b)}{n}\right)-1\right]'}{\left[\frac{1}{n}\right]'}
 	= \lim_{n \to \infty} \frac{-\frac{\exp\left(\frac{\ln(b)}{n}\right)\ln(b)}{n^2}}{-\frac{1}{n^2}}
 $$$$
 	= \lim_{n \to \infty} \exp\left(\frac{\ln(b)}{n}\right)\ln(b)
+	= \exp\left(\lim_{n \to \infty} \frac{\ln(b)}{n}\right)\ln(b)
 	= \exp(0)\ln(b) = \ln(b)
 $$
 Nach l'Hopital gilt nun auch:
 $$
-	\ln(b) = \lim_{n \to \infty} \frac{\exp\left(\frac{\ln(b)}{n}\right)-1}{\frac{1}{n}} = \int_{1}^{b} \frac{1}{x}\, \mathrm{d}x
+	\lim_{n \to \infty} \frac{\exp\left(\frac{\ln(b)}{n}\right)-1}{\frac{1}{n}} = \ln(b)
+$$
+Da dies also für eine Obersumme gilt, gilt es auch für das Infimum der Obersummen und aufgrund der Äquivalenz
+ebenso für das Supremum der Untersummen. Insgesamt gilt also:
+$$
+	\int_{1}^{b} \frac{1}{x}\, \mathrm{d}x = \ln(b)
 $$
 
 \newpage
@@ -85,38 +93,29 @@ $$
 $$
 
 \textbf{b)}
-Da die Stammfunktionen von $f, g, f\cdot g$ existieren, muss also eine Zerlegungssumme folgender Form existieren:
-$$
-	\sum_{i=1}^{n} h_i(x_i-x_{i-1}) = \int_{a}^{b} g(x)\, \mathrm{d}x
-$$
-für ein $n \in \mathbb{N}, n \to \infty$, eine reelle Folge $x$ mit $a = x_0 < x_1 < ... < x_n = b$ und eine
-reelle Folge $h_i \in g([x_{i-1}, x_i])$.
 
-Ebenso muss die Zerlegugssumme für $f\cdot g$ existieren:
+Es sei eine Zerlegung $Z$ des Intervalls $[a,b]$ in $n \in \mathbb{N}$ Teile gegeben, welche wir jeweils
+mit $Z_i$ indizieren.
+Wir notieren $\Omega(\varphi, i) := \max\{\varphi(x) \mid x \in [Z_{i-1}, Z_i]\}$ und bilden nun eine Obersumme.
+Es folgt durch die Gegebenheiten der Aufgabe, dass $\forall x \in [a,b]\colon m\leq f(x) \leq M \colon$
 $$
-	\sum_{i=1}^{n} k_ih_i(x_i-x_{i-1}) = \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
-$$
-mit der zusätzlichen reellen Folgen $k_i \in f([x_{i-1}, x_i])$.
-Es gilt nun:
-$$
-	\forall x \in [a,b]\colon f(x) \geq m \,\Longrightarrow\, \forall i \in [1,n]\colon \forall x \in f([y_{i-1}, y_i])\colon x \geq m \,\Longrightarrow\, \forall i \in [1,n]\colon k_i \geq m
+	m \sum_{i=1}^{n} \Omega(g, i)(Z_i-Z_{i-1}) = \sum_{i=1}^{n} m\Omega(g,i)(Z_i-Z_{i-1})
 $$$$
-	\,\Longrightarrow\, m\int_{a}^{b} g(x)\, \mathrm{d}x
-	= \sum_{i=1}^{n} mh_i(x_i-x_{i-1}) 
-	\leq \sum_{i=1}^{n} k_ih_i(x_i-x_{i-1})
-	= \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
-$$
-Analog gilt:
-$$
-	\forall x \in [a,b]\colon f(x) \leq M \,\Longrightarrow\, \forall i \in [1,n]\colon \forall x \in f([x_{i-1}, x_i])\colon x \leq M \,\Longrightarrow\, \forall i \in [1,n]\colon k_i \leq M
+	\leq \sum_{i=1}^{n} \Omega(f,i)\Omega(g,i)(Z_i-Z_{i-1})
 $$$$
-	\,\Longrightarrow\, \int_{a}^{b} f(x)\cdot g(x)\, \mathrm{d}x
-	= \sum_{i=1}^{n} k_ih_i(x_i-x_{i-1})
-	\leq \sum_{i=1}^{n} Mh_i(x_i-x_{i-1}) 
-	= M\int_{a}^{b} g(x)\, \mathrm{d}x
+	\leq \sum_{i=1}^{n} M\Omega(g,i)(Z_i-Z_{i-1}) = M \sum_{i=1}^{n} \Omega(g, i)(Z_i-Z_{i-1})
+$$
+Da dies für jede beliebige Zerlegung gilt, gilt es auch für das Infimum der Obersummen, sowie das Supremum
+der Untersummen, da $f,g$ und $f\cdot g$ integrierbar sind. Es gilt also:
+$$
+	m\int_{a}^{b} g(x)\, \mathrm{d}x
+	= m\cdot O(g)
+	\leq O(f\cdot g)
+	= \int_{a}^{b} f(x)g(x)\, \mathrm{d}x
+	\leq M\cdot O(g)
+	= M \int_{a}^{b} g(x)\, \mathrm{d}x
 $$
 
-\newpage
 \aufgabe{3}
 \textbf{a)}
 Die Exponentialfunktion ist differenzierbar, integrierbar und stetig auf $\mathbb{R}$.\\
@@ -180,7 +179,6 @@ Und damit auch
 $$
 	\forall 0 > \alpha > -1\colon \int_{0}^{1} x^\alpha\, \mathrm{d}x = \frac{1}{\alpha+1}
 $$
-\newpage
 
 Wir überprüfen also nun ob auch das Integral $\int_{1}^{\infty} x^\alpha\, \mathrm{d}x$ für
 $0 > \alpha > -1$ existiert:
@@ -202,6 +200,77 @@ $\alpha \leq -1$, und das Integral $\int_{1}^{\infty} x^\alpha\, \mathrm{d}x$ ni
 $0 > \alpha >-1$. Daher existiert das Integral $\int_{0}^{\infty} x^\alpha\, \mathrm{d}x$ für
 kein $\alpha < 0$.
 
-
+\newpage
 \aufgabe{4}
+\textbf{a)}
+Dies ist eine lineare DGL. Es ist $a(x) = -\frac{1}{2}$ und $b(x) = \frac{3}{2}$. Dann gilt
+$$
+	y' = a(x)y+b(x) = -\frac{1}{2}y+\frac{3}{2} = (3-y)\frac{1}{2}
+$$
+Wir definieren
+$$
+	\varphi(x) = \exp\left(\int_{x_0}^{x} a(t)\, \mathrm{d}t\right) = \exp\left(\frac{x_0-x}{2}\right)
+$$
+sowie
+$$
+	u(x) = y_0 + \int_{x_0}^{x} \frac{b(t)}{\varphi(t)}\, \mathrm{d}t
+	= y_0 + \int_{x_0}^{x} \frac{3}{2\exp\left(\frac{x_0-t}{2}\right)}\, \mathrm{d}t
+$$$$
+	y_0 + \left(\frac{3}{\exp(\frac{x_0-t}{2})}\right)\bigg|_{x_0}^x
+	= y_0 + \frac{3}{\exp(\frac{x_0-x}{2})} -3
+$$
+Dann ist nach Skript
+$$
+	\psi(x) = \varphi(x)\cdot u(x)
+	= \exp\left(\frac{x_0-x}{2}\right) \cdot\left(y_0 + \frac{3}{\exp(\frac{x_0-x}{2})} -3\right)
+$$$$
+	= \exp\left(\frac{x_0-x}{2}\right) \cdot\left(y_0-3\right)+3
+$$
+Das Vektorfeld ist nun wie folgt:
+
+\newpage
+\textbf{b)}
+Diese DGL ist nicht linear, aber seperierbar.
+Wir teilen wieder mit $f(x) = \frac{x}{1-x^2},\ g(y) = \frac{1-y^2}{y}$.
+Wir bestimmen zuerst $F(x)$, sodass $F(x_0) = 0$:
+$$
+	F(x) =
+	\int_{x_0}^{x} f(t)\, \mathrm{d}t
+	= \int_{x_0}^{x} \frac{t}{1-t^2}\, \mathrm{d}t
+	= -\frac{1}{2}\int_{x_0}^{x} \frac{-2t}{1-t^2}\, \mathrm{d}t
+	= -\frac{1}{2}\ln(|1-t^2|)\big|_{x_0}^x
+$$$$
+	= -\frac{\ln(|1-x^2|)-\ln(|1-x_0^2|)}{2}
+$$
+Da nur der Definitionsbereich $(-1,1)$ relevant für $y(x)$, sowie $x_0 \in (-1,1)$ ist, gilt sowohl
+$|1-x_0^2| = 1-x_0^2$ als auch $|1-x^2| = 1-x^2$ für unseren Zweck. Damit haben wir
+$$
+	F(x) = -\frac{\ln(1-x^2)-\ln(1-x_0^2)}{2}
+$$Wir bestimmen nun $H(z)$, sodass
+$H(y_0) = 0$:
+$$
+	H(z) = \int_{y_0}^{z} \frac{1}{g(t)}\, \mathrm{d}t
+	= \int_{y_0}^{z} \frac{t}{1-t^2}\, \mathrm{d}x \up{=}{s.o.} -\frac{\ln(|1-z^2|)-\ln(|1-y_0^2|)}{2}
+$$
+Es ist $y_0 \in (0,1)$, also gilt $|y_0| = y_0$. Damit haben wir
+$$
+	H(z) = -\frac{\ln(|1-z^2|)-\ln(1-y_0^2)}{2}
+$$
+Nach Skript gilt nun:
+$$
+	H(y(x)) = F(x)
+$$$$
+	\,\Longleftrightarrow\, -\frac{\ln(|1-y(x)^2|) -\ln(1-y_0^2)}{2} = -\frac{\ln(1-x^2)-\ln(1-x_0^2)}{2}
+$$$$
+	\,\Longleftrightarrow\, \ln(1-y(x)^2) -\ln(1-y_0^2) = \ln(1-x^2)-\ln(1-x_0^2)
+$$$$
+	\,\Longleftrightarrow\, \ln\left(\frac{1-y(x)^2}{1-y_0^2}\right) = \ln\left(\frac{1-x^2}{1-x_0^2}\right)
+$$$$
+	\,\Longleftrightarrow\, \frac{1-y(x)^2}{1-y_0^2} = \frac{1-x^2}{1-x_0^2}
+$$$$
+	\,\Longleftrightarrow\, 1-y(x)^2 = \frac{(1-x^2)(1-y_0^2)}{1-x_0^2}
+$$$$
+	\,\Longleftrightarrow\, y(x) = \pm\sqrt{1-\frac{(1-x^2)(1-y_0^2)}{1-x_0^2}}
+$$
+Das Vektorfeld ist dann:
 \end{document}
