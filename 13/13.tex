@@ -242,11 +242,11 @@ $$
 $$$$
 	= -\frac{\ln(|1-x^2|)-\ln(|1-x_0^2|)}{2}
 $$
-Da nur der Definitionsbereich $(-1,1)$ relevant für $y(x)$, sowie $x_0 \in (-1,1)$ ist, gilt sowohl
-$|1-x_0^2| = 1-x_0^2$ als auch $|1-x^2| = 1-x^2$ für unseren Zweck. Damit haben wir
+Es gilt $x_0 \in (-1,1)$ und damit auch $|1-x_0^2| = 1-x_0^2$. Es gilt also:
 $$
-	F(x) = -\frac{\ln(1-x^2)-\ln(1-x_0^2)}{2}
-$$Wir bestimmen nun $H(z)$, sodass
+	F(x) = -\frac{\ln(|1-x^2|)-\ln(1-x_0^2)}{2}
+$$
+Wir bestimmen nun $H(z)$, sodass
 $H(y_0) = 0$:
 $$
 	H(z) = \int_{y_0}^{z} \frac{1}{g(t)}\, \mathrm{d}t
@@ -256,21 +256,22 @@ Es ist $y_0 \in (0,1)$, also gilt $|y_0| = y_0$. Damit haben wir
 $$
 	H(z) = -\frac{\ln(|1-z^2|)-\ln(1-y_0^2)}{2}
 $$
-Nach Skript gilt nun:
+Weiterhin ist der Werteberich von $f$ gleich $(0,1)$, daher gilt auch $|1-y(x)^2| = 1-y(x)^2$.\\
+Mit Skript folgt:
 $$
 	H(y(x)) = F(x)
 $$$$
-	\,\Longleftrightarrow\, -\frac{\ln(|1-y(x)^2|) -\ln(1-y_0^2)}{2} = -\frac{\ln(1-x^2)-\ln(1-x_0^2)}{2}
+	\,\Longleftrightarrow\, -\frac{\ln(|1-y(x)^2|) -\ln(1-y_0^2)}{2} = -\frac{\ln(|1-x^2|)-\ln(1-x_0^2)}{2}
 $$$$
-	\,\Longleftrightarrow\, \ln(1-y(x)^2) -\ln(1-y_0^2) = \ln(1-x^2)-\ln(1-x_0^2)
+	\,\Longleftrightarrow\, \ln(1-y(x)^2) -\ln(1-y_0^2) = \ln(|1-x^2|)-\ln(1-x_0^2)
 $$$$
-	\,\Longleftrightarrow\, \ln\left(\frac{1-y(x)^2}{1-y_0^2}\right) = \ln\left(\frac{1-x^2}{1-x_0^2}\right)
+	\,\Longleftrightarrow\, \ln\left(\frac{1-y(x)^2}{1-y_0^2}\right) = \ln\left(\frac{|1-x^2|}{1-x_0^2}\right)
 $$$$
-	\,\Longleftrightarrow\, \frac{1-y(x)^2}{1-y_0^2} = \frac{1-x^2}{1-x_0^2}
+	\,\Longleftrightarrow\, \frac{1-y(x)^2}{1-y_0^2} = \frac{|1-x^2|}{1-x_0^2}
 $$$$
-	\,\Longleftrightarrow\, 1-y(x)^2 = \frac{(1-x^2)(1-y_0^2)}{1-x_0^2}
+	\,\Longleftrightarrow\, 1-y(x)^2 = \frac{(|1-x^2|)(1-y_0^2)}{1-x_0^2}
 $$$$
-	\,\Longleftrightarrow\, y(x) = \pm\sqrt{1-\frac{(1-x^2)(1-y_0^2)}{1-x_0^2}}
+	\,\Longleftrightarrow\, y(x) = \pm\sqrt{1-\frac{|1-x^2|(1-y_0^2)}{1-x_0^2}}
 $$
 Das Vektorfeld ist dann:
 \end{document}
