@@ -1,0 +1,217 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{11}}             \hfill Tobias Riedel, 379133 \\
+\noindent Analysis für Informatiker             \hfill Phil Pützstück, 377247 \\
+\strut\hfill Kevin Holzmann, 371116\\
+\strut\hfill Gurvinderjit Singh, 369227
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 14}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+Es sei
+$$
+	A =
+		\begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix}
+$$
+
+Dann ist $\det(A) = ad-bc$ nach Hinweis. Für $\det(A) \neq 0$ gilt:
+$$
+	\frac{1}{\det(A)} \cdot \begin{pmatrix}
+		d & -b\\
+		-c & a
+	\end{pmatrix}
+	= \begin{pmatrix}
+		\dfrac{d}{ad-bc} & \dfrac{-b}{ad-bc}\\[15pt]
+		\dfrac{-c}{ad-bc} & \dfrac{a}{ad-bc}
+	\end{pmatrix}
+	= B
+$$
+Dann gilt:
+$$
+	AB = \begin{pmatrix}
+			a & b\\
+			c & d
+		\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+		\dfrac{d}{ad-bc} & \dfrac{-b}{ad-bc}\\[15pt]
+		\dfrac{-c}{ad-bc} & \dfrac{a}{ad-bc}
+	\end{pmatrix}
+$$
+
+$$
+	= \begin{pmatrix}
+		\left(a\cdot\dfrac{d}{ad-bc}\right) + \left(b\cdot \dfrac{-c}{ad-bc}\right)
+		& \left(a\cdot\dfrac{-b}{ad-bc}\right) + \left(b\cdot \dfrac{a}{ad-bc}\right) \\[20pt]
+		\left(c\cdot\dfrac{d}{ad-bc}\right) + \left(d\cdot \dfrac{-c}{ad-bc}\right)
+		& \left(c\cdot\dfrac{-b}{ad-bc}\right) + \left(d\cdot \dfrac{a}{ad-bc}\right)
+	\end{pmatrix}
+$$
+
+$$
+	= \begin{pmatrix}
+		\dfrac{ad-bc}{ad-bc} & \dfrac{ab-ab}{ad-bc}\\[15pt]
+		\dfrac{cd-cd}{ad-bc} & \dfrac{ad-bc}{ad-bc}
+	\end{pmatrix}
+	= \begin{pmatrix}
+		1&0\\
+		0 & 1
+	\end{pmatrix}
+	= E_2
+$$
+
+Damit gilt nach Skript, dass $B = A^{-1}$.
+\newpage
+\aufgabe{2}
+\textbf{a)}
+Es sei $x \in \mathbb{R}^n$ für ein $n \in \mathbb{N}$ gegeben. Nach Definition ist:
+$$
+	||x||_1 = \sum_{i=1}^{n} |x_i|
+$$
+Es gelten folgende 3 Eigenschaften:
+
+\textbf{1)}
+Nach Skript gilt $\forall a \in \mathbb{R}\colon \left(|a| \geq 0\right)\land\left(|a| = 0 \,\Longrightarrow\, a = 0\right)$.
+
+Für $x = 0$, d.h. $\forall i \in [1,n]_\mathbb{N}\colon x_i = 0$ gilt also auch
+$$
+	||x||_1 = \sum_{i=1}^{n} |x_i| = \sum_{i=1}^{n} |0| = 0
+$$
+
+Andernfalls gilt:
+$$
+	\left(\exists i \in [1,n]_\mathbb{N}\colon x_i \neq 0\right) \,\Longrightarrow\, ||x||_1 = \sum_{i=1}^{n} |x_i| > 0
+$$
+
+Damit gilt in jedem Fall, dass $||x||_1 \geq 0$, sowie $\left(||x||_1 = 0\right) \,\Longrightarrow\, \left(\forall i \in [1,n]_\mathbb{N}\colon x_i = 0\right)$
+
+\textbf{2)}
+Für $c \in \mathbb{R}$ gilt:
+$$
+	||x\cdot c||_1
+	= \sum_{i=1}^{n} |c\cdot x_i|
+	= \sum_{i=1}^{n} |c|\cdot |x_i|
+	= |c|\cdot \sum_{i=1}^{n} |x_i|
+	= |c|\cdot ||x||_1
+$$
+
+\textbf{3)}
+Sei nun ebenfalls $y \in \mathbb{R}^n$ gegeben. Es gilt:
+$$
+	||x+y||_1
+	= \sum_{i=1}^{n} |x_i+y_i|
+	\leq \sum_{i=1}^{n} \left(|x_i|+|y_i|\right)
+	= \left(\sum_{i=1}^{n} |x_i|\right) + \left(\sum_{i=1}^{n} |y_i|\right)
+	= ||x||_1 + ||y||_1
+$$
+
+Damit ist $||\cdot||_1$ nach Skript eine Norm.
+
+\textbf{b)}
+Es sind:
+$$
+	||x||_1 = |-1|+|0|+|5| = 6 \qquad ||y||_1 = |2|+|3|+|1| = 7 \qquad ||z||_1 = |\sqrt{2}|+|-1|+|0| = \sqrt{2}+1
+$$
+Weiter gilt
+$$
+	||\langle x, y\rangle\cdot z||_1
+	= ||\left(-2+0+5\right) \cdot z||_1
+	= |3\sqrt{2}|+|-3|
+	= 3(\sqrt{2} +1)
+$$
+$$
+	||\langle x, z\rangle\cdot y||_1
+	= ||\left(-\sqrt{2}\right) \cdot y||_1
+	= |-2\sqrt{2}|+|-3\sqrt{2}|+|-\sqrt{2}|
+	= 7\sqrt{2}
+$$
+$$
+	||\langle y, z\rangle\cdot x||_1
+	= ||\left(2\sqrt{2}-3\right) \cdot x||_1
+	= |3-2\sqrt{2}|+|5(2\sqrt{2}-3)|
+	= 6(3-2\sqrt{2})
+$$
+
+\newpage
+\textbf{c)}
+Es seien $x,y \in \mathbb{R}^n$ für ein $n \in \mathbb{N}$ gegeben. Es gilt:
+$$
+	|\langle x,y\rangle|
+	= \left|\sum_{i=1}^{n} x_i\cdot y_i\right|
+	\leq \left|\sum_{i=1}^{n} ||x||_\infty\cdot y_i\right|
+	\leq \sum_{i=1}^{n} ||x||_\infty \cdot |y_i|
+	= ||x||_\infty \cdot \sum_{i=1}^{n} |y_i|
+	= ||x||_\infty \cdot ||y||_1
+$$
+Da $\forall i \in [1,n]_\mathbb{N}\colon |x_i| \leq ||x||_\infty$ nach Definition.
+
+\aufgabe{3}
+\textbf{a)}
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+\strut\vspace
+
+\textbf{b)}
+Es sei $x \in \mathbb{R}^n$ für ein $n \in \mathbb{N}$ gegeben. Es notiere $a:= \max \{x_i \mid i \in [1,n]_\mathbb{N} \}$. Ferner sei $m = 1$ und $M = \sqrt{n}$.
+$$
+	m||x||_\infty
+	= ||x||_\infty
+	= \sqrt{a^2}
+	\leq \sqrt{\sum_{i=1}^{n} x_i^2}
+	= ||x||_2
+	= \sqrt{\sum_{i=1}^{n} x_i^2}
+	\leq \sqrt{\sum_{i=1}^{n} a^2}
+	= \sqrt{na^2}
+	= M||x||_\infty
+$$
+
+Sei nun wieder ein $x \in \mathbb{R}^n$ für ein $n \in \mathbb{N}$ gegeben und $l = 1$ sowie $L = n$. Es gilt:
+$$
+	l||x||_\infty
+	= ||x||_\infty
+	\leq \sum_{i=1}^{n} |x_i|
+	= ||x||_1
+	= \sum_{i=1}^{n} |x_i|
+	\leq \sum_{i=1}^{n} ||x||_\infty
+	= L||x||_\infty
+$$
+\end{document}
