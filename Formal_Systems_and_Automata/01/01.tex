@@ -31,13 +31,45 @@
 \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
+\aufgabe{6}
+\textbf{a)}\\[2pt]
+Diese Aussage ist wahr. Seien $K, L$ zwei beliebige Sprachen. Sei ferner $w \in (K \cap L)^*$
+mit $|w| = n, n \in \mathbb{N}_0$. Es gilt:
+\begin{alignat*}{3}
+	w \in (K \cap L)^*
+	&\,\Longrightarrow\,&& \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in (K \cap L)\\[1pt]
+	&\,\Longrightarrow\,&& \forall i \in [1,n]_{\mathbb{N}_0} : (w_i \in K) \land (w_i \in L),\\[1pt]
+	&\,\Longrightarrow\,&& \forall i \in [1,n]_{\mathbb{N}_0} : (w_i \in K) \lor (w_i \in L),\\[1pt]
+	&\,\Longrightarrow\,&& \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in (K \cup L) \\[1pt]
+	&\,\Longrightarrow\,&& w \in (K \cup L)^*
+\end{alignat*}
+Es folgt $(K \cap L)^* \subseteq (K \cup L)^*\hfill\square$\\
 
+\textbf{b)}\\[2pt]
+Diese Aussage ist falsch. Wir geben ein Gegenbeispiel:\\[2pt]
+Sei $K = \{a\}, L = \{b\}$. Es ist $w = ab \in (K \cup L)^*$. Jedoch ist $K \cap L =\o$ und
+damit $(K \cap L)^* = \{\varepsilon\}$. Also ist $w \notin (K \cap L)*$.
+Es folgt $(K \cup L)^* \nsubseteq (K \cap L)^*$.\\
 
-\aufgabe{1}
-<++>
+\textbf{c)}\\[2pt]
+Diese Aussage ist wahr. Seien $K, L$ zwei beliebige Sprachen mit $K \subseteq L$. \\
+Sei ferner $w \in K^*$ mit $|w| = n, n \in \mathbb{N}_0$ gegeben. Es gilt:
+$$
+	w \in K^*
+	\,\Longrightarrow\, \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in K
+	\up{\ \Longrightarrow\ }{$K \subseteq L} \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in L
+	\,\Longrightarrow\, w \in L^*
+$$
+Es folgt $K \subseteq L \,\Longrightarrow\, K^* \subseteq L^*\hfill\square$\\
 
+\textbf{d)}\\[2pt]
+Diese Aussage ist falsch. Wir geben ein Gegenbeispiel:\\[2pt]
+Sei $K = \{aa\}, L = \{a\}$. Dann gilt $K^* \subseteq L^*$, da $(aa)^n = a^{2n}$.
+Also gibt es zu jedem $w \in K^*$ mit $|w| = n, n \in \mathbb{N}_0$ ein $w' \in L*$ mit
+$|w| = 2n$. Jedoch gilt $aa \neq a$ und damit $K \nsubseteq L$.
 
+\newpage
 
-
+\aufgabe{7}
 
 \end{document}
