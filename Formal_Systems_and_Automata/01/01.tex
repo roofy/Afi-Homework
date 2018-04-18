@@ -14,6 +14,9 @@
 \usepackage{setspace}
 \usepackage{graphicx,color,curves,epsf,float,rotating}
 \usepackage{tasks}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
@@ -57,7 +60,7 @@ Sei ferner $w \in K^*$ mit $|w| = n, n \in \mathbb{N}_0$ gegeben. Es gilt:
 $$
 	w \in K^*
 	\,\Longrightarrow\, \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in K
-	\up{\ \Longrightarrow\ }{$K \subseteq L} \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in L
+	\up{\ \Longrightarrow\ }{$K \subseteq L$} \forall i \in [1,n]_{\mathbb{N}_0} : w_i \in L
 	\,\Longrightarrow\, w \in L^*
 $$
 Es folgt $K \subseteq L \,\Longrightarrow\, K^* \subseteq L^*\hfill\square$\\
@@ -71,5 +74,114 @@ $|w| = 2n$. Jedoch gilt $aa \neq a$ und damit $K \nsubseteq L$.
 \newpage
 
 \aufgabe{7}
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial]	(q0)				{$q_0$};
+	\node[state, accepting] (q1) [right of=q0]	{$q_1$};
+	\node[state, accepting] (q2) [right of=q1]	{$q_2$};
+	\node[state]			(q3) [below of=q2]	{$q_3$};
+
+	\path[->] (q0) edge					node {a}	(q1);
+	\path[->] (q0) edge [loop above]	node {b,c}	(q0);
+	\path[->] (q1) edge					node {a}	(q2);
+	\path[->] (q1) edge [loop above]	node {b,c}	(q1);
+	\path[->] (q2) edge					node {a}	(q3);
+	\path[->] (q2) edge [loop above]	node {b,c}	(q2);
+	\path[->] (q3) edge [above]			node {a}	(q1);
+	\path[->] (q3) edge [loop below]	node {b,c}	(q2);
+\end{tikzpicture}
+
+\textbf{b)}
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial, accepting]	(q0)				{$q_0$};
+	\node[state, accepting]				(q1) [right of=q0]	{$q_1$};
+	\node[state, accepting]				(q2) [right of=q1]	{$q_2$};
+	\node[state]						(q3) [right of=q2]	{$q_3$};
+
+	\path[->] (q0) edge	[loop above]	node {a}	(q0);
+	\path[->] (q0) edge					node {b}	(q1);
+
+	\path[->] (q1) edge					node {b}	(q2);
+	\path[->] (q1) edge	[bend left]	node {a}	(q0);
+
+	\path[->] (q2) edge	[loop above]	node {b}	(q2);
+	\path[->] (q2) edge					node {a}	(q3);
+
+	\path[->] (q3) edge	[loop above]	node {a,b}	(q2);
+\end{tikzpicture}
+
+\textbf{c)}
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial]	(q0)						{$q_0$};
+	\node[state]			(q1) [above right of=q0]	{$q_1$};
+	\node[state, accepting]	(q2) [right of=q1]			{$q_2$};
+	\node[state]			(q3) [below right of=q0]	{$q_3$};
+	\node[state]			(q4) [right of=q3]			{$q_4$};
+	\node[state]			(q5) [above right of=q4]	{$q_5$};
+
+	\path[->] (q0) edge [loop above]	node {b} (q0);
+	\path[->] (q0) edge					node {a} (q1);
+	\path[->] (q0) edge					node {c} (q3);
+
+	\path[->] (q1) edge [loop above]	node {a} (q1);
+	\path[->] (q1) edge	[bend left]		node {b} (q0);
+	\path[->] (q1) edge					node {c} (q2);
+
+	\path[->] (q2) edge [loop above]	node {a,b,c} (q2);
+
+	\path[->] (q3) edge [loop above]	node {c} (q3);
+	\path[->] (q3) edge	[bend left]		node {b} (q0);
+	\path[->] (q3) edge					node {a} (q4);
+
+	\path[->] (q4) edge [loop below]	node {a} (q3);
+	\path[->] (q4) edge					node {c} (q2);
+	\path[->] (q4) edge					node {b} (q5);
+
+	\path[->] (q5) edge [loop above]	node {b,c} (q5);
+	\path[->] (q5) edge	[bend left]		node {a} (q4);
+\end{tikzpicture}
+
+\newpage
+
+\aufgabe{8}
+Wir betrachten zur Lösung des Problems den Rest der Zahlen bei Ganzzahldivision mit 5.
+Wir starten mit einem Rest von 0. Aus der Vorlesung ist bekannt, dass wenn wir an eine Binärzahl w
+eine 0 oder 1 konkatenieren, gilt: $wN = 2w+N$, wobei N eine 0 oder 1 ist.
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial, accepting]	(q0)			{$q_0$};
+	\node[state]			(q1) [above right of=q0]	{$q_1$};
+	\node[state]			(q2) [below right of=q1]	{$q_2$};
+	\node[state]			(q3) [below of=q2]			{$q_3$};
+	\node[state]			(q4) [below of=q0]			{$q_4$};
+
+	\path[->] (q0) edge [loop above]	node {0} (q0);
+	\path[->] (q0) edge					node {1} (q1);
+
+	\path[->] (q1) edge					node {0} (q2);
+	\path[->] (q1) edge	[pos=0.8]		node {1} (q3);
+
+	\path[->] (q2) edge					node {0} (q4);
+	\path[->] (q2) edge	[pos=0.8]		node {1} (q0);
+
+	\path[->] (q3) edge	[bend left, pos=0.55]	node {0} (q1);
+	\path[->] (q3) edge	[bend right]	node {1} (q2);
+
+	\path[->] (q4) edge [loop above]	node {1} (q4);
+	\path[->] (q4) edge	[bend right]	node {0} (q3);
+\end{tikzpicture}
+
+\aufgabe{9}
+
+\textbf{a)}
+Der Automat $\mathcal{A}_1$ erkennt alle Sprachen über dem gegebenem Alphabet, in denen keine Worte vorkommen,
+welche das Symbol a 2 mal hintereinander enthalten.
+
+\textbf{b)}
+Der Automat $\mathcal{A}_2$ erkennt alle Sprachen über dem gegebenem Alphabet, in denen nur Worte vorkommen,
+welche sowohl als Präfix als auch als Suffix ein a haben und dazwischen nur eine ungerade Anzahl des Symbols b
+enthalten.
 
 \end{document}
