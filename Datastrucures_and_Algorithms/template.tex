@@ -20,10 +20,34 @@
 \newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
 \newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
 \begin{document}
-\noindent Gruppe \fbox{\textbf{<++>}}             \hfill Phil Pützstück, 377247\\
-\noindent <++> \hfill vorname nachname, matrnr\\
-\strut\hfill vorname nachname, matrnr\\
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen\\
 \begin{center}
 	\LARGE{\textbf{Hausaufgabe <++>}}
 \end{center}
@@ -31,13 +55,6 @@
 \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
-
-
 \aufgabe{1}
-<++>
-
-
-
-
 
 \end{document}
