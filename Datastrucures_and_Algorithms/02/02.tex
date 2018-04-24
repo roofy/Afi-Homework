@@ -1,0 +1,155 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 2}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\textbf{a)}
+
+Es sei $f$ eine gegebene Funktion. Da $\forall n \in \mathbb{N}_0: 1\cdot f(n) = f(n)$
+existiert eine konstante $0 < c = 1 < \infty$ und ein $n_0 = 0$ sodass gilt:
+$$
+	\forall n \in \mathbb{N}_0, n \geq n_0 : f(n) \leq c \cdot f(n)
+$$
+Damit haben wir nach Definition $f \in \mathcal{O}(f) \,\Longleftrightarrow\, f \sqsubseteq f$.
+Also ist $\sqsubseteq$ reflexiv.
+
+Ferner seien nun weiter Funktionen $g,h$ gegeben. Es gilt nach Definition:
+$$
+	(f \sqsubseteq g) \land (g \sqsubseteq h)
+	\,\Longrightarrow\, (f \in \mathcal{O}(g)) \land (g \in \mathcal{O}(h))
+$$$$
+	\,\Longrightarrow\, (\exists c,n_0 : \forall n \geq n_0 : f(n) \leq c \cdot g(n)) \land 
+		(\exists c',n_0' : \forall n \geq n_0 : g(n) \leq c \cdot h(n))
+$$
+Sei nun $n' := \max \{n_0, n_0'\}$. Dann folgt weiter:
+$$
+	\exists c,c' : \forall n \geq n' : f(n) \leq c \cdot g(n)\quad \land\quad g(n) \leq c' \cdot h(n)
+$$$$
+	\,\Longrightarrow\, \exists c,c' : \forall n \geq n' : f(n) \leq c\cdot g(n) \leq c (c'\cdot h(n))
+$$$$
+	\,\Longrightarrow\, \exists c,c' : \forall n \geq n' : f(n) \leq (c\cdot c')\cdot h(n))
+$$$$
+	\,\Longrightarrow\, f \in \mathcal{O}(h) \,\Longleftrightarrow\, f \sqsubseteq h
+$$
+
+Wir haben also gezeigt, dass für beliebige Funktionen $f,g,h$ gilt:
+$$
+	f \sqsubseteq g \land g \sqsubseteq h \,\Longrightarrow\, f \sqsubseteq h
+$$
+Damit ist $\sqsubseteq$ reflexiv und transitiv, also eine Quasiordnung $\hfill\square$
+
+\textbf{b)}
+
+Es gilt:
+$$
+	0 \sqsubseteq 4 \sqsubseteq 2^{9000} \sqsubseteq \log(n) \sqsubseteq n\cdot\log(n) \sqsubseteq n\cdot \sqrt{n} \sqsubseteq n^2 \sqsubseteq \sum_{i=0}^{n} \frac{14i^2}{1+i} \sqsubseteq n^2\cdot\log(n) \sqsubseteq \frac{n^3}{2} \sqsubseteq n^3 \sqsubseteq 2^n \sqsubseteq n! \sqsubseteq n^n
+$$
+\newpage
+
+\aufgabe{2} \textbf{TODO}
+
+\aufgabe{3}
+\textbf{a)}
+
+Es sei eine Funktion $g(n)$ gegeben.
+Wir notieren im Sinne der Lesbarkeit
+$$
+	o_1 := o(g(n) \qquad \mathcal{O}_1 := \mathcal{O}(g(n)) \qquad \Theta_1 := \Theta(g(n)) \qquad \Omega_1 := \Omega(g(n))
+$$
+Behauptung: Es gilt $o_1 = \mathcal{O}_1 \setminus \Theta_1\hfill(1)$\\
+Beweis:
+$$
+	o_1 := \{f \mid \forall c > 0 : \exists n_0 : \forall n\geq n_0 : 0 \leq f(n) < c\cdot g(n)\}
+$$$$
+	= \{f \mid \forall c > 0 : \exists n_0 : \forall n\geq n_0 : 0 \leq f(n) < cg(n)\quad
+$$$$
+	\qquad\qquad\qquad\qquad\land \quad \lnot(\exists c_1,c_2 > 0,n_0 : \forall n\geq n_0 : c_1f(n) \leq g(n) \leq c_2f(n))\}
+$$$$
+	= \mathcal{O}_1 \setminus \Theta_1
+$$
+$\hfill\square$
+
+Weiter wissen wir, dass $\Theta_1 := \mathcal{O}_1 \cap \Omega_1\hfill(2)$\\[2pt]
+Ferner ist sind die Mengenoperationen $\cap$ und $\setminus$ distributiv zueinander $\hfill(3)$
+
+$$
+	o_1 \cap \Omega_1
+	\up{=}{(1)} (\mathcal{O}_1 \setminus \Theta_1) \cap \Omega_1
+	\up{=}{(3)} (\mathcal{O} \cap \Omega_1) \setminus (\Theta_1 \cap \Omega_1)
+	\up{=}{(2)} (\mathcal{O} \cap \Omega_1) \setminus \Theta_1
+$$$$
+	\up{=}{(2)} \Theta_1 \setminus \Theta_1 = \o
+$$
+$\hfill\square$
+
+\textbf{b)}
+Wir geben ein Gegenbeispiel.
+Es seien
+$$
+	g(n) = 0 \qquad f(n) = n \qquad h(n) = n^2
+$$
+Damit gilt $f(n) \in \Omega(g(n))$, da für $c = 1 > 0$ und $n_0 = 1$ stets $c\cdot g(n) = 0 \leq f(n)$ gilt.\\
+Weiter ist auch $f(n) \in \mathcal{O}(h(n))$, da für $c = 1$ und $n_0 = 1$ stets $f(n) \leq c\cdot h(n)$ gilt.
+
+Wir nehmen nun an, es gelte $g(n) \in \Theta(h(n))$. Also auch $g(n) \in \Omega(h(n))$. Daraus folgt, dass eine Konstante
+$c > 0$ existiert, sodass ab einem beliebigem Punkt stets $c \cdot h(n) = cn^2 \leq 0 = g(n)$ gilt. Dies kann offensichtlich
+nur für $c = 0$ gelten, jedoch muss $c > 0$ erfüllt sein. Damit haben wir einen Widerspruch. Also kann die Aussage nicht stimmen.
+$\hfill\square$
+
+\newpage
+\aufgabe{4}
+\end{document}
