@@ -108,7 +108,7 @@ $$
 Es sei eine Funktion $g(n)$ gegeben.
 Wir notieren im Sinne der Lesbarkeit
 $$
-	o_1 := o(g(n) \qquad \mathcal{O}_1 := \mathcal{O}(g(n)) \qquad \Theta_1 := \Theta(g(n)) \qquad \Omega_1 := \Omega(g(n))
+	o_1 := o(g(n)) \qquad \mathcal{O}_1 := \mathcal{O}(g(n)) \qquad \Theta_1 := \Theta(g(n)) \qquad \Omega_1 := \Omega(g(n))
 $$
 Behauptung: Es gilt $o_1 = \mathcal{O}_1 \setminus \Theta_1\hfill(1)$\\
 Beweis:
@@ -121,18 +121,11 @@ $$$$
 $$$$
 	= \mathcal{O}_1 \setminus \Theta_1
 $$
-$\hfill\square$
-
-Weiter wissen wir, dass $\Theta_1 := \mathcal{O}_1 \cap \Omega_1\hfill(2)$\\[2pt]
-Ferner ist sind die Mengenoperationen $\cap$ und $\setminus$ distributiv zueinander $\hfill(3)$
-
+$\hfill\square$\\
+Nun folgt direkt:
 $$
-	o_1 \cap \Omega_1
-	\up{=}{(1)} (\mathcal{O}_1 \setminus \Theta_1) \cap \Omega_1
-	\up{=}{(3)} (\mathcal{O} \cap \Omega_1) \setminus (\Theta_1 \cap \Omega_1)
-	\up{=}{(2)} (\mathcal{O} \cap \Omega_1) \setminus \Theta_1
-$$$$
-	\up{=}{(2)} \Theta_1 \setminus \Theta_1 = \o
+	o_1 \cap \Theta_1
+	\up{=}{(1)} (\mathcal{O}_1 \setminus \Theta_1) \cap \Theta_1 = \o
 $$
 $\hfill\square$
 
