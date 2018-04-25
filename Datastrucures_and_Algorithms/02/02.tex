@@ -241,10 +241,27 @@ $\hfill\square$
 \aufgabe{4}
 \textbf{a)}
 
-Die Best-Case Laufzeit des Algorithmus beträgt B(n)=1 für den Fall das die Länge das Arrays n=0 beträgt.\\
-Im Fall $n\geq0$ beträgt die Best-Case Laufzeit des Algorithmus B(n)=2n+2.
+Die Best-Case Laufzeit des Algorithmus beträgt B(n)=1 für den Fall, dass die Länge das Arrays n = 0 beträgt. Im Fall $n > 0$ beträgt die Best-Case Laufzeit des Algorithmus B(n)=2n+2$\in \mathcal{O}(n)$.
 
 \textbf{b)}
 
-Die Worst-Case Laufzeit des Algorithmus beträgt beträgt W(n)=n , da immer das
+Die Worst-Case Laufzeit des Algorithmus beträgt W(n)=3n+1$\in \mathcal{O}(n)$.
+
+\textbf{c)}
+
+Die Average-Case Laufzeit des Algorithmus beträgt:
+$$
+\sum_{i=0}^{n} \frac{1}{n+1} \cdot (2 \cdot (n-i)+3i+1)
+$$
+
+\textbf{d)}\\
+
+\lstinputlisting{02Nr4d.java}
+
+Der Algorithmus besitzt eine bessere Average-Case Laufzeit, da er bei einem False in dem Array sofort abbricht und nicht noch das ganze restliche Array durchläuft.
+
+\textbf{e)}\\
+
+Es gibt keinen
+
 \end{document}
