@@ -100,7 +100,101 @@ $$
 $$
 \newpage
 
-\aufgabe{2} \textbf{TODO}
+\aufgabe{2} 
+\textbf{a)}
+
+Nach Definition der Klasse $\mathcal{O}$ gilt g $\in \mathcal{O}(f)$ falls c $\cdot$ f(n) ab einer bestimmten Konstanten $n_0 \in \mathbb{N}$ eine obere Schranke von g(n) ist. Wir beweisen durch Induktion, dass die Aussage:
+$$
+	\frac{1}{4}n^3-7+17 < 1\cdot(n^3)
+$$
+für $n_0 \ge 2$ gilt.\\
+
+\begin{minipage}{1\linewidth}
+	\textbf{Induktionsanfang}\\
+	$$
+		A(n) := \frac{1}{4}n^3-7n+17 < n^3  
+	$$$$
+		A(2) = \frac{1}{4} 2^3-7\cdot2+17 = 5 < 8 = 2^3
+	$$
+	Damit gilt die Annahme für n = 2.\\
+	
+	\textbf{Induktionsvorraussetzung}\\
+	
+	Damit gilt A(n) für ein beliebiges aber festes n.\\
+	
+	\textbf{Induktionsschritt}
+	
+	$$
+	\frac{1}{4}(n+1)^3-7(n+1)+17 = \frac{1}{4}(n^3+3n^2+3n+1)-7n+7+17
+	$$$$
+	=\frac{1}{4}n^3-7n+17+\frac{1}{4}(3n^2+3n+1)+7 < n^3+\frac{1}{4}(3n^2+3n+1)+7
+	$$$$
+	< n^3+\frac{1}{4}(3n^2+3n+1)+7 < n^3 +3n^2+1 = (n+1)^3
+	$$
+	$\hfill\square$
+	
+\end{minipage}
+
+\textbf{b)}
+
+Da $3n^2+4 > 0$ und $ n^4 < 2n^4 $ für alle $n \geq 0$ gilt, folgt
+$n^4 < 1 \cdot(2n^4+3n^2+42)$ für $n \in \mathbb{N}$. Damit existiert ein $c > 0$ sodass $g(n) < c \cdot f(n)$. Also ist $n^4 \in \mathcal{O}(2n^4+3n^2+42)$.
+
+$\hfill\square$
+
+
+
+\textbf{c)}
+
+Die Aussage gilt nach der Alternativen Definition, da:
+$$
+\lim_{n\rightarrow\infty} \frac{\log2(n)}{n} \overset{\text{L'Hospital}}{=} \lim_{n\rightarrow\infty} \frac{(\log2(n))'}{(n)'} = \lim_{n\rightarrow\infty} \frac{\frac{1}{n\cdot ln(2)}}{1} = 0
+$$
+
+$\hfill\square$
+
+\newpage
+
+\textbf{d)}
+
+Nach dem Lemma der Klasse Groß-O muss es ein $c \geq 0$ mit $c \neq \infty$ geben sodass
+
+$$
+\lim_{n\rightarrow\infty} \frac{\log n}{n^\varepsilon}, \forall \varepsilon > 0
+$$
+
+Es gilt $\lim_{n\rightarrow\infty} \log2 (n) = \infty$ und $\forall\varepsilon < 0 $,
+$\lim_{n\rightarrow\infty}  n^\varepsilon = \infty$.
+
+Somit ist nach L'Hospital 
+$$
+\lim_{n\rightarrow\infty} \frac{(log2(n))'}{(n^\varepsilon)'} = 0
+$$
+
+Damit ist die Aussage für alle $\varepsilon>0$ wahr.
+
+$\hfill\square$
+
+\textbf{e)}
+
+
+Nach dem Lemma der Klasse Groß-Theta muss es ein $ 0 < c< \infty$ geben sodass
+
+$$
+\lim_{n\rightarrow\infty} \frac{a^n}{b^n} = c
+$$
+
+für die zwei beliebigen Konstanten $a,b > 1$ die Aufgabenstellung gilt.\\
+Beweis durch Widerspruch:\\
+$$
+\lim_{n\rightarrow\infty} \frac{2^n}{4^n} = \lim_{n\rightarrow\infty} \frac{1}{2n} = 0
+$$
+
+Somit ist die Aussage falsch, da $c=0$.\\
+
+$\hfill\square$
+
+\newpage
 
 \aufgabe{3}
 \textbf{a)}
@@ -145,4 +239,12 @@ $\hfill\square$
 
 \newpage
 \aufgabe{4}
+\textbf{a)}
+
+Die Best-Case Laufzeit des Algorithmus beträgt B(n)=1 für den Fall das die Länge das Arrays n=0 beträgt.\\
+Im Fall $n\geq0$ beträgt die Best-Case Laufzeit des Algorithmus B(n)=2n+2.
+
+\textbf{b)}
+
+Die Worst-Case Laufzeit des Algorithmus beträgt beträgt W(n)=n , da immer das
 \end{document}
