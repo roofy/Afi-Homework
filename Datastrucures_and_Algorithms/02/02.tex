@@ -129,11 +129,52 @@ für $n_0 \ge 2$ gilt.\\
 	$$$$
 	=\frac{1}{4}n^3-7n+17+\frac{1}{4}(3n^2+3n+1)+7\ \up{<}{(IV)}\ n^3+\frac{1}{4}(3n^2+3n+1)+7
 	$$$$
-	< n^3+\frac{1}{4}(3n^2+3n+1)+7 < n^3 +3n^2+1 = (n+1)^3
+	< n^3+\frac{1}{4}(3n^2+3n+1)+7 \overset{\text{Lemma}}{<} n^3 +3n^2+1 = (n+1)^3
 	$$
-	$\hfill\square$
+	$\hfill\square$\\
 	
 \end{minipage}
+
+
+	\textbf{Lemma}
+	
+	Um die Ungleichung zu Beweisen benutzen wir vollständige Induktion.\\
+	
+	\textbf{Umformung}
+	$$
+	\frac{1}{4}(3n^2+1)+7 < 3n^2+3n+1 
+	$$$$
+	\Leftrightarrow 3n^2 + 3n < 12n^2+12n-24
+	$$
+	\textbf{Induktionsanfang}
+	$$
+	A(n) := 3n^2+3n < 12n^2+12n-24 , n \in \mathbb{N}, n\geq 2
+	$$$$
+	A(2) = 3 \cdot 2^2+3\cdot 2 = 30 < 48 = 12 \cdot 2^2+12 \cdot 2-24
+	$$
+	
+	\newpage
+	
+	\textbf{Induktionsvorraussetzung}\\
+	
+	Es gelte $A(n)$ für ein beliebig aber festes $n \in \mathbb{N}$.\\
+	
+	\textbf{Induktionsschritt} $n \to n+1$
+	$$
+	A(n+1) = 3(n+1)^2 + 3 \cdot (n+1) = 3(n^2 + 2n + 1) + 3n + 3
+	$$$$
+	= 3n^2 + 3n + 6n +6 < 12n^2 + 12n - 24 + 6n + 6 \overset{\text{n > 0}}{<} 12n^2 + 12n - 24 \textbf{+} 24n + 12n
+	$$$$
+	=12n^2 + 24n + 12 +12n + 12 - 24 = 12 \cdot (n^2 + 2n + 1) + 12n +12 -24 
+	$$$$
+	= 12 \cdot (n+1)^2 + 12 \cdot (n+1) -24
+	$$
+	
+	
+	$\hfill\square$
+
+
+
 
 \textbf{b)}
 
@@ -262,6 +303,6 @@ Der Algorithmus besitzt eine bessere Average-Case Laufzeit, da er bei einem Fals
 
 \textbf{e)}\\
 
-Es gibt keinen
+Es gibt keinen äquivalenten Algorithmus dessen Worst-Case Laufzeit in o(n) liegt, da er das gesamte Array durchgehen muss um zu bestätigen das kein False vorkommt. 
 
 \end{document}
