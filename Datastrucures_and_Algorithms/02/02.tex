@@ -105,7 +105,7 @@ $$
 
 Nach Definition der Klasse $\mathcal{O}$ gilt g $\in \mathcal{O}(f)$ falls c $\cdot$ f(n) ab einer bestimmten Konstanten $n_0 \in \mathbb{N}$ eine obere Schranke von g(n) ist. Wir beweisen durch Induktion, dass die Aussage:
 $$
-	\frac{1}{4}n^3-7+17 < 1\cdot(n^3)
+	\frac{1}{4}n^3-7n+17 < 1\cdot(n^3)
 $$
 für $n_0 \ge 2$ gilt.\\
 
@@ -120,14 +120,14 @@ für $n_0 \ge 2$ gilt.\\
 	
 	\textbf{Induktionsvorraussetzung}\\
 	
-	Damit gilt A(n) für ein beliebiges aber festes n.\\
+	Es gelte $A(n)$ für ein beliebig aber festes $n \in \mathbb{N}$.\\
 	
-	\textbf{Induktionsschritt}
+	\textbf{Induktionsschritt} $n \to n+1$
 	
 	$$
 	\frac{1}{4}(n+1)^3-7(n+1)+17 = \frac{1}{4}(n^3+3n^2+3n+1)-7n+7+17
 	$$$$
-	=\frac{1}{4}n^3-7n+17+\frac{1}{4}(3n^2+3n+1)+7 < n^3+\frac{1}{4}(3n^2+3n+1)+7
+	=\frac{1}{4}n^3-7n+17+\frac{1}{4}(3n^2+3n+1)+7\ \up{<}{(IV)}\ n^3+\frac{1}{4}(3n^2+3n+1)+7
 	$$$$
 	< n^3+\frac{1}{4}(3n^2+3n+1)+7 < n^3 +3n^2+1 = (n+1)^3
 	$$
@@ -148,7 +148,7 @@ $\hfill\square$
 
 Die Aussage gilt nach der Alternativen Definition, da:
 $$
-\lim_{n\rightarrow\infty} \frac{\log2(n)}{n} \overset{\text{L'Hospital}}{=} \lim_{n\rightarrow\infty} \frac{(\log2(n))'}{(n)'} = \lim_{n\rightarrow\infty} \frac{\frac{1}{n\cdot ln(2)}}{1} = 0
+\lim_{n\rightarrow\infty} \frac{\log2(n)}{n} \overset{\text{L'Hospital}}{=} \lim_{n\rightarrow\infty} \frac{(\log2(n))'}{(n)'} = \lim_{n\rightarrow\infty} \frac{\frac{1}{n\cdot \ln(2)}}{1} = 0
 $$
 
 $\hfill\square$
@@ -163,12 +163,12 @@ $$
 \lim_{n\rightarrow\infty} \frac{\log n}{n^\varepsilon}, \forall \varepsilon > 0
 $$
 
-Es gilt $\lim_{n\rightarrow\infty} \log2 (n) = \infty$ und $\forall\varepsilon < 0 $,
-$\lim_{n\rightarrow\infty}  n^\varepsilon = \infty$.
+Es gilt $\lim_{n\rightarrow\infty} \log2 (n) = \infty$ und $\forall\varepsilon > 0 :
+\lim_{n\rightarrow\infty}  n^\varepsilon = \infty$.
 
 Somit ist nach L'Hospital 
 $$
-\lim_{n\rightarrow\infty} \frac{(log2(n))'}{(n^\varepsilon)'} = 0
+\lim_{n\rightarrow\infty} \frac{(\log2(n))'}{(n^\varepsilon)'} = 0
 $$
 
 Damit ist die Aussage für alle $\varepsilon>0$ wahr.
@@ -185,7 +185,7 @@ $$
 $$
 
 für die zwei beliebigen Konstanten $a,b > 1$ die Aufgabenstellung gilt.\\
-Beweis durch Widerspruch:\\
+Beweis durch Gegenbeispiel:\\
 $$
 \lim_{n\rightarrow\infty} \frac{2^n}{4^n} = \lim_{n\rightarrow\infty} \frac{1}{2n} = 0
 $$
