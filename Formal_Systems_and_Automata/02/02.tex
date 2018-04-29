@@ -1,0 +1,69 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 2}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{6}
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial, accepting]	(p0q0)						{$p_0,q_0$};
+	\node[state, accepting]				(p1q0) 	[right of=p0q0]		{$p_1,q_0$};
+	\node[state]						(p2q0) 	[right of=p1q0]		{$p_2,q_0$};
+	\node[state]						(p0q1) 	[below of=p0q0]		{$p_0,q_1$};
+	\node[state]						(p1q1) 	[right of=p0q1]		{$p_1,q_1$};
+	\node[state]						(p2q1) 	[right of=p1q1]		{$p_2,q_1$};
+	
+	\path[->] (p0q0) edge					node {b} (p1q0);
+	\path[->] (p0q0) edge					node {a} (p0q1);
+	
+	\path[->] (p1q0) edge [loop above]		node {b} (p1q0);
+	\path[->] (p1q0) edge					node {a} (p2q1);
+	
+	\path[->] (p2q0) edge [loop above]		node {b} (p2q0);
+	\path[->] (p2q0) edge [bend left]		node {a} (p2q1);
+	
+	\path[->] (p0q1) edge [bend left]		node {a} (p0q0);
+	\path[->] (p0q1) edge					node {b} (p1q1);
+	
+	\path[->] (p1q1) edge 					node {a} (p2q0);
+	\path[->] (p1q1) edge [loop below]		node {b} (p1q1);
+	
+	\path[->] (p2q1) edge [loop below]		node {b} (p2q1);
+	\path[->] (p2q1) edge 					node {a} (p2q0);
+
+\end{tikzpicture}
+
+\end{document}
