@@ -66,4 +66,41 @@
 
 \end{tikzpicture}
 
+\aufgabe{7}
+\textbf{TODO}
+
+\newpage
+
+\aufgabe{8}
+\textbf{a)}\\
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+	\node[state, initial, accepting]	(q0)						{$q0$};
+	\node[state]						(q1) 	[right of=q0]		{$q1$};
+	\node[state]						(q2) 	[below of=q0]		{$q2$};
+	\node[state]						(q3) 	[right of=q2]		{$q3$};
+
+	\path[->] (q0) edge	[bend left]		node {u} (q1);
+	\path[->] (q0) edge					node {v} (q2);
+	
+	\path[->] (q1) edge					node {u} (q0);
+	\path[->] (q1) edge	[bend left]		node {v} (q3);
+	
+	\path[->] (q2) edge	[bend left]		node {v} (q0);
+	\path[->] (q2) edge	 				node {u} (q3);
+	
+	\path[->] (q3) edge					node {v} (q1);
+	\path[->] (q3) edge	[bend left]		node {v} (q2);
+
+\end{tikzpicture}
+
+\textbf{b)}
+
+Alle läufe von \textit{A} auf dem Wort bbba:\\
+($q_0,b,q_0,b,q_0,b,q_1,a,q_2$)\\
+($q_0,b,q_1,b,q_0,b,q_1,a,q_2$)\\
+
+\textbf{c)}
+\textbf{TODO}
+
 \end{document}
