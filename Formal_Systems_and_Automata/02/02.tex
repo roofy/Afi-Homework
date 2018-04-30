@@ -50,7 +50,7 @@
 	\path[->] (p0q0) edge					node {a} (p0q1);
 	
 	\path[->] (p1q0) edge [loop above]		node {b} (p1q0);
-	\path[->] (p1q0) edge [pos=0.2]			node {a} (p2q1);
+	\path[->] (p1q0) edge [pos=0.1]			node {a} (p2q1);
 	
 	\path[->] (p2q0) edge [loop above]		node {b} (p2q0);
 	\path[->] (p2q0) edge [bend left]		node {a} (p2q1);
@@ -58,7 +58,7 @@
 	\path[->] (p0q1) edge [bend left]		node {a} (p0q0);
 	\path[->] (p0q1) edge					node {b} (p1q1);
 	
-	\path[->] (p1q1) edge [pos=0.2]			node {a} (p2q0);
+	\path[->] (p1q1) edge [pos=0.1]			node {a} (p2q0);
 	\path[->] (p1q1) edge [loop below]		node {b} (p1q1);
 	
 	\path[->] (p2q1) edge [loop below]		node {b} (p2q1);
@@ -91,10 +91,10 @@ Automaten die selben Endzustände haben und $q_{-1}$ der Startzustand von $\math
 
 Wir zeigen nun $L(\mathcal{B}) \subseteq L_{\text{suff}}(\mathcal{A})$.\\[2pt]
 Sei $w \in L(\mathcal{B})$ gegeben. Sei ferner $n \in \mathbb{N}$.\\
-Dann existiert ein Lauf $r := (r_0, \sigma_1, r_1, \sigma_2 \cdots, \sigma_n, r_n)$
-in $\mathcal{B}$ mit $r_0 = q_{-1}$, $\sigma_1 = \varepsilon$, $(\sigma_2 \cdots \sigma_n) = w$ und $r_1, r_n \in F$.
+Dann existiert ein Lauf $r := (q_{-1}, \varepsilon, r_0, \sigma_1 \cdots, \sigma_n, r_n)$
+in $\mathcal{B}$ mit $(\sigma_1 \cdots \sigma_n) = w$ und $r_0, r_n \in F$.
 Da $F$ eben die Endzustände von $\mathcal{A}$ sind, gibt es auch ein Wort $u \in L(\mathcal{A})$ sodass der Lauf von $\mathcal{A}$ über $u$ eben an $r_1 \in F$ endet. Nun lässt sich der Lauf
-von $w$ ohne die $\varepsilon$-Transition $(r_1, \sigma_2, \cdots \sigma_n, r_n)$ einwandfrei
+von $w$ ohne die $\varepsilon$-Transition $(r_0, \sigma_1, \cdots \sigma_n, r_n)$ einwandfrei
 an den von $u$ in dem DFA $\mathcal{A}$ anhängen um zu einem Weitern Endzustand von $\mathcal{A}$ zu kommen. Es folgt $uw \in L(\mathcal{A})$ und damit $w \in L_{\text{suff}}(\mathcal{A})$.
 
 Insgesamt gilt also $L(\mathcal{B}) = L_{\text{suff}}(\mathcal{A})$. Aus der Vorlesung ist
