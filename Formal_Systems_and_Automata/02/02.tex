@@ -79,18 +79,18 @@ $$
 für $q,q' \in Q$ und $a \in \Sigma$.
 
 Wir zeigen zuerst $L_{\text{suff}}(\mathcal{A}) \subseteq L(\mathcal{B})$.\\[2pt]
-Sei $w \in L_{\text{suff}}(\mathcal{A})$ gegeben.
+Sei $w \in L_{\text{suff}}(\mathcal{A})$ gegeben. Seien ferner $m,n \in \mathbb{N}$.\\
 Dann existiert ein $u \in L(\mathcal{A})$ sodass $uw \in L(\mathcal{A})$.
 Durch $u \in L(\mathcal{A})$ existiert ein Lauf von $\mathcal{A}$ über $u$;
-$(r_0, r_1 \cdots r_n)$ sodass $r_0 = q_0$ und $r_n \in F$.
+$(r_0, r_1 \cdots r_m)$ sodass $r_0 = q_0$ und $r_n \in F$.
 Ferner gibt es durch $uw \in L(\mathcal{A})$ eine Zustandsfolge
-$(x_0, \sigma_1, x_1, \sigma_2 \cdots \sigma_n, x_n)$ sodass $x_0 = r_n$, $x_n \in F$ und
+$(x_0, \sigma_1, x_1, \sigma_2 \cdots \sigma_n, x_n)$ sodass $x_0 = r_m$, $x_n \in F$ und
 $(\sigma_1, \sigma_2, \cdots \sigma_n) = w$. Nun können wir den Lauf $(q_{-1}, \varepsilon, x_0, \sigma_1, x_1, \sigma_2, x_2, \cdots \sigma_n, x_n)$ in $\mathcal{B}$ angeben. Da beide
 Automaten die selben Endzustände haben und $q_{-1}$ der Startzustand von $\mathcal{B}$ ist, folgt daraus $w \in L(\mathcal{B})$.
 \newpage
 
 Wir zeigen nun $L(\mathcal{B}) \subseteq L_{\text{suff}}(\mathcal{A})$.\\[2pt]
-Sei $w \in L(\mathcal{B})$.
+Sei $w \in L(\mathcal{B})$ gegeben. Sei ferner $n \in \mathbb{N}$.\\
 Dann existiert ein Lauf $r := (r_0, \sigma_1, r_1, \sigma_2 \cdots, \sigma_n, r_n)$
 in $\mathcal{B}$ mit $r_0 = q_{-1}$, $\sigma_1 = \varepsilon$, $(\sigma_2 \cdots \sigma_n) = w$ und $r_1, r_n \in F$.
 Da $F$ eben die Endzustände von $\mathcal{A}$ sind, gibt es auch ein Wort $u \in L(\mathcal{A})$ sodass der Lauf von $\mathcal{A}$ über $u$ eben an $r_1 \in F$ endet. Nun lässt sich der Lauf
