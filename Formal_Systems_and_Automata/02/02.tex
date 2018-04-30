@@ -50,7 +50,7 @@
 	\path[->] (p0q0) edge					node {a} (p0q1);
 	
 	\path[->] (p1q0) edge [loop above]		node {b} (p1q0);
-	\path[->] (p1q0) edge					node {a} (p2q1);
+	\path[->] (p1q0) edge [pos=0.2]			node {a} (p2q1);
 	
 	\path[->] (p2q0) edge [loop above]		node {b} (p2q0);
 	\path[->] (p2q0) edge [bend left]		node {a} (p2q1);
@@ -58,7 +58,7 @@
 	\path[->] (p0q1) edge [bend left]		node {a} (p0q0);
 	\path[->] (p0q1) edge					node {b} (p1q1);
 	
-	\path[->] (p1q1) edge 					node {a} (p2q0);
+	\path[->] (p1q1) edge [pos=0.2]			node {a} (p2q0);
 	\path[->] (p1q1) edge [loop below]		node {b} (p1q1);
 	
 	\path[->] (p2q1) edge [loop below]		node {b} (p2q1);
@@ -66,21 +66,49 @@
 
 \end{tikzpicture}
 
-Die Endzustände wurden so gewählt damit die akzeptierenden Läufe von L(A) enthalten sind und die akzeptierenden Läufe von L(B) nicht.
+Die Endzustände wurden so gewählt damit die akzeptierenden Läufe von $L(\mathcal{A})$ enthalten sind und die akzeptierenden Läufe von $L(\mathcal{B})$ nicht.
 
 \aufgabe{7}
-\textbf{TODO}
+Sei $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ ein DFA mit Sprache $L(\mathcal{A})$.
+Wir definieren den $\varepsilon$-NFA $\mathcal{B} := (Q', \Sigma', \Delta, q_{-1}, F)$,
+wobei $Q' := Q \cup \{q_{-1}\}$, $\Sigma' := \Sigma \cup \{\varepsilon\}$ und
+$$
+	\Delta := \{(q, a, q') \mid \delta(q, a) = q'\}
+		\cup \{(q_{-1}, \varepsilon, f) \mid f \in F\}
+$$
+für $q,q' \in Q$ und $a \in \Sigma$.
 
+Wir zeigen zuerst $L_{\text{suff}}(\mathcal{A}) \subseteq L(\mathcal{B})$.\\[2pt]
+Sei $w \in L_{\text{suff}}(\mathcal{A})$ gegeben.
+Dann existiert ein $u \in L(\mathcal{A})$ sodass $uw \in L(\mathcal{A})$.
+Durch $u \in L(\mathcal{A})$ existiert ein Lauf von $\mathcal{A}$ über $u$;
+$(r_0, r_1 \cdots r_n)$ sodass $r_0 = q_0$ und $r_n \in F$.
+Ferner gibt es durch $uw \in L(\mathcal{A})$ eine Zustandsfolge
+$(x_0, \sigma_1, x_1, \sigma_2 \cdots \sigma_n, x_n)$ sodass $x_0 = r_n$, $x_n \in F$ und
+$(\sigma_1, \sigma_2, \cdots \sigma_n) = w$. Nun können wir den Lauf $(q_{-1}, \varepsilon, x_0, \sigma_1, x_1, \sigma_2, x_2, \cdots \sigma_n, x_n)$ in $\mathcal{B}$ angeben. Da beide
+Automaten die selben Endzustände haben und $q_{-1}$ der Startzustand von $\mathcal{B}$ ist, folgt daraus $w \in L(\mathcal{B})$.
 \newpage
+
+Wir zeigen nun $L(\mathcal{B}) \subseteq L_{\text{suff}}(\mathcal{A})$.\\[2pt]
+Sei $w \in L(\mathcal{B})$.
+Dann existiert ein Lauf $r := (r_0, \sigma_1, r_1, \sigma_2 \cdots, \sigma_n, r_n)$
+in $\mathcal{B}$ mit $r_0 = q_{-1}$, $\sigma_1 = \varepsilon$, $(\sigma_2 \cdots \sigma_n) = w$ und $r_1, r_n \in F$.
+Da $F$ eben die Endzustände von $\mathcal{A}$ sind, gibt es auch ein Wort $u \in L(\mathcal{A})$ sodass der Lauf von $\mathcal{A}$ über $u$ eben an $r_1 \in F$ endet. Nun lässt sich der Lauf
+von $w$ ohne die $\varepsilon$-Transition $(r_1, \sigma_2, \cdots \sigma_n, r_n)$ einwandfrei
+an den von $u$ in dem DFA $\mathcal{A}$ anhängen um zu einem Weitern Endzustand von $\mathcal{A}$ zu kommen. Es folgt $uw \in L(\mathcal{A})$ und damit $w \in L_{\text{suff}}(\mathcal{A})$.
+
+Insgesamt gilt also $L(\mathcal{B}) = L_{\text{suff}}(\mathcal{A})$. Aus der Vorlesung ist
+bekannt, dass alle Sprachen, welche $\varepsilon$-NFA-erkennbar sind auch DFA-erkennbar sind.
+$\hfill\square$
 
 \aufgabe{8}
 \textbf{a)}\\
 
 \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
-	\node[state, initial, accepting]	(q0)						{$q0$};
-	\node[state]						(q1) 	[right of=q0]		{$q1$};
-	\node[state]						(q2) 	[below of=q0]		{$q2$};
-	\node[state]						(q3) 	[right of=q2]		{$q3$};
+	\node[state, initial, accepting]	(q0)						{$q_0$};
+	\node[state]						(q1) 	[right of=q0]		{$q_1$};
+	\node[state]						(q2) 	[below of=q0]		{$q_2$};
+	\node[state]						(q3) 	[right of=q2]		{$q_3$};
 
 	\path[->] (q0) edge	[bend left]		node {u} (q1);
 	\path[->] (q0) edge					node {v} (q2);
@@ -100,13 +128,13 @@ Die Endzustände wurden so gewählt damit die akzeptierenden Läufe von L(A) ent
 
 \textbf{b)}
 
-Alle läufe von \textit{A} auf dem Wort bbba:\\
+Alle läufe von $\mathcal{A}$ auf dem Wort bbba:\\
 ($q_0,b,q_0,b,q_0,b,q_1,a,q_2$)\\
 ($q_0,b,q_1,b,q_0,b,q_1,a,q_2$)\\
 
 \textbf{c)}
 
-$E(A,w):=\{q_0,q_1\}$
+$E(\mathcal{A},w):=\{q_0,q_1\}$
 
 Das Wort \textit{cbbca} wird akzeptiert.\\
 
