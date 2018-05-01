@@ -121,39 +121,36 @@ von dem gegebenen Algorithmus genau einmal besucht.
 \aufgabe{3}
 \textbf{a)}
 
-Ja,alle 5 Operationen liegen in der Komplexitätsklasse $\mathcal{O}$(1)(konstante Laufzeit, unabhängig von n).
+Ja, alle 5 Operationen liegen in der Komplexitätsklasse $\mathcal{O}$(1) (konstante Laufzeit, unabhängig von n).
 
-isEmpty() überprüft in einem Schritt ob first leer ist.
+\texttt{isEmpty()} überprüft in einem Schritt ob \texttt{first} leer ist.
 
-enqueueFront() fügt ein Element als neues first Element ein und verkettet das ehmalige erste mit dem neuen.
+\texttt{enqueueFront()} fügt ein Element als neues \texttt{first} Element ein und verkettet das ehemalige erste mit dem neuen.
 
-enqueueBack() fügt ein Element als neues last Element ein und verkettet das ehmalige mit dem neuen.
+\texttt{enqueueBack()} fügt ein Element als neues \texttt{last} Element ein und verkettet das ehemalige mit dem neuen.
 
-dequeueFront() enftfernt das derzeitige first Elemnt und setzt first auf das ehmalige zweite der Schlange.
+\texttt{dequeueFront()} entfernt das derzeitige \texttt{first} Element und setzt \texttt{first} auf das ehemalige zweite der Schlange.
 
-dequeBack() analog zu dequeFront().
+\texttt{dequeBack()} ist analog zu \texttt{dequeFront()}.
 
 \textbf{b)}
 
-Die Laufzeit der fünf Operationen auf einem unbeschränktem Array ist nicht konstant, da für den Befehl dequeFront() zuerst das erste Elemnt gelöscht werden muss und dann  alle anderen Element verschoben werden müssen um die Umsetzung mit nur einem last-Zeiger zu ermöglichen.
+Die Laufzeit der fünf Operationen auf einem unbeschränktem Array ist nicht konstant, da für den Befehl \texttt{dequeFront()} zuerst das erste Element gelöscht werden muss und dann  alle anderen Element verschoben werden müssen um die Umsetzung mit nur einem last-Zeiger zu ermöglichen.
 
 \textbf{c)}
 
-Die Operationen add() und contains() liegen in $\mathcal{O}(n)$ da sie beide das ganze Set durchgehen müssen um zu überprüfen ob dieses enthalten ist oder nicht.Wobei contains() noch eine exttra Zeiteinheit braucht um das Element hinzuzufügen, dennoch bleibt die Operation immernoch in $\mathcal{O}(n)$.\\
-Ob die Aussage korrekt ist kommt auf die Funktiionsweise von union() an, da  die Frage ist, ob doppelte Element gelöscht werden müssen oder nicht.
-Falls sie nicht gelöscht werden müssen bleibt auch union() in $\mathcal{O}(n)$. Ansonsten bräuchte die Operation $ n^2$ Schritte und läge somit in $\mathcal{O}(n^2)$ und nicht mehr in $\mathcal{O}(n)$.
+Die Operationen \texttt{add()} und \texttt{contains()} liegen in $\mathcal{O}(n)$ da Sie beide das ganze Set durchgehen müssen um zu überprüfen ob ein Element enthalten ist oder nicht.\\
+Wobei \texttt{contains()} noch eine extra Zeiteinheit braucht um das Element hinzuzufügen, dennoch bleibt die Operation in $\mathcal{O}(n)$.\\
+Ob die Aussage korrekt ist kommt auf die Funktionsweise von \texttt{union()} an, da  die Frage ist, ob doppelte Element gelöscht werden müssen oder nicht.\\
+Falls sie nicht gelöscht werden müssen bleibt auch union() in $\mathcal{O}(n)$. Ansonsten bräuchte die Operation $ n^2$ Schritte und läge somit in $\mathcal{O}(n^2)$.
 
 \textbf{d)}
 
 Fallunterscheidung:
 
-1.Fall Doppelte Elemente müssen nicht gelöscht werden:\\
-Durch Implemtierung mit verketteten Listen die man einfach aneinanderhängt braucht die Operation union() nur eine Operation und liegt somit in der konstanten Komplexitätsklasse $\mathcal{O}(1)$.
+\textbf{Fall 1:} Doppelte Elemente müssen nicht gelöscht werden:\\
+Durch Implemtierung mit verketteten Listen die man einfach aneinanderhängt braucht die Operation \texttt{union()} nur eine Operation und liegt somit in $\mathcal{O}(1)$.
 
-2.Fall Doppelte Elemente müssen gelöscht werden:\\
-In diesem Fall ist einen Implemtierung mit konstanter Laufzeit nicht möglich, da für jedes Element aus set2, set1 ganz durchlaufen werden muss.
-
-
-
-
+\textbf{Fall 2:} Doppelte Elemente müssen gelöscht werden:\\
+In diesem Fall ist einen Implementierung in konstanter Laufzeit nicht möglich, da für jedes Element aus set2, set1 ganz durchlaufen werden muss.
 \end{document}
