@@ -1,0 +1,12 @@
+if l.länge <=2
+	return l.first
+zahlen[] = 0^K
+int tmp
+int j = 0
+	for(i in l)
+		zahlen[i]++
+	tmp = zahlen[1]
+	while(j<k)
+		if zahlen[j]> tmp
+			tmp = zahlen[j]
+	return tmp

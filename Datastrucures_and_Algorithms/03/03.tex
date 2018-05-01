@@ -153,4 +153,39 @@ Durch Implemtierung mit verketteten Listen die man einfach aneinanderhängt brau
 
 \textbf{Fall 2:} Doppelte Elemente müssen gelöscht werden:\\
 In diesem Fall ist einen Implementierung in konstanter Laufzeit nicht möglich, da für jedes Element aus set2, set1 ganz durchlaufen werden muss.
+
+\newpage
+
+\aufgabe{4}
+\textbf{a)}
+
+Die Speicherkomplexität ist in beiden Fällen gleich da der Array vorher schon mit k+1 Einträgen angelegt werden muss.
+
+\textbf{b)}
+\textbf{TODO}
+
+B(n,k) = 2  Beide einsen sin direkt am Anfang hintereinander.\\
+W(n,k) = n  Die ganze Liste musss durchgegangen werden.\\
+A(n,k) = 
+
+\textbf{c)}
+
+\lstinputlisting{aufgabe4c.txt}
+
+Dieser Algorithmus hat eine konstante Speicherkomplexität in dem Worst-Case, da er unabhängig von n immer nur zwei werte speichern muss.
+Die Asymtotische Komplexität des Algorithmus im Worst-Case ist in $\mathcal{O}(n^2)$(wenn nur die If-Abfragen als Operationen gelten).
+
+\textbf{d)}
+
+\lstinputlisting{aufgabe4d1.txt}
+Der Algorithmus hat einen lineare Laufzeit da 2n If-Abfragen selbst im Worst-Case gegeben sind.
+Außerdem ist der Platzbedarf $\le n*(\log n-1 )+ 4\log n$ in allen Fällen.
+
+\newpage
+
+\lstinputlisting{aufgabe4d2.txt}
+Der Speicher bedarf ist in allen Fällen konstant und somit kleiner $4\log n$ und somit trivialerweise auch kleiner als $5\log n$.
+
+
+
 \end{document}

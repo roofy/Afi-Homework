@@ -1,0 +1,16 @@
+if l.länge <=2
+	return l.first
+
+int tmp ; 
+int j = 0
+int max = 0
+int m = 0
+for(tmp in l)
+	for (i in l)
+		if tmp = i
+			j++
+	if j>m
+		m = j
+		max = tmp
+			
+return max
