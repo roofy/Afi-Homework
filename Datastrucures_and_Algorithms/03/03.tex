@@ -23,6 +23,8 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage{tikz}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -70,13 +72,35 @@ Es sei ein Binärbaum $\mathcal{B}$ gegeben sodass ein Knoten $v$ einen out-degr
 ein Blatt von $\mathcal{B}$ ist.
 Wir nennen diesen Nachfolger hier mal $w$. Unabhängig davon, ob $w$ ein linkes oder rechtes Kind ist,
 würde die Preorder-Traversierung $(\cdots, v, w, \cdots)$ und die Postorder-Traversierung $(\cdots, w, v, \cdots)$
-lauten. 
+lauten. Durch diese fehlende Information, ob ein gegebenes ''Einzelkind'' ein linkes oder rechtes ist, lässt sich der Baum nicht vollständig von den Traversierungen rekonstruieren. Wir geben ein kleines Beispiel:
 
+\begin{minipage}{.3\textwidth}
+\strut\hfill
+\end{minipage}
+\begin{minipage}{.3\textwidth}
+    \begin{tikzpicture}
+        \node[circle,draw](z){$u$}
+            child[missing]{}
+            child{
+                node[circle,draw]{$v$} child{node[circle,draw] {$w$}} child[missing]};
+    \end{tikzpicture}
+\end{minipage}
+\begin{minipage}{.3\textwidth}
+    \begin{tikzpicture}
+        \node[circle,draw](z){$u$}
+            child[missing]{}
+            child{
+                node[circle,draw]{$v$} child[missing] child{node[circle,draw] {$w$}}};
+    \end{tikzpicture}
+\end{minipage}
+
+Beide Binärbäume haben eine Preorder-Traversierung von $(u, v, w)$ und eine Postorder-\\
+Traversierung von $(w, v, u).\hfill\square$
 
 \textbf{c)}
 
 
-
+\newpage
 \aufgabe{2}
 Der gegebene Algorithmus ist in gewisser Weise ein Variante des bekannten Breadth-First-Search.
 Wir besuchen jeden Knoten nur genau einmal, denn:\\
