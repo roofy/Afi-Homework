@@ -106,7 +106,7 @@ Dann gibt es ein $k \in [0,n]$ mit $i_k = l_0$ sodass $(i_0, \cdots, i_{k-1})$
 den linken, und $(i_{k+1},\cdots, i_n)$ den rechten Teilbaum der Wurzel darstellen. Weiter ist dann $i_n$ der
 rechteste Knoten von $\mathcal{B}$. Es existiert weiter ein $j \in [0, m]$ mit $l_j = i_n$, sodass $(l_1, \cdots l_j)$
 die Preorder-Traversierung des rechten Teilbaumes von $\mathcal{B}$ darstellt. Dieser Teilbaum ist wie bekannt
-dann eindeutig bestimmt. Dies lässt sich nun rekursiv fortführen indem wir $j_{l+1}$ als Wurzel des linken Teilbaums
+dann eindeutig bestimmt. Dies lässt sich nun rekursiv fortführen indem wir $l_{j+1}$ als Wurzel des linken Teilbaums
 betrachten und wie für $\mathcal{B}$ vorgehen, insofern $j \neq n$, also $\mathcal{B}$ überhaupt einen linken
 Teilbaum besitzt. Mit dieser Methode lässt sich ein gegebener Binärbaum eindeutig aus seiner Mirror-Linearisierung
 und Inorder-Traversierung rekonstruieren.
@@ -168,11 +168,19 @@ In diesem Fall ist einen Implementierung in konstanter Laufzeit nicht möglich, 
 Die Speicherkomplexität ist in beiden Fällen gleich da das Array vorher schon mit k+1 Einträgen angelegt werden muss.
 
 \textbf{b)}
-\textbf{TODO}
 
 B(n,k) = 2 \quad (Beide einsen sin direkt am Anfang hintereinander).\\
-W(n,k) = n  \quad (Die ganze Liste muss durchgegangen werden).\\
-A(n,k) = 
+W(n,k) = n  \quad (Die ganze Liste muss durchgegangen werden).
+
+Die Anzahl an Permutationen der List ist $\frac{n!}{2}$.
+Die Anzahl an Permutationen der Liste sodass die 2te 1 an Index $i \in [0, n-1]$ steht, ist
+$i(n - 2)!$. Da wir von einem Laplaceraum ausgehen ist jedes Ereignis gleichwahrscheinlich. Wir müssen die Liste
+immer bis zur 2ten 1 durchgehen, also $(i+1)$ Operationen durchführen. Es folgt:
+$$
+    A(n,k) = \frac{2}{n!}\sum_{i=1}^{n}(i+1) i(n-2)!
+    = \frac{2}{n(n-1)} \sum_{i=1}^{n} i(i+1)
+    = \frac{2(n+1)(n+2)}{3(n-1)} \approx \frac{2}{3}n
+$$
 
 \textbf{c)}
 
