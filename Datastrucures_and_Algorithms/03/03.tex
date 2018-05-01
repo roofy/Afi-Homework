@@ -96,6 +96,7 @@ von dem gegebenen Algorithmus genau einmal besucht.
 
 \aufgabe{3}
 \textbf{a)}
+
 Ja,alle 5 Operationen liegen in der Komplexitätsklasse $\mathcal{O}$(1)(konstante Laufzeit, unabhängig von n).
 
 isEmpty() überprüft in einem Schritt ob first leer ist.
@@ -109,14 +110,17 @@ dequeueFront() enftfernt das derzeitige first Elemnt und setzt first auf das ehm
 dequeBack() analog zu dequeFront().
 
 \textbf{b)}
+
 Die Laufzeit der fünf Operationen auf einem unbeschränktem Array ist nicht konstant, da für den Befehl dequeFront() zuerst das erste Elemnt gelöscht werden muss und dann  alle anderen Element verschoben werden müssen um die Umsetzung mit nur einem last-Zeiger zu ermöglichen.
 
 \textbf{c)}
+
 Die Operationen add() und contains() liegen in $\mathcal{O}(n)$ da sie beide das ganze Set durchgehen müssen um zu überprüfen ob dieses enthalten ist oder nicht.Wobei contains() noch eine exttra Zeiteinheit braucht um das Element hinzuzufügen, dennoch bleibt die Operation immernoch in $\mathcal{O}(n)$.\\
 Ob die Aussage korrekt ist kommt auf die Funktiionsweise von union() an, da  die Frage ist, ob doppelte Element gelöscht werden müssen oder nicht.
 Falls sie nicht gelöscht werden müssen bleibt auch union() in $\mathcal{O}(n)$. Ansonsten bräuchte die Operation $ n^2$ Schritte und läge somit in $\mathcal{O}(n^2)$ und nicht mehr in $\mathcal{O}(n)$.
 
 \textbf{d)}
+
 Fallunterscheidung:
 
 1.Fall Doppelte Elemente müssen nicht gelöscht werden:\\
