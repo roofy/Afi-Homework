@@ -135,12 +135,17 @@ Alle läufe von $\mathcal{A}$ auf dem Wort bbba:\\
 ($q_0,b,q_1,b,q_0,b,q_1,a,q_2$)\\
 
 \textbf{c)}
-Das Wort cbbbca wird akzeptiert, wenn die Präfixe die Erreichbarkeitsmenge\\
-$E(\mathcal{A},w):=\{q_0,q_1\}$  haben.
-
-Wenn jedoch für  die Erreichbarkeitsmenge der Präfixe des Wortes cbbbca $q_2 \in E(\mathcal{A},w)$ gilt\\,wird  das Wort nicht akzeptiert.
-
-
+Die Erreichbarkeitsmengen sind gegeben wie folgt:
+$$
+    E(\mathcal{A}, \varepsilon) = \{q_0\} \quad
+    E(\mathcal{A}, c) = \{q_1\} \quad
+    E(\mathcal{A}, cb) = \{q_0\} \quad
+$$$$
+    E(\mathcal{A}, cbb) = \{q_0, q_1\} \quad
+    E(\mathcal{A}, cbbc) = \{q_0, q_1\} \quad
+    E(\mathcal{A}, cbbca) = \{q_2\} \quad
+$$
+Das Wort $cbbca$ wird akzeptiert, da es einen akzeptierenden Lauf von $\mathcal{A}$ über diesem gibt.
 
 \newpage
 \aufgabe{9}
