@@ -99,10 +99,21 @@ Traversierung von $(w, v, u).\hfill\square$
 
 \textbf{c)}
 
+Es sei ein Binärbaum $\mathcal{B}$ und dessen Inorder-Traversierung $i = (i_0, \cdots, i_n)$ sowie
+Mirror-Linearisierung $l = (l_0, \cdots, l_m)$ für $m,n \in \mathbb{N}$ gegeben.
+Nach Definition ist $l_0$ die Wurzel von $\mathcal{B}$.\\
+Dann gibt es ein $k \in [0,n]$ mit $i_k = l_0$ sodass $(i_0, \cdots, i_{k-1})$
+den linken, und $(i_{k+1},\cdots, i_n)$ den rechten Teilbaum der Wurzel darstellen. Weiter ist dann $i_n$ der
+rechteste Knoten von $\mathcal{B}$. Es existiert weiter ein $j \in [0, m]$ mit $l_j = i_n$, sodass $(l_1, \cdots l_j)$
+die Preorder-Traversierung des rechten Teilbaumes von $\mathcal{B}$ darstellt. Dieser Teilbaum ist wie bekannt
+dann eindeutig bestimmt. Dies lässt sich nun rekursiv fortführen indem wir $j_{l+1}$ als Wurzel des linken Teilbaums
+betrachten und wie für $\mathcal{B}$ vorgehen, insofern $j \neq n$, also $\mathcal{B}$ überhaupt einen linken
+Teilbaum besitzt. Mit dieser Methode lässt sich ein gegebener Binärbaum eindeutig aus seiner Mirror-Linearisierung
+und Inorder-Traversierung rekonstruieren.
 
 \newpage
 \aufgabe{2}
-Der gegebene Algorithmus ist in gewisser Weise ein Variante des bekannten Breadth-First-Search.
+Der gegebene Algorithmus ist in gewisser Weise ein Variante des bekannten Depth-First-Search.
 Wir besuchen jeden Knoten nur genau einmal, denn:\\
 Sobald ein Knoten $v$ besucht wird, werden alle von ihm aus erreichbaren Knoten besucht, also
 $$
