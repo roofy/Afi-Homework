@@ -1,0 +1,93 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 3}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\textbf{a)} \\
+Es sei ein Binärbaum $\mathcal{B}$ der Höhe $h$ gegeben. Um eine maximale Anzahl an inneren Knoten zu enthalten, sollte er eine 
+maximale Anzahl an Knoten enthalten, also vollständig sein.
+Damit enthält $\mathcal{B}$ nach Skript $2^{h+1} - 1$ Knoten.
+Die Knoten in Ebene $h$ sind nach alle Blätter von $\mathcal{B}$, alle anderen Knoten haben den maximalen out-degree
+von 2. Da Blätter keine inneren Knoten sind, ergibt sich also $(2^{h+1} - 1) - 2^h = 2^h - 1$ für die Anzahl
+der inneren Knoten von $\mathcal{B}.\hfill\square$
+
+\textbf{b)}\\
+Es sei ein Binärbaum $\mathcal{B}$ gegeben sodass ein Knoten $v$ einen out-degree von 1 hat und dieses Kind
+ein Blatt von $\mathcal{B}$ ist.
+Wir nennen diesen Nachfolger hier mal $w$. Unabhängig davon, ob $w$ ein linkes oder rechtes Kind ist,
+würde die Preorder-Traversierung $(\cdots, v, w, \cdots)$ und die Postorder-Traversierung $(\cdots, w, v, \cdots)$
+lauten. 
+
+
+\textbf{c)}
+
+
+
+\aufgabe{2}
+Der gegebene Algorithmus ist in gewisser Weise ein Variante des bekannten Breadth-First-Search.
+Wir besuchen jeden Knoten nur genau einmal, denn:\\
+Sobald ein Knoten $v$ besucht wird, werden alle von ihm aus erreichbaren Knoten besucht, also
+$$
+M := \{v' \in V \mid v' \neq v \land \exists (v_0, v_1, \cdots, v_n) : v_0 = v \land v_n = v' \land \forall i \in [1,n] : (v_{i-1}, v_i) \in E\}
+$$
+Da der Algorithmus auf einem azyklischem Graphen arbeitet, gilt $v \notin M$, man kann also nicht wieder zu $v$
+zurückkommen, während man seine Nachfolger besucht. Sobald man dann alle Nachfolger $v' \in M$ besucht hat,
+wird durch eine Member-Variable angegeben dass $v$ schon besucht wurde. Da ein Knoten beliebig viele Vorgänger
+bzw. eingehende Kanten haben kann, könnte man im weiteren Verlauf des Algorithmus nochmal bei $v$ vorbeikommen.
+Jedoch wird zu Beginn von \texttt{visit($v$)} überprüft, ob $v$ schon besucht wurde. Somit wird jeder Knoten eines DAG
+von dem gegebenen Algorithmus genau einmal besucht.
+\end{document}
