@@ -1,11 +1,10 @@
-int tmp;
-int z;
+int tmp, z;
 for (i in l)
-	tmp = i
-	z = 0
-	for(j in l)
-		if tmp == j
-			z++
-	if z>1
-		return true	
+    tmp = i
+    z = 0
+    for (j in l)
+        if (tmp == j)
+            z++
+    if (z > 1)
+        return true
 return false

@@ -1,16 +1,18 @@
-if l.länge <=2
-	return l.first
+if (l.length <= 2)
+    return l.first
 
-int tmp ; 
-int j = 0
-int max = 0
-int m = 0
-for(tmp in l)
-	for (i in l)
-		if tmp = i
-			j++
-	if j>m
-		m = j
-		max = tmp
-			
-return max
+maxNum = 0
+maxOccurences = 0
+
+for (i in l)
+    occurrences = 0
+
+    for (j in l)
+        if (i == j)
+            occurrences++
+
+    if (occurences > m)
+        macOccurences = occurences
+        maxNum = i
+
+return maxNum
