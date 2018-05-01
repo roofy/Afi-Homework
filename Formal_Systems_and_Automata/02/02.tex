@@ -104,9 +104,6 @@ $\hfill\square$
 \aufgabe{8}
 \textbf{a)}\\
 
-
-
-
 \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
 	\node[state, initial]					(q0)				{$q_0$};
 	\node[state]						(q1) 	[above of=q0]	{$q_1$};
@@ -129,16 +126,7 @@ $\hfill\square$
 
 	\path[->] (q5) edge	[bend left]			node {a,b,c} (q4);
 
-	
-	
-
 \end{tikzpicture}
-	
-	
-
-
-
-
 
 \textbf{b)}
 
@@ -152,4 +140,63 @@ $E(\mathcal{A},w):=\{q_0,q_1\}$
 
 Das Wort \textit{cbbca} wird akzeptiert.\\
 
+\newpage
+\aufgabe{9}
+Wir zeigen ($w \in L(\mathcal{A}) \,\Longrightarrow\, ac$ kommt nicht als Infix in $w$ vor) für Wörter $w$ der Länge
+$n \in \mathbb{N}$.
+
+Sei $n = 0$. Es folgt sofort $w = \varepsilon$. Weiter gilt $\varepsilon \in L(\mathcal{A})$. Ferner kann in $w$ nicht $ac$ als Infix vorkommen.
+Damit hält die Aussage für $n = 0$.
+
+Sei nun ein beliebig aber festes $n \in \mathbb{N}$ gegeben sodass
+für jedes Wort $w'$ mit $|w'| = n$ aus $w' \in L(\mathcal{A})$ folgt, dass $ac$ nicht als Infix in $w'$ vorkommt (IV).
+
+Sei dann $w = w'x$ mit $w \in L(\mathcal{A})$ für $w' \in L(\mathcal{A})$ mit $|w'| = n$ und $x \in \Sigma_\mathcal{A}$ gegeben.\\
+Dann ist $|w| = n+1$. Wir unterscheiden 2 Fälle:
+
+\textbf{Fall 1:} Der Lauf von $\mathcal{A}$ auf $w' = (w'_0, \cdots, w'_n)$ endet in $q_a \in F_{\mathcal{A}}$.\\
+Dann gilt nach IV dass $ac$ nicht in $w'$ als Infix vorkommt. Jedoch gilt $w'_n = a$. \\
+Es folgt aber $x \neq c$, da sonst durch $\delta_\mathcal{A}(q_a, c) = q_{ac}$ und $q_{ac} \notin F_{\mathcal{A}}$ direkt $w'x = w \notin L(\mathcal{A})$ folgen würde. Folglich kann auch in $w$ nicht das Infix $ac$ vorkommen.
+
+\textbf{Fall 2:} Der Lauf von $\mathcal{A}$ auf $w' = (w'_0, \cdots, w'_n)$ endet in $q_{\varepsilon} \in F_{\mathcal{A}}$.\\
+Dann gilt nach IV dass $ac$ nicht in $w'$ als Infix vorkommt. Weiter ist $w'_n \neq a$. Damit folgt
+für $x \in \Sigma_\mathcal{A}$, dass $w = w'x$ ebenfalls nicht $ac$ als Infix enthält.
+
+
+Insgesamt folgt die Behauptung in allen Fällen für $n+1$. Nach dem Prinzip der vollständigen Induktion
+gilt nun für alle Wörter $w \in \Sigma_\mathcal{A}^*$, dass
+$$
+    w \in L(\mathcal{A}) \,\Longrightarrow\, ac\ \text{kommt nicht als Infix in}\ w\ \text{vor}
+$$
+
+Wir zeigen ($ac$ kommt nicht als Infix in $w$ vor $\,\Longrightarrow\, w \in L(\mathcal{A})$) für Wörter $w$ der
+Länge $n \in \mathbb{N}$.
+
+Sei $n = 0$. Für jedes Wort $w$ mit $|w| = n$ folgt dann $w = \varepsilon$. Offensichtlich kann $ac$ nicht als
+Infix in $w$ vorkommen. Weiter ist der Lauf von $\mathcal{A}$ über $\varepsilon$ akzeptierend, es folgt also
+$w \in L(\mathcal{A})$.
+
+Sei nun ein beliebig aber festes $n \in \mathbb{N}$ gegeben sodass für jedes Wort $w'$ mit $|w'| = n$ in welchem
+nicht $ac$ als Infix vorkommt folgt, dass $w' \in L(\mathcal{A})$ (IV).
+
+Sei dann $w = w'x$ mit sodass $ac$ nicht als Infix in $w, w'$ vorkommt mit $x \in \Sigma_\mathcal{A}$ gegeben.\\
+Dann ist $|w| = n+1$. Wir unterscheiden 2 Fälle:
+
+\textbf{Fall 1:} $w'_n = a$.\\
+Da $ac$ nicht in $w = w'x$ als Infix vorkommt folgt sofort $x \neq c$. Durch $w' \in L(\mathcal{A})$ (IV) und
+$w'_n = a$ folgt, dass der Lauf von $\mathcal{A}$ über $w'$ in $q_a$ endet. Da dann das nächste eingelesene Symbol,
+$x \neq c$ ist, folgt, dass $w = w'x \in L(\mathcal{A})$.
+
+\textbf{Fall 2:} $w'_n \neq a$.\\
+Da $w' \in L(\mathcal{A})$ nach IV endet der Lauf von $\mathcal{A}$ über $w'$ in $q_\varepsilon$. Es gilt
+für jedes $x \in \Sigma_\mathcal{A}$ nun immernoch, dass $ac$ nicht als Infix in $w = w'x$ vorkommt. Weiter gilt
+$\forall x \in \Sigma_\mathcal{A} : \delta_\mathcal{A}(q_\varepsilon, x) \in F_\mathcal{A}$.
+Folglich ist also $w \in L(\mathcal{A})$.
+
+Insgesamt folgt die Behauptung in allen Fällen für $n+1$. Nach dem Prinzip der vollständigen Indultion gilt
+nun für alle Wörter $w \in \Sigma_\mathcal{A}^*$, dass
+$$
+    ac\ \text{kommt nicht als Infix in}\ w\ \text{vor} \,\Longrightarrow\, w \in L(\mathcal{A})
+$$
+$\hfill\square$
 \end{document}
