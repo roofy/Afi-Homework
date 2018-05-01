@@ -104,23 +104,33 @@ $\hfill\square$
 \aufgabe{8}
 \textbf{a)}\\
 
-\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
-	\node[state, initial, accepting]	(q0)						{$q_0$};
-	\node[state]						(q1) 	[right of=q0]		{$q_1$};
-	\node[state]						(q2) 	[below of=q0]		{$q_2$};
-	\node[state]						(q3) 	[right of=q2]		{$q_3$};
 
-	\path[->] (q0) edge	[bend left]		node {u} (q1);
-	\path[->] (q0) edge					node {v} (q2);
+
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+	\node[state, initial]					(q0)				{$q_0$};
+	\node[state]						(q1) 	[above of=q0]	{$q_1$};
+	\node[state]						(q2) 	[right of=q0]		{$q_2$};
+	\node[state]						(q3) 	[right of=q2]		{$q_3$};
+	\node[state, accepting]				(q4) 	[right of=q3]		{$q_4$};
+	\node[state]						(q5) 	[right of=q4]		{$q_5$};
 	
-	\path[->] (q1) edge					node {u} (q0);
-	\path[->] (q1) edge	[bend left]		node {v} (q3);
+
+	\path[->] (q0) edge	[bend left]		node {a,b,c} (q1);
+	\path[->] (q0) edge					node {c} (q2);
 	
-	\path[->] (q2) edge	[bend left]		node {v} (q0);
-	\path[->] (q2) edge	 				node {u} (q3);
+	\path[->] (q1) edge					node {a,b,c} (q0);
 	
-	\path[->] (q3) edge					node {v} (q1);
-	\path[->] (q3) edge	[bend left]		node {v} (q2);
+	\path[->] (q2) edge	 				node {c} (q3);
+	
+	\path[->] (q3) edge					node {c} (q4);
+
+	\path[->] (q4) edge					node {a,b,c} (q5);
+
+	\path[->] (q5) edge	[bend left]			node {a,b,c} (q4);
+
+	
+	
 
 \end{tikzpicture}
 
