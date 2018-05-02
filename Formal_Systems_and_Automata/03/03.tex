@@ -36,50 +36,13 @@
 
 \aufgabe{5}
 \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
-<<<<<<< HEAD
-	\node[state, initial]							(q0)						{$\big\{q_0\big\}$};
-	\node[state,accepting]						(q1q2) 	[right of=q0]			{$\big\{q_1,q_2\big\}$};
-	\node[state,accepting]						(q1q3) 	[above of=q1q2]		{$\big\{q_1,q_3\big\}$};
-	\node[state]								(q2)	 	[below of=q1q2]		{$\big\{q_2\big\}$};
-	\node[state]								(q3) 		[right of=q1q2]		{$\big\{q_3\big\}$};
-	\node[state]								(qs) 		[right of=q3]			{$\big\{SENKE\big\}$};
-	
-	
-	
 
-	\path[->] (q0) edge [loop above]		node {a,b} (q0);
-	\path[->] (q0) edge 				node {c} (q1q2);
-	
-	\path[->] (q1q2) edge [loop above]		node {c} (q1q2);
-	\path[->] (q1q2) edge 				node {a} (q3);
-	\path[->] (q1q2) edge [bend left]		node {b} (qs);
-	
-	\path[->] (q1q3) edge [loop above]		node {b} (q1q3);
-	\path[->] (q1q3) edge [bend right]		node {a} (q3);
-	\path[->] (q1q3) edge [bend right]		node {c} (q2);
-	
-	\path[->] (q3) edge 				node {a,c} (qs);
-	\path[->] (q3) edge [bend right]			node {b} (q1q3);	
-		
-	
-	\path[->] (q2) edge 				node {a} (q3);
-	\path[->] (q2) edge 				node {b} (qs);
-	\path[->] (q2) edge 				node {c} (q1q2);
-	
-	\path[->] (qs) edge [loop above]		node {a,b,c} (qs);
-	
-	
-	
-	
-	
-	
-=======
     \node[state, initial]   (q0)                    {$\big\{q_0\big\}$};
     \node[state,accepting]  (q1q2)  [right of=q0]   {$\big\{q_1,q_2\big\}$};
     \node[state,accepting]  (q1q3)  [above of=q1q2] {$\big\{q_1,q_3\big\}$};
-    \node[state,accepting]  (q2)    [below of=q1q2] {$\big\{q_2\big\}$};
-    \node[state,accepting]  (q3)    [right of=q1q2] {$\big\{q_3\big\}$};
-    \node[state,accepting]  (qs)    [right of=q3]   {SENKE};
+    \node[state]  (q2)    [below of=q1q2] {$\big\{q_2\big\}$};
+    \node[state]  (q3)    [right of=q1q2] {$\big\{q_3\big\}$};
+    \node[state]  (qs)    [right of=q3]   {SENKE};
 
 
     \path[->] (q0)      edge [loop above]               node {a,b} (q0);
