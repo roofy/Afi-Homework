@@ -181,14 +181,22 @@ $$
     = \frac{2}{n(n-1)} \sum_{i=1}^{n} i(i+1)
     = \frac{2(n+1)(n+2)}{3(n-1)} \approx \frac{2}{3}n
 $$
-
+\\
+B(n,k)=2 (Zwei gleiche Zahlen direkt am Anfang hintereinander)\\
+W(n,k)=n(Letzter Eintrag ist erste doppelte Zahl bzw. keine doppelten Zahlen)\\
+$$
+A(n,k)=\prod_{i=1}^{n}\frac{i}{k}
+$$
+   (n länge der Liste,k Anzahl der verschieden Zahlen)\\
+\newpage
 \textbf{c)}
+
 
 \lstinputlisting{aufgabe4c.txt}
 
 Dieser Algorithmus hat eine konstante Speicherkomplexität in dem Worst-Case, da er unabhängig von n immer nur zwei Werte speichern muss.
 Die Asymptotische Komplexität des Algorithmus im Worst-Case ist in $\mathcal{O}(n^2)$(wenn nur die If-Abfragen als Operationen gelten).
-\newpage
+
 
 \textbf{d)}
 
@@ -196,7 +204,7 @@ Die Asymptotische Komplexität des Algorithmus im Worst-Case ist in $\mathcal{O}
 Der Algorithmus hat eine lineare Laufzeit da er genau 2n If-Abfragen in jedem Fall außer \texttt{l.length <= 2} durchführt.
 Außerdem ist der Platzbedarf $n + 3 \le n\cdot(\log n-1 )+ 4\log n$ in allen Fällen.\\[50pt]
 
-
+\newpage
 \lstinputlisting{aufgabe4d2.txt}
 Der Speicherbedarf ist in allen Fällen konstant und somit kleiner $4\log n < 5 \log n$.
  \end{document}
