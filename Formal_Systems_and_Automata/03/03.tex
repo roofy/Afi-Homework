@@ -54,10 +54,10 @@
 
     \path[->] (q1q3)    edge [loop above]               node {b} (q1q3);
     \path[->] (q1q3)    edge [bend right]               node {a} (q3);
-    \path[->] (q1q3)    edge [bend right=40, pos=0.3]	node {c} (q2);
+    \path[->] (q1q3)    edge [bend right=40, pos=0.3]   node {c} (q2);
 
     \path[->] (q3)      edge                            node {a,c} (qs);
-    \path[->] (q3)      edge [bend right]               node {b} (q1q3);	
+    \path[->] (q3)      edge [bend right]               node {b} (q1q3);
 
     \path[->] (q2)      edge                            node {a} (q3);
     \path[->] (q2)      edge                            node {b} (qs);
@@ -65,7 +65,6 @@
 
     \path[->] (qs)      edge [loop above]               node {a,b,c} (qs);
 
->>>>>>> 005da2928a68baf4cde6640a54af0d765d2961d1
 \end{tikzpicture}
 
 \newpage
@@ -74,9 +73,9 @@ Es sei o.B.d.A ein DFA $\mathcal{A}$ gegeben (sonst machen wir den gegebenen Aut
 der Vorlesung).
 
 Es sei $\mathcal{A} := (Q, \Sigma, \delta, q_0, F)$.
-Wir definieren den $\varepsilon$-NFA $\mathcal{B} := (Q', \Sigma', \Delta, q_0', F')$ mit
+Wir definieren den $\varepsilon$-NFA $\mathcal{B} := (Q', \Sigma', \Delta, q_0, F')$ mit
 $$
-    Q' := Q\ \dot\cup\ \{q_0'\}\ \dot\cup\ \{(q, \varepsilon) \mid q \in Q\}
+    Q' := Q\ \dot\cup\ \{(q, \varepsilon) \mid q \in Q\}
     \qquad \Sigma' := \Sigma\ \dot\cup\ \{\varepsilon\}
     \qquad F' := \{(q, \varepsilon) \mid q \in F)
 $$$$
@@ -92,62 +91,83 @@ Die Idee ist, dass wir in jedem Zustand $q \in Q$ von $\mathcal{A}$ die Möglich
 $\varepsilon$-Transition zu dem nächsten Zustand zu kommen. Da wir dies jedoch nur einmal machen dürfen
 (Es ex. genau 1 Lücke pro Wort), gehen wir dann zu einer Kopie der Zustände aus $Q$, hier mit $(q, \varepsilon)$
 betitelt über, in denen diese $\varepsilon$-Transitionen nicht mehr möglich sind. Sobald wir uns einmal in diesem
-Bereich der $\varepsilon$-Zustände befinden verhält sich der Automat wie vorher und akzeptiert die Kopien der 
+Bereich der $\varepsilon$-Zustände befinden verhält sich der Automat wie vorher und akzeptiert die Kopien der
 eigentlichen Endzustände.
 
-Wir zeigen $L(\mathcal{B}) \subseteq (L(A))^-$.
+Wir zeigen $L(\mathcal{B}) \subseteq (L(\mathcal{A}))^-$.\\[2pt]
+Sei ein $w \in L(\mathcal{B})$ gegeben. Dann existiert ein Lauf $l$ von $\mathcal{B}$ auf
+$w$ sodass $l = (q_0, \sigma_1, r_1, \sigma_2, r_2, \cdots, \sigma_n, r_n)$ für $n \in \mathbb{N}$, $\sigma \in (\Sigma')^n$ und $r \in (Q')^n$.
+Weiter existiert dann ein $i \in [1, n]_\mathbb{N}$ sodass $\sigma_i = \varepsilon$ sowie
+$\forall j \in [1, i-1] : r_j \in Q$ (also in den originalen Zuständen) und
+$\forall j \in [i, n] : r_j \in (Q'\setminus Q)$ (also in den $\varepsilon$-Kopien).
+Ferner gilt $r_n \in F'$ und damit $r_n = (q, \varepsilon)$ für ein $q \in F$.
+Nach Konstruktion von $\mathcal{B}$ folgt aus $(r_{i-1}, \varepsilon, r_i) \in \Delta$,
+wobei $r_i = (q, \varepsilon)$ für ein $q \in Q$, dass ein $a \in \Sigma$ mit
+$\delta(r_{i-1}, a) = q$ existiert. Nach Konstruktion von $\Delta$ gibt es also einen Lauf auf $\mathcal{A}$ über
+$w' = (\sigma_1, \sigma_2, \cdots, \sigma_{i-1}, a, \sigma_{i+1}, \cdots, \sigma_n)$, sodass
+das $\varepsilon$ an der Stelle $i$ aus $w$ durch $a$ ersetzt wird. Folglich ist nach Definition
+$w = (w')_i^-$, also $w \in (L(\mathcal{A}))^-. \hfill\square$
+
+Wir zeigen nun $(L(\mathcal{A}))^- \subseteq L(\mathcal{B})$.
+Sei ein $w \in (L(\mathcal{A}))^-$ gegeben. Dann gilt $w = u_i^-$ für ein $i \in \mathbb{N}$
+mit $1 \leq i \leq |u|$ und $u \in L(\mathcal{A})\setminus \{\varepsilon\}$.
+Wir haben also einen Lauf $l = (q_0, u_1, r_1, u_2, r_2, \cdots, u_n, r_n)$
+für $n \in \mathbb{N}$.
+Nach Konstruktion von $\Delta$ gibt es dann einen Lauf $k$ von $\mathcal{B}$ auf $w$ sodass\\
+$k = (q_0, u_1, r_1, \cdots, u_{i-1}, r_{i-1}, \varepsilon, r'_i, u_{i+1}, r'_{i+1}, \cdots,
+u_n, r'_n)$ für $r'_i = (r_i, \varepsilon) \in Q' \setminus Q$ und $r'_n \in F'$.
+Folglich gilt $w \in L(\mathcal{B}).\hfill\square$
+
+Insgesamt gilt also $L(\mathcal{B}) = (L(\mathcal{A}))^-$. Da die von $\varepsilon$-NFA's
+erkannten Sprachen zu den FA-erkennbaren Sprachen gehören, folgt, dass FA-erkennbare
+Sprachen unter Lückenbildung abgeschlossen sind.
+
+\aufgabe{7}
+\textbf{a)}
+\begin{center}
+    \begin{tabular}{ c | c | c | c | c | c | c}
+        & von $q_0$ & von $q_1$ & von $q_2$ & von $q_3$ & von $q_4$ & von $q_5$\\
+        \hline
+        mit a & -           & $q_0$             & - & $q_0$             & - & $q_4$ \\ \hline
+        mit b & $q_0, q_1$  & $q_0, q_1, q_3$   & - & $q_0, q_1, q_3$   & $q_2$ & $q_2$\\
+    \end{tabular}
+\end{center}
 
 \newpage
-\aufgabe{7}
-\textbf{a)}\\
-von $ q_0$ mit a: -\\
-von $q_0$ mit b:$q_0,q_1$\\
-von $q_1$ mit a:$q_0$\\
-von $q_1 $mit b:$q_0,q_1,q_3$\\
-von $q_2$ mit a:-\\
-von $q_2$ mit b:-\\
-von $q_3$ mit a:$q_0$\\
-von $q_3$ mit b:$q_0,q_1,q_3$\\
-von $q_4$ mit a:-\\
-von $q_4$ mit b:$q_2$\\
-von $q_5$ mit a:$q_4$\\
-von $q_5$ mit b:$q_2$\\
 
 \textbf{b)}\\
-
 \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=5cm]
-	\node[state, initial]							(q0)						{${q_0}$};
-	\node[state,accepting]								(q1)	[right of = q0]			{${q_1}$};
-	\node[state]								(q2)	[right of = q1]			{${q_2}$};
-	\node[state]								(q3)	[below of = q0]			{${q_3}$};
-	\node[state,accepting]								(q4)	[right of = q3]			{${q_4}$};
-	\node[state]								(q5)	[right of = q4]			{${q_5}$};
-	
-	
-	\path[->] (q0) edge [loop above]		node {a,b} (q0);
-	\path[->] (q0) edge [bend left=10]				node {b} (q1);
-	\path[->] (q0) edge [bend left=10]				node {b} (q3);
-	
-	\path[->] (q1) edge [loop above]		node {b} (q1);
-	\path[->] (q1) edge [bend left=10]				node {a,b} (q0);
-	\path[->] (q1) edge [bend left=10]				node {b} (q3);
-	\path[->] (q1) edge 				node {a} (q4);
-	
-	\path[->] (q3) edge [loop below]				node {b} (q3);
-	\path[->] (q3) edge [bend left=10]				node {a,b} (q0);
-	\path[->] (q3) edge [bend left=10]				node {b} (q1);
-	
-	\path[->] (q4) edge [bend left=10] 				node {b} (q2);
-	\path[->] (q4) edge [bend left=10] 				node {b} (q5);
-	
-	\path[->] (q2) edge [loop above]				node {b} (q2);
-	\path[->] (q2) edge [bend left=10]				node {a} (q4);
-	
-	\path[->] (q5) edge [bend left=10]				node {a} (q4);
-	\path[->] (q5) edge 				node {b} (q2);
+    \node[state, initial]   (q0)                        {${q_0}$};
+    \node[state,accepting]  (q1)    [right of = q0]     {${q_1}$};
+    \node[state]            (q2)    [right of = q1]     {${q_2}$};
+    \node[state]            (q3)    [below of = q0]     {${q_3}$};
+    \node[state,accepting]  (q4)    [right of = q3]     {${q_4}$};
+    \node[state]            (q5)    [right of = q4]     {${q_5}$};
+
+
+    \path[->] (q0) edge [loop above]    node {a,b} (q0);
+    \path[->] (q0) edge [bend left=10]  node {b} (q1);
+    \path[->] (q0) edge [bend left=10]  node {b} (q3);
+
+    \path[->] (q1) edge [loop above]    node {b} (q1);
+    \path[->] (q1) edge [bend left=10]  node {a,b} (q0);
+    \path[->] (q1) edge [bend left=10]  node {b} (q3);
+    \path[->] (q1) edge                 node {a} (q4);
+
+    \path[->] (q3) edge [loop below]    node {b} (q3);
+    \path[->] (q3) edge [bend left=10]  node {a,b} (q0);
+    \path[->] (q3) edge [bend left=10]  node {b} (q1);
+
+    \path[->] (q4) edge [bend left=10]  node {b} (q2);
+    \path[->] (q4) edge [bend left=10]  node {b} (q5);
+
+    \path[->] (q2) edge [loop above]    node {b} (q2);
+    \path[->] (q2) edge [bend left=10]  node {a} (q4);
+
+    \path[->] (q5) edge [bend left=10]  node {a} (q4);
+    \path[->] (q5) edge                 node {b} (q2);
 \end{tikzpicture}
 
-\newpage
 \aufgabe{8}
 Es gibt einen Automaten $\mathcal{A}$, welcher binäre, durch 3 teilbare Zahlen erkennt (Bsp 1.19 Skript).
 Des weiteren wissen wir, dass es einen FA gibt welcher alle Wörter akzeptiert,
