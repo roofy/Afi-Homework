@@ -71,10 +71,10 @@ Die Endzustände wurden so gewählt damit die akzeptierenden Läufe von $L(\math
 \aufgabe{7}
 Sei $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ ein DFA mit Sprache $L(\mathcal{A})$.
 Wir definieren den $\varepsilon$-NFA $\mathcal{B} := (Q', \Sigma', \Delta, q_{-1}, F)$,
-wobei $Q' := Q \cup \{q_{-1}\}$, $\Sigma' := \Sigma \cup \{\varepsilon\}$ und
+wobei $Q' := Q\ \dot\cup\ \{q_{-1}\}$, $\Sigma' := \Sigma\ \dot\cup\ \{\varepsilon\}$ und
 $$
-	\Delta := \{(q, a, q') \mid \delta(q, a) = q'\}
-		\cup \{(q_{-1}, \varepsilon, f) \mid f \in F\}
+	\Delta := \{(q, a, q') \mid \delta(q, a) = q'\}\
+		\dot\cup\ \{(q_{-1}, \varepsilon, f) \mid f \in F\}
 $$
 für $q,q' \in Q$ und $a \in \Sigma$.
 
@@ -82,7 +82,7 @@ Wir zeigen zuerst $L_{\text{suff}}(\mathcal{A}) \subseteq L(\mathcal{B})$.\\[2pt
 Sei $w \in L_{\text{suff}}(\mathcal{A})$ gegeben. Seien ferner $m,n \in \mathbb{N}$.\\
 Dann existiert ein $u \in L(\mathcal{A})$ sodass $uw \in L(\mathcal{A})$.
 Durch $u \in L(\mathcal{A})$ existiert ein Lauf von $\mathcal{A}$ über $u$;
-$(r_0, r_1 \cdots r_m)$ sodass $r_0 = q_0$ und $r_n \in F$.
+$(r_0, r_1 \cdots r_m)$ sodass $r_0 = q_0$ und $r_m \in F$.
 Ferner gibt es durch $uw \in L(\mathcal{A})$ eine Zustandsfolge
 $(x_0, \sigma_1, x_1, \sigma_2 \cdots \sigma_n, x_n)$ sodass $x_0 = r_m$, $x_n \in F$ und
 $(\sigma_1, \sigma_2, \cdots \sigma_n) = w$. Nun können wir den Lauf $(q_{-1}, \varepsilon, x_0, \sigma_1, x_1, \sigma_2, x_2, \cdots \sigma_n, x_n)$ in $\mathcal{B}$ angeben. Da beide

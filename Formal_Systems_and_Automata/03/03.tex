@@ -27,16 +27,16 @@
 \noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
 \strut\hfill Sebastian Hackenberg, 377550\\
 \begin{center}
-	\LARGE{\textbf{Hausaufgabe 3}}
+    \LARGE{\textbf{Hausaufgabe 3}}
 \end{center}
 \begin{center}
-\rule[0.1ex]{\textwidth}{1pt}
+    \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
 
 \aufgabe{5}
-
 \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+<<<<<<< HEAD
 	\node[state, initial]							(q0)						{$\big\{q_0\big\}$};
 	\node[state,accepting]						(q1q2) 	[right of=q0]			{$\big\{q_1,q_2\big\}$};
 	\node[state,accepting]						(q1q3) 	[above of=q1q2]		{$\big\{q_1,q_3\big\}$};
@@ -73,10 +73,67 @@
 	
 	
 	
+=======
+    \node[state, initial]   (q0)                    {$\big\{q_0\big\}$};
+    \node[state,accepting]  (q1q2)  [right of=q0]   {$\big\{q_1,q_2\big\}$};
+    \node[state,accepting]  (q1q3)  [above of=q1q2] {$\big\{q_1,q_3\big\}$};
+    \node[state,accepting]  (q2)    [below of=q1q2] {$\big\{q_2\big\}$};
+    \node[state,accepting]  (q3)    [right of=q1q2] {$\big\{q_3\big\}$};
+    \node[state,accepting]  (qs)    [right of=q3]   {SENKE};
+
+
+    \path[->] (q0)      edge [loop above]               node {a,b} (q0);
+    \path[->] (q0)      edge [pos=0.3]                  node {c} (q1q2);
+
+    \path[->] (q1q2)    edge [loop above]               node {c} (q1q2);
+    \path[->] (q1q2)    edge                            node {a} (q3);
+    \path[->] (q1q2)    edge [bend left]                node {b} (qs);
+
+    \path[->] (q1q3)    edge [loop above]               node {b} (q1q3);
+    \path[->] (q1q3)    edge [bend right]               node {a} (q3);
+    \path[->] (q1q3)    edge [bend right=40, pos=0.3]	node {c} (q2);
+
+    \path[->] (q3)      edge                            node {a,c} (qs);
+    \path[->] (q3)      edge [bend right]               node {b} (q1q3);	
+
+    \path[->] (q2)      edge                            node {a} (q3);
+    \path[->] (q2)      edge                            node {b} (qs);
+    \path[->] (q2)      edge                            node {c} (q1q2);
+
+    \path[->] (qs)      edge [loop above]               node {a,b,c} (qs);
+
+>>>>>>> 005da2928a68baf4cde6640a54af0d765d2961d1
 \end{tikzpicture}
 
 \newpage
 \aufgabe{6}
+Es sei o.B.d.A ein DFA $\mathcal{A}$ gegeben (sonst machen wir den gegebenen Automaten zum DFA nach Methoden
+der Vorlesung).
+
+Es sei $\mathcal{A} := (Q, \Sigma, \delta, q_0, F)$.
+Wir definieren den $\varepsilon$-NFA $\mathcal{B} := (Q', \Sigma', \Delta, q_0', F')$ mit
+$$
+    Q' := Q\ \dot\cup\ \{q_0'\}\ \dot\cup\ \{(q, \varepsilon) \mid q \in Q\}
+    \qquad \Sigma' := \Sigma\ \dot\cup\ \{\varepsilon\}
+    \qquad F' := \{(q, \varepsilon) \mid q \in F)
+$$$$
+    \Delta := \{(q, a, q') \mid \exists q,q' \in Q, a \in \Sigma : \delta(q, a) = q'\}\ \dot\cup\ \Delta_{Q \to \varepsilon}\ \dot\cup\ \Delta_\varepsilon
+$$
+Wobei
+$$
+    \Delta_{Q \to \varepsilon} := \{(q, \varepsilon, (q', \varepsilon)) \mid \exists q,q' \in Q, a \in \Sigma : \delta(q, a) = q'\}
+$$$$
+    \Delta_\varepsilon := \{((q, \varepsilon), a, (q', \varepsilon)) \mid \exists q,q' \in Q, a \in \Sigma : \delta(q, a) = q'\}
+$$
+Die Idee ist, dass wir in jedem Zustand $q \in Q$ von $\mathcal{A}$ die Möglichkeit bieten, durch eine\\
+$\varepsilon$-Transition zu dem nächsten Zustand zu kommen. Da wir dies jedoch nur einmal machen dürfen
+(Es ex. genau 1 Lücke pro Wort), gehen wir dann zu einer Kopie der Zustände aus $Q$, hier mit $(q, \varepsilon)$
+betitelt über, in denen diese $\varepsilon$-Transitionen nicht mehr möglich sind. Sobald wir uns einmal in diesem
+Bereich der $\varepsilon$-Zustände befinden verhält sich der Automat wie vorher und akzeptiert die Kopien der 
+eigentlichen Endzustände.
+
+Wir zeigen $L(\mathcal{B}) \subseteq (L(A))^-$.
+
 \newpage
 \aufgabe{7}
 \textbf{a)}\\
@@ -130,7 +187,7 @@ von $q_5$ mit b:$q_2$\\
 \newpage
 \aufgabe{8}
 Es gibt einen Automaten $\mathcal{A}$, welcher binäre, durch 3 teilbare Zahlen erkennt (Bsp 1.19 Skript).
-Des weiteren wissen wir, dass es einen FA gibt welcher alle Wörter akzeptieren,
+Des weiteren wissen wir, dass es einen FA gibt welcher alle Wörter akzeptiert,
 in denen ein gegebenes Symbol weniger als eine feste Grenze (hier 42) vorkommt (HA02). So ein FA $\mathcal{B}$
 soll im folgenden alle Wörter mit höchstens 42 Einsen erkennen.
 Zu guter letzt haben wir einen FA zur Erkennung Infixen in der letzten Abgabe definiert bzw gezeigt, dass diese Sprache FA-erkennbar ist (HA02 Nr9). Der FA $\mathcal{C}$ soll dies hier für das Infix 101010 tun.
@@ -140,11 +197,11 @@ Nach Satz 2.40 folgt nun, dass ebenso $\overline{M}, L \cap K$ und $(\overline{M
 sind.
 Dies ist für ein Wort $w \in \{0, 1\}^*$ logisch zu interpretieren als
 $$
-    (w \in \overline{M}) \lor (w \in L \cap K)
-    \equiv \lnot (w \in M) \lor (w \in L \land w \in K)
-    \equiv w \in M \,\Longrightarrow\, w \in L \land w \in K
+    (w \in \overline{M}) \lor (w \in L \cap K)\
+    \equiv\ \lnot (w \in M) \lor (w \in L \land w \in K)\
+    \equiv\ w \in M \,\Longrightarrow\, (w \in L \land w \in K)
 $$
-Dies entspricht eben genaus der Aussage; Wenn 101010 als Infix in $w$ vorkommt ($w \in M$), dann muss 
+Dies entspricht eben genau der Aussage; Wenn 101010 als Infix in $w$ vorkommt ($w \in M$), dann muss 
 $w$ höchstens 42 Einsen haben ($w \in K$) und durch 3 teilbar sein ($w \in L$).
 
 Insgesamt ist dies also FA-erkennbar.
