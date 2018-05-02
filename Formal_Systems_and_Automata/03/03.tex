@@ -41,7 +41,23 @@
 \aufgabe{7}
 \newpage
 \aufgabe{8}
+Es gibt einen Automaten $\mathcal{A}$, welcher binäre, durch 3 teilbare Zahlen erkennt (Bsp 1.19 Skript).
+Des weiteren wissen wir, dass es einen FA gibt welcher alle Wörter akzeptieren,
+in denen ein gegebenes Symbol weniger als eine feste Grenze (hier 42) vorkommt (HA02). So ein FA $\mathcal{B}$
+soll im folgenden alle Wörter mit höchstens 42 Einsen erkennen.
+Zu guter letzt haben wir einen FA zur Erkennung Infixen in der letzten Abgabe definiert bzw gezeigt, dass diese Sprache FA-erkennbar ist (HA02 Nr9). Der FA $\mathcal{C}$ soll dies hier für das Infix 101010 tun.
 
+Wir haben also, dass $L := L(\mathcal{A}), K := L(\mathcal{B})$ und $M := L(\mathcal{C})$ FA-erkennbar sind.
+Nach Satz 2.40 folgt nun, dass ebenso $\overline{M}, L \cap K$ und $(\overline{M}) \cup (L \cap K)$ FA-erkennbar
+sind.
+Dies ist für ein Wort $w \in \{0, 1\}^*$ logisch zu interpretieren als
+$$
+    (w \in \overline{M}) \lor (w \in L \cap K)
+    \equiv \lnot (w \in M) \lor (w \in L \land w \in K)
+    \equiv w \in M \,\Longrightarrow\, w \in L \land w \in K
+$$
+Dies entspricht eben genaus der Aussage; Wenn 101010 als Infix in $w$ vorkommt ($w \in M$), dann muss 
+$w$ höchstens 42 Einsen haben ($w \in K$) und durch 3 teilbar sein ($w \in L$).
 
-
+Insgesamt ist dies also FA-erkennbar.
 \end{document}
