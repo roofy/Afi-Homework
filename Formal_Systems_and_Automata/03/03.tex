@@ -125,25 +125,25 @@ von $q_5$ mit b:$q_2$\\
 	
 	
 	\path[->] (q0) edge [loop above]		node {a,b} (q0);
-	\path[->] (q0) edge [bend left]				node {b} (q1);
-	\path[->] (q0) edge [bend left]				node {b} (q3);
+	\path[->] (q0) edge [bend left=10]				node {b} (q1);
+	\path[->] (q0) edge [bend left=10]				node {b} (q3);
 	
 	\path[->] (q1) edge [loop above]		node {b} (q1);
-	\path[->] (q1) edge [bend left]				node {a,b} (q0);
-	\path[->] (q1) edge [bend left]				node {b} (q3);
+	\path[->] (q1) edge [bend left=10]				node {a,b} (q0);
+	\path[->] (q1) edge [bend left=10]				node {b} (q3);
 	\path[->] (q1) edge 				node {a} (q4);
 	
 	\path[->] (q3) edge [loop below]				node {b} (q3);
-	\path[->] (q3) edge [bend left]				node {a,b} (q0);
-	\path[->] (q3) edge [bend left]				node {b} (q1);
+	\path[->] (q3) edge [bend left=10]				node {a,b} (q0);
+	\path[->] (q3) edge [bend left=10]				node {b} (q1);
 	
-	\path[->] (q4) edge [bend left] 				node {b} (q2);
-	\path[->] (q4) edge [bend left] 				node {b} (q5);
+	\path[->] (q4) edge [bend left=10] 				node {b} (q2);
+	\path[->] (q4) edge [bend left=10] 				node {b} (q5);
 	
 	\path[->] (q2) edge [loop above]				node {b} (q2);
-	\path[->] (q2) edge [bend left]				node {a} (q4);
+	\path[->] (q2) edge [bend left=10]				node {a} (q4);
 	
-	\path[->] (q5) edge [bend left]				node {a} (q4);
+	\path[->] (q5) edge [bend left=10]				node {a} (q4);
 	\path[->] (q5) edge 				node {b} (q2);
 \end{tikzpicture}
 
