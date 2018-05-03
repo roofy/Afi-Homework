@@ -1,0 +1,298 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 3}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{16}
+Projektionen sind im Skript (Def. 1.84) deutlich allgemeiner als für nur 2 Untervektorräume definiert.
+Wir halten uns im folgenden an die Definition des Skripts.
+
+\textbf{a)}
+
+Es sei ein $K$-Vektorraum $V$, ein $n \in \mathbb{N}_0$ und ein $n$-Tupel $(U_1, \cdots, U_n)$ von
+$K$-Untervektorräumen von $V$ mit $\displaystyle V = \sum_{i \in [1,n]}^{\text{.}} U_i$ gegeben.
+
+Wir überprüfen die Kriterien für Vektorraumhomomorphismen (2.2):\\
+Seien $v, v' \in V$. Dann existieren $u, u' \in \bigtimes_{i \in [1,n]} U_i$ sodass
+$v = \sum_{i \in [1, n]} u_i$ und $v' = \sum_{i \in [1, n]} u'_i$.
+Sei nun $i \in [1,n]$. Dann gilt
+$$
+    \text{pr}_i^V(v + v')
+    = \text{pr}_i^V(\sum_{j \in [1,n]} (u_j + u'_j))
+    \up{=}{def} u_i + u'_i
+    \up{=}{def} \text{pr}_i^V(\sum_{j \in [1,n]} u_j) + \text{pr}_i^V(\sum_{j \in [1,n]} u'_j)
+    = \text{pr}_i^V(v) + \text{pr}_i^V(v')
+$$
+Sei weiter nun $a \in K$. Es gilt
+$$
+    \text{pr}_i^V(av)
+    = \text{pr}_i^V(\sum_{j\in [1,n]} au_j)
+    \up{=}{def} au_i
+    \up{=}{def} a\cdot \text{pr}_i^V(\sum_{j\in[1,n]} u_j)
+    = a\cdot \text{pr}_i^V(v)
+$$
+Damit sind die Kriterien aus (2.2) erfüllt.\\
+Es folgt, dass Projektionen (Endo-)Vektorraumhomomorphismen sind.$\hfill\square$
+
+\textbf{b)}
+
+Sei $V$ ein $K$-Vektorraum. Sei weiter ein $n \in \mathbb{N}_0$ und ein $n$-Tupel $(U_1, \cdots, U_n)$ von $K$-Untervektorräumen von $V$ mit $V = \sum_{i \in [1,n]} U_i$ gegeben.
+Dann existiert $u \in \bigtimes_{i \in [1,n]} U_i$ sodass $v = \sum_{i \in [1, n]} u_i$.\\
+Sei nun $i \in [1,n]$ und $p := \text{pr}_i^V$. Es gilt
+$$
+    (p \circ p)(v)
+    = p(p(v))
+    \up{=}{def} p(u_i)
+    = p (\sum_{j \in [1,n]} \delta_{j,i}\cdot u_i)
+    \up{=}{def} u_i
+    \up{=}{def} p(\sum_{j\in [1,n]} u_j)
+    = p(v)
+$$
+wobei $\delta$ das Kronecker-Delta bezeichnet. Es folgt $p \circ p = p$.$\hfill\square$
+
+\textbf{c)}
+
+Für $v, v' \in V$ ist $\varphi(v) + \varphi(v') = \varphi(v+v') \in \text{Im}\ \varphi$.
+Ferner ist $\varphi(0) = 0 \in \text{Im}\ \varphi$.\\
+Für $a \in K$ ist schließlich $a\varphi(v) = \varphi(av) \in \text{Im}\ \varphi$.\\
+Damit ist nach (1.15)
+$U_1 := \text{Im}\ \varphi$ ein $K$-Untervektorraum von $V$.
+
+\newpage
+
+Zuerst ist $0 = 0 - \varphi(0) \in U_2$.
+Für $v, v' \in V$ ist $(v+v') \in V$ und $(v - \varphi(v)), (v' -\varphi(v')) \in U_2$.\\
+Es gilt
+$$
+    (v - \varphi(v)) + (v' - \varphi(v'))
+    = (v + v') - (\varphi(v) + \varphi(v'))
+    = (v+v') - \varphi(v+v') \in U_2
+$$
+Ferner ist für $a \in K$ auch $av \in V$ und damit
+$$
+    a(v - \varphi(v)) = av - a\varphi(v) = av - \varphi(av) \in U_2
+$$
+Damit ist nach (1.15) $U_2$ ein $K$-Untervektorraum von $V$.
+
+Sei nun $v \in V$. Es gilt $v = v + \varphi(v) - \varphi(v) = \varphi(v) + (v - \varphi(v)) \in (U_1 + U_2)$.
+Also $V \subseteq (U_1 + U_2)$.
+
+Sei nun $v \in (U_1 + U_2)$. Dann gilt $v = u_1 + u_2$ für $u_1 \in U_1$ und $u_2 \in U_2$.
+Ferner gilt $u_1 = \varphi(w)$ und $u_2 = w' - \varphi(w')$ für $w,w' \in V$.
+$$
+    v
+    = u_1+u_2 = \varphi(w) + w' - \varphi(w') = \varphi(w) + \varphi(w'-w') = \varphi(w) \in U_1 \leq V
+$$
+Also $(U_1 + U_2) \subseteq V$. Es folgt $V = U_1 + U_2$. $\hfill\square$
+
+\textbf{d)}
+Sei $u_1 \in U_1$. Dann gilt $u_1 = \varphi(v)$ für ein $v \in V$. Ferner gilt $\varphi \circ \varphi = \varphi$ (*).
+Es folgt
+$$
+    \varphi(u_1)
+    = \varphi(\varphi(v))
+    \up{=}{*} \varphi(v)
+    = u_1
+$$
+Sei nun $u_2 \in U_2$. Dann gilt $u_1 = v - \varphi(v)$ für ein $v \in V$. Es folgt
+$$
+    \varphi(u_2)
+    = \varphi(v - \varphi(v))
+    = \varphi(\varphi(v - v))
+    = \varphi(0)
+    = 0
+$$
+$\strut\hfill\square$
+
+\aufgabe{17}
+Sei $X \in V$ mit
+$X = \begin{pmatrix}
+        a & b\\
+	    c & d
+    \end{pmatrix}
+$
+für $a,b,c,d \in \mathbb{R}$. Es gilt
+\begin{equation}
+    \varphi(X)
+    = AXA
+    = \begin{pmatrix}
+		0 & 1\\
+		0 & 1
+	\end{pmatrix}
+    \begin{pmatrix}
+		a & b\\
+		c & d
+	\end{pmatrix}
+    \begin{pmatrix}
+		0 & 1\\
+		0 & 1
+	\end{pmatrix}
+    = \begin{pmatrix}
+		c & d\\
+		c & d
+	\end{pmatrix}
+    \begin{pmatrix}
+		0 & 1\\
+		0 & 1
+	\end{pmatrix}
+    = 
+    \begin{pmatrix}
+		0 & c+d\\
+		0 & c+d
+	\end{pmatrix}
+\end{equation}
+
+Seien nun $X, X' \in V$. Dann ist
+$X = \begin{pmatrix}
+        a & b\\
+	    c & d
+    \end{pmatrix}
+$ und $
+X' = \begin{pmatrix}
+        a' & b'\\
+        c' & d'
+    \end{pmatrix}
+$
+\\
+für $a,b,c,d,a',b',c',d' \in \mathbb{R}$. Es folgt:
+$$
+    \varphi(X) + \varphi(X')
+    \up{=}{(1)} \begin{pmatrix}
+		0 & c+d\\
+		0 & c+d
+	\end{pmatrix}
+    + 
+    \begin{pmatrix}
+		0 & c'+d'\\
+		0 & c'+d'
+	\end{pmatrix}
+    =
+    \begin{pmatrix}
+		0 & c+d+c'+d'\\
+		0 & c+d+c'+d'
+	\end{pmatrix}
+    \up{=}{(1)}
+    \varphi(X+X')
+$$
+
+Sei $X \in V$, also
+$X = \begin{pmatrix}
+        a & b\\
+	    c & d
+    \end{pmatrix}
+$. Sei ferner $x \in \mathbb{R}$. Es gilt
+$$
+    x\varphi(X)
+    \up{=}{(1)}
+    x\cdot \begin{pmatrix}
+		0 & c+d\\
+		0 & c+d
+	\end{pmatrix}
+    =
+    \begin{pmatrix}
+        0 & xc+xd\\
+        0 & xc+xd
+	\end{pmatrix}
+    \up{=}{(1)}
+    \varphi(
+    \begin{pmatrix}
+        xa & xb\\
+        xc & xd
+	\end{pmatrix}
+    )
+    =
+    \varphi(xX)
+$$
+Nach (2.2) ist $\varphi$ damit linear.
+\newpage
+Mit (1) folgt für $a,b,c,d \in \mathbb{R}$
+$$
+    \text{Kern}(\varphi)
+    = \{v \in V \mid \varphi(v) = 0\}
+    \up{=}{(1)} \{\begin{pmatrix}
+        a & b\\
+        c & d
+	\end{pmatrix}
+    \mid c = -d\}
+    = \mathbb{R}
+    \begin{pmatrix}
+        0 & 0\\
+        1 & -1
+	\end{pmatrix}
+$$
+Es folgt direkt $\text{Kern}(\varphi) = \langle
+\begin{pmatrix}
+    0 & 0\\
+    1 & -1
+\end{pmatrix}
+\rangle$, also dass $(
+\begin{pmatrix}
+    0 & 0\\
+    1 & -1
+\end{pmatrix}
+)$ eine Basis von $\text{Kern}(\varphi)$ ist, da auch
+weiter $
+\begin{pmatrix}
+    0 & 0\\
+    1 & -1
+\end{pmatrix}
+\neq 0
+$.
+
+Ebenso folgt mit (1) für $a,b,c,d \in \mathbb{R}$
+$$
+    \text{Im}(\varphi)
+    = \{\varphi(v) \mid v \in V\}
+    \up{=}{(1)} \{
+    \begin{pmatrix}
+        0 & c+d\\
+        0 & c+d
+    \end{pmatrix}
+    \mid c,d \in \mathbb{R}\}
+    =\{
+    \begin{pmatrix}
+        0 & x\\
+        0 & x
+    \end{pmatrix}
+    \mid x \in \mathbb{R}\}
+    = \mathbb{R}
+    \begin{pmatrix}
+        0 & 1\\
+        0 & 1
+    \end{pmatrix}
+    = \mathbb{R}A
+$$
+Folglich gilt $\text{Im}(\varphi) = \langle A\rangle$, also dass $(A)$ eine Basis von $\text{Im}(\varphi)$ ist,
+da auch weiter $A \neq 0$.
+
+\textbf{b)}
+
+
+\end{document}
