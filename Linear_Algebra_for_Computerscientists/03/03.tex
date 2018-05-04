@@ -80,7 +80,7 @@ wobei $\delta$ das Kronecker-Delta bezeichnet. Es folgt $p \circ p = p$.$\hfill\
 \textbf{c)}
 
 Für $v, v' \in V$ ist $\varphi(v) + \varphi(v') = \varphi(v+v') \in \text{Im}\ \varphi$.
-Ferner ist $\varphi(0) = 0 \in \text{Im}\ \varphi$.\\
+Ferner ist $0 = \varphi(0) \in \text{Im}\ \varphi$.\\
 Für $a \in K$ ist schließlich $a\varphi(v) = \varphi(av) \in \text{Im}\ \varphi$.\\
 Damit ist nach (1.15)
 $U_1 := \text{Im}\ \varphi$ ein $K$-Untervektorraum von $V$.
@@ -105,11 +105,9 @@ Sei nun $v \in V$. Es gilt $v = v + \varphi(v) - \varphi(v) = \varphi(v) + (v - 
 Also $V \subseteq (U_1 + U_2)$.
 
 Sei nun $v \in (U_1 + U_2)$. Dann gilt $v = u_1 + u_2$ für $u_1 \in U_1$ und $u_2 \in U_2$.
-Ferner gilt $u_1 = \varphi(w)$ und $u_2 = w' - \varphi(w')$ für $w,w' \in V$.
-$$
-    v
-    = u_1+u_2 = \varphi(w) + w' - \varphi(w') = \varphi(w) + \varphi(w'-w') = \varphi(w) \in U_1 \leq V
-$$
+Ferner gilt $U_1 \leq V$ und $U_2 \leq V$, also $u_1, u_2 \in V$. Es folgt direkt nach den
+Vektorraumgesetzen, dass auch\\
+$v = u_1 + u_2 \in V$.
 Also $(U_1 + U_2) \subseteq V$. Es folgt $V = U_1 + U_2$. $\hfill\square$
 
 \textbf{d)}
@@ -125,8 +123,8 @@ Sei nun $u_2 \in U_2$. Dann gilt $u_1 = v - \varphi(v)$ für ein $v \in V$. Es f
 $$
     \varphi(u_2)
     = \varphi(v - \varphi(v))
-    = \varphi(\varphi(v - v))
-    = \varphi(0)
+    = \varphi(v) + \varphi(-\varphi(v))
+    = \varphi(v) - \varphi(v)
     = 0
 $$
 $\strut\hfill\square$
@@ -234,7 +232,7 @@ Nach (2.2) ist $\varphi$ damit linear.
 \newpage
 Mit (1) folgt für $a,b,c,d \in \mathbb{R}$
 $$
-    \text{Kern}(\varphi)
+    \text{Ker}(\varphi)
     = \{v \in V \mid \varphi(v) = 0\}
     \up{=}{(1)} \{\begin{pmatrix}
         a & b\\
@@ -247,7 +245,7 @@ $$
         1 & -1
 	\end{pmatrix}
 $$
-Es folgt direkt $\text{Kern}(\varphi) = \langle
+Es folgt direkt $\text{Ker}(\varphi) = \langle
 \begin{pmatrix}
     0 & 0\\
     1 & -1
@@ -257,7 +255,7 @@ Es folgt direkt $\text{Kern}(\varphi) = \langle
     0 & 0\\
     1 & -1
 \end{pmatrix}
-)$ eine Basis von $\text{Kern}(\varphi)$ ist, da auch
+)$ eine Basis von $\text{Ker}(\varphi)$ ist, da auch
 weiter $
 \begin{pmatrix}
     0 & 0\\
@@ -294,5 +292,76 @@ da auch weiter $A \neq 0$.
 
 \textbf{b)}
 
-
+Es ist $(v_1, v_2, v_3)$ eine Basis von $\mathbb{R}^{3\times 1}$, denn:
+$$
+    (1,0,0) = \frac{v_1 + v_2 - v_3}{2}
+    \qquad
+    (0,1,0) = \frac{v_1 - v_2 + v_3}{2}
+    \qquad
+    (0,0,1) = \frac{-v_1 + v_2 + v_3}{2}
+$$
+Damit gilt nach Proposition 2.19, dass es genau ein lineare Abbildung $\varphi$ mit
+$$
+    \varphi(v_1) =
+\begin{pmatrix}
+    2 & 0\\
+    0 & 0
+\end{pmatrix}
+\qquad
+\varphi(v_2) =
+\begin{pmatrix}
+    2 & 0\\
+    -2 & 0
+\end{pmatrix}
+\qquad
+\varphi(v_3) =
+\begin{pmatrix}
+    0 & 0\\
+    0 & -2
+\end{pmatrix}
+$$
+Für $a,b,c,x,y,z \in \mathbb{R}$ mit $a = x+y, b = x+z, c = y+z$ gilt:
+$$
+    \varphi(\begin{pmatrix}a\\b\\c\end{pmatrix})
+    =
+    \varphi(\begin{pmatrix}x+y\\x+z\\y+z\end{pmatrix})
+    =
+    \varphi(x\begin{pmatrix}1\\1\\0\end{pmatrix}
+        +
+    y\begin{pmatrix}1\\0\\1\end{pmatrix}
+        +
+    z\begin{pmatrix}0\\1\\1\end{pmatrix})
+    =
+    x\varphi(\begin{pmatrix}1\\1\\0\end{pmatrix})
+        +
+    y\varphi(\begin{pmatrix}1\\0\\1\end{pmatrix})
+        +
+    z\varphi(\begin{pmatrix}0\\1\\1\end{pmatrix})
+$$$$
+    =
+    \begin{pmatrix}
+    2x & 0\\
+    0 & 0
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+    2y & 0\\
+    -2y & 0
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+    0 & 0\\
+    0 & -2z
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    2(x+y) & 0\\
+    -2y & -2z
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    2a & 0\\
+    b-a-c & a-b-c
+    \end{pmatrix}
+$$
 \end{document}
