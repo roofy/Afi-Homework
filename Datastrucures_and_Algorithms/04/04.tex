@@ -61,6 +61,49 @@
 \aufgabe{2}
 \newpage
 \aufgabe{3}
+\textbf{a)}
+
+Wir nehmen an, dass $\succeq$ eine Halbordnung ist. (vll noch beweisen?)
+
+Sei $M \subseteq \mathbb{T}$. Da die reellen Zahlen totalgeordent sind, existiert ein
+$m \in M$ und ein $n \in \mathbb{N}$ sodass
+$$
+    \forall m' \in M : \forall n' \in \mathbb{N} : m'(n') \leq m(n)
+$$
+Es folgt, dass $\forall m' \in M : m \succeq m' \,\Longrightarrow\, m' \succeq m$.
+Damit ist $m$ eine obere Schranke von $M$.\\
+Sei nun $m' \in \mathbb{T}$. Sei ferner eine weitere obere Schranke $m' \in \mathbb{T}$ von $M$ gegeben.
+Es muss also gelten, dass
+\begin{equation}
+    \forall n' \in \mathbb{N} : m(n) \leq m'(n')
+\end{equation}
+denn sonst wäre $m'$ keine obere Schranke von $M$ im Sinne von $\succeq$, da $m \in M$.
+Daraus folgt aber eben genau $m \succeq m'$, also ist $m'$ im Sinne von $\succeq$ keine 
+kleinere obere Schranke von $M$ als $m$.\\
+Da $m' \in \mathbb{T}$ eine beliebige obere Schranke war, folgt daraus, dass $m$ die kleinste obere Schranke von $M$ ist.
+
+Wir gehen analog für die größte unter Schranke von $M$ vor:\\
+Durch die Totalordnung der reellen Zahlen ist die Existenz eine $m \in M$ und $n \in \mathbb{N}$
+gegeben, sodass
+$$
+    \forall m' \in M : \forall n' \in \mathbb{N} : m(n) \leq m'(n')
+$$
+Es folgt, dass $\forall m' \in M : m' \succeq m \,\Longrightarrow\, m \succeq m'$. Damit ist $m$ schonmal eine untere Schranke von $M$.\\
+Sei nun $m' \in \mathbb{T}$ Sei ferner eine weitere untere Schranke $m' \in \mathbb{T}$ von $M$ gegeben.
+Es muss also gelten, dass
+$$
+    \forall n' \in \mathbb{N} : m'(n') \leq m(n)
+$$
+denn sonst wäre $m'$ keine untere Schranke von $M$ im Sinne von $\succeq$, da $m \in M$.
+Daraus folgt aber eben genau $m' \succeq m$, also ist $m'$ im Sinne von $\succeq$ keine größere
+Schranke von $M$ als $m$.\\
+Da $m' \in \mathbb{T}$ eine beliebige untere Schranke war, folgt daraus,
+dass $m$ die größte obere Schranke von $M$ ist.
+
+Insgesamt existieren für jede beliebige Teilmenge $M \subseteq \mathbb{T}$ eine kleinste obere und größte
+untere Schranke im Sinne von $\succeq$. Folglich ist $(\mathbb{T}, \succeq)$ ein vollständiger Verband.
+
+\textbf{b)}
 \newpage
 \aufgabe{4}
 
