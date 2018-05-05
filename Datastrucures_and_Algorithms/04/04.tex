@@ -104,6 +104,26 @@ Insgesamt existieren für jede beliebige Teilmenge $M \subseteq \mathbb{T}$ eine
 untere Schranke im Sinne von $\succeq$. Folglich ist $(\mathbb{T}, \succeq)$ ein vollständiger Verband.
 
 \textbf{b)}
+
+Seien $t, t' \in \mathbb{T}$ mit $t \succeq t'$ gegeben. Es folgt für $n = 0$
+$$
+    (\Phi(t))(0) = 1 \leq 1 = (\Phi(t'))(0)
+$$
+sowie für $n \in \mathbb{N}$
+$$
+    \forall n \in \mathbb{N}: (\Phi(t))(n)
+    = 2t\left(\bigg\lfloor\frac{n}{2}\bigg\rfloor\right)+n
+    \quad\up{\leq}{$t \succeq t'$}\quad
+    2t'\left(\bigg\lfloor\frac{n}{2}\bigg\rfloor\right)+n
+    = (\Phi(t'))(n)
+$$
+Also gilt
+$$
+    \forall n \in \mathbb{N}_0 : (\Phi(t))(n) \leq (\Phi(t'))(n)
+$$
+Es folgt $\Phi(t) \succeq \Phi(t')$. Damit ist $\Phi$ nach Definition monoton bzgl. $\succeq$.
+\newpage
+\textbf{c)}
 \newpage
 \aufgabe{4}
 
