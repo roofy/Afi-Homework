@@ -104,8 +104,8 @@ Ferner gilt $r_n \in F'$ und damit $r_n = (q, \varepsilon)$ für ein $q \in F$.
 Nach Konstruktion von $\mathcal{B}$ folgt aus $(r_{i-1}, \varepsilon, r_i) \in \Delta$,
 wobei $r_i = (q, \varepsilon)$ für ein $q \in Q$, dass ein $a \in \Sigma$ mit
 $\delta(r_{i-1}, a) = q$ existiert. Nach Konstruktion von $\Delta$ gibt es also einen Lauf auf $\mathcal{A}$ über
-$w' = (\sigma_1, \sigma_2, \cdots, \sigma_{i-1}, a, \sigma_{i+1}, \cdots, \sigma_n)$, sodass
-das $\varepsilon$ an der Stelle $i$ des Laufes über $w$ durch $a$ ersetzt wird. Folglich ist nach Definition
+$w' = (\sigma_1, \sigma_2, \cdots, \sigma_{i-1}, a, \sigma_{i+1}, \cdots, \sigma_n)$ (sodass $w'$ praktisch
+$w$ ist, wir nur an der Stelle $i$ von $w$ das $\varepsilon$ durch $a$ ersetzen). Folglich ist nach Definition
 $w = (w')_i^-$, also $w \in (L(\mathcal{A}))^-. \hfill\square$
 
 Wir zeigen nun $(L(\mathcal{A}))^- \subseteq L(\mathcal{B})$.
@@ -115,8 +115,10 @@ Wir haben also einen Lauf $l = (q_0, u_1, r_1, u_2, r_2, \cdots, u_n, r_n)$
 für $n \in \mathbb{N}$.
 Nach Konstruktion von $\Delta$ gibt es dann einen Lauf $k$ von $\mathcal{B}$ auf $w$ sodass\\
 $k = (q_0, u_1, r_1, \cdots, u_{i-1}, r_{i-1}, \varepsilon, r'_i, u_{i+1}, r'_{i+1}, \cdots,
-u_n, r'_n)$ für $r'_i = (r_i, \varepsilon) \in Q' \setminus Q$ und $r'_n \in F'$.
-Folglich gilt $w \in L(\mathcal{B}).\hfill\square$
+u_n, r'_n)$ für $r'_i = (r_i, \varepsilon) \in Q' \setminus Q$ und $r'_n \in F'$
+(also dass wir an der Stelle $i$ von $k$ von den originalen Zuständen mit einer $\varepsilon$-Transition zu
+den $\varepsilon$-Kopien übergehen).
+Nach Konstruktion folgt $w \in L(\mathcal{B}).\hfill\square$
 
 Insgesamt gilt also $L(\mathcal{B}) = (L(\mathcal{A}))^-$. Da die von $\varepsilon$-NFA's
 erkannten Sprachen zu den FA-erkennbaren Sprachen gehören, folgt, dass FA-erkennbare
