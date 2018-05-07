@@ -120,6 +120,31 @@ $$
 \newpage
 \aufgabe{3}
 \textbf{a)}
+Wir zeigen zuerst; $\preceq$ ist eine Halbordnung auf $\mathbb{T}$.
+Für $t \in \mathbb{T}$ gilt
+$$
+    \forall n \in \mathbb{N} : t(n) \leq t(n) \,\Longrightarrow\, t \preceq t
+$$
+Für weitere $r,s \in \mathbb{T}$ gilt ferner
+$$
+    t \preceq r \land r \preceq s
+    \,\Longrightarrow\,
+    \forall n \in \mathbb{N} : t(n) \leq r(n) \land r(n) \leq s(n)
+    \,\Longrightarrow\, \forall n \in \mathbb{N} : t(n) \leq r(n) \leq s(n)
+$$$$
+    \,\Longrightarrow\, \forall n \in \mathbb{N} : t(n) \leq s(n)
+    \,\Longrightarrow\, t \preceq s
+$$
+Ferner gilt noch
+$$
+    t \preceq s \land s \preceq t
+    \,\Longrightarrow\, \forall n \in\mathbb{N} : t(n) \leq s(n) \land s(n) \leq t(n)
+    \,\Longrightarrow\, \forall n \in\mathbb{N} : s(n) = t(n)
+    \,\Longrightarrow\, s = t
+$$
+Insgesamt ist $\preceq$ auf $\mathbb{T}$ reflexiv, transitiv und antisymmetrisch, also eine Halbordnung.
+
+\textbf{REST FEHLT NOCH}
 
 \textbf{b)}
 
@@ -140,6 +165,103 @@ $$
     \forall n \in \mathbb{N}_0 : (\Phi(t))(n) \leq (\Phi(t'))(n)
 $$
 Es folgt $\Phi(t) \preceq \Phi(t')$. Damit ist $\Phi$ nach Definition monoton bzgl. $\preceq$.
+
+\textbf{c)}
+Die Idee ist es, zu zeigen, dass für $f \in \mathbb{X}$ stets $\Psi(f(n)) \sqsubseteq f(n)$ gilt.
+Denn da $\Psi$ monoton bzgl. $\sqsubseteq$ ist, und $(\mathbb{X}, \sqsubseteq)$ ein vollständiger
+Verband ist folgt dann nach dem Prinzip der Fixpunktinduktion, dass $\Psi$ einen Fixpunkt $p$
+mit $p \sqsubseteq f$ besitzt. Dann zeigt man, dass $T(n)$ eben dieser Fixpunkt $p$ ist, und
+wenn die gegebene Halbordnung $\sqsubseteq$ etwa das Wachstum von Funktionen in einer
+sinnvollen Weise vergleicht (wie z.B. $\preceq$ in den vorherigen Teilaufgaben), so
+folgt dann aus $T(n) \sqsubseteq f(n)$, dass $T(n) \in \mathcal{O}(f(n))$ liegt.
+
+\textbf{d)}
+
+Sei $\Phi, \preceq, \mathbb{T}$ wie zuvor gegeben. Dann sei $2n \log n \in \mathbb{T}$. Im folgenden ist wie in der Vorlesung $\log n \equiv \log_2 n$. Es gilt
+für alle $n \in \mathbb{N}$:
+$$
+    \Phi(2n\log n)
+    \leq 2\left(2\frac{n}{2} \log \frac{n}{2}\right) + n
+    = 2n\log\frac{n}{2} + n
+    = 2n\log_2 n - 2n \log_2 2 + n
+$$$$
+    = 2n \log_2 n - n
+    \leq 2n \log_2 n
+$$
+Folglich gilt auch $\Phi(2n \log n)\preceq 2n \log n$. Da $\preceq$ eine Halbordnung und
+$\Phi$ monoton bzgl. dieser ist, folgt nach dem Satz der Fixpunktinduktion, dass $\Phi$ einen
+Fixpunkt $p$ mit $p \preceq 2n\log n$ hat. Offensichtlich folgt nach Definition von $T(n)$,
+dass $\Phi(T(n)) = T(N)$, also eben $T(n)$ dieser Fixpunkt $p$ ist.
+Insgesamt gilt also $T(n) \in \mathcal{O}(2n\log n)$, da nach Definition von $\preceq$ gilt,
+dass
+$$
+\forall n \in \mathbb{N} : T(n) \leq 2n\log n
+$$
+Damit existiert eine Konstante $c = 1 > 0$ und ein $n_0 \in \mathbb{N}$ mit $n_0 = 1$ sodass
+die Bedingung für $T(n) \in \mathcal{O}(2n\log n)$ erfüllt ist.
+
+\newpage
+\textbf{e)}
+
+Wir führen Induktion über alle $n \in \mathbb{N}$.
+Sei $n = 1$. Es gilt:
+$$
+    T(n) = 1 \leq 1^2 = n^2
+$$
+Also existiert ein $c = 1 > 0$ sodass $T(n) \leq c n^2$ ist.
+Sei nun $n = 2$. Es gilt:
+$$
+    T(n)
+    = 2 T\left(\bigg\lfloor \frac{n}{2}\bigg\rfloor\right) + n
+    = 2 T(1) + 2
+    = 4
+    \leq n^2
+$$
+Also existiert wieder ein $c = 1 > 0$ sodass $T(n) \leq c n^2$ ist.
+
+Sei nun ein beliebig aber festes $n \in \mathbb{N}$ gegeben, sodass $T(\lfloor \frac{n}{2} \rfloor) \leq cn^2$ für ein $c > 0$ (IV).
+Es folgt:
+$$
+    T(n) = 2 T\left(\left\lfloor \frac{n}{2} \right\rfloor\right)+n
+    \up{\leq}{IV} 2 \left(\frac{n}{2}\right)^2+ n
+    = \frac{n^2}{2} + n
+    \leq n^2 + n^2 = 2n^2
+$$
+Daher existiert ein $c = 2 > 0$ sodass $T(n) \leq cn^2$ gilt.
+
+Insgesamt lässt sich nach Prinzip der vollständigen Induktion zu jedem $n \in \mathbb{N}$ ein $c > 0$
+finden, sodass $T(n) \leq cn^2$ ist. Es folgt $T(n) \in \mathcal{O}(n^2).\hfill\square$
+
+\textbf{f)}
+
+Wir gehen analog zu d) vor. Also seien wieder $\Phi, \preceq, \mathbb{T}, T(n)$ wie zuvor gegeben.\\
+Dann sei $n^2 \in \mathbb{T}$. Für $n = 1$ gilt:
+$$
+    \Phi(n^2) = 1 \leq n^2
+$$
+Sei nun $n \in \mathbb{N}, n\geq 2$. Es gilt für ein $a \in \mathbb{N}$ mit $n = 2+a$:
+\begin{equation}
+    \frac{n^2}{2} + n = \frac{(2+a)^2}{2} + 2+a = 4 + 2a +\frac{a^2}{2} \leq (2+a)^2 = n^2
+\end{equation}
+Ferner gilt:
+$$
+    \Phi(n^2) = 2 \left(\left\lfloor\frac{n}{2}\right\rfloor\right)^2 + n
+    = \frac{n^2}{2} + n
+    \ \up{\leq}{(1)}\ \frac{n^2}{2} + \frac{n^2}{2}
+    = n^2
+$$
+
+Folglich gilt auch $\Phi(n^2)\preceq n^2$.
+Analog zu d) folgt mit dem Satz der Fixpunktinduktion, dass\\
+$T(n) \in \mathcal{O}(n^2)$.
+
+\textbf{g)}
+
+Die Methode der Fixpunktinduktion ist in dieser Aufgabe leicht gefallen, da wir schon
+einen vollständigen Verband, sowie eine bzgl. der Halbordnung monotone Funktion auf der Menge
+des Verbands gegeben hatten. Wäre dies nicht gegeben, so denke ich würde die Methode der Substitution
+einfacher und schneller gehen.
+
 \newpage
 \aufgabe{4}
 \textbf{a)}
