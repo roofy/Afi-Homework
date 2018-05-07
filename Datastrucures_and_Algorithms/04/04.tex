@@ -1,7 +1,8 @@
 \documentclass[a4paper,graphics,11pt]{article}
 \pagenumbering{arabic}
+\usepackage{forest}
 
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.7in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -57,55 +58,72 @@
 \end{center}
 
 \aufgabe{1}
-\newpage
+Die maximale Anzahl der Schleifendurchläufe lässt sich durch die Rekursionsgleichung
+$$
+    S(n) = \begin{cases}
+        1 & n = 1\\
+        1 + S(\lceil\frac{n}{3}\rceil) & \text{sonst}
+    \end{cases}
+$$
+beschreiben. Im Sinne der Folien aus der Vorlesung lassen wir im folgenden das Aufrunden weg.
+Wir führen Induktion über $n$ mit der Hypothese,
+dass für $n \in \mathbb{N}, n\geq 3$ gilt, dass\\
+$S(n) \in \mathcal{O}(\log_3n)$.
+
+Sei also $n = 3$. Dann ist
+$$
+    S(n) = 1+S(1) = 2 \leq 2 = 2\cdot \log_3 3
+$$
+Also existiert ein $c = 2 > 0$ sodass $S(n) \leq c \cdot \log_3n$ ist. Es folgt
+$S(n) \in \mathcal{O}(\log_3n)$ für $n = 3$.
+
+Sei nun $n \in \mathbb{N}$ mit $n \geq 3$ beliebig aber fest, sodass die Hypothese für
+$\frac{n}{3}$ gilt (IV).
+Es folgt
+$$
+    S(n)
+    = 1 + S\left(\frac{n}{3}\right) \up{\leq}{IV} 1 + \log_3\frac{n}{3}
+    = 1 + \log_3 n - \log_33
+    = \log_3 n
+$$
+Also existiert wieder ein $c = 1 > 0$ sodass $S(n) \leq c \cdot \log_3n$ gilt, also
+$S(n) \in \mathcal{O}(\log_3n)$ ist.
+
+Nach dem Prinzip der vollständigen Induktion ist die Aussage bewiesen.$\hfill\square$
 \aufgabe{2}
+\textbf{a)}
+Der Worst-case tritt ein, wenn das gesuchte Element $K$ entweder sofort am Anfang oder am Ende des
+Arrays liegt. In diesem Fall muss der jeweils rechte oder linke ''Index-pointer'' genau $n-1$
+mal verschoben werden, wobei genau $n$ mal die Schleifenbedingung überprüft wird.
+Es ist also $W(n) = n\in \mathcal{O}(n)$.
+
+\textbf{b)}
+Der Best-case tritt ein, wenn das gesuchte Element $K$ genau in der Mitte des arrays liegt, also
+bei $\lfloor\frac{n}{2}\rfloor$. In diesem Fall werden beide
+''Index-pointer'' genau $\lfloor\frac{n}{2}\rfloor$ mal bewegt, wobei die Schleifenbedingung
+dann $\lfloor\frac{n}{2}\rfloor + 1$ mal überprüft wird.
+Es ist also $B(n) = \lfloor\frac{n}{2}\rfloor + 1 \in \mathcal{O}(n)$
+
+\textbf{c)} 
+Wir nehmen an $n$ gerade. Die Wkeit dass das gesuchte Element in Index $i$ vorkommt ist $\frac{1}{n}$.
+Die benötigten Vergleiche für $K$ bei Index $0\leq i \leq n$
+sind symmetrisch mit globalem Minimum um $i = \frac{n}{2}$ aufgebaut, wodurch die doppelte Summe des
+Intervalls der Indexe $[\frac{n}{2}, n-1]$ genügt:
+$$
+    A(n)
+    = \frac{1}{n} \sum_{i=0}^{n-1}\left( \frac{n}{2} + \left|\frac{n}{2} -i\right|\right)
+    = \frac{2}{n} \sum_{i=\frac{n}{2}}^{n-1} i
+    = \frac{2}{n} \cdot \frac{n(3n-2)}{8}
+    = \frac{3n-2}{4} \in \mathcal{O}(n)
+$$
+
 \newpage
 \aufgabe{3}
 \textbf{a)}
 
-Wir nehmen an, dass $\succeq$ eine Halbordnung ist. (vll noch beweisen?)
-
-Sei $M \subseteq \mathbb{T}$. Da die reellen Zahlen totalgeordent sind, existiert ein
-$m \in M$ und ein $n \in \mathbb{N}$ sodass
-$$
-    \forall m' \in M : \forall n' \in \mathbb{N} : m'(n') \leq m(n)
-$$
-Es folgt, dass $\forall m' \in M : m \succeq m' \,\Longrightarrow\, m' \succeq m$.
-Damit ist $m$ eine obere Schranke von $M$.\\
-Sei nun $m' \in \mathbb{T}$. Sei ferner eine weitere obere Schranke $m' \in \mathbb{T}$ von $M$ gegeben.
-Es muss also gelten, dass
-\begin{equation}
-    \forall n' \in \mathbb{N} : m(n) \leq m'(n')
-\end{equation}
-denn sonst wäre $m'$ keine obere Schranke von $M$ im Sinne von $\succeq$, da $m \in M$.
-Daraus folgt aber eben genau $m \succeq m'$, also ist $m'$ im Sinne von $\succeq$ keine 
-kleinere obere Schranke von $M$ als $m$.\\
-Da $m' \in \mathbb{T}$ eine beliebige obere Schranke war, folgt daraus, dass $m$ die kleinste obere Schranke von $M$ ist.
-
-Wir gehen analog für die größte unter Schranke von $M$ vor:\\
-Durch die Totalordnung der reellen Zahlen ist die Existenz eine $m \in M$ und $n \in \mathbb{N}$
-gegeben, sodass
-$$
-    \forall m' \in M : \forall n' \in \mathbb{N} : m(n) \leq m'(n')
-$$
-Es folgt, dass $\forall m' \in M : m' \succeq m \,\Longrightarrow\, m \succeq m'$. Damit ist $m$ schonmal eine untere Schranke von $M$.\\
-Sei nun $m' \in \mathbb{T}$ Sei ferner eine weitere untere Schranke $m' \in \mathbb{T}$ von $M$ gegeben.
-Es muss also gelten, dass
-$$
-    \forall n' \in \mathbb{N} : m'(n') \leq m(n)
-$$
-denn sonst wäre $m'$ keine untere Schranke von $M$ im Sinne von $\succeq$, da $m \in M$.
-Daraus folgt aber eben genau $m' \succeq m$, also ist $m'$ im Sinne von $\succeq$ keine größere
-Schranke von $M$ als $m$.\\
-Da $m' \in \mathbb{T}$ eine beliebige untere Schranke war, folgt daraus,
-dass $m$ die größte obere Schranke von $M$ ist.
-
-Insgesamt existieren für jede beliebige Teilmenge $M \subseteq \mathbb{T}$ eine kleinste obere und größte
-untere Schranke im Sinne von $\succeq$. Folglich ist $(\mathbb{T}, \succeq)$ ein vollständiger Verband.
-
 \textbf{b)}
 
-Seien $t, t' \in \mathbb{T}$ mit $t \succeq t'$ gegeben. Es folgt für $n = 0$
+Seien $t, t' \in \mathbb{T}$ mit $t \preceq t'$ gegeben. Es folgt für $n = 0$
 $$
     (\Phi(t))(0) = 1 \leq 1 = (\Phi(t'))(0)
 $$
@@ -113,7 +131,7 @@ sowie für $n \in \mathbb{N}$
 $$
     \forall n \in \mathbb{N}: (\Phi(t))(n)
     = 2t\left(\bigg\lfloor\frac{n}{2}\bigg\rfloor\right)+n
-    \quad\up{\leq}{$t \succeq t'$}\quad
+    \quad\up{\leq}{$t \preceq t'$}\quad
     2t'\left(\bigg\lfloor\frac{n}{2}\bigg\rfloor\right)+n
     = (\Phi(t'))(n)
 $$
@@ -121,10 +139,111 @@ Also gilt
 $$
     \forall n \in \mathbb{N}_0 : (\Phi(t))(n) \leq (\Phi(t'))(n)
 $$
-Es folgt $\Phi(t) \succeq \Phi(t')$. Damit ist $\Phi$ nach Definition monoton bzgl. $\succeq$.
-\newpage
-\textbf{c)}
+Es folgt $\Phi(t) \preceq \Phi(t')$. Damit ist $\Phi$ nach Definition monoton bzgl. $\preceq$.
 \newpage
 \aufgabe{4}
+\textbf{a)}
 
+In allen Brüchen wird implizit abgerundet. Im Sinne der Lesbarkeit kennzeichnen wir dies im folgenden nicht
+explizit.
+\begin{center}
+    \begin{forest} l sep+=2ex
+        [$T(n)$ \\\hline
+            $\mathbf{n}$\\
+            ,align=c,draw
+            [$T(\frac{n}{16})$ \\\hline
+                $\mathbf{\frac{n}{16}}$\\
+                ,align=c,draw
+                [...]
+                [...]
+                [...]
+                [...]
+            ]
+            [$T(\frac{n}{16})$ \\\hline
+                $\mathbf{\frac{n}{16}}$\\
+                ,align=c,draw
+                [$T(\frac{n}{256})$ \\\hline
+                    $\mathbf{\frac{n}{256}}$\\
+                    ,align=c,draw
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                ]
+                [...]
+                [...]
+                [...]
+            ]
+            [$T(\frac{n}{16})$ \\\hline
+                $\mathbf{\frac{n}{16}}$\\
+                ,align=c,draw
+                [...]
+                [...]
+                [...]
+                [$T(\frac{n}{256})$ \\\hline
+                    $\mathbf{\frac{n}{256}}$\\
+                    ,align=c,draw
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                    [\vdots
+                        [...\ $T(1)$\ ...]
+                    ]
+                ]
+            ]
+            [$T(\frac{n}{16})$ \\\hline
+                $\mathbf{\frac{n}{16}}$\\
+                ,align=c,draw
+                [...]
+                [...]
+                [...]
+                [...]
+            ]
+        ]
+    \end{forest}
+\end{center}
+
+Der Baum hat $\log_{16}n$ Ebenen und entsprechend $4^{\log_{16}n} = n^{\log_{16}4} = \sqrt{n}$  Blätter.
+Es folgt
+$$
+    T(n) = \sum_{i=0}^{\sqrt{n}} \left(\frac{4}{16}\right)^i n\ + \sqrt{n}\ 
+    \approx\ \frac{4}{3}n + \sqrt{n} \in \mathcal{O}(n)
+$$
+
+\textbf{b)}
+
+Wir benutzen das Mastertheorem. Es ist $b = 4 \geq 1$, $c = 16 > 1$ und $f(n) = n$.
+Weiter ist dann $E := \log_cb = \log_{16} 4 = 0.5$, also $n^E = \sqrt{n}$.
+Der 3. Fall des Mastertheorems trifft hier zu, denn wir haben für $\varepsilon = 0.5 > 0$, dass
+$$
+    f(n) = n \in \Omega(n^{E+\varepsilon}) = \Omega(n)
+$$
+Weiter gilt
+$$
+    b\cdot f\left(\frac{n}{c}\right)
+    = 4\cdot f\left(\frac{n}{16}\right)
+    = \frac{n}{4}
+    \leq \frac{n}{2}
+    = \frac{1}{2} \cdot f(n)
+$$
+Also existiert ein $d = \frac{1}{2} < 1$ sodass $b\cdot f(\frac{n}{c}) \leq d\cdot f(n)$ sogar für
+alle $n \in \mathbb{N}$ gilt. Nach dem Mastertheorem folgt nun, dass
+$$
+    T(n) \in \Theta(f(n)) = \Theta(n)
+$$
+Unsere Vermutung aus a) stimmt also und wurde sogar noch von unten eingegrenzt.
 \end{document}
