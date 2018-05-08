@@ -75,23 +75,23 @@ $\left\lceil \frac{r - l}{3} \right\rceil := \left\lceil\frac{n-1}{3}\right\rcei
 Die maximale Anzahl der Schleifendurchläufe lässt sich also durch folgende Rekursionsgleichung beschreiben
 $$
     S(n) = \begin{cases}
-        1 & n = 1\\
+        2 & n = 1\\
         1 + S(\lceil\frac{n-1}{3}\rceil) & \text{sonst}
     \end{cases}
 $$
-Wir führen Induktion über $n \in \mathbb{N}$ mit der Hypothese, dass $S(n) = 1 + \lfloor\log_3 n\rfloor$.\\
+Wir führen Induktion über $n \in \mathbb{N}$ mit der Hypothese, dass $S(n) = 2 + \lfloor\log_3 n\rfloor$.\\
 Sei also $n = 1$. Dann ist
 $$
-    S(n) = 1 = 1 + \lfloor \log_3 1\rfloor
+    S(n) = 2 = 2 + \lfloor \log_3 1\rfloor
 $$
 Sei nun $n > 1$. Dann
 $$
     S(n)
     = 1 + S\left(\left\lceil\frac{n-1}{3}\right\rceil\right)
-    = 1 + \left\lfloor\log_3\left\lceil\frac{n-1}{3}\right\rceil\right\rfloor + 1
-    = 1 + \lfloor \log_3 n\rfloor
+    = 1 + \left\lfloor\log_3\left\lceil\frac{n-1}{3}\right\rceil\right\rfloor + 2
+    = 2 + \lfloor \log_3 n\rfloor
 $$
-Nach dem Prinzip der vollständigen Induktion gilt nun $S(n) = 1 + \lfloor\log_3 n\rfloor \in \mathcal{O}(\log n).\hfill\square$
+Nach dem Prinzip der vollständigen Induktion gilt nun $S(n) = 2 + \lfloor\log_3 n\rfloor \in \mathcal{O}(\log n).\hfill\square$
 \aufgabe{2}
 \textbf{a)}
 Der Worst-case tritt ein, wenn das gesuchte Element $K$ entweder sofort am Anfang oder am Ende des
