@@ -58,38 +58,40 @@
 \end{center}
 
 \aufgabe{1}
-Die maximale Anzahl der Schleifendurchläufe lässt sich durch die Rekursionsgleichung
+Der Suchbereich wird in jedem Schleifendurchlauf durch verschieben der \texttt{left}, \texttt{right} sowie
+\texttt{lmid} und \texttt{rmid} Zeiger (im folgenden als $l, r, lm, rm$) dreigeteilt. Im nächsten Durchlauf ist die Größe des Arrays
+$$
+    lm - l = \left\lceil \frac{2l + r}{3} \right\rceil - l
+    = \left\lceil \frac{r - l}{3} \right\rceil
+    \qquad \text{oder}\qquad
+    r - rm = r - \left\lfloor \frac{l + 2r}{3} \right\rfloor
+    = \left\lfloor \frac{r - l}{3} \right\rfloor
+$$
+oder aber auch
+$rm - lm = \left\lfloor \frac{l + 2r}{3} \right\rfloor - \left\lceil \frac{2l + r}{3} \right\rceil
+= \left\lfloor\frac{r - l}{3} \right\rfloor$.\\
+Also ist die neue Größe im schlimmsten Fall
+$\left\lceil \frac{r - l}{3} \right\rceil := \left\lceil\frac{n-1}{3}\right\rceil$.\\
+Die maximale Anzahl der Schleifendurchläufe lässt sich also durch folgende Rekursionsgleichung beschreiben
 $$
     S(n) = \begin{cases}
         1 & n = 1\\
-        1 + S(\lceil\frac{n}{3}\rceil) & \text{sonst}
+        1 + S(\lceil\frac{n-1}{3}\rceil) & \text{sonst}
     \end{cases}
 $$
-beschreiben. Im Sinne der Folien aus der Vorlesung lassen wir im folgenden das Aufrunden weg.
-Wir führen Induktion über $n$ mit der Hypothese,
-dass für $n \in \mathbb{N}, n\geq 3$ gilt, dass\\
-$S(n) \in \mathcal{O}(\log_3n)$.
-
-Sei also $n = 3$. Dann ist
+Wir führen Induktion über $n \in \mathbb{N}$ mit der Hypothese, dass $S(n) = 1 + \lfloor\log_3 n\rfloor$.\\
+Sei also $n = 1$. Dann ist
 $$
-    S(n) = 1+S(1) = 2 \leq 2 = 2\cdot \log_3 3
+    S(n) = 1 = 1 + \lfloor \log_3 1\rfloor
 $$
-Also existiert ein $c = 2 > 0$ sodass $S(n) \leq c \cdot \log_3n$ ist. Es folgt
-$S(n) \in \mathcal{O}(\log_3n)$ für $n = 3$.
-
-Sei nun $n \in \mathbb{N}$ mit $n \geq 3$ beliebig aber fest, sodass die Hypothese für
-$\frac{n}{3}$ gilt (IV).
-Es folgt
+Sei nun $n > 1$. Dann
 $$
     S(n)
-    = 1 + S\left(\frac{n}{3}\right) \up{\leq}{IV} 1 + \log_3\frac{n}{3}
-    = 1 + \log_3 n - \log_33
-    = \log_3 n
+    = 1 + S\left(\left\lceil\frac{n-1}{3}\right\rceil\right)
+    = 1 + \left\lfloor\log_3\left\lceil\frac{n-1}{3}\right\rceil\right\rfloor + 1
+    = 1 + \lfloor \log_3 n\rfloor
 $$
-Also existiert wieder ein $c = 1 > 0$ sodass $S(n) \leq c \cdot \log_3n$ gilt, also
-$S(n) \in \mathcal{O}(\log_3n)$ ist.
-
-Nach dem Prinzip der vollständigen Induktion ist die Aussage bewiesen.$\hfill\square$
+Nach dem Prinzip der vollständigen Induktion gilt nun $S(n) = 1 + \lfloor\log_3 n\rfloor \in \mathcal{O}(\log n).\hfill\square$
 \aufgabe{2}
 \textbf{a)}
 Der Worst-case tritt ein, wenn das gesuchte Element $K$ entweder sofort am Anfang oder am Ende des
@@ -143,11 +145,54 @@ $$
     \,\Longrightarrow\, s = t
 $$
 Insgesamt ist $\preceq$ auf $\mathbb{T}$ reflexiv, transitiv und antisymmetrisch, also eine Halbordnung.
+ 
+Sei nun $M \subseteq \mathbb{T}$. Wir definieren die Menge der Bilder der Abbildunges aus $M$ als
+$B := \bigcup_{m \in M} \text{Im}(m)$.\\
+Wir unterscheiden 3 Fälle:\\
+\textbf{Fall 1:} $\infty \notin B$.\\
+Damit folgt nach Definition $B \subseteq \mathbb{R}_{\geq 0}$.
+Da die rellen Zahlen totalgeordnet sind, exisitert $s := \text{max}\ B$ sowie $0 \leq r := \text{min}\ B$.
+Damit existiert sowohl eine obere als auch eine untere Schranke für $B$.
+Einer Charakterisierung der rellen Zahlen (siehe z.B. B. Stamm, Analysis für Informatiker, WS17/18 RWTH)
+zufolge, existiert zu jeder beschränkten Teilmenge sowohl Supremum (kleinste obere Schranke) als auch Infimum
+(größte untere Schranke).
 
-\textbf{REST FEHLT NOCH}
+Sei nun also $S := \text{sup}\ B$ sowie $R := \text{inf}\ B$. Dann exisiteren nach Definition von $\mathbb{T}$
+Funktionen $f,g$ mit $f(n) = S$ und $g(n) = R$ für alle $n \in \mathbb{N}$. Nach Konstruktion folgt dann
+$$
+    \forall m \in M : \forall n \in \mathbb{N} : R = g(n) \leq m(n) \leq f(n) = S
+$$
+Nach Definition von $\preceq$ gilt dann auch
+$$
+    \forall m \in M : (g \preceq m) \land (m \preceq f)
+$$
+Dadurch sind $g$ und $f$ respektiv untere und obere Schranken von $M$ bzgl. $\preceq$. Da jedoch nach Konstruktion
+von $g$ und $f$ mindestens ein $m \in M, n \in \mathbb{N}$ mit $m(n) = f(n) = S := \text{sup}\ B$ sowie
+ein $m \in M, n \in \mathbb{N}$ mit $m(n) = g(n) = R := \text{inf}\ B$, kann es keine kleiner obere
+Schranke als $f$ bzw größere unter Schranke als $g$ von $M$ bzgl. $\preceq$ geben. Folglich sind
+$f$ und $g$ auch eben Supremum und Infimum von $M$ bzgl. $\preceq$.\\
+Damit ist also $(\mathbb{T}, \preceq)$ ein vollständiger Verband.
 
-\textbf{b)}
+\textbf{Fall 2:} $\infty \in B \land \exists b \in B : b \in \mathbb{R}_{\geq 0}$.\\
+Da nun mindestens ein $m \in M, n \in \mathbb{N}$ existiert mit $m(n) \in \mathbb{R}_{\geq 0}$, also $m(n) < \infty$
+können wir die größte untere Schranke analog zu Fall 1 finden. Offensichtlich muss die obere Schranke
+dann die Funktion $f(n) = \infty$ für alle $n \in \mathbb{N}$ sein, damit folgende Bedingung erfüllt ist:
+$$
+    \forall m \in M : \forall n \in \mathbb{N} : m(n) \leq f(n)
+    \,\Longleftrightarrow\, \forall m \in M : m \preceq f
+$$
+Weiter gilt $\infty \in B$, also $\exists m \in M, n \in \mathbb{N} : m(n) = \infty$, daher kann können wir keine
+kleinere obere Schranke als $f$ wählen. Folglich lässt sich wieder eine kleinste obere Schranke von $M$
+bzgl. $\preceq$ finden.
 
+\textbf{Fall 3:} $B = \{\infty\}$.\\
+In diesem Fall gilt offensichtlich, dass $f(n) = \infty$ sowohl Supremum als auch Infimum von $M$ bzgl. $\preceq$
+sein muss.
+
+Insgesamt lässt sich in allen Fällen eine kleinste obere sowie ein größte untere Schranke für jede Teilmenge
+$M \subseteq \mathbb{T}$ finden. Folglich ist $(\mathbb{T}, \preceq)$ ein vollständiger Verband. $\hfill\square$
+
+\textbf{b)}\\
 Seien $t, t' \in \mathbb{T}$ mit $t \preceq t'$ gegeben. Es folgt für $n = 0$
 $$
     (\Phi(t))(0) = 1 \leq 1 = (\Phi(t'))(0)
@@ -166,7 +211,7 @@ $$
 $$
 Es folgt $\Phi(t) \preceq \Phi(t')$. Damit ist $\Phi$ nach Definition monoton bzgl. $\preceq$.
 
-\textbf{c)}
+\textbf{c)}\\
 Die Idee ist es, zu zeigen, dass für $f \in \mathbb{X}$ stets $\Psi(f(n)) \sqsubseteq f(n)$ gilt.
 Denn da $\Psi$ monoton bzgl. $\sqsubseteq$ ist, und $(\mathbb{X}, \sqsubseteq)$ ein vollständiger
 Verband ist folgt dann nach dem Prinzip der Fixpunktinduktion, dass $\Psi$ einen Fixpunkt $p$
@@ -175,10 +220,9 @@ wenn die gegebene Halbordnung $\sqsubseteq$ etwa das Wachstum von Funktionen in 
 sinnvollen Weise vergleicht (wie z.B. $\preceq$ in den vorherigen Teilaufgaben), so
 folgt dann aus $T(n) \sqsubseteq f(n)$, dass $T(n) \in \mathcal{O}(f(n))$ liegt.
 
-\textbf{d)}
-
-Sei $\Phi, \preceq, \mathbb{T}$ wie zuvor gegeben. Dann sei $2n \log n \in \mathbb{T}$. Im folgenden ist wie in der Vorlesung $\log n \equiv \log_2 n$. Es gilt
-für alle $n \in \mathbb{N}$:
+\textbf{d)}\\
+Sei $\Phi, \preceq, \mathbb{T}$ wie zuvor gegeben. Dann sei $2n \log n \in \mathbb{T}$.
+Es gilt für alle $n \in \mathbb{N}$:
 $$
     \Phi(2n\log n)
     \leq 2\left(2\frac{n}{2} \log \frac{n}{2}\right) + n
@@ -200,9 +244,7 @@ $$
 Damit existiert eine Konstante $c = 1 > 0$ und ein $n_0 \in \mathbb{N}$ mit $n_0 = 1$ sodass
 die Bedingung für $T(n) \in \mathcal{O}(2n\log n)$ erfüllt ist.
 
-\newpage
-\textbf{e)}
-
+\textbf{e)}\\
 Wir führen Induktion über alle $n \in \mathbb{N}$.
 Sei $n = 1$. Es gilt:
 $$
@@ -262,7 +304,6 @@ einen vollständigen Verband, sowie eine bzgl. der Halbordnung monotone Funktion
 des Verbands gegeben hatten. Wäre dies nicht gegeben, so denke ich würde die Methode der Substitution
 einfacher und schneller gehen.
 
-\newpage
 \aufgabe{4}
 \textbf{a)}
 
@@ -342,10 +383,10 @@ explizit.
 Der Baum hat $\log_{16}n$ Ebenen und entsprechend $4^{\log_{16}n} = n^{\log_{16}4} = \sqrt{n}$  Blätter.
 Es folgt
 $$
-    T(n) = \sum_{i=0}^{\sqrt{n}} \left(\frac{4}{16}\right)^i n\ + \sqrt{n}\ 
+    T(n) = \sum_{i=0}^{\log_{16}n - 1} \left(\frac{4}{16}\right)^i n\ + \sqrt{n}\ 
     \approx\ \frac{4}{3}n + \sqrt{n} \in \mathcal{O}(n)
 $$
-
+\newpage
 \textbf{b)}
 
 Wir benutzen das Mastertheorem. Es ist $b = 4 \geq 1$, $c = 16 > 1$ und $f(n) = n$.
