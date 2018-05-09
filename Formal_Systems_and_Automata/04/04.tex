@@ -36,18 +36,55 @@
 \aufgabe{5}
 \newpage
 \aufgabe{6}
-\newpage
-\aufgabe{7}
+\textbf{a)}
+Wir definieren $q$ rekursiv wie folgt für ein $w \in \Sigma^*$
 $$
-    L_1 = (a(b+c)^*a)^*
+    q(w) = \begin{cases}
+        0 & \text{für}\ w = \varepsilon\\
+        a + q(v) & \text{für}\ w = av\ \text{mit}\ a \in \Sigma\ \text{und}\ v \in \Sigma^*
+    \end{cases}
+$$
+\textbf{b)}
+
+Wir zeigen $q(vw) = q(v) + q(w)$ für $v,w \in \Sigma^*$ mittels Induktion über $v$. Sei also $w$ beliebig aber fest.
+Für $v = \varepsilon$ ist
+$$
+    q(vw)
+    = q(\varepsilon w)
+    = q(w)
+    = 0 + q(w)
+    = q(\varepsilon) + q(w)
+    = q(v) + q(w)
+$$
+Sei also nun $v$ so dass $q(vw) = q(v) + q(w)$ (IV). Wir verlängern also $v$ um ein Präfix $a \in \Sigma$:
+$$
+    q(avw)
+    = a + q(vw)
+    \up{=}{IV} a + q(v) + q(w)
+    = q(av) + q(w)
+$$
+Folglich gilt für alle $v,w \in \Sigma^*$, dass $q(vw) = q(v) + q(w)$. Da wir aber mindestens im abelschen
+Monoid der natürlichen Zahlen (da hier $0 \in \mathbb{N}$) rechnen, ist die Addition kommutativ.\\
+Folglich gilt für $v,w \in \Sigma^*$
+$$
+    q(vw)
+    = q(v) + q(w)
+    = q(w) + q(v)
+    = q(wv)
+$$
+\strut$\hfill\square$
+
+\aufgabe{7}
+Es sei im Sinne der Lesbarkeit im folgenden $\Sigma^*$ als $(\sum_{a \in \Sigma} a)^*$, also konkret $(a+b+c)^*$ zu interpretieren.
+$$
+    L_1 =
     \qquad
     L_2 =
 $$$$
     L_3 =
     \qquad
-    L_4 = (b+c)^* + (a+b+c)^*bc(a+b+c)^*
+    L_4 =
 $$
-
 \newpage
 \aufgabe{8}
 
