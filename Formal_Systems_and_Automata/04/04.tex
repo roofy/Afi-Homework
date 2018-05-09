@@ -184,35 +184,38 @@ $$
 
 
 \textbf{b)}\\
-\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
 
-    \node[state, initial]   (q0)                    {$*$};
-    \node[state]  (q1)  			[right of=q0]   {};
-    \node[state]  (q2)  			[right of=q1] {};
-    \node[state]  (q3)   			[right of=q2] {};
-    \node[state]  (q4)   			[right of=q3] {};
-    \node[state]  (q5)    			[right of=q4]   {};
-    \node[state,accepting]  (q6)    			[right of=q5]   {};
-
-
+    \node[state, initial, accepting]   (q0)                    {$*$};
+    \node[state]  (q1)  			[right of=q0]   {$*$};
+    \node[state]  (q2)  			[below of=q1] {$*$};
+    \node[state]  (q3)   			[left of=q2] {};
+    \node[state]  (q4)   			[below of=q3] {};
+    \node[state]  (q5)   			[right of=q2] {};
+    \node[state]  (q6)   			[right of=q5] {};
+    \node[state]  (q7)   			[right of=q1] {};
+    \node[state]  (q8)   			[right of=q7] {};
 
     \path[->] (q0)      edge                node {$\varepsilon$} (q1);
-    \path[->] (q0)      edge [bend left]              node {$\varepsilon$} (q6);
 
-
-    \path[->] (q1)      edge                node {a} (q2);
+    \path[->] (q1)      edge                node {$\varepsilon$} (q2);
+    \path[->] (q1)      edge                node {$\varepsilon$} (q7);
 
     \path[->] (q2)      edge                node {$\varepsilon$} (q3);
-    \path[->] (q2)      edge[bend left]                node {$\varepsilon$} (q0);
+    \path[->] (q2)      edge                node {$\varepsilon$} (q5);
 
-    \path[->] (q3)      edge                node {b} (q4);
+    \path[->] (q3)      edge                node {$a$} (q4);
 
-    \path[->] (q4)      edge                node {$\varepsilon$} (q5);
-    \path[->] (q4)      edge [bend left=40]                node {$\varepsilon$} (q0);
+    \path[->] (q4)      edge                node {$\varepsilon$} (q2);
 
-    \path[->] (q5)      edge               node {c} (q6);
+    \path[->] (q5)      edge                node {$b$} (q6);
 
-    \path[->] (q6)      edge [bend left=45]              node {$\varepsilon$} (q0);
+    \path[->] (q6)      edge                node {$\varepsilon$} (q1);
+
+    \path[->] (q7)      edge                node {$c$} (q8);
+
+    \path[->] (q8)      edge [bend right] node {$\varepsilon$} (q0);
 \end{tikzpicture}
+
 
 \end{document}
