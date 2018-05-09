@@ -36,9 +36,47 @@
 \aufgabe{5}
 \newpage
 \aufgabe{6}
-\newpage
+\textbf{a)}
+Wir definieren $q$ rekursiv wie folgt für ein $w \in \Sigma^*$
+$$
+    q(w) = \begin{cases}
+        0 & \text{für}\ w = \varepsilon\\
+        a + q(v) & \text{für}\ w = av\ \text{mit}\ a \in \Sigma\ \text{und}\ v \in \Sigma^*
+    \end{cases}
+$$
+\textbf{b)}
+
+Wir zeigen $q(vw) = q(v) + q(w)$ für $v,w \in \Sigma^*$ mittels Induktion über $v$. Sei also $w$ beliebig aber fest.
+Für $v = \varepsilon$ ist
+$$
+    q(vw)
+    = q(\varepsilon w)
+    = q(w)
+    = 0 + q(w)
+    = q(\varepsilon) + q(w)
+    = q(v) + q(w)
+$$
+Sei also nun $v$ so dass $q(vw) = q(v) + q(w)$ (IV). Wir verlängern also $v$ um ein Präfix $a \in \Sigma$:
+$$
+    q(avw)
+    = a + q(vw)
+    \up{=}{IV} a + q(v) + q(w)
+    = q(av) + q(w)
+$$
+Folglich gilt für alle $v,w \in \Sigma^*$, dass $q(vw) = q(v) + q(w)$. Da wir aber mindestens im abelschen
+Monoid der natürlichen Zahlen (da hier $0 \in \mathbb{N}$) rechnen, ist die Addition kommutativ.\\
+Folglich gilt für $v,w \in \Sigma^*$
+$$
+    q(vw)
+    = q(v) + q(w)
+    = q(w) + q(v)
+    = q(wv)
+$$
+\strut$\hfill\square$
+
+
 \aufgabe{7}
-Wir definieren im Sinne der Lesbarkeit: $\Sigma^* := (a + b + c)^*$
+Es sei im Sinne der Lesbarkeit im folgenden $\Sigma^*$ als $(\sum_{a \in \Sigma} a)^*$, also konkret $(a+b+c)^*$ zu interpretieren.
 $$
     r_1 = ( \Sigma \Sigma)^*
     \qquad
@@ -48,7 +86,6 @@ $$$$
     \qquad
     r_4 = (b+c)^* +  (\Sigma^*bc \Sigma^*)
 $$
-
 \newpage
 \aufgabe{8}
 \textbf{a)}\\
@@ -66,20 +103,20 @@ $$
 
     \path[->] (q0)      edge                node {$\varepsilon$} (q1);
     \path[->] (q0)      edge                node {$\varepsilon$} (q3);
-    
+
     \path[->] (q1)      edge                node {b} (q2);
-    
+
     \path[->] (q2)      edge                node {$\varepsilon$} (q6);
-    
+
     \path[->] (q3)      edge                node {$\varepsilon$} (q4);
-   
+
     \path[->] (q4)      edge                node {c} (q5);
-    
+
     \path[->] (q5)      edge[bend left]                node {$\varepsilon$} (q3);
     \path[->] (q5)      edge                node {$\varepsilon$} (q6);
-    
+
     \path[->] (q6)      edge                node {a} (q7);
- 
+
 \end{tikzpicture}
 
 
@@ -93,29 +130,26 @@ $$
     \node[state]  (q4)   			[right of=q3] {};
     \node[state]  (q5)    			[right of=q4]   {};
     \node[state,accepting]  (q6)    			[right of=q5]   {};
-    
+
 
 
     \path[->] (q0)      edge                node {$\varepsilon$} (q1);
     \path[->] (q0)      edge [bend left]              node {$\varepsilon$} (q6);
-    
-    
+
+
     \path[->] (q1)      edge                node {a} (q2);
-    
+
     \path[->] (q2)      edge                node {$\varepsilon$} (q3);
     \path[->] (q2)      edge[bend left]                node {$\varepsilon$} (q0);
-    
+
     \path[->] (q3)      edge                node {b} (q4);
-   
+
     \path[->] (q4)      edge                node {$\varepsilon$} (q5);
     \path[->] (q4)      edge [bend left]                node {$\varepsilon$} (q0);
-    
-    \path[->] (q5)      edge               node {c} (q6);
-    
-    \path[->] (q6)      edge [bend left]              node {$\varepsilon$} (q0);
-    
- 
-\end{tikzpicture}
 
+    \path[->] (q5)      edge               node {c} (q6);
+
+    \path[->] (q6)      edge [bend left]              node {$\varepsilon$} (q0);
+\end{tikzpicture}
 
 \end{document}

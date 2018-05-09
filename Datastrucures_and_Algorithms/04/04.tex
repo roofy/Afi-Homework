@@ -61,37 +61,37 @@
 Der Suchbereich wird in jedem Schleifendurchlauf durch verschieben der \texttt{left}, \texttt{right} sowie
 \texttt{lmid} und \texttt{rmid} Zeiger (im folgenden als $l, r, lm, rm$) dreigeteilt. Im nächsten Durchlauf ist die Größe des Arrays
 $$
-    lm - l = \left\lceil \frac{2l + r}{3} \right\rceil - l
-    = \left\lceil \frac{r - l}{3} \right\rceil
-    \qquad \text{oder}\qquad
-    r - rm = r - \left\lfloor \frac{l + 2r}{3} \right\rfloor
-    = \left\lfloor \frac{r - l}{3} \right\rfloor
+    lm - 1 - l = \left\lceil \frac{2l + r}{3} \right\rceil -1 - l
+    = \left\lceil \frac{r - l - 1}{3} \right\rceil
+    \quad \text{oder}\quad
+    r - (rm + 1) = r - \left\lfloor \frac{l + 2r}{3} \right\rfloor - 1
+    = \left\lfloor \frac{r - l - 1}{3} \right\rfloor
 $$
 oder aber auch
-$rm - lm = \left\lfloor \frac{l + 2r}{3} \right\rfloor - \left\lceil \frac{2l + r}{3} \right\rceil
-= \left\lfloor\frac{r - l}{3} \right\rfloor$.\\
+$(rm - 1) - (lm + 1) = \left\lfloor \frac{l + 2r}{3} \right\rfloor - \left\lceil \frac{2l + r}{3} \right\rceil - 2
+\leq \left\lceil \frac{r - l - 1}{3} \right\rceil$.\\
 Also ist die neue Größe im schlimmsten Fall
-$\left\lceil \frac{r - l}{3} \right\rceil := \left\lceil\frac{n-1}{3}\right\rceil$.\\
+$\left\lceil \frac{r - l - 1}{3} \right\rceil := \left\lceil\frac{n-1}{3}\right\rceil$.\\
 Die maximale Anzahl der Schleifendurchläufe lässt sich also durch folgende Rekursionsgleichung beschreiben
 $$
     S(n) = \begin{cases}
-        2 & n = 1\\
+        1 & n = 1\\
         1 + S(\lceil\frac{n-1}{3}\rceil) & \text{sonst}
     \end{cases}
 $$
-Wir führen Induktion über $n \in \mathbb{N}$ mit der Hypothese, dass $S(n) = 2 + \lfloor\log_3 n\rfloor$.\\
+Wir führen Induktion über $n \in \mathbb{N}$ mit der Hypothese, dass $S(n) = 1 + \lfloor\log_3 n\rfloor$.\\
 Sei also $n = 1$. Dann ist
 $$
-    S(n) = 2 = 2 + \lfloor \log_3 1\rfloor
+    S(n) = 1 = 1 + \lfloor \log_3 1\rfloor
 $$
 Sei nun $n > 1$. Dann
 $$
     S(n)
     = 1 + S\left(\left\lceil\frac{n-1}{3}\right\rceil\right)
-    = 1 + \left\lfloor\log_3\left\lceil\frac{n-1}{3}\right\rceil\right\rfloor + 2
-    = 2 + \lfloor \log_3 n\rfloor
+    = 1 + \left\lfloor\log_3\left\lceil\frac{n-1}{3}\right\rceil\right\rfloor + 1
+    = 1 + \lfloor \log_3 n\rfloor
 $$
-Nach dem Prinzip der vollständigen Induktion gilt nun $S(n) = 2 + \lfloor\log_3 n\rfloor \in \mathcal{O}(\log n).\hfill\square$
+Nach dem Prinzip der vollständigen Induktion gilt nun $S(n) = 1 + \lfloor\log_3 n\rfloor \in \mathcal{O}(\log n).\hfill\square$
 \aufgabe{2}
 \textbf{a)}
 Der Worst-case tritt ein, wenn das gesuchte Element $K$ entweder sofort am Anfang oder am Ende des
