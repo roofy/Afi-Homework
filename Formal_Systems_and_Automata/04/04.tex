@@ -172,11 +172,11 @@ $$
     \path[->] (q2)      edge                node {$\varepsilon$} (q6);
 
     \path[->] (q3)      edge                node {$\varepsilon$} (q4);
+    \path[->] (q3)      edge                node {$\varepsilon$} (q6);
 
     \path[->] (q4)      edge                node {c} (q5);
 
     \path[->] (q5)      edge[bend left]                node {$\varepsilon$} (q3);
-    \path[->] (q5)      edge                node {$\varepsilon$} (q6);
 
     \path[->] (q6)      edge                node {a} (q7);
 
@@ -208,11 +208,11 @@ $$
     \path[->] (q3)      edge                node {b} (q4);
 
     \path[->] (q4)      edge                node {$\varepsilon$} (q5);
-    \path[->] (q4)      edge [bend left]                node {$\varepsilon$} (q0);
+    \path[->] (q4)      edge [bend left=40]                node {$\varepsilon$} (q0);
 
     \path[->] (q5)      edge               node {c} (q6);
 
-    \path[->] (q6)      edge [bend left]              node {$\varepsilon$} (q0);
+    \path[->] (q6)      edge [bend left=45]              node {$\varepsilon$} (q0);
 \end{tikzpicture}
 
 \end{document}
