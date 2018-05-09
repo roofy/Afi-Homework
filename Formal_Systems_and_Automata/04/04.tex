@@ -43,13 +43,49 @@ $$
     \qquad
     L_2 =
 $$$$
-    L_3 =
+    L_3 = (c^*a+b^*a)^*+(c^*+b^*)
     \qquad
     L_4 = (b+c)^* + (a+b+c)^*bc(a+b+c)^*
 $$
 
 \newpage
 \aufgabe{8}
+\textbf{a)}\\
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+
+    \node[state, initial]   (q0)                    {$+$};
+    \node[state]  (q1)  [above of=q0]   {};
+    \node[state]  (q2)  [right of=q1] {};
+    \node[state]  (q3)    [below of=q0] {$*$};
+    \node[state]  (q4)    [right of=q3] {};
+    \node[state]  (q5)    [right of=q4]   {};
+    \node[state]  (q6)    [above of=q5]   {};
+    \node[state,accepting]  (q7)    [right of=q6]   {};
+
+
+    \path[->] (q0)      edge                node {$\varepsilon$} (q1);
+    \path[->] (q0)      edge                node {$\varepsilon$} (q3);
+    
+    \path[->] (q1)      edge                node {b} (q2);
+    
+    \path[->] (q2)      edge                node {$\varepsilon$} (q6);
+    
+    \path[->] (q3)      edge                node {$\varepsilon$} (q4);
+   
+    \path[->] (q4)      edge                node {c} (q5);
+    
+    \path[->] (q5)      edge[bend left]                node {$\varepsilon$} (q3);
+    \path[->] (q5)      edge                node {$\varepsilon$} (q6);
+    
+    \path[->] (q6)      edge                node {a} (q7);
+    
+    
+    
+    
+      
+    
+
+\end{tikzpicture}
 
 
 \end{document}
