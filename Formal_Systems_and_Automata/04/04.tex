@@ -77,16 +77,78 @@ $$
 \aufgabe{7}
 Es sei im Sinne der Lesbarkeit im folgenden $\Sigma^*$ als $(\sum_{a \in \Sigma} a)^*$, also konkret $(a+b+c)^*$ zu interpretieren.
 $$
-    L_1 =
-    \qquad
-    L_2 =
+    r_1 = (a(b+c)^*a)^*
+    \qquad\qquad
+    r_2 = (c^*a+b^*a)^*+(c^*+b^*)
 $$$$
-    L_3 =
-    \qquad
-    L_4 =
+    r_3 = \Sigma^*(ab (c + \Sigma^*bc) + bc \Sigma^*ab) \Sigma^*
+    \qquad\qquad
+    r_4 = (b+c)^* +  \Sigma^*bc \Sigma^*
 $$
 \newpage
 \aufgabe{8}
+\textbf{a)}\\
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
 
+    \node[state, initial]   (q0)                    {$+$};
+    \node[state]  (q1)  [above of=q0]   {};
+    \node[state]  (q2)  [right of=q1] {};
+    \node[state]  (q3)    [below of=q0] {$*$};
+    \node[state]  (q4)    [right of=q3] {};
+    \node[state]  (q5)    [right of=q4]   {};
+    \node[state]  (q6)    [above of=q5]   {};
+    \node[state,accepting]  (q7)    [right of=q6]   {};
+
+
+    \path[->] (q0)      edge                node {$\varepsilon$} (q1);
+    \path[->] (q0)      edge                node {$\varepsilon$} (q3);
+
+    \path[->] (q1)      edge                node {b} (q2);
+
+    \path[->] (q2)      edge                node {$\varepsilon$} (q6);
+
+    \path[->] (q3)      edge                node {$\varepsilon$} (q4);
+
+    \path[->] (q4)      edge                node {c} (q5);
+
+    \path[->] (q5)      edge[bend left]                node {$\varepsilon$} (q3);
+    \path[->] (q5)      edge                node {$\varepsilon$} (q6);
+
+    \path[->] (q6)      edge                node {a} (q7);
+
+\end{tikzpicture}
+
+
+\textbf{b)}\\
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2cm]
+
+    \node[state, initial]   (q0)                    {$*$};
+    \node[state]  (q1)  			[right of=q0]   {};
+    \node[state]  (q2)  			[right of=q1] {};
+    \node[state]  (q3)   			[right of=q2] {};
+    \node[state]  (q4)   			[right of=q3] {};
+    \node[state]  (q5)    			[right of=q4]   {};
+    \node[state,accepting]  (q6)    			[right of=q5]   {};
+
+
+
+    \path[->] (q0)      edge                node {$\varepsilon$} (q1);
+    \path[->] (q0)      edge [bend left]              node {$\varepsilon$} (q6);
+
+
+    \path[->] (q1)      edge                node {a} (q2);
+
+    \path[->] (q2)      edge                node {$\varepsilon$} (q3);
+    \path[->] (q2)      edge[bend left]                node {$\varepsilon$} (q0);
+
+    \path[->] (q3)      edge                node {b} (q4);
+
+    \path[->] (q4)      edge                node {$\varepsilon$} (q5);
+    \path[->] (q4)      edge [bend left]                node {$\varepsilon$} (q0);
+
+    \path[->] (q5)      edge               node {c} (q6);
+
+    \path[->] (q6)      edge [bend left]              node {$\varepsilon$} (q0);
+\end{tikzpicture}
 
 \end{document}
