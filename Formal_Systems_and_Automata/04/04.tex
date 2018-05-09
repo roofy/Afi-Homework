@@ -34,7 +34,70 @@
 \end{center}
 
 \aufgabe{5}
+\textbf{a)}
+\begin{align*}
+    &A: \qquad \varepsilon \in L\\
+    &B: \qquad A \land (1):\quad x=\varepsilon, &y&=\varepsilon, &z&=\varepsilon &\Longrightarrow&\quad abc \in L\\
+    &C: \qquad B \land (1):\quad x=a, &y&=b, &z&=c &\Longrightarrow&\quad aabbcc \in L\\
+    &D: \qquad C \land (1):\quad x=aa, &y&=bb, &z&=cc &\Longrightarrow&\quad aaabbbccc \in L\\
+    &E: \qquad D \land (2):\quad x=aaa,\ &y&=bbb,\ &z&=cc\quad &\Longrightarrow&\quad cbbbccaaa \in L\\
+\end{align*}
+\textbf{b)}
+Sei
+$$
+    L' = \{a^nb^nc^n \mid n \in \mathbb{N}_{>0}\} \cup \{cb^nc^{n-1}a^n\ \mid n \in \mathbb{N}_{>0}\} \cup \{\varepsilon\}
+$$
+Dann ist $L = L'$. Wir zeigen zuerst $L \subseteq L'$.
+
+Wir führen Induktion über den Aufbau von $L$.
+Wir fangen mit der Basisregel an. Sei also $w = \varepsilon$. Dann gilt trivialerweise $w \in L'$.
+
+Sei nun $w \in L \land w \in L'$ (IV). Wir überprüfen die Rekursionregeln:
+
+\textbf{Fall 1:} Anwenden der Rekursionregel (1).\\
+Dann ist $w = xyz$ mit $x = a^n, y= b^n$  und $z = c^n$ für ein $n \in \mathbb{N}$, da $w \in L'$ und
+Rekursionregel (1) diesen Aufbau von Wort benötigt.
+Durch anwenden der Rekursionregel (1) auf $w$ erhalten wir ein $w'$ und es folgt
+$$
+    w' = axbycz = aa^nbb^ncc^n = a^{n+1}b^{n+1}c^{n+1} \in L'
+$$
+
+\textbf{Fall 2:} Anwenden der Rekursionregel (2).\\
+Dann ist $w = xyzc$ mit $x = a^n, y=b^n$ und $z = c^{n-1}$ für ein $n \in \mathbb{N}$, da die Rekursionregel (2)
+benötigt, dass das gegebene Wort diese Form hat. Weiter ist ja nach (IV) auch $w \in L'$, also insgesamt
+$w = xyzc = a^nb^nc^{n-1}c = a^nb^nc^n$. Durch anwenden der Rekursionsregel (2) auf $w$ erhalten wir ein
+$w'$ und es folgt:
+$$
+    w' = cyzx = cb^nc^{n-1}a^n \in L'
+$$
+
+Insgesamt folgt für jedes ableitbare Wort $w \in L$, dass auch $w \in L'$. Also $L \subseteq L'$.
 \newpage
+
+Wir zeigen nun $L' \subseteq L$.
+Offensichtlich gilt $\varepsilon \in L'$ und $\varepsilon \in L$ nach Basisregel.\\
+Wir notieren das anwenden der Rekursionregel auf ein wort $w$ als $R_1(w)$ bzw. $R_2(w)$.\\
+Wir führen Induktion über $n \in \mathbb{N}_{> 0}$ und zeigen, dass stets $a^nb^nc^n \in L$ sowie $cb^nc^{n-1}a^n \in L$
+
+Sei also $n = 1$. Es gilt
+$
+    a^nb^nc^n = abc = R_1(\varepsilon)
+$
+und $\varepsilon \in L$ also auch $abc \in L$. Weiter ist
+$cb^nc^{n-1}a^n = cba = R_2(abc) = R_2(R_1(\varepsilon))$ also auch $cba \in L$.
+
+Sei nun $n \in \mathbb{N}_{>0}$ gegeben, sodass $a^nb^nc^n \in L$ (IV). Es folgt
+$$
+    a^{n+1}b^{n+1}c^{n+1} = R_1(a^nb^nc^n)
+    \quad\text{sowie}\quad
+    cb^{n+1}c^na^{n+1} = R_2(a^{n+1}b^{n+1}c^{n+1}) = R_2(R_1(a^nb^nc^n))
+$$
+Da $a^nb^nc^n \in L$ nach IV, folgt also auch $a^{n+1}b^{n+1}c^{n+1} \in L$ sowie $cb^{n+1}c^na^{n+1} \in L$.
+Nach Prinzip der vollständigen Induktion gilt also, dass $a^nb^nc^n \in L$ und $cb^nc^{n-1}a^n \in L$ für
+alle $n \in \mathbb{N}_{>0}$. Insgesamt gilt also nach Konstruktion von $L'$, dass $L' \subseteq L$.
+
+Aus beiden Induktionen folgt dann $L = L'.\hfill\square$
+
 \aufgabe{6}
 \textbf{a)}
 Wir definieren $q$ rekursiv wie folgt für ein $w \in \Sigma^*$
