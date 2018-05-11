@@ -141,13 +141,13 @@ $$
 \aufgabe{7}
 Es sei im Sinne der Lesbarkeit im folgenden $\Sigma^*$ als $(\sum_{a \in \Sigma} a)^*$, also konkret $(a+b+c)^*$ zu interpretieren.
 $$
-    r_1 = ( \Sigma \Sigma)^*
+    r_1 = ((b+c)^* a (b+c)^* a (b+c)^*)^*
     \qquad
-    r_2 = (c^*a+b^*a)^*+(c^*+b^*)
+    r_2 = ((a+b)^* a (a+c)^*)^* (a b^* + \varepsilon)
 $$$$
-    r_3 = \Sigma^*(ab (c + \Sigma^*bc) + bc \Sigma^*ab) \Sigma^*
+    r_3 = \Sigma^* ( abc + (ab \Sigma^* bc) + (bc \Sigma^* ab) ) \Sigma^*
     \qquad
-    r_4 = (b+c)^* +  (\Sigma^*bc \Sigma^*)
+    r_4 = (b+c)^* + \Sigma^* bc \Sigma^*
 $$
 \newpage
 \aufgabe{8}
