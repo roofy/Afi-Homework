@@ -57,9 +57,60 @@
 \end{center}
 
 \aufgabe{1}
+\textbf{a)}
+
+Wir zeigen, dass für $n \in \mathbb{N}$ mit $n \geq 2$ stets $T(n) \in \mathcal{O}(n)$.
+
+Sei $n \in [2,15]_\mathbb{N}$. Dann ist
+$$
+    T(n) = 1 \leq n \log_2 n
+$$
+Also existiert ein $c = 1 > 0$ sodass $T(n) \leq c\cdot n \log_2 n$.
+
+Sei nun ein $n \in \mathbb{N}$ gegeben, sodass für alle $n' \in \mathbb{N}$ mit $n' < n$ ein $c > 0$ existiert für das
+$T(n) \leq c \cdot n\log_2 n$ ist (IV). Es folgt:
+$$
+    T(n) = 2\cdot T\left(\frac{n}{4}\right) + T\left(\frac{n}{2}\right) + n
+    \quad\up{\leq}{IV}\quad 2 c_1\left(\frac{n}{4} \log_2 \frac{n}{4}\right) + c_2 \left(\frac{n}{2} \log_2 \frac{n}{2}\right)
+    + n
+$$$$
+    = c_1\frac{n}{2}(\log_2 n - 2) + c_2\frac{n}{2} (\log_2 n - 1) + n
+    \quad\leq\quad c\frac{n}{2} (\log_2 n - 2 + \log_2 n - 1) + n
+$$$$
+    = c\frac{n}{2} (2\log_2 n - 3) + n
+    = cn\log_2 n - \frac{n}{2}
+    \leq cn \log_2 n 
+$$
+wobei $c_1, c_2$ die Konstanten gemäß von (IV) sind und $c := \max \{c_1, c_2\}$.
+Folglich gilt nach dem Prinzip der vollständigen Induktion,
+dass es zu jedem $n \in \mathbb{N}, n \geq 2$ ein $c > 0$ gibt, sodass $T(n) \leq c\cdot n\log_2 n$ ist.
+Folglich ist $T(n) \in \mathcal{O}(n\log_2n).\hfill\square$
+
+\textbf{b)}
+
+Sei $n \in [1,3]_{\mathbb{N}}$. Dann ist
+$$
+    T(n) = 1 \geq \frac{1}{3} \cdot 3^{\frac{n}{3}}
+$$
+Also existiert ein $c = \frac{1}{3} > 0$ sodass $T(n) \geq c\cdot 3^{\frac{n}{3}}$.
+
+Sei nun ein $n \in \mathbb{N}$ gegeben, sodass für alle $n' \in \mathbb{N}$ mit $n' < n$ ein
+$c > 0$ existiert für das $T(n) \geq c\cdot 3^{\frac{n}{3}}$ ist (IV). Es folgt:
+$$
+    T(n)
+    = T(n-1) + T(n-2) + T(n-3)
+    \quad\up{\geq}{IV}\quad c_1 3^{\frac{n-1}{3}} + c_2 3^{\frac{n-2}{3}} + c_3 3^{\frac{n-3}{3}}
+$$$$
+    3c\cdot 3^{\frac{n-3}{3}} = c\cdot3^\frac{3}{n}
+$$
+wobei $c_1, c_2, c_3$ die Konstanten gemäß von (IV) sind und $c:= \min \{c_1, c_2, c_3\}$.
+Folglich gilt nach dem Prinzip der vollständigen Induktion, dass es zu jedem $n \in \mathbb{N}$ ein
+$c > 0$ gibt, sodass $T(n) \geq c\cdot 3^{\frac{n}{3}}$ ist.
+Foglich ist $T(n) \in \Omega(3^{\frac{n}{3}}). \hfill\square$
+
 \newpage
 \aufgabe{2}
-\newapge
+\newpage
 \aufgabe{3}
 \newpage
 \aufgabe{4}
