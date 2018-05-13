@@ -112,7 +112,94 @@ Foglich ist $T(n) \in \Omega(3^{\frac{n}{3}}). \hfill\square$
 \aufgabe{2}
 \newpage
 \aufgabe{3}
+\textbf{a)}
+
+Der Rückgabewert des Aufrufs \texttt{T([3,1,2,4])} ist $\texttt{[4,3,2,1]}$.\\
+Die 11 ersten \texttt{print}-Statements lauten wie folgt:\\
+\texttt{
+    T: [3,1,2,4] \\
+    S: [3,1,2,4] [0,0,-1]\\
+    S: [1,2,4] [1,0,3]\\
+    S: [2,4] [2,0,3]\\
+    S: [4] [3,0,3]\\
+    S: [] [4,3,4]\\
+    T: [1,2,3]\\
+    S: [1,2,3] [0,0,-1]\\
+    S: [2,3] [1,0,1]\\
+    S: [3] [2,1,2]\\
+    S: [] [3,2,3]\\
+}\\
+\textbf{b)}
+
+\texttt{S} gibt den Index des Maximums der Eingabeliste \texttt{L} zurück.\\
+Dieser wird der Variable \texttt{i} dann in der Funktion \texttt{T} zugewiesen.
+
+\texttt{c} stellt die bis jetzt größte gesehen Zahl dar; Die Funktion achtet nur auf den
+Kopf der Liste und rekursiert dann weiter, ist dieser Kopf größer als \texttt{c}, so ist
+\texttt{c} im rekursiven Aufruf eben dieser Kopf, also das momentane Maximum.
+
+\texttt{a} stellt den Index von \texttt{L.head} in der ursprünglich übergebenen Liste \texttt{L} aus dem
+ersten Aufruf von \texttt{S} dar. Entsprechend wird \texttt{a} bei jedem rekursiven Aufruf inkrementiert,
+da wir beim rekursiven Aufrufe nur \texttt{L.tail} übergeben und damit über \texttt{L.head} in dem
+rekursiven Aufurf das nächste Element der Liste betrachten.
+
+\texttt{b} ist dabei der Index von \texttt{c} in der urpsrünglich übergebenen Liste \texttt{L} aus dem
+ersten Aufruf von \texttt{S}, also der Index des momentanten Maximums \texttt{c}.
+Entsprechend wird \texttt{b} auf \texttt{a} gesetzt sobald auch
+\texttt{c} geändert wird, also ein neues Maximum gefunden wurde.
+
+\textbf{c)}
+
+Wenn wir die Aufrufe von $S$ zählen ergeben sich die Rekursiongleichungen
+$$
+    T(n) = \begin{cases}
+        0 & n = 1\\
+        S(n) + T(n-1)& \text{sonst}
+    \end{cases}
+    \qquad\qquad
+    S(n) = \begin{cases}
+        0 & n = 0\\
+        1 + S(n-1)& \text{sonst}
+    \end{cases}
+$$
+Es ist offensichtlich $S(n) = n$:\\
+Sei $n = 0$, dann ist $S(n) = 0 = n$. Sei $n \in \mathbb{N}_0$ mit $S(n) = n$ gegeben (IV).\\
+Es folgt $S(n+1) = 1 + S(n) \up{=}{IV} n+1$. Folglich gilt nach Prinzip der vollständigen Induktion
+dass $S(n) = n$ für alle $n \in \mathbb{N}_0$.
+Es folgt also nun
+$$
+    T(n) = \begin{cases}
+        0 & n = 1\\
+        n + T(n-1)& \text{sonst}
+    \end{cases}
+$$
 \newpage
+Damit gilt auch offensichtlich $T(n) = \sum_{i=1}^{n} i - 1 = \sum_{i=2}^{n} i$:\\
+Sei $n = 1$, dann ist $T(n) = 0 \up{=}{def} \sum_{i=2}^{1} i$.
+Sei $n \in \mathbb{N}$ mit $T(n) = \sum_{i=2}^{n} i$ gegeben (IV).\\
+Es folgt
+$$
+    T(n+1) = n+1 + T(n)
+    \up{=}{IV} n+1 + \sum_{i=2}^{n} i
+    = \sum_{i=2}^{n+1} i
+$$
+Folglich gilt nach dem Prinzip der vollständigen Induktion dass $T(n) = \sum_{i=2}^{n} i$ für alle $n \in \mathbb{N}$.
+Weiter gilt dann
+$$
+    T(n) = \sum_{i=2}^{n} i = \sum_{i=1}^{n} i - 1 = \frac{n(n+1)}{2} - 1 \in \Theta(n^2)
+$$
+denn für $n_0 = 2$ gilt für alle $n \in \mathbb{N}$ mit $n \geq n_0$ dass
+$$
+    \frac{n(n+1)}{2} -1 \leq n^2
+    \qquad\text{sowie}\qquad
+    \frac{n(n+1)}{2} -1
+    \quad\up{\geq}{$n\geq 2$}\quad \frac{n^2}{2}
+$$
+Also existieren auch $c_1 = 1$ und $c_2 = \frac{1}{2}$ sodass stets gilt
+$$
+    \forall n \in \mathbb{N}, n\geq n_0 : c_2n^2 \leq T(n) \leq c_1n^2
+$$
+Folglich ist $T(n) \in \Theta(n^2).\hfill\square$
 \aufgabe{4}
 
 
