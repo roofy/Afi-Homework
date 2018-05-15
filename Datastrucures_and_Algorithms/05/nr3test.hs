@@ -1,5 +1,6 @@
 import Control.Monad.Writer
 
+swap :: Int -> Int -> [a] -> [a]
 swap f s xs = zipWith (\x y ->
     if x == f then xs !! s
     else if x == s then xs !! f

@@ -201,6 +201,36 @@ $$
 $$
 Folglich ist $T(n) \in \Theta(n^2).\hfill\square$
 \aufgabe{4}
+\textbf{a)}
+Die Iterationen lauten wie folgt:\\
+\texttt{
+    \strut[9,3,5,1,10,4,6]\\
+    \strut[3,9,5,1,10,4,6] \\
+    \strut[3,5,9,1,10,4,6] \\
+    \strut[1,3,5,9,10,4,6] \\
+    \strut[1,3,5,9,10,4,6] \\
+    \strut[1,3,4,5,9,10,6] \\
+    \strut[1,3,4,5,6,9,10] \\
+}
 
+\textbf{b)}
+Wir benennen den eigentlichen ''roten'' Pointer als \texttt{left} und den für die ''blaue Region'' \texttt{right}.
+Wir gehen nun wie folgt vor:
 
+Zuerst lassen wir den Dutch-Flag Algorithmus auf dem ganzen Array laufen, sodass er das Array
+in 3 Bereiche unterteilt:\\
+Im ersten Bereich (\texttt{0} bis \texttt{left})
+sollen alle blauen Einträge sein, Im mittleren Bereich (\texttt{left+1} bis \texttt{right-1}) sollen zum Ende dann rote, schwarze, und gelbe Einträge in beliebiger Reihenfolge auftreten im rechten Bereich (\texttt{right}
+bis \texttt{E.length-1}) sollen dann alle grünen Einträge sein.
+Der Algorithmus unterscheidet hier also noch nicht zwischen roten, schwarzen und gelben Einträgen.
+
+Damit sind die blauen und grünen Einträge schon an ihrer vorhergesehenen Position. Als nächstes lassen
+wir den Algorithmus ein zweites mal laufen, diesmal auf den noch unsortierten mittlerern Bereich (\texttt{left+1} bis \texttt{right-1}) eingeschränkt. Wir belassen also die \texttt{left} und \texttt{right} pointer
+bei ihren Werten anstatt sie auf 0 bzw, \texttt{E.length} zu setzen. Der Pointer \texttt{u} wird dann
+auf \texttt{left+1} gesetzt. Dann wird der Algorithmus normal fortgeführt, sodass er die roten, schwarzen
+und gelben Einträge in den jeweils neuen linken, mittleren und rechten Bereich einsortiert.
+
+Zum Ende ist dann auch der ursprünglich mittlere Teil des Arrays korrekt sortiert. Dies lässt sich in diesem
+Schema beliebig oft fortführen in dem man immer erst die beiden äußersten Bereiche sortiert und dann rekursiv
+den mittleren, bis man beim standard Dutch-Flag Problem für den Basecase ankommt.
 \end{document}
