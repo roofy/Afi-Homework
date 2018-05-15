@@ -110,6 +110,76 @@ Foglich ist $T(n) \in \Omega(3^{\frac{n}{3}}). \hfill\square$
 
 \newpage
 \aufgabe{2}
+\textbf{a)}
+Es ist $b = 8, c = 2, E = 3$. Wir wählen $\varepsilon = 1 > 0$. Offensichtlich gilt (siehe z.B. HA02)
+$$
+    f(n) = 2^n \in \Omega(n^{E+\varepsilon}) = \Omega(n^4)
+$$
+Ferner gilt
+$$
+    8f\left(\frac{n}{c}\right)
+    = 8\cdot 2^\frac{n}{2}
+    = 2^{\frac{n}{2}+3}
+    \leq \frac{1}{2} 2^n
+    = 2^{n-1}
+$$
+für $n \geq 8$, da dann auch stets $\frac{n}{2} + 3 \leq n-1$ gilt. Also existiert auch ein $d = \frac{1}{2} < 1$ und ein $n_0 = 8$ sodass
+$$
+    \forall n \geq n_0 : bf(\frac{n}{c}) \leq df(n)
+$$
+Nach dem Mastertheorem folgt, dass $T(n) \in \Theta(f(n)) = \Theta(2^n)$.
+
+\textbf{b)}
+
+Es ist $b = 64, c = 4, E = 3, f(n) = n^3 + 7n^2 + n + 7$. Nach Vorlesung (oder auch HA02) ist $n^3$ der
+dominierende Faktor in $f(n)$. Es folgt
+$f(n) \in \Theta(n^3) = \Theta(n^E)$ und damit
+$T(n) \in \Theta(n^3\log n)$
+
+\textbf{c)}
+nicht möglich
+\textbf{FEHLT NOCH}
+
+\textbf{d)}
+Es ist $b = 16, c = 4, E = 2, f(n) = n\log n + n^2$.
+Es gilt (auch nach Vorlesung) stets $n\log n \leq n^2$, womit $n^2$ der dominierende Faktor in $f(n)$ ist
+und sofort $f(n) \in \Theta(n^2) = \Theta(n^E)$ folgt. nach dem Mastertheorem gilt dann
+$T(n) \in \Theta(n^2\log n)$.
+
+\textbf{e)}
+Es ist $b = 1, c = 3, E = 0$.
+Nach Konstruktion von $f$ gilt stets $f(n) \geq 3n > 1 = n^{E} > n^{E-\varepsilon}$ für $n \in \mathbb{N}$ und
+$\varepsilon > 0$. Also $f(n) \notin \Theta(n^E) = \Theta(1)$ sowie $f(n) \notin \mathcal{O}(n^{E - \varepsilon})$ für alle $\varepsilon > 0$.\\
+Damit können weder Fall 2 noch Fall 1 erfüllt werden.
+
+Nach Vorlesung (und HA02) gilt jedoch $\sqrt{n} \in \mathcal{O}(n)$ sowie $n \in \Omega(\sqrt{n})$.
+Ferner ist ja $\sqrt{n} := n^{\frac{1}{2}}$. Wir wählen also $\varepsilon = \frac{1}{2}$.
+Dann ist gilt stets
+$$
+    f(n) \geq 3n \geq \sqrt{n} = n^{E+\varepsilon}
+$$
+für $n \in \mathbb{N}$.
+Foglich ist $f(n) \in \Omega(n^{E+\varepsilon})$. Wir unterscheiden nun 2 Fälle:
+
+\textbf{Fall 1:} $n \notin \{2^i \mid i \in \mathbb{N}\}$. Dann ist $f(n) = 3n$ und es gilt stets
+$$
+    f(\frac{n}{3}) = n \leq \frac{3}{2} n = \frac{1}{2} f(n)
+$$
+
+\textbf{Fall 2:} $n \in \{2^i \mid i\in \mathbb{N} \}$. Dann ist $f(n) = 3n + 2^{3n}$ und es gilt stets
+$$ 
+    f(\frac{n}{3}) = n+2^n
+    \leq \frac{3}{2}n + 2^{3n}
+    \quad\up{\leq}{$n \geq 1$}\quad \frac{3}{2}n + 2^{3n - 1}
+    = \frac{1}{2} f(n)
+$$
+
+Folglich gibt es in beiden Fällen ein $d = \frac{1}{2} < 1$ sodass insgesamt für alle $n \in \mathbb{N}$ gilt:
+$$
+    bf(\frac{n}{c} ) \leq d f(n)
+$$
+Nach dem Mastertheorem folgt nun $T(n) \in \Theta(f(n))$.
+
 \newpage
 \aufgabe{3}
 \textbf{a)}
