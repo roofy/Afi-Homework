@@ -1,0 +1,180 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 5}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{5}
+\textbf{Wir berechnen:} $r_Q(q_0, q_0)$. Mit $x = q_1$ erhalten wir:
+$$
+    r_Q(q_0, q_0) =
+    r_{\{q_0\}}(q_0, q_0)
+    + r_{\{q_0\}}(q_0, q_1)r_{\{q_0\}}(q_1, q_1)^*r_{\{q_0\}}(q_1, q_0)
+$$
+\textbf{Wir berechnen:} $r_{\{q_0\}}(q_0, q_0)$. Mit $x = q_0$ erhalten wir:
+\begin{align*}
+    r_{\{q_0\}}(q_0, q_0) &=
+    r_{\varnothing}(q_0, q_0)
+    + r_{\varnothing}(q_0, q_0)r_{\varnothing}(q_0, q_0)^*r_{\varnothing}(q_0, q_0)\\
+    &= (a+\varepsilon) + (a+\varepsilon)(a+\varepsilon)^*(a+\varepsilon)\\
+    &= a^*
+\end{align*}
+\textbf{Wir berechnen:} $r_{\{q_0\}}(q_0, q_1)$. Mit $x = q_0$ erhalten wir:
+\begin{align*}
+    r_{\{q_0\}}(q_0, q_1)
+    &= r_{\varnothing}(q_0, q_1)
+    + r_{\varnothing}(q_0, q_0)r_{\varnothing}(q_0, q_0)^*r_{\varnothing}(q_0, q_1)\\
+    &= (b+c) + (a+\varepsilon)(a+\varepsilon)^*(b+c)\\
+    &= (b+c) + a^*(b+c)\\
+    &= a^*(b+c)
+\end{align*}
+\textbf{Wir berechnen:} $r_{\{q_0\}}(q_1, q_1)$. Mit $x = q_0$ erhalten wir:
+\begin{align*}
+    r_{\{q_0\}}(q_1, q_1) &=
+    r_{\varnothing}(q_1, q_1)
+    + r_{\varnothing}(q_1, q_0)r_{\varnothing}(q_0, q_0)^*r_{\varnothing}(q_0, q_1)\\
+    &= \varepsilon + a(a+\varepsilon)^*(b+c)\\
+    &= \varepsilon + aa^*(b+c)
+\end{align*}
+\textbf{Wir berechnen:} $r_{\{q_0\}}(q_1, q_0)$. Mit $x = q_0$ erhalten wir:
+\begin{align*}
+    r_{\{q_0\}}(q_1, q_0) &=
+    r_{\varnothing}(q_1, q_0)
+    + r_{\varnothing}(q_1, q_0)r_{\varnothing}(q_0, q_0)^*r_{\varnothing}(q_0, q_0)\\
+    &= a + a(a + \varepsilon)^*(a + \varepsilon)\\
+    &= a + aa^*\\
+    &= aa^*
+\end{align*}
+Durch Rückeinsetzen erhalten wir nun:
+\begin{align*}
+    r_Q(q_0, q_0) &=
+    r_{\{q_0\}}(q_0, q_0)
+    + r_{\{q_0\}}(q_0, q_1)r_{\{q_0\}}(q_1, q_1)^*r_{\{q_0\}}(q_1, q_0)\\
+    &= a^* + a^*(b+c)(\varepsilon + aa^*(b+c))^*aa^*\\
+    &= a^* + a^*(b+c)(aa^*(b+c))^*aa^*
+\end{align*}
+\newpage
+\aufgabe{6}
+\textbf{a)}
+Angenommen, $L_1$ ist regulär. Wir wählen $n$ zu $L_1$ gemäß Pumping-Lemma und betrachten
+das Wort $w = a^nb^nc^{2n} \in L_1$. Das Pumping-Lemma liefert Zerlegung
+$$
+    w = xyz
+    \quad \text{mit}\quad
+    |xy| \leq n
+    \quad \text{und}\quad
+    y\neq \varepsilon
+    \quad \text{sowie}\quad
+    xz = xy^0z \in L_1
+$$
+Wegen $|xy| \leq n$ und $y\neq \varepsilon$ gilt $x = a^j$ mit $j \geq 0$ und $y = a^k$ mit $k > 0$.\\[3pt]
+Jedoch:
+$$
+    xz = a^{n-k}b^nc^{2n} \notin L_1
+    \quad\text{weil}\quad
+    k > 0 \,\Longrightarrow\, n-k + n \neq 2n
+$$
+Dies führt also zu einem Widerspruch. Folglich ist $L_1$ nicht regulär.
+
+\textbf{b)}
+Angenommen, $L_2$ ist regulär. Wir wählen $n$ zu $L_2$ gemäß Pumping-Lemma und betrachten
+das Wort $w = b^na^{n+1} \in L_2$. Das Pumping-Lemma liefert Zerlegung
+$$
+    w = xyz
+    \quad \text{mit}\quad
+    |xy| \leq n
+    \quad \text{und}\quad
+    y\neq \varepsilon
+    \quad \text{sowie}\quad
+    xy^3z \in L_2
+$$
+Wegen $|xy| \leq n$ und $y \neq \varepsilon$ gilt $x = b^j$ mit $j \geq 0$ und $y = b^k$ mit $k > 0$.\\[3pt]
+Jedoch:
+$$
+    xy^3z = a^{n+2k}b^{n+1} \notin L_2
+    \quad\text{weil}\quad
+    k > 0 \,\Longrightarrow\, 2k \geq 2 \,\Longrightarrow\, n+2k \not< n+1
+$$
+Dies führt also zu einem Widerspruch. Folglich ist $L_2$ nicht regulär.
+
+\aufgabe{7}
+Zuerst bilden teilen wir die Zustände in Endzustände und nicht-Endzustände:
+$$
+    \mathcal{B}_1 := \{q_0, q_1, q_5\}
+    \qquad\qquad
+    \mathcal{B}_2 := \{q_2, q_3, q_4\}
+$$
+Wir verfeinern $\mathcal{B}_2$ bzgl der $b$-Transition und $\mathcal{B}_1$:
+$$
+    \mathcal{B}_1 := \{q_0, q_1, q_5\}
+    \qquad\qquad
+    \mathcal{B}_3 := \{q_2\}
+    \qquad\qquad
+    \mathcal{B}_4 := \{q_3, q_4\}
+$$
+Wir verfeinern $\mathcal{B}_1$ bzgl. der $a$-Transition und $\mathcal{B}_3$:
+$$
+    \mathcal{B}_5 := \{q_1\}
+    \qquad\qquad
+    \mathcal{B}_6 := \{q_0, q_5\}
+    \qquad\qquad
+    \mathcal{B}_3 := \{q_2\}
+    \qquad\qquad
+    \mathcal{B}_4 := \{q_3, q_4\}
+$$
+Es lässt sich nun keine Zustandsmenge noch weiter verfeinern.
+Der minimale DFA ist dann:
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+        \node[state, initial, accepting]    (q6)                    {$\mathcal{B}_6$};
+        \node[state]                        (q4)    [right of=q6]   {$\mathcal{B}_4$};
+        \node[state,accepting]              (q5)    [below of=q6]   {$\mathcal{B}_5$};
+        \node[state]                        (q3)    [right of=q5]   {$\mathcal{B}_3$};
+
+        \path[->] (q6)  edge [bend left]    node {$a$} (q4);
+        \path[->] (q6)  edge                node {$b$} (q5);
+
+        \path[->] (q5)  edge                node {$a$} (q3);
+        \path[->] (q5)  edge [bend left]    node {$b$} (q6);
+
+        \path[->] (q4)  edge                node {$a$} (q6);
+        \path[->] (q4)  edge [loop right]   node {$b$} (q4);
+
+        \path[->] (q3)  edge [bend left]    node {$a$} (q5);
+        \path[->] (q3)  edge                node {$b$} (q6);
+    \end{tikzpicture}
+\end{center}
+
+\newpage
+\aufgabe{8}
+
+\end{document}
