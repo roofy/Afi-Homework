@@ -241,25 +241,25 @@ $$
 $$
 Wir haben
 $$
-    \varphi(\mathcal{B}_0)(x) = 0
-    \qquad
+    \varphi(\mathcal{B}_0)(x) = 0 + 0 - 1 = -1
+$$$$
     \varphi(\mathcal{B}_1)(x) = 0 + x - (x+1) = -1
 $$$$
-    \varphi(\mathcal{B}_2)(x) = 1 + x^2 - (x+1)^2 = -2x
-    \qquad
-    \varphi(\mathcal{B}_3)(x) = x + x^3 - (x+1)^3 = -3x^2-2x-1
+    \varphi(\mathcal{B}_2)(x) = 2 + 2x^2 - (x+1)^2 = x^2-2x+1
 $$$$
-    \varphi(\mathcal{B}_4)(x) = x^2 + x^4 - (x+1)^4 = -4x^3-5x^2-4x-1
+    \varphi(\mathcal{B}_3)(x) = 6x + 3x^3 - (x+1)^3 = 2x^3-3x^2+3x-1
+$$$$
+    \varphi(\mathcal{B}_4)(x) = 12x^2 + 4x^4 - (x+1)^4 = 3x^4 -4x^3+6x^2-4x-1
 $$
 und damit
 $$
     M_{\mathcal{B}, \mathcal{B}}(\varphi)
-    = -\begin{pmatrix}
-        0 & 1 & 0 & 1 & 1\\
-        0 & 0 & 2 & 2 & 4\\
-        0 & 0 & 0 & 3 & 5\\
-        0 & 0 & 0 & 0 & 4\\
-        0 & 0 & 0 & 0 & 0
+    = \begin{pmatrix}
+        -1  & -1    & 1     & -1    & -1\\
+        0   & 0     & -2    & 3     & -4\\
+        0   & 0     & 1     & -3    & 6\\
+        0   & 0     & 0     & 2     & -4\\
+        0   & 0     & 0     & 0     & 3
     \end{pmatrix}
 $$
 
@@ -268,44 +268,36 @@ $$
 Nach Korrolar 3.39 gilt $\text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), 0) = \kappa_{\mathcal{B}}(\text{Ker}\ \varphi)$. Also:
 $$
     \begin{array}({@{}ccccc|c@{}})
-        0 & -1 & 0 & -1 & -1 & 0\\
-        0 & 0 & -2 & -2 & -4 & 0\\
-        0 & 0 & 0 & -3 & -5 & 0\\
-        0 & 0 & 0 & 0 & -4 & 0\\
-        0 & 0 & 0 & 0 & 0 & 0\\
+        -1 & -1 & 1 & -1 & -1 & 0\\
+        0 & 0 & -2 & 3 & -4 & 0\\
+        0 & 0 & 1 & -3 & 6 & 0\\
+        0 & 0 & 0 & 2 & -4 & 0\\
+        0 & 0 & 0 & 0 & 3 & 0\\
     \end{array}
-    \xrightarrow {\forall \cdot(-1)}
+    \xrightarrow {\text{V}\cdot \frac{1}{3},\ (\text{I},\ \text{II},\ \text{III},\ \text{IV}) + \text{V}(1, 4, -6, 4)}
     \begin{array}({@{}ccccc|c@{}})
-        0 & 1 & 0 & 1 & 1 & 0\\
-        0 & 0 & 2 & 2 & 4 & 0\\
-        0 & 0 & 0 & 3 & 5 & 0\\
-        0 & 0 & 0 & 0 & 4 & 0\\
-        0 & 0 & 0 & 0 & 0 & 0\\
-    \end{array}
-    \xrightarrow {\text{II}\cdot \frac{1}{2},\ \text{IV}\cdot \frac{1}{4}}
-    \begin{array}({@{}ccccc|c@{}})
-        0 & 1 & 0 & 1 & 1 & 0\\
-        0 & 0 & 1 & 1 & 2 & 0\\
-        0 & 0 & 0 & 3 & 5 & 0\\
+        -1 & -1 & 1 & -1 & 0 & 0\\
+        0 & 0 & -2 & 3 & 0 & 0\\
+        0 & 0 & 1 & -3 & 0 & 0\\
+        0 & 0 & 0 & 2 & 0 & 0\\
         0 & 0 & 0 & 0 & 1 & 0\\
-        0 & 0 & 0 & 0 & 0 & 0\\
     \end{array}
 $$$$
-    \xrightarrow {(\text{I},\ \text{II},\ \text{III})\ -\ \text{IV}(1, 2, 5)}
+    \xrightarrow {\text{IV}\cdot \frac{1}{2},\ (\text{I},\ \text{II},\ \text{III}) + \text{IV}(1, -3, 3)}
     \begin{array}({@{}ccccc|c@{}})
-        0 & 1 & 0 & 1 & 0 & 0\\
-        0 & 0 & 1 & 1 & 0 & 0\\
-        0 & 0 & 0 & 3 & 0 & 0\\
-        0 & 0 & 0 & 0 & 1 & 0\\
-        0 & 0 & 0 & 0 & 0 & 0\\
-    \end{array}
-    \xrightarrow {\text{III}\cdot \frac{1}{3},\ (\text{I},\ \text{II})\ -\ \text{III}(1,1)}
-    \begin{array}({@{}ccccc|c@{}})
-        0 & 1 & 0 & 0 & 0 & 0\\
+        -1 & -1 & 1 & 0 & 0 & 0\\
+        0 & 0 & -2 & 0 & 0 & 0\\
         0 & 0 & 1 & 0 & 0 & 0\\
         0 & 0 & 0 & 1 & 0 & 0\\
         0 & 0 & 0 & 0 & 1 & 0\\
+    \end{array}
+    \xrightarrow {\text{I}\cdot (-1),\ (\text{I},\ \text{II}) + \text{III}(1, 2)}
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 1 & 0 & 0 & 0 & 0\\
         0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 0 & 1 & 0\\
     \end{array}
 $$
 Damit haben wir durch lösen des homogenen LGS und nach Korrolar 3.39
@@ -314,18 +306,18 @@ $$
     = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a \in \text{Sol}(M_{\mathcal{B},\mathcal{B}}(\varphi), 0)\}
     = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a \in \mathbb{R}
     \begin{pmatrix}
+        -1\\
         1\\
-        0\\
         0\\
         0\\
         0
     \end{pmatrix}
     \}
 $$$$
-    = \{a\mathcal{B}_0 \mid a \in \mathbb{R}\}
-    = \langle \mathcal{B}_0 \rangle
+    = \{a(\mathcal{B}_1 -\mathcal{B}_0) \mid a \in \mathbb{R}\}
+    = \langle (\mathcal{B}_1 - \mathcal{B}_0 )\rangle
 $$
-Damit ist $(\mathcal{B}_0)$ eine Basis von Ker $\varphi$.
+Damit ist $(\mathcal{B}_1 - \mathcal{B}_0)$ eine Basis von Ker $\varphi$.
 \newpage
 
 \textbf{d)}
@@ -342,18 +334,60 @@ $   \kappa_{\mathcal{B}}(g)
 $.
 Nach Bemerkung 3.38 ist
 $\kappa_{\mathcal{B}}(\varphi^{-1}(\{g\}))
-= \text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), \kappa_{\mathcal{B}}(g))$\\
-Jedoch gibt es keine Lösung für dieses LGS, die Letzte Zeile lässt sich nicht lösen:
+= \text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), \kappa_{\mathcal{B}}(g))$. Also:
 $$
-\text{Sol}(\begin{array}({@{}ccccc|c@{}})
-        0 & -1 & 0 & -1 & -1 & 1\\
-        0 & 0 & -2 & -2 & -4 & -1\\
-        0 & 0 & 0 & -3 & -5 & 0\\
-        0 & 0 & 0 & 0 & -4 & 2\\
-        0 & 0 & 0 & 0 & 0 & 3\\
-\end{array}
-) \neq \varnothing
-\,\Longrightarrow\, \exists a \in \mathbb{R}^5 : \sum_{i=0}^{4} a_i\cdot 0 = 0 = 3
+    \begin{array}({@{}ccccc|c@{}})
+        -1 & -1 & 1 & -1 & -1 & 1\\
+        0 & 0 & -2 & 3 & -4 & -1\\
+        0 & 0 & 1 & -3 & 6 & 0\\
+        0 & 0 & 0 & 2 & -4 & 2\\
+        0 & 0 & 0 & 0 & 3 & 3\\
+    \end{array}
+    \xrightarrow {\text{V}\cdot \frac{1}{3},\ (\text{I},\ \text{II},\ \text{III},\ \text{IV}) + \text{V}(1,4,-6,4)}
+    \begin{array}({@{}ccccc|c@{}})
+        -1 & -1 & 1 & -1 & 0 & 2\\
+        0 & 0 & -2 & 3 & 0 & 3\\
+        0 & 0 & 1 & -3 & 0 & -6\\
+        0 & 0 & 0 & 2 & 0 & 6\\
+        0 & 0 & 0 & 0 & 1 & 1\\
+    \end{array}
+$$$$
+    \xrightarrow {\text{IV}\cdot \frac{1}{2},\ (\text{I},\ \text{II},\ \text{III}) + \text{IV}(1,-3,3)}
+    \begin{array}({@{}ccccc|c@{}})
+        -1 & -1 & 1 & 0 & 0 & 5\\
+        0 & 0 & -2 & 0 & 0 & -6\\
+        0 & 0 & 1 & 0 & 0 & 3\\
+        0 & 0 & 0 & 1 & 0 & 3\\
+        0 & 0 & 0 & 0 & 1 & 1\\
+    \end{array}
+    \xrightarrow {(\text{I},\ \text{II}) + \text{III}(-1, 2)}
+    \begin{array}({@{}ccccc|c@{}})
+        -1 & -1 & 0 & 0 & 0 & 2\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0 & 0 & 3\\
+        0 & 0 & 0 & 1 & 0 & 3\\
+        0 & 0 & 0 & 0 & 1 & 1\\
+    \end{array}
 $$
-Es folgt $\varphi^{-1}(\{g\}) = \varnothing$.
+Damit haben wir nach Bemerkung 3.38
+$$
+    \varphi^{-1}(\{g\})
+    = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a \in \text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), \kappa_{\mathcal{B}}(g))\}
+    = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a
+    =\begin{pmatrix}
+        -2-x\\
+        x\\
+        3\\
+        3\\
+        1
+    \end{pmatrix}, x \in \mathbb{R}
+    \}
+$$$$
+    = \{(-2-a)\mathcal{B}_0+a\mathcal{B}_1+3\mathcal{B}_2+3\mathcal{B}_3+\mathcal{B}_4 \mid a \in \mathbb{R}\}
+$$
+Auf ein $x \in \mathbb{R}$ angewendet, erhalten wir für ein $a \in \mathbb{R}$ die Funktionenschaar
+$$
+    \varphi^{-1}(\{g\})(x) = -2-a+ax+3x^2+3x^3+x^4
+$$
+
 \end{document}

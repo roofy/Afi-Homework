@@ -1,0 +1,346 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{tikz}
+
+\tikzset{
+  heap/.style={
+    every node/.style={circle,draw},
+    level 1/.style={sibling distance=30mm},
+    level 2/.style={sibling distance=10mm}
+  }
+}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 6}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\texttt{
+    \strut [9,0,6,2,5,1,4,8]\\
+    \strut\ [0,9,2,6,1,5,4,8]\\
+    \strut\ [0,2,6,9,1,4,5,8]\\
+    \strut\ [0,1,2,4,5,6,8,9]
+}
+\aufgabe{2}
+\textbf{a)}
+
+\textbf{Buildheap}
+
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,2,9,6,5,1,0,7]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{2}
+            child{node{6}
+                child{node{7}}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\qquad\texttt{swap(6,7)}\qquad\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,2,9,7,5,1,0,6]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{2}
+            child{node{7}
+                child{node{6}}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(2,7)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,7,9,2,5,1,0,6]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{7}
+            child{node{2}
+                child{node{6}}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(2,6)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,7,9,6,5,1,0,2]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{7}
+            child{node{6}
+                child{node{2}}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\newpage
+
+\textbf{Heapsort}
+
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,7,9,6,5,1,0,2]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{7}
+            child{node{6}
+                child{node{2}}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\qquad\texttt{swap(9,2)}\qquad\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[2,7,9,6,5,1,0,9]}
+    \begin{tikzpicture}[heap]
+      \node {2}
+        child{node{7}
+            child{node{6}}
+            child{node{5}}}
+        child{node{9}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(2,9)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[9,7,2,6,5,1,0,9]}
+    \begin{tikzpicture}[heap]
+      \node {9}
+        child{node{7}
+            child{node{6}}
+            child{node{5}}}
+        child{node{2}
+            child{node{1}}
+            child{node{0}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(9,0)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[0,7,2,6,5,1,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {0}
+        child{node{7}
+            child{node{6}}
+            child{node{5}}}
+        child{node{2}
+            child{node{1}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(0,7)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[7,0,2,6,5,1,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {7}
+        child{node{0}
+            child{node{6}}
+            child{node{5}}}
+        child{node{2}
+            child{node{1}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(0,6)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[7,6,2,0,5,1,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {7}
+        child{node{6}
+            child{node{0}}
+            child{node{5}}}
+        child{node{2}
+            child{node{1}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(7,1)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[1,6,2,0,5,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {1}
+        child{node{6}
+            child{node{0}}
+            child{node{5}}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(1,6)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[6,1,2,0,5,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {6}
+        child{node{1}
+            child{node{0}}
+            child{node{5}}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(1,5)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[6,5,2,0,1,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {6}
+        child{node{5}
+            child{node{0}}
+            child{node{1}}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(6,1)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[1,5,2,0,6,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {1}
+        child{node{5}
+            child{node{0}}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\newpage
+
+\xrightarrow{\texttt{swap(1,5)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[5,1,2,0,6,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {5}
+        child{node{1}
+            child{node{0}}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(5,0)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[0,1,2,5,6,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {0}
+        child{node{1}}
+        child{node{2}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(0,2)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[2,1,0,5,6,7,9,9]}\\
+    \begin{tikzpicture}[heap]
+      \node {2}
+        child{node{1}}
+        child{node{0}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\xrightarrow{\qquad\texttt{swap(2,0)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[0,1,2,5,6,7,9,9]}\\
+    \begin{center}
+        \begin{tikzpicture}[heap]
+          \node {0}
+            child{node{1}}
+          ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+
+\xrightarrow{\texttt{swap(0,1)}}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[1,0,2,5,6,7,9,9]}\\
+    \begin{center}
+        \begin{tikzpicture}[heap]
+          \node {1}
+            child{node{0}}
+          ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\xrightarrow{\texttt{swap(1,0)}\qquad}
+\begin{minipage}{0.3\textwidth}
+    \texttt{[0,1,2,5,6,7,9,9]}\\
+    \begin{center}
+        \begin{tikzpicture}[heap]
+          \node {0}
+          ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+
+\end{document}
