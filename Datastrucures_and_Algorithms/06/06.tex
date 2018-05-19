@@ -344,8 +344,38 @@ $\xrightarrow{\texttt{swap(1,0)}\qquad}$
 \end{minipage}
 
 \textbf{b)}
+Wir zählen analog zur Vorlesung die Anzahl der Vergleiche.
 
-\textbf{TODO}
+Der Best-case für \texttt{heapify} tritt ein wenn der Knoten schon die
+Wurzel eines Heaps ist. In diesem Fall muss der Algorithmus nur 1 Vergleich pro Kind durchführen, da die Annahme ist,
+dass alle Kinder ebenfalls schon Wurzeln von Heaps sind.
+Sei $k$ die Anzahl der Kinder des Knoten, dann sind die Anzahl der benötigten Vergleiche $f_k(n) = k$, also
+unabhängig von der Eingabelänge $n$. Da $k$ fest ist, haben wir $B(n) \in \Theta(f_k(n)) = \Theta(1)$.
+Eingaben hierfür wären \texttt{heapify([0], 1, 0)}, \texttt{heapify([1,0], 2, 0)} und \texttt{heapify([2,1,0], 3, 0)}.
+
+Der Best-case für \texttt{buildHeap} tritt ein, wenn das ganze Array schon ein Heap ist.
+Hat der letzte innere Knoten nur ein Kind, können wir uns einen Vergleich sparen. In diesem Fall müssen wir also
+$f(n) = |2\lfloor \frac{n}{2} \rfloor-1|$ Vergleiche durchführen. Denn ein Heap hat $\lfloor \frac{n}{2} \rfloor$ innere
+Knoten, welche alle bis auf den letzten mit ihren beiden Kindern verglichen werden müssen.
+Die Betragsstriche sind für den Fall $n=1$, in dem 0 Vergleiche benötigt werden.
+Wir haben also $B(n) \in \Theta(f(n)) = \Theta(n)$.
+Eine Eingabe hierfür wäre z.B. \texttt{buildHeap([5,4,3,2,1,0])}.
+
+Der Best-case für \texttt{heapSort} ist etwas spezieller. Wenn das Eingabearray nur die gleichen Werte enthält, so
+ist nach jeder \texttt{swap}-Operation mit der Wurzel und dem letzen Element der Heap immernoch ein Heap, da das letzte
+Element dann eben größer-gleich allen anderen ist.
+Dies spart viele Vergleichen mit \texttt{heapify}.
+Wir setzen den Best-case also auf ein Eingabearray mit nur den gleichen Werten,
+in dem der letzte innere Knoten wieder nur ein Kind hat.
+Im \texttt{for}-Loop wird das letzte Element mit dem ersten geswapt, was in unserem Best-case keinen Unterschied macht.
+Dann wird \texttt{heapify} aufgerufen und benötigt jedes mal $k$ Vergleiche wobei $k$ die Anzahl der Kinder der Wurzel ist.
+Insgesamt haben wir \texttt{buildHeap} + $n$ mal (\texttt{for}-Loop) \texttt{heapify},
+wobei \texttt{heapify} in den letzten beiden Durchläufen nur noch jeweil 1 und 0 Vergleiche
+benötigt. Also $ f(n) = \left|2\left\lfloor \frac{n}{2} \right\rfloor -1\right| + 2n - 3$
+und damit $B(n) \in \Theta(f(n)) = \Theta(n)$.
+Eine Eingabe hierfür wäre z.B. \texttt{heapSort([0,0,0,0,0,0])}.
+
+
 
 \aufgabe{3}
 \texttt{[6,4,4,9,3,2,7,5]} $\xrightarrow{\texttt{pivot=5}}$
