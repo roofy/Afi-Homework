@@ -166,67 +166,20 @@ für $a,b,c,d \in \mathbb{R}$. Es gilt
 		0 & c+d
 	\end{pmatrix}
 \end{equation}
-
-Seien nun $X, X' \in V$. Dann ist
-$X = \begin{pmatrix}
-        a & b\\
-	    c & d
-    \end{pmatrix}
-$ und $
-X' = \begin{pmatrix}
-        a' & b'\\
-        c' & d'
-    \end{pmatrix}
-$
-\\
-für $a,b,c,d,a',b',c',d' \in \mathbb{R}$. Es folgt:
+Seien nun $X, X' \in V$.
+Es folgt:
 $$
-    \varphi(X) + \varphi(X')
-    \up{=}{(1)} \begin{pmatrix}
-		0 & c+d\\
-		0 & c+d
-	\end{pmatrix}
-    + 
-    \begin{pmatrix}
-		0 & c'+d'\\
-		0 & c'+d'
-	\end{pmatrix}
-    =
-    \begin{pmatrix}
-		0 & c+d+c'+d'\\
-		0 & c+d+c'+d'
-	\end{pmatrix}
-    \up{=}{(1)}
     \varphi(X+X')
+    = A(X+X')A
+    = AXA+AX'A
+    = \varphi(X) + \varphi(X')
 $$
-
-Sei $X \in V$, also
-$X = \begin{pmatrix}
-        a & b\\
-	    c & d
-    \end{pmatrix}
-$. Sei ferner $x \in \mathbb{R}$. Es gilt
+Sei $X \in V$. Sei ferner $r \in \mathbb{R}$. Es gilt
 $$
-    x\varphi(X)
-    \up{=}{(1)}
-    x\cdot \begin{pmatrix}
-		0 & c+d\\
-		0 & c+d
-	\end{pmatrix}
-    =
-    \begin{pmatrix}
-        0 & xc+xd\\
-        0 & xc+xd
-	\end{pmatrix}
-    \up{=}{(1)}
-    \varphi(
-    \begin{pmatrix}
-        xa & xb\\
-        xc & xd
-	\end{pmatrix}
-    )
-    =
-    \varphi(xX)
+    r\varphi(X)
+    = A(rX)A
+    = r(AXA)
+    = r\varphi(X)
 $$
 Nach (2.2) ist $\varphi$ damit linear.
 \newpage

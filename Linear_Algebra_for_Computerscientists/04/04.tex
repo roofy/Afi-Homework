@@ -1,0 +1,359 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 4}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{22}
+Sei $s = (s_1, s_2, s_3)$ mit
+$s_1 = \begin{pmatrix}
+    1\\
+    1\\
+    -1
+\end{pmatrix}$,
+$s_2 = \begin{pmatrix}
+    0\\
+    1\\
+    t
+\end{pmatrix}$,
+$s_3 = \begin{pmatrix}
+    0\\
+    1\\
+    1
+\end{pmatrix}$.
+
+Für $t \in \mathbb{R}$ mit $t\neq 1$ ist $s$ eine Basis von $\mathbb{R}^{3\times 1}$:
+$$
+    \begin{pmatrix}
+        1 & 0 & 0\\
+        1 & 1 & 1\\
+        -1 & t & 1
+    \end{pmatrix}
+    \to
+    \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & 0 & 1\\
+        -2 & t-1 & 1
+    \end{pmatrix}
+    \to
+    \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & 0 & 1\\
+        -2 & t-1 & 1
+    \end{pmatrix}
+    \to
+    \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & 0 & 1\\
+        0 & 1 & 0
+    \end{pmatrix}
+$$
+Also insbesondere
+$$
+    \mathcal{B}_1 = s_1 + \frac{2}{t-1} s_2 -(1 + \frac{2}{t-1})s_3
+    \qquad
+    \mathcal{B}_2 = \frac{-1}{t-1} s_2 + (1+\frac{1}{t-1})s_3
+$$$$
+    \mathcal{B}_3 = \frac{1}{t-1} s_2 + \frac{-1}{t-1}s_3
+$$
+Daraus ergibt sich auch sofort die Basiswecheselmatrix von $s$ nach $\mathcal{B}$ für $t\neq 1$:
+$$
+    M_{s,\mathcal{B}}(\text{id}_{\mathbb{R}^{3\times 1}}) =
+    \begin{pmatrix}
+        1 & 0 & 0\\[5pt]
+        \frac{2}{t-1} & \frac{-1}{t-1} & \frac{1}{t-1}\\[5pt]
+        -(1+\frac{2}{t-1}) & 1+\frac{1}{t-1} & \frac{-1}{t-1}
+    \end{pmatrix}
+$$
+Für $t\neq 1$ ist $s$ eine Basis und dann $\varphi_t$ eindeutig durch die Abbildungsvorschrift,
+also die Bilder dar Basiselemente von $s$ bestimmt. Folglich existiert $\varphi_t$ für
+alle $t \in \mathbb{R}$ mit $t \neq 1$. Weiter gilt nach Proposition 3.18, dass
+$$
+    M_{\mathcal{B}, \mathcal{B}}(\varphi_t)
+    = M_{\mathcal{B}, s}(\text{id}_{\mathbb{R}^{3\times 1}})
+        M_{s,s}(\varphi_t)
+        M_{s, \mathcal{B}}(\text{id}_{\mathbb{R}^{3\times 1}})
+$$
+Analog gilt
+$$
+    M_{\mathcal{B},s}(\varphi_t)
+    = M_{\mathcal{B}, s}(\text{id}_{\mathbb{R}^{3\times 1}})
+        M_{s,s}(\varphi_t)
+        M_{s,s}(\text{id}_{\mathbb{R}^{3\times 1}})
+    =  M_{\mathcal{B}, s}(\text{id}_{\mathbb{R}^{3\times 1}})
+        M_{s,s}(\varphi_t)
+        E_3
+    = M_{\mathcal{B}, s}(\text{id}_{\mathbb{R}^{3\times 1}})
+        M_{s,s}(\varphi_t)
+$$
+Wir können also schreiben
+$$
+    M_{\mathcal{B}, \mathcal{B}}(\varphi_t)
+    = M_{\mathcal{B}, s}(\varphi_t)
+        M_{s, \mathcal{B}}(\text{id}_{\mathbb{R}^{3\times 1}})
+$$
+$M_{\mathcal{B}, s}(\varphi_t)$ ist offensichtlich analog zu Bsp. 3.19 gegeben durch die Abbildungsvorschrift:
+$$
+M_{\mathcal{B}, s}(\varphi_t) =
+    \begin{pmatrix}
+        -1 & 1 & 7\\
+        2 & 2 & 2\\
+        -t-4 & -1 & 2t+7
+    \end{pmatrix}
+$$
+\newpage
+Damit können wir nun $M_{\mathcal{B}, \mathcal{B}}(\varphi_t)$ ausrechnen:
+$$
+    M_{\mathcal{B}, \mathcal{B}}(\varphi_t)
+    = M_{\mathcal{B}, s}(\varphi_t)
+        M_{s, \mathcal{B}}(\text{id}_{\mathbb{R}^{3\times 1}})
+$$$$
+    = \begin{pmatrix}
+        -1 & 1 & 7\\
+        2 & 2 & 2\\
+        -t-4 & -1 & 2t+7
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 0 & 0\\[5pt]
+        \frac{2}{t-1} & \frac{-1}{t-1} & \frac{1}{t-1}\\[5pt]
+        -(1+\frac{2}{t-1}) & 1+\frac{1}{t-1} & \frac{-1}{t-1}
+    \end{pmatrix}
+$$$$
+    = \frac{1}{t-1} \begin{pmatrix}
+        -8t-4 & 7t-1 & -6\\
+        0 & 2(t-1) & 0\\
+        -3t^2-12t-5 & 2t^2+7t+1 & -2t-8
+    \end{pmatrix}
+$$
+
+\aufgabe{23}
+
+Im folgenden steht $V(x)$ repräsentativ für Elemente aus $V$ angewandt auf $x$.
+Da Elemente von $V$ nur durch ihr Bild beschrieben sind ($v(x) = \cdots$),
+dieses Bild von $x$ unter $v$ jedoch nicht selbst Element von $V$ ist, wollen wir mit $v(x) \in V(x)$ ausdrücken, dass $v \in V$.
+
+Seien $v,v' \in V$ und $a,a' \in \mathbb{R}^5$ mit $v(x) = \sum_{i=0}^{4} a_ix^i$ sowie $v'(x) = \sum_{i=0}^{4} a_i' x^i$. Es gilt
+$$
+    v(x)+v'(x)
+    = \sum_{i=0}^{4} a_ix^i + \sum_{i=0}^{4} a_i'x^i
+    = \sum_{i=0}^{4} (a_i+a_i')x^i \in V(x)
+$$
+Weiter sei $c \in \mathbb{R}$. Damit ist
+$$
+    cv(x)
+    = c\sum_{i=0}^{4} a_ix^i
+    = \sum_{i=0}^{4} (ca_i)x^i \in V(x)
+$$
+Ferner ist
+$$
+    0
+    = \sum_{i=0}^{4} 0
+    = \sum_{i=0}^{4} 0\cdot x^i \in V(x)
+$$
+Folglich ist $V$ ein Untervektorraum von Map$(\mathbb{R}, \mathbb{R})$.
+
+Wir wissen aus der Analysis, dass für relle Funktionen $f,g \in \text{Map}(\mathbb{R}, \mathbb{R})$ und $c \in \mathbb{R}$ stets gilt:
+\begin{equation}
+    (f+g)' = f'+g' \in \text{Map}(\mathbb{R}, \mathbb{R})
+    \qquad\text{sowie}\qquad
+    (cf)' = cf' \in \text{Map}(\mathbb{R}, \mathbb{R})
+\end{equation}
+Damit ist die Ableitung ein Endomorphismus von Map$(\mathbb{R}, \mathbb{R})$. Dies ist offensichtlich analog für höhere Ableitungen.
+
+Seien nun $f,g \in V$ sowie $c \in \mathbb{R}$ gegeben. Wir haben
+$$
+    \varphi(f+g)(x)
+    = (f+g)''(x) + x(f+g)'(x) - (f+g)(x+1)
+$$$$
+    \up{=}{1} f''(x) + g''(x) + x(f'(x)+g'(x)) - (f(x+1)+g(x+1))
+$$$$
+    = f''(x) + xf'(x) - f(x+1) + g''(x) +xg'(x) - g(x+1)
+    = \varphi(f)(x) + \varphi(g)(x)
+$$
+Weiter gilt
+$$
+    \varphi(cf)(x)
+    = (cf)''(x) + x(cf)'(x) - (cf)(x+1)
+$$$$
+    \up{=}{1} cf''(x) + cxf'(x) - cf(x+1)
+    = c(f''(x)+f'(x)-f(x+1))
+    = c\varphi(f)(x)
+$$
+Folglich ist $\varphi$ ein Endomorhphismus auf $V$, also linear.
+
+\newpage
+
+\textbf{b)}
+
+Sei $\mathcal{B} \in V^5$ mit
+$$
+    \mathcal{B}_0(x) = 1
+    \qquad
+    \mathcal{B}_1(x) = x
+    \qquad
+    \mathcal{B}_2(x) = x^2
+    \qquad
+    \mathcal{B}_3(x) = x^3
+    \qquad
+    \mathcal{B}_4(x) = x^4
+$$
+Damit haben wir für $v \in V$ mit $v(x) = \sum_{i=0}^{4} a_ix^i$, dass $v = \sum_{i=0}^{4} a_i\mathcal{B}_i$
+und damit eine Linearkombination über $\mathcal{B}$ ist. Foglich ist $\mathcal{B}$ ein EZS von $V$.
+Weiter gilt für $a \in \mathbb{R}^5$
+$$
+    \left(\sum_{i=0}^{4} a_i\mathcal{B}_i\right)(x) = 0
+    \,\Longrightarrow\, a_0 + a_1x + a_2x^2 + a_3x^3 + a_4x^4 = 0
+    \,\Longrightarrow\, \forall i \in [0,4] : a_i = 0
+$$
+Folglich ist $\mathcal{B}$ linear unabhängig und damit eine Basis von $V$.
+Es gilt nach Definition der Darstellungsmatrix dass
+$$
+    M_{\mathcal{B}, \mathcal{B}}(\varphi) = (\kappa_\mathcal{B}(\varphi(\mathcal{B}_i)))_{i \in [0,4]}
+$$
+Wir haben
+$$
+    \varphi(\mathcal{B}_0)(x) = 0
+    \qquad
+    \varphi(\mathcal{B}_1)(x) = 0 + x - (x+1) = -1
+$$$$
+    \varphi(\mathcal{B}_2)(x) = 1 + x^2 - (x+1)^2 = -2x
+    \qquad
+    \varphi(\mathcal{B}_3)(x) = x + x^3 - (x+1)^3 = -3x^2-2x-1
+$$$$
+    \varphi(\mathcal{B}_4)(x) = x^2 + x^4 - (x+1)^4 = -4x^3-5x^2-4x-1
+$$
+und damit
+$$
+    M_{\mathcal{B}, \mathcal{B}}(\varphi)
+    = -\begin{pmatrix}
+        0 & 1 & 0 & 1 & 1\\
+        0 & 0 & 2 & 2 & 4\\
+        0 & 0 & 0 & 3 & 5\\
+        0 & 0 & 0 & 0 & 4\\
+        0 & 0 & 0 & 0 & 0
+    \end{pmatrix}
+$$
+
+\textbf{c)}
+
+Nach Korrolar 3.39 gilt $\text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), 0) = \kappa_{\mathcal{B}}(\text{Ker}\ \varphi)$. Also:
+$$
+    \begin{array}({@{}ccccc|c@{}})
+        0 & -1 & 0 & -1 & -1 & 0\\
+        0 & 0 & -2 & -2 & -4 & 0\\
+        0 & 0 & 0 & -3 & -5 & 0\\
+        0 & 0 & 0 & 0 & -4 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\forall \cdot(-1)}
+    \begin{array}({@{}ccccc|c@{}})
+        0 & 1 & 0 & 1 & 1 & 0\\
+        0 & 0 & 2 & 2 & 4 & 0\\
+        0 & 0 & 0 & 3 & 5 & 0\\
+        0 & 0 & 0 & 0 & 4 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\text{II}\cdot \frac{1}{2},\ \text{IV}\cdot \frac{1}{4}}
+    \begin{array}({@{}ccccc|c@{}})
+        0 & 1 & 0 & 1 & 1 & 0\\
+        0 & 0 & 1 & 1 & 2 & 0\\
+        0 & 0 & 0 & 3 & 5 & 0\\
+        0 & 0 & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+    \end{array}
+$$$$
+    \xrightarrow {(\text{I},\ \text{II},\ \text{III})\ -\ \text{IV}(1, 2, 5)}
+    \begin{array}({@{}ccccc|c@{}})
+        0 & 1 & 0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 1 & 0 & 0\\
+        0 & 0 & 0 & 3 & 0 & 0\\
+        0 & 0 & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\text{III}\cdot \frac{1}{3},\ (\text{I},\ \text{II})\ -\ \text{III}(1,1)}
+    \begin{array}({@{}ccccc|c@{}})
+        0 & 1 & 0 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+    \end{array}
+$$
+Damit haben wir durch lösen des homogenen LGS und nach Korrolar 3.39
+$$
+    \text{Ker}\ \varphi
+    = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a \in \text{Sol}(M_{\mathcal{B},\mathcal{B}}(\varphi), 0)\}
+    = \{\sum_{i=0}^{4} a_i\mathcal{B}_i \mid a \in \mathbb{R}
+    \begin{pmatrix}
+        1\\
+        0\\
+        0\\
+        0\\
+        0
+    \end{pmatrix}
+    \}
+$$$$
+    = \{a\mathcal{B}_0 \mid a \in \mathbb{R}\}
+    = \langle \mathcal{B}_0 \rangle
+$$
+Damit ist $(\mathcal{B}_0)$ eine Basis von Ker $\varphi$.
+\newpage
+
+\textbf{d)}
+
+Es gilt
+$   \kappa_{\mathcal{B}}(g)
+    = \begin{pmatrix}
+        1\\
+        -1\\
+        0\\
+        2\\
+        3
+    \end{pmatrix}
+$.
+Nach Bemerkung 3.38 ist
+$\kappa_{\mathcal{B}}(\varphi^{-1}(\{g\}))
+= \text{Sol}(M_{\mathcal{B}, \mathcal{B}}(\varphi), \kappa_{\mathcal{B}}(g))$\\
+Jedoch gibt es keine Lösung für dieses LGS, die Letzte Zeile lässt sich nicht lösen:
+$$
+\text{Sol}(\begin{array}({@{}ccccc|c@{}})
+        0 & -1 & 0 & -1 & -1 & 1\\
+        0 & 0 & -2 & -2 & -4 & -1\\
+        0 & 0 & 0 & -3 & -5 & 0\\
+        0 & 0 & 0 & 0 & -4 & 2\\
+        0 & 0 & 0 & 0 & 0 & 3\\
+\end{array}
+) \neq \varnothing
+\,\Longrightarrow\, \exists a \in \mathbb{R}^5 : \sum_{i=0}^{4} a_i\cdot 0 = 0 = 3
+$$
+Es folgt $\varphi^{-1}(\{g\}) = \varnothing$.
+\end{document}
