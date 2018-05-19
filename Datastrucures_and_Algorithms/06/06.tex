@@ -406,16 +406,16 @@ $$
     \texttt{e2.key}\cdot n + \texttt{i2} = \texttt{e1.key}\cdot n + n > \texttt{e1.key}\cdot n + n-1 = \texttt{e1.key}\cdot n +\texttt{i1}
 $$
 Weiter haben wir nun noch Stabilität: Für Elemente \texttt{e1,e2} mit \texttt{e1.key = e2.key}, welche
-jeweils den Index \texttt{i1, i2} haben. Wir nehmen o.B.d.A. an, dass \texttt{i1 < i2}, also \texttt{e1} im Array
+jeweils den Index \texttt{i1, i2} haben nehmen wir o.B.d.A. an, dass \texttt{i1 < i2}, also \texttt{e1} im Array
 vor \texttt{e2} steht. Dann ist
 $$
     \texttt{e1.key}\cdot n + \texttt{i1} < \texttt{e1.key}\cdot n + \texttt{i2} = \texttt{e2.key}\cdot n + \texttt{i2}
 $$
 Und \texttt{e1, e2} werden von \texttt{sort} stabil sortiert. Wegen dem Hinweis, dass wir annehmen können, dass
 \texttt{int} beliebig große Zahlen speichern kann, können wir dieses Verfahren oft genug wiederholen ohne ein Problem
-mit zu großen Schlüssel zu bekommen.
+mit zu großen Schlüsseln zu bekommen.
 
-Ferner gilt die Annahme, dass die Addition und Multiplikatio in der \texttt{for}-Schleife konstante Laufzeit benötigen,
+Ferner gilt die Annahme, dass die Addition und Multiplikation in der \texttt{for}-Schleife konstante Laufzeit benötigen,
 also die Schleife insgesamt $f(n) = 2n$ Operationen ausführt. Da die Schleife und der Sortieralgorithmus unabhängig voneinander
 (nacheinander) ausgeführt werden, gilt damit
 $$
@@ -432,22 +432,22 @@ Insertionsort??
 \textbf{b)}
 
 Hier empfiehlt es sich, Counting-Sort zu verwenden. Der Algorithmus hat eben die gegebene Vorraussetzung, dass
-nur Schlüss zwischen $0$ und einem festen $k$ existieren (hier $k=4$). Dafür kann er unter dieser Vorraussetzung
-die Eingabe der Länge $n$ in $\mathcal{O}(n+k)$ sortieren. Best-, Worst-, und Averagecase machen hierbei keinen Unterschied.
+nur Schlüssel zwischen 0 und einem festen $k$ existieren (hier $k=4$). Dafür kann er unter dieser Vorraussetzung
+die Eingabe der Länge $n$ in $\mathcal{O}(n+k)$ sortieren. Best-, Worst-, und Average-case machen hierbei keinen Unterschied.
 Dies ist deutlich schneller als alle anderen Sortierverfahren die zur Auswahl stehen.
 
 \textbf{c)}
 
-Für fast sortierte arrays ist Insertion-sort eine gute Wahl. Im best case (einem komplett sortierten Arrays)
-ist die Laufzeit linear. Dies ist ähnlich bei Bubblesort. Jedoch ist Insertion sort nochmal besser da
+Für fast sortierte arrays ist Insertion-sort eine gute Wahl. Im Best-case (einem komplett sortierten Array)
+ist die Laufzeit linear. Dies ist ähnlich bei Bubblesort. Jedoch ist Insertionsort nochmal besser da
 in diesem Szenario alle Elemente sehr wahrscheinlich nur ein paar Plätze (oder auch keine) verschoben werden
-müssen. Insertionsort muss dann nur diese paar Plätze absuchen um die richtige stelle zu finden, während Bubblesort
+müssen. Insertionsort muss dann nur diese paar Plätze absuchen um die richtige Stelle zu finden, während Bubblesort
 das ganze Array durchläuft.
 
 \textbf{d)}
 
-Es macht Sinn, diese Aufgabe mit Mergesort anzugehen, da die Assistenten nach den ersten 3 splits die 8 fast gleichgroßen
-Stapel unter sich aufteilen können und sofort Mergesort anwenden können. Dadurch können die 8 Assistenten parallel arbeiten,
+Es macht Sinn, diese Aufgabe mit Mergesort anzugehen, da die Assistenten nach den ersten 3 Splits die 8 fast gleichgroßen
+Stapel unter sich aufteilen und sofort Mergesort anwenden können. Dadurch können die 8 Assistenten parallel arbeiten,
 was bei anderen Sortierverfahren nicht immer möglich ist. Sobald jeder der 8 fertig ist, mergen sie ihre sortierten Klausuren
 einfach.
 \end{document}
