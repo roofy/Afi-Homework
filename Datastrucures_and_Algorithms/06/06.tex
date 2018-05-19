@@ -67,12 +67,17 @@
 \end{center}
 
 \aufgabe{1}
-\texttt{
-    \strut [9,0,6,2,5,1,4,8]\\
-    \strut\ [0,9,2,6,1,5,4,8]\\
-    \strut\ [0,2,6,9,1,4,5,8]\\
-    \strut\ [0,1,2,4,5,6,8,9]
-}
+Visuell dargestellt:
+\texttt{[9,0,6,2,5,1,4,8]} $\xrightarrow{\texttt{mergesort}}$
+\texttt{[9] [0] [6] [2] [5] [1] [4] [8]}
+
+$\xrightarrow{\texttt{merge}}$ \texttt{[0,9] [2,6] [1,5] [4,8]}
+$\xrightarrow{\texttt{merge}}$ \texttt{[0,2,6,9] [1,4,5,8]}
+$\xrightarrow{\texttt{merge}}$ \texttt{[0,1,2,4,5,6,8,9]}
+
+Nur das Array:\\
+\texttt{[9,0,6,2,5,1,4,8]->[0,9,2,6,1,5,4,8]->[0,2,6,9,1,4,5,8]->[0,1,2,4,5,6,8,9]}
+
 \aufgabe{2}
 \textbf{a)}
 
@@ -332,7 +337,7 @@ $\xrightarrow{\texttt{swap(0,1)}}$
         \end{tikzpicture}
     \end{center}
 \end{minipage}
-$\xrightarrow{\texttt{swap(1,0)}\qquad}$
+$\xrightarrow{\qquad\texttt{swap(1,0)}\qquad}$
 \begin{minipage}{0.3\textwidth}
     \texttt{[0,1,2,5,6,7,9,9]}\\
     \begin{center}
@@ -390,13 +395,40 @@ $\xrightarrow{\texttt{pivot=6}}$ \texttt{[2,3,4,4,5,6,7,9]}
 $\xrightarrow{\texttt{pivot=9}}$ \texttt{[2,3,4,4,5,6,7,9]}
 
 \aufgabe{4}
-\textbf{TODO}
-\newpage
+\lstinputlisting{stableSort.java}
+Die Idee ist, dass wir dem Schlüssel von jedem Element Information geben an welcher Stelle er im Array steht. Wir multiplizieren
+also jeden Schlüssel mit der Gesamtlänge und addieren den Index des Elements im Array. So wird immernoch korrekt sortiert,
+da für 2 Elemente \texttt{e1, e2} mit \texttt{e1.key < e2.key} stets auch \texttt{e1.key*n+i1 < e2.key*n+i2} gilt, da
+\texttt{i1,i2} $\in [0, n-1]$.\\
+Also selbst im Grenzfall \texttt{i1=n-1, i2=0} und \texttt{e2.key = e1.key + 1}, also minimalem \texttt{key}-Unterschied
+und maximalem Index-Unterschied gilt immernoch
+$$
+    \texttt{e2.key}\cdot n + \texttt{i2} = \texttt{e1.key}\cdot n + n > \texttt{e1.key}\cdot n + n-1 = \texttt{e1.key}\cdot n +\texttt{i1}
+$$
+Weiter haben wir nun noch Stabilität: Für Elemente \texttt{e1,e2} mit \texttt{e1.key = e2.key}, welche
+jeweils den Index \texttt{i1, i2} haben. Wir nehmen o.B.d.A. an, dass \texttt{i1 < i2}, also \texttt{e1} im Array
+vor \texttt{e2} steht. Dann ist
+$$
+    \texttt{e1.key}\cdot n + \texttt{i1} < \texttt{e1.key}\cdot n + \texttt{i2} = \texttt{e2.key}\cdot n + \texttt{i2}
+$$
+Und \texttt{e1, e2} werden von \texttt{sort} stabil sortiert. Wegen dem Hinweis, dass wir annehmen können, dass
+\texttt{int} beliebig große Zahlen speichern kann, können wir dieses Verfahren oft genug wiederholen ohne ein Problem
+mit zu großen Schlüssel zu bekommen.
+
+Ferner gilt die Annahme, dass die Addition und Multiplikatio in der \texttt{for}-Schleife konstante Laufzeit benötigen,
+also die Schleife insgesamt $f(n) = 2n$ Operationen ausführt. Da die Schleife und der Sortieralgorithmus unabhängig voneinander
+(nacheinander) ausgeführt werden, gilt damit
+$$
+    W_{\texttt{stableSort}}(n) = W_{\texttt{sort}}(n) + f(n)
+    \qquad\text{sowie}\qquad
+    f(n) = 2n \in \Theta(n)
+$$
 
 \aufgabe{5}
 \textbf{a)}
 Insertionsort??
 
+\newpage
 \textbf{b)}
 
 Hier empfiehlt es sich, Counting-Sort zu verwenden. Der Algorithmus hat eben die gegebene Vorraussetzung, dass
