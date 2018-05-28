@@ -67,16 +67,15 @@
 \end{center}
 
 \aufgabe{1}
-Visuell dargestellt:
-\texttt{[9,0,6,2,5,1,4,8]} $\xrightarrow{\texttt{mergesort}}$
-\texttt{[9] [0] [6] [2] [5] [1] [4] [8]}
-
-$\xrightarrow{\texttt{merge}}$ \texttt{[0,9] [2,6] [1,5] [4,8]}
-$\xrightarrow{\texttt{merge}}$ \texttt{[0,2,6,9] [1,4,5,8]}
-$\xrightarrow{\texttt{merge}}$ \texttt{[0,1,2,4,5,6,8,9]}
-
-Nur das Array:\\
-\texttt{[9,0,6,2,5,1,4,8]->[0,9,2,6,1,5,4,8]->[0,2,6,9,1,4,5,8]->[0,1,2,4,5,6,8,9]}
+\texttt{[9,0,6,2,5,1,4,8]->
+[0,9,6,2,5,1,4,8]->
+[0,9,2,6,5,1,4,8]->
+[0,2,6,9,5,1,4,8]}
+\\
+\texttt{->[0,2,6,9,1,5,4,8]->
+[0,2,6,9,1,5,4,8]->
+[0,2,6,9,1,4,5,8]->
+[0,1,2,4,5,6,8,9]}
 
 \aufgabe{2}
 \textbf{a)}
