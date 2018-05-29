@@ -394,40 +394,14 @@ $\xrightarrow{\texttt{pivot=6}}$ \texttt{[2,3,4,4,5,6,7,9]}
 $\xrightarrow{\texttt{pivot=9}}$ \texttt{[2,3,4,4,5,6,7,9]}
 
 \aufgabe{4}
+Offensichtlich tut der folgende Algorithmus das gewünschte:
 \lstinputlisting{stableSort.java}
-Die Idee ist, dass wir dem Schlüssel von jedem Element Information geben an welcher Stelle er im Array steht. Wir multiplizieren
-also jeden Schlüssel mit der Gesamtlänge und addieren den Index des Elements im Array. So wird immernoch korrekt sortiert,
-da für 2 Elemente \texttt{e1, e2} mit \texttt{e1.key < e2.key} stets auch \texttt{e1.key*n+i1 < e2.key*n+i2} gilt, da
-\texttt{i1,i2} $\in [0, n-1]$.\\
-Also selbst im Grenzfall \texttt{i1=n-1, i2=0} und \texttt{e2.key = e1.key + 1}, also minimalem \texttt{key}-Unterschied
-und maximalem Index-Unterschied gilt immernoch
-$$
-    \texttt{e2.key}\cdot n + \texttt{i2} = \texttt{e1.key}\cdot n + n > \texttt{e1.key}\cdot n + n-1 = \texttt{e1.key}\cdot n +\texttt{i1}
-$$
-Weiter haben wir nun noch Stabilität: Für Elemente \texttt{e1,e2} mit \texttt{e1.key = e2.key}, welche
-jeweils den Index \texttt{i1, i2} haben nehmen wir o.B.d.A. an, dass \texttt{i1 < i2}, also \texttt{e1} im Array
-vor \texttt{e2} steht. Dann ist
-$$
-    \texttt{e1.key}\cdot n + \texttt{i1} < \texttt{e1.key}\cdot n + \texttt{i2} = \texttt{e2.key}\cdot n + \texttt{i2}
-$$
-Und \texttt{e1, e2} werden von \texttt{sort} stabil sortiert. Wegen dem Hinweis, dass wir annehmen können, dass
-\texttt{int} beliebig große Zahlen speichern kann, können wir dieses Verfahren oft genug wiederholen ohne ein Problem
-mit zu großen Schlüsseln zu bekommen.
-
-Ferner gilt die Annahme, dass die Addition und Multiplikation in der \texttt{for}-Schleife konstante Laufzeit benötigen,
-also die Schleife insgesamt $f(n) = 2n$ Operationen ausführt. Da die Schleife und der Sortieralgorithmus unabhängig voneinander
-(nacheinander) ausgeführt werden, gilt damit
-$$
-    W_{\texttt{stableSort}}(n) = W_{\texttt{sort}}(n) + f(n)
-    \qquad\text{sowie}\qquad
-    f(n) = 2n \in \Theta(n)
-$$
 
 \aufgabe{5}
 \textbf{a)}
-Insertionsort??
+Insertionsort ist hier gut, da Insertionsort gut für kleine Arrays ist, da bei kleinen Eingabelängen
+ein Worst-case von $n^2$ nicht problematisch ist.
 
-\newpage
 \textbf{b)}
 
 Hier empfiehlt es sich, Counting-Sort zu verwenden. Der Algorithmus hat eben die gegebene Vorraussetzung, dass
@@ -444,9 +418,7 @@ müssen. Insertionsort muss dann nur diese paar Plätze absuchen um die richtige
 das ganze Array durchläuft.
 
 \textbf{d)}
+Die Parallelisierbarkeit von Divide-and-Conquer Algorithmen spricht hier für Quick- sowie Merge-sort, jedoch
+ist die Arbeit vom Partitionieren deutlich besser zu teilen als beim mergen.
 
-Es macht Sinn, diese Aufgabe mit Mergesort anzugehen, da die Assistenten nach den ersten 3 Splits die 8 fast gleichgroßen
-Stapel unter sich aufteilen und sofort Mergesort anwenden können. Dadurch können die 8 Assistenten parallel arbeiten,
-was bei anderen Sortierverfahren nicht immer möglich ist. Sobald jeder der 8 fertig ist, mergen sie ihre sortierten Klausuren
-einfach.
 \end{document}
