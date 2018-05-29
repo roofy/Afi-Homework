@@ -177,4 +177,44 @@ Der minimale DFA ist dann:
 \newpage
 \aufgabe{8}
 
+\textbf{a)}
+
+Der Satz von Nerode besagt: $index(L) < \infty \Rightarrow$ L ist regulär.\\
+Somit folgt: L ist nicht regulär $\Rightarrow index(L) = \infty$\\
+Wir zeigen das L nicht regulär und somit der Index von L unendlich ist.
+
+\textbf{Beweis durch Widerspruch}\\
+Angenommen L ist Regulär.\\
+Wähle n zu L gemäß Pumping Lemma und betracht w = $b^n aa $ $b^n$.\\
+Puming Lemma liefert Zerlegung.\\
+w = xyz mit |xy| $\leq$ n und y $\neq$ $\varepsilon$ und xz $\in$ L.\\
+Wegen |xy| $\leq$ und y $\neq$ $\varepsilon$ gilt x = $b^j$ mit j $\geq$ 0 und y = $b^k$ mit k > 0.\\
+Aber xz = $b^n-kaa$ $b^n$ $\not\in$ L, weil n-k > n.\\
+\textbf{Widerspruch!}\\
+Somit ist der Index von L unendlich.\\
+
+\textbf{AUFBAU DER KLASSEN ?}
+
+\textbf{b)}
+
+
+Wir Definieren v $\in$ $\lbrace a,b \rbrace^*$ und im Sinne der Lesbarkeit:\\
+$$
+	p := |v|_{ab} = |v|_{ba},\quad q := |v|_{ab} > |v|_{ba}, \quad r := |v|_{ab} < |v|_{ba}
+$$
+
+Wir beginnen mit einigen Beobachtungen zu $\sim_k$:\\
+$\textbf{|}|v|_{ab} - |v|_{ba}\textbf{|} \leq 1$ \\
+$\varepsilon \in$ p, ab $\in$ q, ba $\in$ r\\
+$\varepsilon \not\sim_k$ ab (mit x = b, denn $\varepsilon$b $\in$ K und abb $\not\in$ K)\\
+$\varepsilon \not\sim_k$ ba (mit x = a, denn $\varepsilon$a $\in$ K und baa $\not\in$ K)\\
+ab $\not\sim_k$ ba (mit x = a, denn aba $\in$ K und baa $\not\in$ K)
+
+Behauptung:\\
+Die $\sim_K$-Klassen sind: p/$_k$, q/$_k$, r/$_k$
+
+Da ein beliebiges v immer genau eine Eigenschaft der drei Äquivalenzklassen erfüllen muss, zeigt dies, dass p/$_k$, q/$_k$, r/$_k$ alle Äquivalenzklassen von K sind.\\
+Somit folgt auch index(K) = 3.
+
+
 \end{document}
