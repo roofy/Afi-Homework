@@ -179,48 +179,89 @@ Der minimale DFA ist dann:
 
 \textbf{a)}
 
-Der Satz von Nerode besagt: $index(L) < \infty \Rightarrow$ L ist regulär.\\
-Somit folgt: L ist nicht regulär $\Rightarrow index(L) = \infty$\\
-Wir zeigen das L nicht regulär und somit der Index von L unendlich ist.
+Seien $w,v \in \Sigma^*$ mit $w \neq v$ gegeben. Es gelte o.B.d.A. $|w| \geq |v|$. Wir unterscheiden 2 Fälle:
 
-\textbf{Beweis durch Widerspruch}\\
-Angenommen L ist Regulär.\\
-Wähle n zu L gemäß Pumping Lemma und betracht w = $b^n aa $ $b^n$.\\
-Puming Lemma liefert Zerlegung:\\
-w = xyz mit |xy| $\leq$ n und y $\neq$ $\varepsilon$ und xz $\in$ L.\\
-Wegen |xy| $\leq$ und y $\neq$ $\varepsilon$ gilt x = $b^j$ mit j $\geq$ 0 und y = $b^k$ mit k > 0.\\
-Aber xz = $b^n-k aa$ $b^n$ $\not\in$ L, weil n-k > n.\\
-\textbf{Widerspruch!}\\
-Somit ist der Index von L unendlich.
-
-\textbf{Trennende Wörter ficken Sebastian in den Arsch!}
-
-
-\textbf{b)}
-
-
-Wir Definieren v $\in$ $\lbrace a,b \rbrace^*$ und im Sinne der Lesbarkeit:\\
+\textbf{Fall 1:} es ist $v \not\sqsubset w$, also $v$ kein echtes Präfix von $w$.\\[5pt]
+Dann gilt offensichtlich $ww^\mathcal{R} \in L$. Wäre nun $vw^\mathcal{R} \in L$, so folgt auch
 $$
-	p := |v|_{ab} = |v|_{ba},\quad q := |v|_{ab} > |v|_{ba}, \quad r := |v|_{ab} < |v|_{ba}
+    vw^\mathcal{R} = (vw^\mathcal{R})^\mathcal{R} = wv^\mathcal{R} \,\Longrightarrow\, v \sqsubset w
 $$
+Dies stellt einen Widerspruch zur Annahme dar. Also gibt es ein $u = w^\mathcal{R} \in \Sigma^*$ sodass
+$wu \in L$ aber $vu \notin L$. Folglich gilt $w \not\sim_L v \,\Longrightarrow\, w/_L \neq v/_L$.
 
-Wir beginnen mit einigen Beobachtungen zu $\sim_k$:\\
-$\textbf{|}|v|_{ab} - |v|_{ba}\textbf{|} \leq 1$ \\
-$\varepsilon \in$ p, ab $\in$ q, ba $\in$ r\\
-$\varepsilon \not\sim_k$ ab (mit x = b, denn $\varepsilon$b $\in$ K und abb $\not\in$ K)\\
-$\varepsilon \not\sim_k$ ba (mit x = a, denn $\varepsilon$a $\in$ K und baa $\not\in$ K)\\
-ab $\not\sim_k$ ba (mit x = a, denn aba $\in$ K und baa $\not\in$ K)
+\textbf{Fall 2:} es ist $v \sqsubset w$, also $v$ ein echtes Präfix von $w$, also auch $|v| < |w|$.\\[5pt]
+Dann sei ein $x \in \Sigma$ gegeben sodass $vx \not\sqsubset w$, also $vx$ kein echtes Präfix mehr von $w$ ist.
+Dann gilt offensichtlich $wxw^\mathcal{R} \in L$. Wäre nun $vxw^\mathcal{R} \in L$, so folgt auch
+$$
+    vxw^\mathcal{R} = (vxw^\mathcal{R})^\mathcal{R} = wxv^\mathcal{R} \,\Longrightarrow\, vx \sqsubset w
+$$
+Dies stellt einen Widerspruch zur Annahme dar. Also gibt es ein $u = xw^\mathcal{R} \in \Sigma^*$ sodass
+$wu \in L$ aber $vu \notin L$. Folglich gilt $w \not\sim_L v \,\Longrightarrow\, w/_L \neq v/_L$.
 
-Behauptung:\\
-Die $\sim_K$-Klassen sind: p/$_k$, q/$_k$, r/$_k$
+Insgesamt gilt für verschiedene Worte $w,v \in \Sigma^*$ stets $w/_L \neq v/_L$.
+Dementsprechend gilt\\
+$\forall w \in \Sigma^* : w/_L = \{w\}$, also auch index$(L) = \infty$.
+Die trennenden Wörter sind zu je zwei Wörtern $w,v \in \Sigma^*$ wie oben beschrieben je nach Fall zu finden,
+also $w^R$ oder $xw^R$ für ein $x \in \Sigma$.
 
-Da ein beliebiges v immer genau eine Eigenschaft der drei Äquivalenzklassen erfüllen muss, zeigt dies, dass p/$_k$, q/$_k$, r/$_k$ alle Äquivalenzklassen von K sind.\\
-Somit folgt auch index(K) = 3.
+\textbf{b)} Es gilt:
 
-Trennende Wörter x $\in$ $\lbrace a,b \rbrace^*$ :\\
-Das trennende Wort x von pq ist ab\\
-Das trennende Wort x von pr ist ba\\
-Das trennende Wort x von qr ist a\\
+$\varepsilon \not\sim_K a$, denn $\varepsilon b = b \in K$ jedoch $ab \notin K$. Analog gilt
+$\varepsilon a = a \in K$ jedoch $ba \notin K$, also $\varepsilon \not\sim_K b$.
+Weiter haben wir $a \not\sim_K b$ durch $aa \in K, ba \notin K$.
+
+Dann haben wir noch $ab$ sowie $ba$ und es gilt:\\
+$\varepsilon \not\sim_K ab$ durch $\varepsilon\varepsilon = \varepsilon \in K, ab\varepsilon = ab \notin K$.
+$\varepsilon \not\sim_K ba$ durch $\varepsilon\varepsilon = \varepsilon \in K, ba\varepsilon = ba \notin K$.\\
+$a \not\sim_K ab$ durch $a\varepsilon = a \in K, ab\varepsilon = ab \notin K$.
+$a \not\sim_K ba$ durch $a\varepsilon = a \in K, ba\varepsilon = ba \notin K$.\\
+$b \not\sim_K ab$ durch $b\varepsilon = b \in K, ab\varepsilon = ab \notin K$.
+$b \not\sim_K ba$ durch $b\varepsilon = b \in K, ba\varepsilon = ba \notin K$.\\
+$ab \not\sim_K ba$ durch $aba = aba \in K, baa = ba \notin K$.
+
+Sei nun $w \in \Sigma^*$ mit $w \notin \{\varepsilon, a, b, ab, ba\}$, sonst ist die Angehörigkeit zu einer
+der Äquivalenzklassen offensichtlich.
+
+Wir unterscheiden $3$ Fälle:
+
+\textbf{Fall 1:} $|w|_{ab} = |w|_{ba}$. Dann ist $w = vc$ für ein $v \in \Sigma^*$ und $c \in \{a,b\}$.\\
+Für $x \in \Sigma^*$ gilt stets
+$$
+    |wx|_{ab} - |wx|_{ba} = |w|_{ab} + |cx|_{ab} - |w|_{ba} - |cx|_{ba} = |cx|_{ab} - |cx|_{ba}
+$$
+Da jedes Infix $ab$ bzw. $ba$ aus $wx$ entweder in $vc$, oder in $cx$ vorkommt (da $|ab| = |ba| = 2$).\\
+Es folgt $wx \in K \,\Longleftrightarrow\, cx \in K$ und damit $w \in c/_K (= a/_K\ \text{oder}\ b/_K)$.
+
+\newpage
+
+\textbf{Fall 2:} $|w|_{ab} > |w|_{ba}$.
+
+Wenn $w = cvc$ für ein $c \in \Sigma$ und $v \in \Sigma^*$ wäre, so hätten
+wir zu jedem Infix $ab$ aus $w$ genau ein Infix $ba$ in $w$, also $|w|_{ab} = |w|_{ba}$. Weiter würde
+im Fall $w = bva$ für ein $v \in \Sigma^*$ stets $|w|_{ba} > |w|_{ab}$ gelten.\\
+Also ist $w = avb$ für $v \in \Sigma^*$.
+
+Für $x \in \Sigma^*$ gilt stets
+$$
+    |wx|_{ab} - |wx|_{ba} = |avbx|_{ab} - |avbx|_{ba} = |avb|_{ab} + |bx|_{ab} - |avb|_{ba} - |bx|_{ba}
+$$$$
+    = 1 + |x|_{ab} - |bx|_{ba}
+    = |abx|_{ab} - |abx|_{ba}
+$$
+Analog zu Fall 1, da jedes Infix $ab$ bzw. $ba$ aus $avbx$ entweder in $avb$ oder $bx$ vorkommen muss (da
+$|ab| = |ba| = 2$). Es folgt $wx \in K \,\Longleftrightarrow\, abx \in K$ und damit $w \in ab/_K$.
+
+\textbf{Fall 3:} $|w|_{ba} > |w|_{ab}$.
+
+Dies ist analog zu Fall 2. Es muss $w = bva$ für ein $v \in \Sigma^*$. Dann gilt für $x \in \Sigma^*$ stets
+$$
+    |wx|_{ba} - |wx|_{ab} = |bax|_{ba} - |bax|_{ab}
+$$
+Damit folgt $wx \in K \,\Longleftrightarrow\, ba \in K$ also $w \in ba/_K$.
+
+Insgesamt gilt für alle $w \in \Sigma^*$, dass $w$ in eine der genannten Äquivalenzklassen gehört.
+Da auch alle dieser verschieden sind, haben wir index$(K) = 5$.
+
 
 
 \end{document}
