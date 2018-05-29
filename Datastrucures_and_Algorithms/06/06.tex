@@ -380,7 +380,6 @@ und damit $B(n) \in \Theta(f(n)) = \Theta(n)$.
 Eine Eingabe hierfür wäre z.B. \texttt{heapSort([0,0,0,0,0,0])}.
 
 
-
 \aufgabe{3}
 \texttt{[6,4,4,9,3,2,7,5]} $\xrightarrow{\texttt{pivot=5}}$
 \texttt{[2,4,4,3,5,9,6,7]} $\xrightarrow{\texttt{pivot=3}}$
@@ -398,27 +397,27 @@ Offensichtlich tut der folgende Algorithmus das gewünschte:
 \lstinputlisting{stableSort.java}
 
 \aufgabe{5}
-\textbf{a)}
+\textbf{a)}\\
 Insertionsort ist hier gut, da Insertionsort gut für kleine Arrays ist, da bei kleinen Eingabelängen
 ein Worst-case von $n^2$ nicht problematisch ist.
 
-\textbf{b)}
-
+\textbf{b)}\\
 Hier empfiehlt es sich, Counting-Sort zu verwenden. Der Algorithmus hat eben die gegebene Vorraussetzung, dass
 nur Schlüssel zwischen 0 und einem festen $k$ existieren (hier $k=4$). Dafür kann er unter dieser Vorraussetzung
 die Eingabe der Länge $n$ in $\mathcal{O}(n+k)$ sortieren. Best-, Worst-, und Average-case machen hierbei keinen Unterschied.
 Dies ist deutlich schneller als alle anderen Sortierverfahren die zur Auswahl stehen.
 
-\textbf{c)}
-
+\textbf{c)}\\
 Für fast sortierte arrays ist Insertion-sort eine gute Wahl. Im Best-case (einem komplett sortierten Array)
 ist die Laufzeit linear. Dies ist ähnlich bei Bubblesort. Jedoch ist Insertionsort nochmal besser da
 in diesem Szenario alle Elemente sehr wahrscheinlich nur ein paar Plätze (oder auch keine) verschoben werden
 müssen. Insertionsort muss dann nur diese paar Plätze absuchen um die richtige Stelle zu finden, während Bubblesort
 das ganze Array durchläuft.
 
-\textbf{d)}
+\textbf{d)}\\
 Die Parallelisierbarkeit von Divide-and-Conquer Algorithmen spricht hier für Quick- sowie Merge-sort, jedoch
-ist die Arbeit vom Partitionieren deutlich besser zu teilen als beim mergen.
+ist die Arbeit vom Partitionieren deutlich besser zu teilen, da beim mergen selbst (was dem Großteil des Sortierverfahrens entspricht)
+nicht mehr parallel gearbeitet werden kann, während dass zusammenfügen der einzelnen Partitionen trivial ist.
+Also empfiehlt sich Quicksort.
 
 \end{document}
