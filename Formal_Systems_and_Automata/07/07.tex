@@ -1,0 +1,187 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\tikzset{
+  heap/.style={
+    every node/.style={circle, draw},
+    every rectangle node/.style={draw},
+    level 1/.style={sibling distance=20mm},
+    level 2/.style={sibling distance=10mm}
+  }
+}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 3}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+\aufgabe{5}
+\textbf{a)}
+\underline{S} $\to$ b\underline{S}SS $\to$ ba\underline{S}S $\to$ ban\underline{S}S $\to$ bana\underline{S}
+$\to$ banan\underline{S} $\to$ banana
+\begin{center}
+    \begin{tikzpicture}[heap]
+        \node {S}
+        child{node[rectangle]{b}}
+        child{node{S}
+            child{node[rectangle]{a}}}
+        child{node{S}
+            child{node[rectangle]{n}}
+            child{node{S}
+                child{node[rectangle]{a}}}}
+        child{node{S}
+            child{node[rectangle]{n}}
+            child{node{S}
+                child{node[rectangle]{a}}}}
+      ;
+    \end{tikzpicture}
+\end{center}
+\textbf{b)}
+$\mathcal{G}$ ist nicht eindeutig. Wir haben für das Wort baaaa folgende verschiedene Ableitungsbäume:
+
+\begin{minipage}{0.5\textwidth}
+    \begin{tikzpicture}[heap]
+        \node {S}
+        child{node[rectangle]{b}}
+        child{node{S}
+            child{node[rectangle]{a}}}
+        child{node{S}
+            child{node[rectangle]{a}}}
+        child{node{S}
+            child{node[rectangle]{a}}
+            child{node{S}
+                child{node[rectangle]{a}}}}
+      ;
+    \end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    \begin{tikzpicture}[heap]
+        \node {S}
+        child{node[rectangle]{b}}
+        child{node{S}
+            child{node[rectangle]{a}}
+            child{node{S}
+                child{node[rectangle]{a}}}}
+        child{node{S}
+            child{node[rectangle]{a}}}
+        child{node{S}
+            child{node[rectangle]{a}}}
+    ;
+    \end{tikzpicture}
+\end{minipage}
+
+\aufgabe{6}
+\textbf{a)}\\
+Es wird folgende reguläre Sprach erzeugt: $L(a(ba)^+\ +\ (ba)^+ b)$.
+
+
+\textbf{b)}\\
+Diese Sprache ist nicht regulär. Es wird erzeugt: $L := \{w \in \Sigma^* \mid |w|_1 \geq |w|_0\}$, also
+alle Wörter über dem gegebenen Alphabet, welche mehr 1 als 0 beinhalten.
+
+\newpage
+
+\textbf{c)}
+
+\aufgabe{7}
+Die Grammatik der Listensprache \texttt{LIST(BIN)} ist
+$\mathcal{G} := (\{S, B, D\}, \Sigma^*_{\texttt{ASCII}}\}, P, S)$ wobei $P$\\
+folgende Produktionsregeln hat:
+$$
+    S \to \texttt{nil} \mid \texttt{cons(}B\texttt{,}S\texttt{)}
+    \qquad
+    B \to \texttt{0} \mid \texttt{1}D
+    \qquad
+    D \to \texttt{0}D \mid \texttt{1}D \mid \varepsilon
+$$
+
+\aufgabe{8}
+Da die Grammatik schon frei von jeglichen $\varepsilon$-Regeln ist, können wir uns den ersten Schritt sparen.
+
+Nach dem 2. Schritt erhalten wir $\mathcal{G}_2 := (\{S, A, B, C, D, T_a, T_b\}, \{a,b\}, P, S)$ mit
+$$
+    S \to AB \mid BA \mid C
+    \qquad
+    A \to DAD \mid T_a
+    \qquad
+    B \to DBD \mid T_b
+$$$$
+    C \to A \mid B \mid T_aT_bC \mid D
+    \qquad
+    D \to T_a \mid T_b
+    \qquad
+    T_a \to a
+    \qquad
+    T_b \to b
+$$
+
+Nach dem 3. Schritt erhalten wir $\mathcal{G}_3 := (\{S, A, B, C, D, T_a, T_b\}, \{a,b\}, P, S)$ mit
+$$
+    S \to AB \mid BA \mid T_aT_bC \mid DAD \mid DBD \mid a \mid b
+    \qquad
+    A \to DAD \mid a
+$$$$
+    B \to DBD \mid b
+    \qquad
+    C \to T_aT_bC \mid DAD \mid DBD \mid a \mid b
+$$$$
+    D \to a \mid b
+    \qquad
+    T_a \to a
+    \qquad
+    T_b \to b
+$$
+
+Nach dem 4. Schritt erhalten wir $\mathcal{G}_4 := (\{S, A, B, C, D, T_a, T_b, X, Y, Z\}, \{a,b\}, P, S)$ mit
+$$
+    S \to AB \mid BA \mid T_aX \mid DY \mid DZ \mid a \mid b
+    \qquad
+    A \to DY \mid a
+$$$$
+    B \to DZ \mid b
+    \qquad
+    C \to T_aX \mid DY \mid DZ \mid a \mid b
+    \qquad
+    D \to a \mid b
+$$$$
+    X \to T_bC
+    \qquad
+    Y \to AD
+    \qquad
+    Z \to BD
+    \qquad
+    T_a \to a
+    \qquad
+    T_b \to b
+$$
+
+Diese Grammatik ist nach 7.20 äquivalent zur gegebenen und offensichtlich auch in CNF.
+\end{document}

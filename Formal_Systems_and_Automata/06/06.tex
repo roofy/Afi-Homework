@@ -110,12 +110,12 @@ Seien
 $\mathcal{M}_1 = (Q_1, \Sigma_1, \Sigma_2, \delta_1, q_{01}, \lambda_1),
 \mathcal{M}_2 = (Q_2, \Sigma_2, \Sigma_3, \delta_2, q_{02}, \lambda_2)$
 die Mealy-Automaten, welche jeweils die Funktionen $G_1, G_2$ berechnen.
-Die Idee ist, beide Automaton gleichzeitig laufen zu lassen.
+Die Idee ist, beide Automaton gleichzeitig laufen zu lassen, wir machen also eine Produktkonstruktion.
 Wir übergeben die Ausgabe von $\mathcal{M}_1$ an die Transitionsfunktion von $\mathcal{M_2}$, wechseln
 intern in beiden Automaton entsprechend die Zustände und geben nur das berechnete Symbol von $\mathcal{M}_2$
 bei der Transition aus.
 
-Der Mealy-Automat $\mathcal{M}$ mit $G_{\mathcal{M}}) = G_2 \circ G_1$ ist also wie folgt definiert:
+Der Mealy-Automat $\mathcal{M}$ mit $G_{\mathcal{M}} = G_2 \circ G_1$ ist also wie folgt definiert:
 $$
     \mathcal{M} := (Q_1 \times Q_2, \Sigma_1, \Sigma_3, \delta, (q_{01}, q_{02}), \lambda)
 $$
