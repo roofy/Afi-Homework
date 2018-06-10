@@ -1,0 +1,543 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz,forest}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 7}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+Über dem Pfeil die auszuführende Operation, drunter der Callstack.
+
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [39
+            [,phantom]
+            [62,circle]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow{\texttt{rbtIns(34)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [39
+            [34,circle]
+            [62,circle]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow{\texttt{rbtIns(28)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [39
+            [34,circle
+                [28,circle]
+                [,phantom]
+            ]
+            [62,circle]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(28)}\\\texttt{leftAdjust(28)}\\\texttt{recolor}}]{\texttt{rbtIns(28)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [39,circle
+            [34
+                [28,circle]
+                [,phantom]
+            ]
+            [62]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{rbtDelFix(62,null)}\\\texttt{delRightAdjust(62)}\\\texttt{recolor}}]{\texttt{rbtDel(62)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [39,
+            [34,circle
+                [28]
+                [,phantom]
+            ]
+            [62]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtDelFix(62,null)}\\\texttt{delRightAdjust(62)}\\\texttt{rightRotate(39)}}]{\texttt{rbtDel(62)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [34,circle
+            [28]
+            [39
+                [,phantom]
+                [62]
+            ]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\texttt{bstReplace(62,null)}]{\texttt{rbtDel(62)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [93
+        [34,circle
+            [28]
+            [39]
+        ]
+        [94]
+    ]
+\end{forest}
+\end{minipage}
+
+\aufgabe{2}
+$\xrightarrow[\texttt{bstIns(40)}]{\texttt{rbtIns(40)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [40,circle]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(40)}\\\texttt{recolor}}]{\texttt{rbtIns(40)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [40]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\texttt{bstIns(48)}]{\texttt{rbtIns(48)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [40
+        [,phantom]
+        [48,circle]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\texttt{bstIns(68)}]{\texttt{rbtIns(68)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [40
+        [,phantom]
+        [48,circle
+            [,phantom]
+            [68,circle]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{rbtInsFix(68)}\\\texttt{rightAdjust(68)}\\\texttt{leftRotate(40)}}]{\texttt{rbtIns(68)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48,circle
+        [40]
+        [68,circle]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(68)}\\\texttt{rightAdjust(68)}\\\texttt{recolor}}]{\texttt{rbtIns(68)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [40,circle]
+        [68,circle]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\texttt{bstIns(55)}]{\texttt{rbtIns(55)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [40,circle]
+        [68,circle
+            [55,circle]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+\newpage
+
+$\xrightarrow[\substack{\texttt{rbtInsFix(55)}\\\texttt{rightAdjust(55)}\\\texttt{recolor}}]{\texttt{rbtIns(55)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [40]
+        [68
+            [55,circle]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\texttt{bstIns(39)}]{\texttt{rbtIns(39)}}$
+\begin{minipage}{0.2\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [40
+            [39,circle]
+            [,phantom]
+        ]
+        [68
+            [55,circle]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtDelFix(40,39)}\\\texttt{recolor}}]{\texttt{rbtDel(40)}}$
+\begin{minipage}{0.2\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [40
+            [39]
+            [,phantom]
+        ]
+        [68
+            [55,circle]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{bstReplace(40,39)}}]{\texttt{rbtDel(40)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [39]
+        [68
+            [55,circle]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtDel(55)}\\\texttt{bstReplace(55,null)}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [48
+        [39]
+        [68]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{bstSwap(48,55)}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [55,circle
+        [39]
+        [68]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{recolor}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.1\textwidth}
+\begin{forest}
+    for tree={draw}
+    [55
+        [39]
+        [68]
+    ]
+\end{forest}
+\end{minipage}
+
+\aufgabe{3}
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [50
+        [40,circle
+            [23]
+            [46
+                [41,circle]
+                [49,circle]
+            ]
+        ]
+        [75]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{bstIns(42)}}]{\texttt{rbtIns(42)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [50
+        [40,circle
+            [23]
+            [46
+                [41,circle
+                    [,phantom]
+                    [42,circle]
+                ]
+                [49,circle]
+            ]
+        ]
+        [75]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(42)}\\\texttt{leftAdjust(42)}\\\texttt{recolor}}]{\texttt{rbtIns(42)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [50
+        [40,circle
+            [23]
+            [46,circle
+                [41
+                    [,phantom]
+                    [42,circle]
+                ]
+                [49]
+            ]
+        ]
+        [75]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(42)}\\\texttt{leftAdjust(46)}\\\texttt{leftRotate(40)}}]{\texttt{rbtIns(42)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [50
+        [46,circle
+            [40,circle
+                [23]
+                [41
+                    [,phantom]
+                    [42,circle]
+                ]
+            ]
+            [49]
+        ]
+        [75]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{rbtInsFix(42)}\\\texttt{leftAdjust(46)}\\\texttt{rightRotate(50)}}]{\texttt{rbtIns(42)}}$
+\begin{minipage}{0.25\textwidth}
+\begin{forest}
+    for tree={draw}
+    [46,circle
+        [40,circle
+            [23]
+            [41
+                [,phantom]
+                [42,circle]
+            ]
+        ]
+        [50
+            [49]
+            [75]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtInsFix(42)}\\\texttt{leftAdjust(46)}\\\texttt{recolor}}]{\texttt{rbtIns(42)}}$
+\begin{minipage}{0.2\textwidth}
+\begin{forest}
+    for tree={draw}
+    [46
+        [40,circle
+            [23]
+            [41
+                [,phantom]
+                [42,circle]
+            ]
+        ]
+        [50,circle
+            [49]
+            [75]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+\newpage
+
+\aufgabe{4}
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [23
+        [18,circle
+            [12]
+            [20]
+        ]
+        [48]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtDelFix(48,null)}\\\texttt{delRightAdjust(48)}\\\texttt{recolor}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [23,circle
+        [18
+            [12]
+            [20]
+        ]
+        [48]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{rbtDelFix(48,null)}\\\texttt{delRightAdjust(48)}\\\texttt{rightRotate(23)}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [18
+        [12]
+        [23,circle
+            [20]
+            [48]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+$\xrightarrow[\substack{\texttt{rbtDelFix(48,null)}\\\texttt{delRightAdjust(48)}\\\texttt{recolor}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [18
+        [12,circle]
+        [23,circle
+            [20]
+            [48]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+$\xrightarrow[\substack{\texttt{bstReplace(48,null)}}]{\texttt{rbtDel(48)}}$
+\begin{minipage}{0.15\textwidth}
+\begin{forest}
+    for tree={draw}
+    [18
+        [12,circle]
+        [23,circle
+            [20]
+            [,phantom]
+        ]
+    ]
+\end{forest}
+\end{minipage}
+
+\aufgabe{5}
+\texttt{0: 11}\\
+\texttt{1:}\\
+\texttt{2:}\\
+\texttt{3: 80}\\
+\texttt{4: 15 -> 92 -> 92}\\
+\texttt{5: 38 -> 16 -> 71 -> 38}\\
+\texttt{6: 28}\\
+\texttt{7: 62}\\
+\texttt{8: 30}\\
+\texttt{9: 86 -> 53}\\
+\texttt{10:}
+
+\aufgabe{6}
+\texttt{0: 20 -> 60}\\
+\texttt{1: 89 -> 39 -> 19}\\
+\texttt{2: 78 -> 58 -> 38}\\
+\texttt{3:}\\
+\texttt{4:}\\
+\texttt{5:}\\
+\texttt{6: 75}\\
+\texttt{7:}\\
+\texttt{8:}\\
+\texttt{9: 63}\\
+\texttt{10: 52 -> 12 -> 52}\\
+\texttt{11: 41}\\
+\texttt{12:}\\
+
+\end{document}
