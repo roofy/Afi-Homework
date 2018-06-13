@@ -1,0 +1,194 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 8}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{5}
+\textbf{a)}
+$
+\langle_S
+    a
+    \langle_A
+        a
+        \langle_S
+            \langle_B
+                \langle_S
+                    \langle_A
+                    \rangle_A
+                    b
+                \rangle_S
+                a
+                b
+                \rangle_S
+            \rangle_B
+        b
+        \rangle_S
+    \rangle_A
+\rangle_S
+$
+und
+$
+\langle_S
+    \langle_A
+        a
+        \langle_S
+            \langle_B
+                a
+                b
+                \langle_S
+                    a
+                    \langle_A
+                    \rangle_A
+                \rangle_S
+            \rangle_B
+        \rangle_S
+        b
+    \rangle_A
+    b
+\rangle_S
+$
+
+\textbf{b)}
+Sei also eine kontextfreie Grammatik $\mathcal{G} := \{N, T, S, P\}$ gegeben.\\
+Wir konstruieren
+$\mathcal{G}' := (N, T \cup \{\langle_X, \rangle_X \mid X \in N\}, S, P')$.
+Für jede Produktionsregel $p \in P$ mit $p = X\to \alpha$,
+wobei $X \in N$ und $\alpha$ eine Satzform ist, haben wir eine Produktionsregel
+$p' = X \to \langle_X \alpha \rangle_X$ in $P'$. Damit wird wie in der Konstruktion
+der Baumkodierung nach jedem Ableitungsschritt bzw. um jede Ebene im Ableitungsbaum
+die entsprechende Klammerung hinzugefügt.
+
+\aufgabe{6}
+\textbf{a)}
+$\mathcal{G} := (\{Q_0, Q_1, Q_3\}, \{a,b\}, P, Q_0\}$ mit $P$ gegeben durch
+$$
+    Q_0 \to aQ_1 \mid bQ_3
+    \qquad
+    Q_1 \to bQ_3 \mid b
+    \qquad
+    Q_3 \to aQ_1 \mid a
+$$
+
+\textbf{b)}
+$\mathcal{G} := (\{Q_0, Q_1, Q_2\}, \{a,b\}, P, Q_0\}$ mit $P$ gegeben durch
+$$
+    Q_0 \to bQ_0 \mid aQ_1 \mid a
+    \qquad
+    Q_1 \to bQ_1 \mid aQ_2 \mid b \mid a
+    \qquad
+    Q_2 \to bQ_2 \mid aQ_0 \mid b
+$$
+
+\aufgabe{7}
+Wir wissen aus Tutoraufgabe 1, dass die kontextfreien Grammatiken unter
+Spiegelbild-bildung abgeschlossen sind.
+Für eine gegebene linkslineare Grammatik $\mathcal{G}$ können wir also die
+Grammatik $\mathcal{G}^{\mathcal{R}}$ konstruieren. Offensichtlich ist diese
+dann rechtslinear, denn:\\
+Für jede Produktionsregel $p$ der Form $N \to a$, mit $N$ als Nichtterminal und
+$a$ als Terminal haben wir auch die Produktionsregel
+$N \to a$ in $\mathcal{G}^{\mathcal{R}}$.\\
+Für jede Produktionsregel $p$ der Form $N \to Ba$ mit $N,B$ als Nichtterminal und
+$a$ als Terminal haben wir die Produktionsregel
+$N \to aB$ in $\mathcal{G}^{\mathcal{R}}$. Da also $\mathcal{G}$ nur Produktionsregeln
+dieser Form enthalten kann, kann $\mathcal{G}^\mathcal{R}$ nur Produktionsregeln
+enthalten, welche rechtslinear sind.\\
+Damit ist also $L(\mathcal{G}^\mathcal{R})$ regulär, und damit auch
+$L(\mathcal{G}^\mathcal{R})^\mathcal{R} = L(\mathcal{G})$ regulär, da
+die regulären Sprachen unter Spiegelbild-bildung ebenfalls abgeschlossen sind.
+
+Zu einer gegebenen regulären Sprache $L$ existiert eine rechtslineare Grammatik $\mathcal{G}$ sodass \\
+$L = L(\mathcal{G}) \setminus \{\varepsilon\}$. Da für jede Sprache $K$ stets
+$(K^\mathcal{R})^\mathcal{R} = K$, also die Spiegelbild-Operation ihr eigenes Inverses
+ist, folgt nach oben stehendem Argument analog, dass dann $\mathcal{G}^\mathcal{R}$
+linkslinear ist.
+
+Insgesamt erzeugen die linkslinearen Grammatiken genau die regulären Sprachen.
+
+\newpage
+\aufgabe{8}
+\textbf{a)}
+
+Angenommen, $L_1$ sei kontextfrei.\\
+Sei $n \geq 1$ gemäß Pumping-Lemma gegeben.
+Wir betrachten $z = a^nb^nc^{n^2} \in L_1$.\\
+Das Pumping-Lemma liefert die
+Zerlegung $z = uvwxy$ mit $vx \neq \varepsilon$ und $|vwx| \leq n$.
+
+\textbf{Fall 1:} $vwx = \sigma^n$ für $\sigma \in \{a,b\}$.\\
+Es folgt nach Pumping-Lemma, dass auch $z_2 = uv^2wx^2y \in L_1$, jedoch haben wir dann\\
+$|z_2|_c < |z_2|_a \cdot |z_2|_b$, da $vx \neq \varepsilon$ und alle $c's$ in $y$ liegen. Dann ist jedoch $z_2 \notin L_1$. Widerspruch!
+
+\textbf{Fall 2:} $vwx$ liegt ganz im Präfix $a^nb^n$ (und Fall 1 trifft nicht zu).
+Es folgt nach Pumping-Lemma, dass auch $z_0 = uwy \in L_1$, jedoch haben wir dann
+$|z_0|_c > |z_0|_a \cdot |z_0|_b$, da $vx \neq \varepsilon$ und alle $c's$ in $y$ liegen. Dann ist aber $z_0 \notin L_1$. Widerspruch!
+
+\textbf{Fall 3:} $vwx$ liegt ganz im Suffix $b^nc^{n^2}$ (aber $vwx \neq b^n$).
+Es folgt nach dem Pumping-Lemma, dass auch $z_0 = uwy \in L_1$. Es sind
+alle $a's$ von $z_0$ in $u$. Wir haben also insgesamt die Gleichung
+$$
+    |z_0|_c = |z_0|_a \cdot |z_0|_b
+    \,\Longleftrightarrow\, n^2-j = n\cdot(n-k)
+$$
+für $j,k \in \mathbb{N}$ mit $j+k = |vwx| = n$. Andererseits folgt damit
+$
+    n = n-k+\frac{j}{n} \,\Longrightarrow\, j=nk
+$.\\
+Setzen wir dies nun in $j+k = n$ ein, folgt $k = \frac{n}{n+1}$. Da jedoch
+$n,k \in \mathbb{N}$ haben wir hiermit einen Widerspruch, da für $n > 0$ stets
+$\frac{n}{n+1} \notin \mathbb{N}$. Damit haben wir also $|z_0|_c \neq |z_0|_a \cdot |z_0|_b$ und $uwy \notin L_1$. Insgesamt ist also in jedem Fall $L_1$ nicht kontextfrei.\\
+
+
+\textbf{b)}
+
+Angenommen $L_2$ sei kontextfrei.\\
+Sei $n\geq 1$ gemäß Pumping-Lemma, gegeben.
+Wir betrachten $z = a^nb^{n+1}c^{n+2} \in L_2$.\\
+Das Pumping-Lemma liefert die Zerlegung $z = uvwxy$ mit $vx \neq \varepsilon$ und
+$|vwx| \leq n$.
+
+\textbf{Fall 1:} $vwx$ liegt ganz im Präfix $a^nb^{n+1}$.\\
+Es folgt nach Pumping-Lemma, dass auch $z_2 = uv^2wx^2y \in L_2$, jedoch haben wir
+dann mindestens ein $a$ oder $b$ mehr als in $z$. Wenn wir mindestens ein $b$ mehr
+haben, also $|z_2|_b > |z|_b$, dann folgt $|z_2|_b \not< |z_2|_c$, da alle
+$c's$ von $z_2$ in $y$ liegen. Wenn wir kein $b$ mehr haben, so müssen wir durch
+$vx \neq \varepsilon$ ein $a$ mehr haben, also $|z_2|_a > |z|_a$ und damit $|z_2|_a \not< |z_2|_b$. In beiden Fällen ist dann jedoch $z_2 \notin L_2$. Widerspruch!
+
+\textbf{Fall 2:} $vwx$ liegt ganz im Suffix $b^{n+1}c^{n+2}$.
+Es folgt nach Pumping-Lemma, dass auch $z_0 = uwy \in L_2$, jedoch haben wir dann
+mindestens ein $b$ oder $c$ weniger als in $z$. Wenn also $|z_0|_b < |z|_b$, dann
+folgt $|z_0|_a \not< |z_0|_b$, da alle $a's$ von $z_0$ in $u$ sind.
+Wenn wir $|z_0|_c < |z|_c$, dann folgt $|z_0|_b \not< |z_0|_c$.
+In beiden Fällen ist dann jedoch $z_0 \notin L_2$. Widerspruch!
+
+\end{document}
