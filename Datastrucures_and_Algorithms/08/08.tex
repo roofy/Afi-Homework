@@ -1,0 +1,117 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 8}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+Eingabearray \texttt{[3,6,2,4,5,5,0,2]}.\\
+Histogramm \texttt{[1,0,2,1,1,2,1]}.\\
+Positionsarray \texttt{[1,1,3,4,5,7,8]}.\\
+Ergebnisarray:\\
+\texttt{[0,0,0,0,0,0,0,0] -> [0,0,2,0,0,0,0,0] -> [0,0,2,0,0,0,0,0] -> [0,0,2,0,0,0,5,0]}\\
+\texttt{[0,0,2,0,0,5,5,0] -> [0,0,2,0,4,5,5,0] -> [0,2,2,0,4,5,5,0] -> [0,2,2,0,4,5,5,6]}\\
+\texttt{[0,2,2,3,4,5,5,6]}
+
+\aufgabe{2}
+\aufgabe{3}
+Die Funktion $f : [1,100] \to [1,10], x \mapsto \lfloor \frac{10}{x} \rfloor$ ist grundsätzlich einfach zu berechnen,
+wir nehmen schließlich oft an, dass Operationen wie $\div$ konstante Zeit benötigen. Weiter sind keine zu großen Zahlen im Spiel.
+$f$ ist jedoch nicht surjektiv, da $f$ monoton fallend ist und $f(1) = 10, f(2) = 5$ gilt, also z.B. $9,8,7,6$ nicht getroffen
+werden. Weiter ist $f$ bei weitem nicht gleichverteilt, wir haben $\forall x \in [11, 100] : f(x) = 0$, also ca 90\% der
+möglichen Eingaben werden auf 0 abegebildet. Letztlich werden auch ähnliche Schlüssel auf ähnliche Bereiche verteil, insgesamt
+ist die Funktion nicht sehr gut geeignet.
+
+Die Funktion $g:\mathbb{N} \to \mathbb{Z}/101\mathbb{Z}, x \mapsto 2^x\ \text{mod}\ 101$ ist nicht so einfach zu berechnen wie
+die anderen der Liste, jedoch ist eine Zweierpotenz letzendlich nur ein Left-shift, also auch nicht sehr kostspielig.
+$g$ ist nicht surjektiv, da es kein $x \in \mathbb{N}$ mit $2^x\ \text{mod}\ 101 = 0 \in \mathbb{Z}/101\mathbb{Z}$ gibt.
+Da wir $2^{100}\ \text{mod}\ 101 = 1$ haben,
+gilt stets $2^{x+100y} \equiv 2^x\ \text{mod}\ 101$ für $x \in [0,99], z \in \mathbb{N}$. Damit haben wir (bis auf 0) eine
+perfekte Gleichverteilung über $\mathbb{N}$. Hinzukommend werden aufeinanderfolgende Werte breit verteilt, beispielsweise
+gilt $g(22) = 77, g(23) = 53$. Insgesamt ist $g$ eine geeignete Hashfunktion.
+
+Die Funktion $h:[0, 100] \to [0,10], x \mapsto x\ \text{mod}\ 11$ ist sehr einfach zu berechnen. Ferner ist es surjektiv, da
+z.b. $h_{[0,10]} = \text{id}_{[0,10]}$. Offensichtlich haben wir für $x \in [2,10]$ stets 9 werte in $[0,100]$ welche
+unter $h$ auf $x$ abgebildet werden, für $x = 0$ oder $x=1$ gibt es 10. Das ist eine ausgeglichene Gleichverteilung über
+$[0,100]$. Jedoch werden Schlüssel nicht sehr breit verteilt. Ist $x \in [0,100]$ Vielfaches von 10, so wird der Nachfolger
+von $x$ auch auf den Nachfolger des Bildes von $x$ unter $h$ abgebildet. Grundsätzlich ist diese letzte Eigenschaft eine
+der wichtigsten, weswegen Ich diese Funktion trotz ihrer restlichen Qualitäten nicht als gute Hashfunktion betiteln würde.
+
+\newpage
+
+Die Funktion $i: \mathbb{N} \to [0,50], x \mapsto \lfloor \frac{x}{2} \rfloor\ \text{mod}\ 51$ ist (analog zu $f$) wahrscheinlich
+in konstanter Zeit berechnbar. Weiter ist sie surjektiv, denn
+es ist $i(\{2x \mid x \in [0,50]\}) = [0,50]$. Ferner haben wir eine ausgeglichene Gleichverteilung über ganz $\mathbb{N}$,
+da für $x \in [0,50]$ immer\\ $\{y \in \mathbb{N}| y=2(x+51z) \lor y=2(x+51z)+1, z \in \mathbb{N}\}$ das Urbild
+von $x$ darstellt. Jedoch ist wieder analog zu $h$ eine eher schlechte Verteilung der Werte gegeben. Die Folge der Werte
+über $\mathbb{N}$ folgt dem Schema $0,0,1,1,2,2,\cdots,50,50,0,0,1,1,\cdots$. Aus gleichem Grund wie für $h$ würde ich
+also $i$ nicht als gute Hashfunktion bezeichnen.
+
+\aufgabe{4}
+$c = 0.01, m = 11$.\\
+\texttt{[5, , , , , , , , , , ] -> [5, ,21, , , , , , , , ] -> [5, ,21,23, , , , , , , ]}
+\texttt{[5,17,21,23, , , , , , , ] -> [5,17,21,23,11, , , , , , ]}\\
+\texttt{[5,17,21,23,11,7, , , , , ] -> [5,17,21,23,11,7,1, , , , ]}
+
+\aufgabe{5}
+$c = 0.01, c_1 = 2, c_2 =1, m = 11$.\\
+\texttt{[5, , , , , , , , , , ] -> [5, ,21, , , , , , , , ] -> [5, ,21, , ,23, , , , , ]}
+\texttt{[5,17,21, , ,23, , , , ] -> [5,17,21, ,11,23, , , , , ]}\\
+\texttt{[5,17,21,7,11,23, , , , , ] -> [5,17,21,7,11,23, , ,1, , ]}
+
+\aufgabe{6}
+
+\lstinputlisting{nr6.java}
+\end{document}

@@ -1,0 +1,243 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\textbf{Idee:} (Pseudocode)
+
+\texttt{x::t} bedeutet \texttt{x} hat Typ \texttt{t}.\\
+\texttt{x :: a -> b} bedeutet \texttt{x} ist Funktion mit Eingabetyp \texttt{a}
+und Ausgabetyp \texttt{b}.\\
+Wir definieren weiter den Typ \texttt{Parser = \{String\} -> \{String\}}.\\
+Ein Parser ist also eine Funktion von einer Menge von Strings zu einer Menge von Strings.
+Später werden die folgenden Funktionen auf Indizes von Matches (startIndex, endIndex) laufen, jedoch
+ist zur Veranschaulichung dies besser.
+
+\textbf{Definition:} \texttt{readChar}
+\texttt{\\
+    readChar :: Char -> Parser\\
+    readChar(c) =
+} $S \to \{w_1, \cdots w_n \mid w \in S \land w_0 = c\}$
+
+\texttt{readChar(c)} gibt also einen Parser(Funktion) zurück, der den char \texttt{c} konsumiert.
+
+\textbf{Beispiel:} \texttt{readChar}\\
+Mit $f_\texttt{a} :=$ \texttt{readChar(\texttt{a})} haben wir
+$$
+    f_\texttt{a}(\{\texttt{ab, aac, xb, b}\}) = \{\texttt{b, ac}\}
+$$
+
+\textbf{Definition:} \texttt{concatenate}\\
+\texttt{concatenate :: (Parser, Parser) -> Parser}\\
+\texttt{concatenate(p1,p2) =} \texttt{p2} $\circ$\ \texttt{p1}
+
+\textbf{Beispiel:} \texttt{concatenate}\\
+Mit $f_\texttt{a}$ wie oben und $f_\texttt{b}$ analog definieren wir
+$f_\texttt{ab} :=$ \texttt{concatenate($f_\texttt{a}, f_\texttt{b}$)} = $f_\texttt{b} \circ f_\texttt{a}$.\\
+Dann haben wir beispielsweise
+$$
+    f_\texttt{ab}(\{\texttt{abc, aa, bb, xbz}\})
+    = f_\texttt{b}(f_\texttt{a}(\{\texttt{abc, aa, bb, xbz}\}))
+    = f_\texttt{b}(\{\texttt{bc, a}\})
+    = \{\texttt{c}\}
+$$
+
+\textbf{Definition:} \texttt{alternate}\\
+\texttt{alternate :: (Parser, Parser) -> Parser}\\
+\texttt{alternate(p1,p2) =} $S \to$ \texttt{p1($S$) $\cup$ p2($S$)}
+
+\textbf{Beispiel:} \texttt{alternate}\\
+Mit $f_\texttt{a}, f_\texttt{b}$ wie oben definieren wir
+$f_\texttt{a|b} :=$ \texttt{alternate($f_\texttt{a}, f_\texttt{b}$)}. Dann haben wir beispielsweise:
+$$
+    f_\texttt{a|b}(\{\texttt{abc, by, xbz}\})
+    = f_\texttt{a}(\{\texttt{abc, by, xbz}\}) \cup f_\texttt{b}(\{\texttt{abc, by, xbz}\})
+$$$$
+    = \{\texttt{bc}\} \cup \{\texttt{y}\}
+    = \{\texttt{bc, y}\}
+$$
+
+
+\textbf{Definition:} \texttt{iterate}\\
+\texttt{iterate :: Parser -> Parser}\\
+\texttt{iterate(p) =}
+$
+    S \to \displaystyle\bigcup_{i \in \mathbb{N}_0} {\texttt{p}}^i\texttt{($S$)}
+    \qquad = \qquad
+    S \to S \cup \texttt{p($S$)} \cup \texttt{p(p($S$))} \cup \cdots
+$
+
+
+\textbf{Beispiel:} \texttt{iterate}\\
+Mit $f_\texttt{a}$ wie oben definieren wir $f_\texttt{a*} :=$ \texttt{iterate($f_\texttt{a}$)}. Dann haben wir beispielsweise:
+$$
+    f_\texttt{a*}(\{\texttt{aaaz, axa, edc}\})
+$$$$
+    = \{\texttt{aaaz, axa, edc}\}
+        \cup f_\texttt{a}(\{\texttt{aaaz, axa, edc}\})
+        \cup f_\texttt{a}(f_\texttt{a}(\{\texttt{aaaz, axa, edc}\}))
+        \cup \cdots
+$$$$
+    = \{\texttt{aaaz, axa, edc}\}
+        \cup \{\texttt{aaz, xa}\}
+        \cup \{\texttt{az}\}
+        \cup \{\texttt{z}\}
+        \cup \varnothing
+        \cup \varnothing
+        \cup \cdots
+$$$$
+    = \{\texttt{aaaz, axa, edc, aaz, xa, az, z}\}
+$$
+
+\newpage
+
+In dieser Weise lassen sich Induktiv Parser zusammenbasteln, z.B. mit dem Thompsonvisitor.
+
+\begin{minipage}{0.5\textwidth}
+    \texttt{concatenate(}\\
+    \strut\qquad\texttt{iterate(}\\
+    \strut\qquad\qquad\texttt{alternate(}\\
+    \strut\qquad\qquad\qquad\texttt{readChar('a'),}\\
+    \strut\qquad\qquad\qquad\texttt{concatenate(}\\
+    \strut\qquad\qquad\qquad\qquad\texttt{readChar('b'),}\\
+    \strut\qquad\qquad\qquad\qquad\texttt{readChar('b')}\\
+    \strut\qquad\qquad\qquad\texttt{)}\\
+    \strut\qquad\qquad\texttt{)}\\
+    \strut\qquad\texttt{),}\\
+    \strut\qquad\texttt{readChar('b')}\\
+    \strut\texttt{)}\\
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    Dies entspricht der Regex \texttt{(a | bb)$^\texttt{*}$b}.
+\end{minipage}
+
+Um jetzt aber vernünftig matchen zu können arbeiten wir nicht mehr mit Strings sondern Indizes auf einem globalen gemeinsamen
+Eingabestring.
+
+Wir haben also beispielsweise den Eingabestring \texttt{bbaaabbb} und Paare von start und endIndex als Matches der obigen Regex
+wie folgt:
+
+$(0,1)$ für \texttt{|b|baaabbb}, wo also der Kleene-Stern 0 mal gematcht wird und dann das \texttt{b}.\\
+$(0,6)$ für \texttt{|bbaaab|bb}\qquad\qquad
+$(0,8)$ für \texttt{|bbaaabbb|}\qquad\qquad
+$(1,2)$ für \texttt{b|b|aaabbb}\\
+$(1,6)$ für \texttt{b|baaab|bb}\qquad\qquad
+$(1,8)$ für \texttt{b|baaabbb|}\qquad\qquad
+$(2,6)$ für \texttt{bb|aaab|bb} $\cdots$
+
+Die Definitionen sehen dann wie folgt aus:\\
+Für ein gegebenes Eingabewort $w = w_0w_1\cdots w_n$ haben wir
+
+\texttt{type Match = (Int, Int)}\qquad\qquad
+\texttt{type Parser = \{Match\} -> \{Match\}}
+
+\texttt{readChar(c) =} $S \to \{(i, j+1) \mid (i,j) \in S \land w_j = c\}$
+
+Die restlichen Funktionen behalten ihre Definition.
+
+Wenn wir also einen Parser \texttt{p} aus diesen Funktionen zusammengebaut haben, so können wir unsere
+Startmenge von Matches durch
+$
+    S := \{(i,i) \mid i \in [0, |w|-1]\}
+$
+definieren,
+wobei $w$ das Eingabewort ist.
+Dies symbolisiert alle möglichen Startposition von Matches im gegebenen String.
+So können wir alle möglichen Matches parallel behandeln.
+Weiter haben wir also eine Funktion \texttt{runParser :: (Parser, String) -> \{Match\}} welche die Startmenge
+$S$ erzeugt und diese dem Parser übergibt.
+
+\textbf{Beispiel}\\
+Regex ist \texttt{(a|b)c$^\texttt{*}$}. Eingabewort $w = \texttt{xabccx}$ , der Parser lässt sich bauen durch\\
+\texttt{p = concatenate(}\\
+\strut\qquad\texttt{alternate(readChar('a'), readChar('b')),}\\
+\strut\qquad\texttt{iterate(readChar('c'))}\\
+\texttt{)}\\
+Wir setzen zur Veranschaulichung aber Zwischenfunktionen, also\\
+$f_x := \texttt{readChar($x$)}$ für $x \in \{\texttt{a,b,c}\}$,
+$f_\texttt{a|b} := \texttt{alternate($f_\texttt{a}, f_\texttt{b}$)}$,
+$f_\texttt{c*} := \texttt{iterate($f_\texttt{c}$)}$ und\\
+$p := \texttt{concatenate($f_\texttt{a|b}$, $f_\texttt{c*}$)}$.
+
+Wir nehmen also an das von überall Zugriff auf $w$ ist, also $w$ in Java z.B. ein \texttt{public static} der \texttt{Match}-Klasse
+ist.
+Der Aufruf \texttt{runParser($p$, $w$)} läuft dann wie folgt ab:
+
+\newpage
+\begin{alignat*}{1}
+    \texttt{runParser($p$, $w$)}
+    &= p(S)\\
+    &= f_\texttt{c*}(f_\texttt{a|b}(S))\\
+    &= f_\texttt{c*}(f_\texttt{a}(S) \cup f_\texttt{b}(S))\\
+    &= f_\texttt{c*}(\{(j,k+1) \mid (j,k) \in S \land w_k = \texttt{a}\} \cup f_\texttt{b}(S))\\
+    &= f_\texttt{c*}(\{(1,2)\} \cup f_\texttt{b}(S))\\
+    &= f_\texttt{c*}(\{(1,2)\} \cup \{(j,k+1) \mid (j,k) \in S \land w_k = \texttt{b}\})\\
+    &= f_\texttt{c*}(\{(1,2)\} \cup \{(2,3)\})\\
+    &= f_\texttt{c*}(\{(1,2),(2,3)\})\\
+    &= \bigcup_{i \in \mathbb{N}_0} f_\texttt{c}^i(\{(1,2),(2,3)\})\\
+    &= \{(1,2),(2,3)\} \cup \bigcup_{i \in \mathbb{N}} f_\texttt{c}^i(\{(1,2),(2,3)\})\\
+    &= \{(1,2),(2,3)\} \cup \bigcup_{i \in \mathbb{N}} \{(j, k+i) \mid (j,k) \in \{(1,2),(2,3)\} \land \forall l \in [1,i] : w_{k+l} = \texttt{c}\}\\
+    &= \{(1,2),(2,3)\} \cup \{(2,4)\} \cup \{(2,5)\} \cup \varnothing \cup \cdots\\
+    &= \{(1,2),(2,3),(2,4),(2,5)\}
+\end{alignat*}
+Das Ergebnis entspricht den Matches \texttt{x|a|bccx, xa|b|ccx, xa|bc|cx, xa|bcc|x}.\\
+
+Grundsätzlich haben wir also eine Regex-Matching Funktion rekursiv über den Aufbau unserer Regexe definiert.
+In einem würde es sich auch wie folgt schreiben lassen:
+
+Sei $\Sigma$ ein Alphabet, und $\mathcal{R}_\Sigma$ die Menge aller Regexe über $\Sigma$.\\
+Sei ferner $r \in \mathcal{R}_\Sigma$, $w \in \Sigma^*$ und $S := \{(i,i) \mid i \in [0, |w|-1]\}$. Dann definiere:
+$$
+    \texttt{ext}(r, S) := \begin{cases}
+        \{(i, j+1) \mid (i,j) \in S \land w_j = c\} & \text{falls}\ r = c \in \Sigma\\
+        \texttt{ext}(r_2, \texttt{ext}(r_1, S))     & \text{falls}\ r = (r_1r_2)\ \text{für}\ r1,r2 \in \mathcal{R}_\Sigma\\
+        \texttt{ext}(r1, S) \cup \texttt{ext}(r2,S) & \text{falls}\ r = (r1 \mid r2)\ \text{für}\ r1,r2 \in \mathcal{R}_\Sigma\\
+        \texttt{iter}(t, S)                        & \text{falls}\ r = t^*\ \text{für}\ t \in \mathcal{R}_\Sigma
+    \end{cases}
+$$$$
+    \texttt{iter}(t, S) := \begin{cases}
+        \varnothing & \text{falls}\ S = \varnothing\\
+        S \cup \texttt{iter}(t, \texttt{ext}(t, S)) & \text{sonst}
+    \end{cases}
+$$$$
+    \texttt{runParser}(r,w) := \texttt{ext}(r, S)
+$$
+
+Um Anforderungen wie z.B die Priorität in Alternationen zu erfüllen,\\
+müsste man der Klasse \texttt{Match} Informationen hinzufügen.
+Man kann bspw. also ein Tripel\\ (startIndex, endIndex, priority) anstatt dem obigen Paar benutzen.
+
+Dies erlaubt einem bei der Rekusion an jeder Stelle einer Alternation die Priorität der Matches entsprechend anzupassen.
+
+Wenn wir 0 als höchste, $\infty$ als geringste Priorität betrachten, definieren wir
+$$
+    \texttt{decrPrio}(S) := \{(i,j,p+1) \mid (i,j,p) \in S\}
+$$
+Dann können wir die 3. Zeile der Definition von \texttt{ext} ersetzen durch:
+$$
+    \texttt{ext}(r, S)
+    = \texttt{ext}(r1, S) \cup \texttt{decrPrio}(\texttt{ext(r2, S))}
+    \quad \text{falls}\ r = (r1\mid r2)\ \text{für}\ r1,r2 \in \mathcal{R}_\Sigma
+$$
+Damit haben wir dann neben StartPosition und Länge ein neues Kriterium,
+nach welchem wir die Ergebnismenge von Matches des Parsers ordnen können.
+Die restlichen Funktionen entsprechend anzupassen sollte kein Problem darstellen.
+\end{document}
