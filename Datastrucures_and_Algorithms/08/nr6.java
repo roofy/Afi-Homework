@@ -21,10 +21,6 @@ void C(int n) {
         print(".");
 }
 
-
-
-
-
 void E(int n) {
     int acc = 0;
     for (int i = 0; i < 2; ++i) {

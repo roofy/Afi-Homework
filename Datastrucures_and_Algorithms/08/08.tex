@@ -66,6 +66,39 @@ Ergebnisarray:\\
 \texttt{[0,2,2,3,4,5,5,6]}
 
 \aufgabe{2}
+\textbf{a)}
+Wir berechnen der Erwartungswert der Anzahl der Versuche um einen freien Platz durch Zufall zu wählen, wobei $1-\alpha$ die Wkeit ist,
+einen freien Platz zu finden. Es ist $0 \leq\alpha < 1$, also:
+$$
+    A_\text{ins}(\alpha)
+    = \sum_{i=0}^{\infty} i\alpha^{i-1}(1-\alpha)
+    = \frac{1-\alpha}{\alpha}\sum_{i=0}^{\infty} i\alpha^i
+    = \frac{1-\alpha}{\alpha} \cdot \frac{\alpha}{(\alpha-1)^2}
+    = \frac{1}{1-\alpha}
+$$
+\textbf{b)}
+Dies ist analog zu Teilaufgabe a). Wir betrachten $0 < \alpha = 1 - \frac{p}{m} < 1$, wo $p$ die Anzahl der Vorkommnisse eines Schlüssels $k$
+in der Hashtabelle ist. Das finden des Schlüssels ist dann analog zum finden eines freien Platzes beim Einfügen, da $1-(1-\frac{p}{m})$ dann
+die Wkeit darstellt den Schlüssel zu finden, und $1-\frac{p}{m} = \alpha$ die Wkeit bei der wir weiter suchen müssen. \\
+Mit $a)$ folgt also:
+$$
+    A_\text{find}(p) = A_\text{ins}(1-\frac{p}{m}) = \frac{1}{1-(1-\frac{p}{m})} = \frac{m}{p}.
+$$
+
+\textbf{c)}
+Die erfolglose Suche wird nicht terminieren, da im angegebenen Algorithmus einfach immer der erste Schritt wiederholt wird wenn wir einen 
+Schlüssel $k$ im letzten Versuch nicht gefunden haben. Also $A_\text{$\lnot$find} = \infty$.
+
+\textbf{d)}
+Es ist grundsätzlich nicht so einfach (bzw. effizient), gute zufällige zahlen zu generieren. Ferner ist weder eine Gleichverteilung noch
+Surjektivität garantiert, jedoch sehr wahrscheinlich auf Dauer. Die Schlüssel werden auch sehr wahrscheinlich gut breit verteilt.
+Jedoch ist diese Methode problematisch, in der Hinsicht, dass stets die Möglichkeit besteht extrem lange (oder auch unendlich oft) zu benötigen
+einen Schlüssel einzufügen, oder zu Suchen. Vorallem der letze Fall der erfolglosen Suche stellt dies dar. Bei einer Hashtabellengröße von
+$10$ und einem einmaligem Schlüssel kann es auch gut schonmal sein 30 Anläufe zu brauchen um diesen zu finden, während bei den anderen Verfahren
+z.B. linearer sondierrung dies niemals länger als 10 Schritte dauern kann. Insgesamt ist der Worstcase nicht vertretbar.
+
+
+\newpage
 \aufgabe{3}
 Die Funktion $f : [1,100] \to [1,10], x \mapsto \lfloor \frac{10}{x} \rfloor$ ist grundsätzlich einfach zu berechnen,
 wir nehmen schließlich oft an, dass Operationen wie $\div$ konstante Zeit benötigen. Weiter sind keine zu großen Zahlen im Spiel.
@@ -88,8 +121,6 @@ unter $h$ auf $x$ abgebildet werden, für $x = 0$ oder $x=1$ gibt es 10. Das ist
 $[0,100]$. Jedoch werden Schlüssel nicht sehr breit verteilt. Ist $x \in [0,100]$ Vielfaches von 10, so wird der Nachfolger
 von $x$ auch auf den Nachfolger des Bildes von $x$ unter $h$ abgebildet. Grundsätzlich ist diese letzte Eigenschaft eine
 der wichtigsten, weswegen Ich diese Funktion trotz ihrer restlichen Qualitäten nicht als gute Hashfunktion betiteln würde.
-
-\newpage
 
 Die Funktion $i: \mathbb{N} \to [0,50], x \mapsto \lfloor \frac{x}{2} \rfloor\ \text{mod}\ 51$ ist (analog zu $f$) wahrscheinlich
 in konstanter Zeit berechnbar. Weiter ist sie surjektiv, denn
