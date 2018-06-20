@@ -1,4 +1,7 @@
 *.aux
 *.log
 *.gz
+*.toc
+*.nav
+*.snm
 Thumbs.db

@@ -1,0 +1,419 @@
+\documentclass{beamer}
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\begin{document}
+    \begin{frame}<1>[label=defs,t]
+        \frametitle{Definitionen}
+        Gegeben: Eingabealphabet $\Sigma$, Eingabestring $w \in \Sigma^*$.\\[10pt]
+        \pause
+        \texttt{type Match = (Int, Int)}\hfill(startIndex, endIndex)\\
+        \pause
+        \texttt{type Parser = \{Match\} $\to$ \{Match\}}\\[10pt]
+        \pause
+        \texttt{readChar$_w$ ::\ Char $\to$ Parser}\\
+        \texttt{readChar$_w$(c) =}
+        \only<4>{
+            $M \mapsto \{(i, j+1) \mid (i,j) \in M \land w_j = c\}$
+        }
+        \pause
+        \only<5>{
+            $\displaystyle
+            \underbrace{M \mapsto \{(i, j+1) \mid (i,j) \in M \land w_j = c\}}_{:: \{Match\} \to \{Match\}}
+            $
+        }
+        \pause
+        $M \mapsto \{(i, j+1) \mid (i,j) \in M \land w_j = c\}$\\[10pt]
+        \texttt{concatenate ::\ (Parser, Parser) $\to$ Parser}\\
+        \pause
+        \texttt{concatenate(p1,p2) = p2 $\circ$ p1}\\[10pt]
+        \pause
+        \texttt{alternate ::\ (Parser, Parser) $\to$ Parser}\\
+        \pause
+        \texttt{alternate(p1,p2) =} $M \mapsto \texttt{p1}(M) \cup \texttt{p2}(M)$\\[10pt]
+        \pause
+        \texttt{iterate ::\ Parser $\to$ Parser}\\
+        \texttt{iterate(p) =}
+        \only<10>{$\displaystyle M \mapsto \bigcup_{i \in \mathbb{N}_0} \texttt{p}^i(M)
+        = M \mapsto M \cup \texttt{p}(M) \cup \texttt{p}(\texttt{p}(M)) \cdots$}
+        \pause
+        \only<11>{$\displaystyle M \mapsto \bigcup_{i \in \mathbb{N}_0} \texttt{p}^i(M)$}
+    \end{frame}
+
+    \againframe<2>[t]{defs}
+
+    \begin{frame}
+        \frametitle{\textbf{Beispiel:} Match}
+        \texttt{type Match = (Int, Int)}\hfill(startIndex, endIndex)\\[5pt]
+        Sei $\Sigma = \{\texttt{a,b}\}, w = \texttt{bbaaabbb} \in \Sigma^*$.\\[30pt]
+        \begin{center}
+            $\underset{0}{|}$
+                {\Large\texttt{b}}
+            $\underset{1}{|}$
+                {\Large\texttt{b}}
+            $\underset{2}{|}$
+                {\Large\texttt{a}}
+            $\underset{3}{|}$
+                {\Large\texttt{a}}
+            $\underset{4}{|}$
+                {\Large\texttt{a}}
+            $\underset{5}{|}$
+                {\Large\texttt{b}}
+            $\underset{6}{|}$
+                {\Large\texttt{b}}
+            $\underset{7}{|}$
+                {\Large\texttt{b}}
+            $\underset{8}{|}$\\[30pt]
+        \end{center}
+        \pause
+        $(0,0) \approx \varepsilon$\\
+        $(0,8) \approx w$\\
+        $(3,7) \approx \texttt{aabb}$\\
+    \end{frame}
+
+    \againframe<3>[t]{defs}
+
+    \againframe<4>[t]{defs}
+
+    \againframe<5>[t]{defs}
+
+    \begin{frame}[t]
+        \frametitle{\textbf{Beispiel:} \texttt{readChar}}
+        \texttt{readChar$_w$ :: Char $\to$ Parser}\\
+        \texttt{readChar$_w$(c) = }$M \mapsto \{(i, j+1) \mid (i,j) \in M \land w_j = c\}$\\[10pt]
+        Sei $\Sigma = \{\texttt{a,b}\},\ w = \texttt{bbaaabbb} \in \Sigma^*,\ f_a := \texttt{readChar$_w$(a)}$.\\
+        \begin{center}
+            $\underset{0}{|}$
+                {\Large\texttt{b}}
+            $\underset{1}{|}$
+                {\Large\texttt{b}}
+            $\underset{2}{|}$
+                {\Large\texttt{a}}
+            $\underset{3}{|}$
+                {\Large\texttt{a}}
+            $\underset{4}{|}$
+                {\Large\texttt{a}}
+            $\underset{5}{|}$
+                {\Large\texttt{b}}
+            $\underset{6}{|}$
+                {\Large\texttt{b}}
+            $\underset{7}{|}$
+                {\Large\texttt{b}}
+            $\underset{8}{|}$
+        \end{center}
+        \pause
+        $$
+            f_a(\{(0,0), (2,2), (2,4)\}) = \{(2,3), (2,5)\}
+        $$
+        \pause
+        $$
+            f_a(\{\texttt{||bbaaabbb, bb||aaabbb, bb|aa|abbb}\})
+            $$$$
+            = \{\texttt{bb|a|aabbb, bb|aaa|bbb}\}
+        $$
+    \end{frame}
+
+    \againframe<6>[t]{defs}
+
+    \againframe<7>[t]{defs}
+
+    \begin{frame}[t]
+        \frametitle{\textbf{Beispiel:} \texttt{concatenate}}
+        \texttt{concatenate ::\ (Parser, Parser) $\to$ Parser}\\
+        \texttt{concatenate(p1,p2) = p2 $\circ$ p1}\\[10pt]
+        Sei $\Sigma = \{\texttt{a,b}\},\ w = \texttt{bbaaabbb} \in \Sigma^*,\ f_a := \texttt{readChar$_w$(a)}$\\
+        $f_b := \texttt{readChar$_w$(b)},\ f_{ab} := \texttt{concatenate($f_a,f_b$)}$.\\
+        \begin{center}
+            $\underset{0}{|}$
+                {\Large\texttt{b}}
+            $\underset{1}{|}$
+                {\Large\texttt{b}}
+            $\underset{2}{|}$
+                {\Large\texttt{a}}
+            $\underset{3}{|}$
+                {\Large\texttt{a}}
+            $\underset{4}{|}$
+                {\Large\texttt{a}}
+            $\underset{5}{|}$
+                {\Large\texttt{b}}
+            $\underset{6}{|}$
+                {\Large\texttt{b}}
+            $\underset{7}{|}$
+                {\Large\texttt{b}}
+            $\underset{8}{|}$
+        \end{center}
+        \pause
+        $$
+            f_{ab}(\{(0,0), (2,2), (2,4)\})
+            = f_b(f_a(\{(0,0), (2,2), (2,4)\}))
+        $$$$
+            = f_b(\{(2,3), (2,5)\})
+            = \{(2,6)\}
+        $$
+        \pause
+        $$
+            f_{ab}(\{\texttt{||bbaaabbb, bb||aaabbb, bb|aa|abbb}\})
+        $$$$
+            = \{\texttt{bb|aaab|bb}\}
+        $$
+    \end{frame}
+
+    \againframe<8>[t]{defs}
+
+    \againframe<9>[t]{defs}
+
+    \begin{frame}[t]
+        \frametitle{\textbf{Beispiel:} \texttt{alternate}}
+        \texttt{alternate ::\ (Parser, Parser) $\to$ Parser}\\
+        \texttt{alternate(p1,p2) =} $M \mapsto \texttt{p1}(M) \cup \texttt{p2}(M)$\\[10pt]
+        Sei $\Sigma = \{\texttt{a,b}\},\ w = \texttt{bbaaabbb} \in \Sigma^*,\ f_a := \texttt{readChar$_w$(a)}$\\
+        $f_b := \texttt{readChar$_w$(b)},\ f_{a|b} := \texttt{alternate($f_a,f_b$)}$.\\
+        \begin{center}
+            $\underset{0}{|}$
+                {\Large\texttt{b}}
+            $\underset{1}{|}$
+                {\Large\texttt{b}}
+            $\underset{2}{|}$
+                {\Large\texttt{a}}
+            $\underset{3}{|}$
+                {\Large\texttt{a}}
+            $\underset{4}{|}$
+                {\Large\texttt{a}}
+            $\underset{5}{|}$
+                {\Large\texttt{b}}
+            $\underset{6}{|}$
+                {\Large\texttt{b}}
+            $\underset{7}{|}$
+                {\Large\texttt{b}}
+            $\underset{8}{|}$
+        \end{center}
+        \pause
+        $$
+            f_{ab}(\{(0,0), (2,2), (2,4)\})
+            = f_a(\{\cdots\}) \cup f_b(\{\cdots\})
+        $$$$
+            = \{(2,3),(2,5)\} \cup \{(0,1)\}
+            = \{(0,1),(2,3),(2,5)\}
+        $$
+        \pause
+        $$
+            f_{a|b}(\{\texttt{||bbaaabbb, bb||aaabbb, bb|aa|abbb}\}) = 
+        $$$$
+            = \{\texttt{|b|baaabbb, bb|a|aabbb, bb|aaa|bbb}\}
+        $$
+    \end{frame}
+
+    \againframe<10>[t]{defs}
+
+    \begin{frame}[t]
+        \frametitle{\textbf{Beispiel:} \texttt{iterate}}
+        \texttt{iterate ::\ Parser $\to$ Parser}\\
+        \texttt{iterate(p) =} $\displaystyle M \mapsto \bigcup_{i \in \mathbb{N}_0} \texttt{p}^i(M)$\\
+        Sei $\Sigma = \{\texttt{a,b}\},\ w = \texttt{bbaaabbb} \in \Sigma^*,\ f_{a^*} := \texttt{iterate($f_a$)}$\\
+        \begin{center}
+            $\underset{0}{|}$
+                {\Large\texttt{b}}
+            $\underset{1}{|}$
+                {\Large\texttt{b}}
+            $\underset{2}{|}$
+                {\Large\texttt{a}}
+            $\underset{3}{|}$
+                {\Large\texttt{a}}
+            $\underset{4}{|}$
+                {\Large\texttt{a}}
+            $\underset{5}{|}$
+                {\Large\texttt{b}}
+            $\underset{6}{|}$
+                {\Large\texttt{b}}
+            $\underset{7}{|}$
+                {\Large\texttt{b}}
+            $\underset{8}{|}$
+        \end{center}
+        \pause
+        $$
+            f_{a^*}(\{(0,0), (2,2), (2,4)\})
+            = \{\cdots\} \cup f_a(\{\cdots\}) \cup f_a(f_a(\{\cdots\}) \cup \cdots
+        $$$$
+            = \{(0,0),(2,2),(2,4)\} \cup \{(2,3),(2,5)\} \cup \{(2,4)\} \cup \{(2,5)\} \cup \varnothing \cdots
+        $$$$
+            = \{(0,0),(2,2),(2,3),(2,4),(2,5)\}
+        $$
+        \pause
+        $$
+            f_{a^*}(\{\texttt{||bbaaabb, bb||aaabbb, bb|aa|abbb}\})
+        $$$$
+            = \{\texttt{||bbaaabb, bb||aaabbb,}
+        $$$$
+            \texttt{bb|a|aabbb, bb|aa|abbb, bb|aaa|bbb}\}
+        $$
+    \end{frame}
+
+    \againframe<11>[t]{defs}
+
+    \begin{frame}[t,label=bsp]
+        \frametitle{Komplettbeispiel}
+        {\scriptsize
+            Sei $\Sigma = \{\texttt{a,b,c,x}\},\ w = \texttt{xabccx}$. Wir wollen die Regex \texttt{(a|b)c$^\texttt{*}$} auf $w$ matchen. \\[5pt]
+            \pause
+            \only<2>{
+                $f :=$
+                \texttt{concatenate(}\\
+                \strut\qquad\texttt{alternate(readChar$_w$('a'), readChar$_w$('b')),}\\
+                \strut\qquad\texttt{iterate(readChar$_w$('c'))}\\
+                \texttt{)}\\
+            }
+            \pause
+            $f_x := \texttt{readChar$_w$($x$)}$ für $x \in \{\texttt{a,b,c}\}$
+            \qquad\qquad
+            $f_{a|b} := \texttt{alternate($f_a, f_b$)}$,
+            $f_{c*} := \texttt{iterate($f_c$)}$
+            \qquad\qquad\qquad\qquad\qquad\quad
+            $f := \texttt{concatenate($f_{a|b}$, $f_{c*}$)}$.\\
+            \pause
+            \texttt{initParser ::\ $\Sigma^* \to$ \{Match\}}\\
+            \texttt{initParser(w) = $\{(i,i)\mid i \in [0,|w|-1]\}$}\\[5pt]
+            \pause
+            \only<5>{
+                \strut\\[30pt]
+                \begin{center}
+                    $M := \texttt{initParser($w$)} = \{(0,0),(1,1),(2,2),(3,3),(4,4),(5,5)\}$\\[5pt]
+                    $\approx\{\texttt{||xabccx, x||abccx, xa||bccx, xab||ccx, xabc||cx, xabcc||x}\}$
+                \end{center}
+            }
+            \pause
+            \begin{center}
+                $\underset{0}{|}$
+                    {\large\texttt{x}}
+                $\underset{1}{|}$
+                    {\large\texttt{a}}
+                $\underset{2}{|}$
+                    {\large\texttt{b}}
+                $\underset{3}{|}$
+                    {\large\texttt{c}}
+                $\underset{4}{|}$
+                    {\large\texttt{c}}
+                $\underset{5}{|}$
+                    {\large\texttt{x}}
+                $\underset{6}{|}$
+            \end{center}
+            $$
+                f(\texttt{initParser($w$)})
+                = f(M)
+                = f_{c*}(f_{a|b}(M))
+                = f_{c*}(f_a(M) \cup f_b(M))
+            $$
+            \pause
+            $$
+                = f_{c*}(\{(1,2)\} \cup f_b(M))
+                = f_{c*}(\{(1,2),(2,3)\})
+            $$
+            \pause
+            $$
+                = \bigcup_{i \in \mathbb{N}_0} f_c^i(\{(1,2),(2,3)\})
+                = \{(1,2),(2,3)\} \cup \{(2,4)\} \cup \{(2,5)\} \cup \varnothing \cdots
+            $$
+            \pause
+            \begin{center}
+                $= \{(1,2),(2,3),(2,4),(2,5)\}$\\[5pt]
+                $\approx\{\texttt{x|a|bccx, xa|b|ccx, xa|bc|cx, xa|bcc|x}\}$
+            \end{center}
+        }
+    \end{frame}
+
+    \begin{frame}[t]
+        \frametitle{Rekursiv gedacht}
+        {\small
+            $\Sigma$ Alphabet, $\mathcal{R}_\Sigma$ als Menge der Regexe über $\Sigma$. Weiter $w \in \Sigma^*$.} \\[5pt]
+        {\scriptsize
+            \texttt{ext$_w$ ::\ $(\mathcal{R}_\Sigma, \{\texttt{Match}\}) \to \{\texttt{Match}\}$}
+            $$
+                \texttt{ext}_w(r, M) := \begin{cases}
+                    \pause\{(i, j+1) \mid (i,j) \in M \land w_j = c\} & \text{falls}\ r = c \in \Sigma\\
+                    \pause\texttt{ext}_w(r_2, \texttt{ext}_w(r_1, M))     & \text{falls}\ r = (r_1r_2)\ \text{für}\ r1,r2 \in \mathcal{R}_\Sigma\\
+                    \pause\texttt{ext}_w(r1, M) \cup \texttt{ext}_w(r2,M) & \text{falls}\ r = (r1 \mid r2)\ \text{für}\ r1,r2 \in \mathcal{R}_\Sigma\\
+                    \pause\texttt{iter}_w(t, M)                        & \text{falls}\ r = t^*\ \text{für}\ t \in \mathcal{R}_\Sigma
+                \end{cases}
+            $$$$
+            \texttt{iter}_w(t, M) := \begin{cases}
+                    \varnothing & \text{falls}\ M = \varnothing\\
+                    M \cup \texttt{iter}_w(t, \texttt{ext}_w(t, M)) & \text{sonst}
+                \end{cases}
+            $$\\[5pt]
+            \pause
+            $\Sigma = \{\texttt{a,b,c,x}\}, w = \texttt{xabccx}:$
+            $$
+                \texttt{ext}_w(\texttt{(a|b)c$^\texttt{*}$}, \texttt{initParser}(w))
+            $$
+        }
+    \end{frame}
+
+    \begin{frame}[t]
+        \frametitle{Erweiterung: Priorität bei Alternation}
+        0 höchste, $\infty$ niedrigste Priorität.\\[10pt]
+        \texttt{type Match = (Int, Int, Int)}\hfill(startIndex, endIndex, priority)\\[5pt]
+        \texttt{initParser(w) = $\{(i,i,0)\mid i \in [0,|w|-1]\}$}\\[10pt]
+        \pause
+        \texttt{readChar$_w$(c) =}
+            $M \mapsto \{(i,j+1,p) \mid (i,j,p) \in M \land w_j = c\}$\\[10pt]
+        \pause
+        \texttt{decrPrio ::\ \{Match\} $\to$ \{Match\}}\\
+        \texttt{decrPrio(M) =}
+            $\{(i,j,p+1) \mid (i,j,p) \in M\}$\\[15pt]
+        \pause
+        \texttt{alternate(p1,p2) =} $M \mapsto \texttt{p1}(M) \cup \texttt{decrPrio(p2($M$))}$\\[25pt]
+        \pause
+        \begin{center}
+            nicht leer $>$ startIndex $>$ Priorität $>$ Länge
+        \end{center}
+        $$
+            (0,3,0) > (1,5,0) > (1,8,1) > (1,5,1) > (0,0,0)
+        $$
+    \end{frame}
+
+    \begin{frame}[t]
+        \frametitle{Erweiterung: Priorität bei Alternation (cont.)}
+        Unerwartetes Verhalten bei Iteration:\\
+        $\Sigma = \{a,b\},\ w = ab$. $f \approx (a|b)^*$.
+        \pause
+        $$
+            f(\texttt{initParser}(w)) = f(\{(0,0,0),(1,1,0)\})
+        $$$$
+            = \{(0,0,0),(1,1,0)\} \cup f_{a|b}(\{\cdots\}) \cup f_{a|b}(f_{a|b}(\{\cdots\})) \cdots
+        $$$$
+            = \{(0,0,0),(1,1,0)\}
+            \cup \underbrace{\{(0,1,0)\}}_{f_a(\{\cdots\})}
+            \cup \underbrace{\{(1,2,1)\}}_{f_b(\{\cdots\})}
+            \cup \underbrace{\{(0,2,1)\}}_{f_b(f_{a|b}(\{\cdots\}))}
+        $$
+        \pause
+        $$
+            \,\Longrightarrow\, \underbrace{(0,1,0) > (0,2,1)}_{|a|b\quad >\quad |ab|} > (1,1,0) > (1,2,1) > (0,0,0)
+        $$
+    \end{frame}
+
+    \begin{frame}[t]
+        \frametitle{Implementierung in Java}
+        {\scriptsize
+            \texttt{java.util.function.Function<A,B>}\\
+            \texttt{Function<A,B>.apply ::\ A $\to$ B}\\
+            \texttt{Function<A,B>.compose :: Function<B,C> $\to$ Function<A,C>}\\[10pt]
+            \pause
+            Syntax mit Java-Lambdas, ähnlich zum Syntax hier:\\[5pt]
+            \texttt{Function<String, String> f = s -> s+"!";}\\
+            \texttt{System.out.println(f.apply("ok"));}\\[5pt]
+            Ausgabe: \texttt{ok!}\\[10pt]
+            \pause
+            \texttt{java.util.stream.Stream<A>}\\
+            \texttt{Stream<A>.map ::\ (A $\to$ B) $\to$ Stream<B>}\\\pause
+            \texttt{Stream<A>.filter ::\ (A $\to$ Bool) $\to$ Stream<A>}\\\pause
+            \texttt{Stream.iterate ::\ (A, A $\to$ A) $\to$ Stream<A>}\\[10pt]
+
+            \texttt{Stream<Double> s = Stream.iterate(0, i -> i+1); // $\mathbb{N}_0$}\\
+            \texttt{s = s.filter(i -> i \% 3 == 0).map(i -> Math.pow(2,i));}\\
+            \texttt{s.limit(10).forEach(System.out::println);}\\[5pt]
+            Ausgabe: $1, 8, 64, 512, 4096$.
+        }
+    \end{frame}
+
+\end{document}
