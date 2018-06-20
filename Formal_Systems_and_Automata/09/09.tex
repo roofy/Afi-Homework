@@ -33,7 +33,65 @@
 \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
+\aufgabe{5}
+Sie $\mathcal{G} := (N, \Sigma, P, S)$ eine kontextfreie Grammatik.\\
+Wir definieren die Grammatik $\mathcal{G}' := (N, \Sigma, P', S)$ mit
+$$
+    P' := P \cup \{S \to \alpha S \mid (S \to \alpha) \in P\} \cup \{S \to \varepsilon\}
+$$
+Wir zeigen zuerst $L(\mathcal{G})^* \subseteq L(\mathcal{G}')$, also per Induktion über $n$, dass gilt:
+$$
+    w \in L(\mathcal{G})^n \,\Longrightarrow\, w \in L(\mathcal{G}')
+$$
+Sei also $n = 0$. Dann ist $w = \varepsilon$. Durch die Regel $(S \to \varepsilon) \in P'$ ist also
+$w \in L(\mathcal{G}')$.
+Sei nun $n = 1$. Dann ist $w \in L(\mathcal{G})$, also gilt $S \overset{*}{\to}_\mathcal{G} w$.
+Wegen $P \subset P'$ folgt dann insbesondere auch $S \overset{*}{\to}_{\mathcal{G}'} w$, also
+$w \in L(\mathcal{G}')$.
 
+Sei nun $n \in \mathbb{N}$ sodass $w \in L(\mathcal{G})^n \,\Longrightarrow\, w \in L(\mathcal{G}')$ gegeben.
+Sei weiter $w \in L(\mathcal{G})^{n+1}$.\\
+Dann ist $w = w_1w_2$ mit $w_1 \in L(\mathcal{G})^n$ und $w_2 \in L(\mathcal{G})$.
+Folglich exisiteren Ableitungen sodass
+$$
+    S \overset{*}{\to} \alpha S \to \alpha\beta \overset{*}{\to}_\mathcal{G} w_1
+    \qquad\qquad\text{und}\qquad\qquad
+    S \overset{*}{\to} w_2
+$$
+wobei $S \notin \beta$ und $(S \to \beta) \in P$. Dann gilt $(S \to \beta S) \in P'$, also existiert die Ableitung
+$$
+    S \overset{*}{\to} \alpha S \to \alpha \beta S \overset{*}{\to} w_1w_2 = w
+$$
+in $\mathcal{G}'$. Nach Prinzip der vollst. Induktion gilt nun $w \in L(\mathcal{G})^n \,\Longrightarrow\, w\in L(\mathcal{G}')$ für alle $n \in \mathbb{N}_0$.
+Daraus folgt auch sofort, dass $L(\mathcal{G})^* \subseteq L(\mathcal{G}')$.
+
+Im folgenden sei $P_S := \{S \to \alpha S \mid (S \to \alpha) \in P\}$.\\
+Wir zeigen nun $L(\mathcal{G}') \subseteq L(\mathcal{G})^*$, also per Induktion über $n$ dass:\\
+Wenn $w \in L(\mathcal{G}'), w \neq \varepsilon$ und die Ableitung von $w$ benutzt genau $n$ mal eine Regel $p \in P_S$,
+dann gilt $w \in L(\mathcal{G})^{n+1}$.
+
+Sei also $n = 0$. Sei $w \in L(\mathcal{G}')$ mit $S \to \alpha \overset{*}{\to} w$ wobei $S \notin \alpha$.
+Dann folgt durch $\alpha \neq \varepsilon$, dass $S \overset{*}{\to}_\mathcal{G} w$
+und damit $w \in L(\mathcal{G})^1$.
+
+Sei nun $n \in \mathbb{N}$ gegeben, sodass die Behauptung für dieses gilt.
+Sei dann $w \in L(\mathcal{G}')$ sodass die Ableitung von $w$ genau $n+1$ mal eine der Regeln in $P_S$ benutzt.
+Dann ist $w = w_1w_2$ mit
+$$
+    S \overset{*}{\to} w_1S \to w_1\alpha \overset{*}{\to} w_1w_2 = w
+    \qquad\text{wobei}\qquad
+    S \notin \alpha
+$$
+Dabei ist o.B.d.A. $w_2 \neq \varepsilon$, sonst könnte man die letzten Regeln $... S \to \alpha S \to \alpha$
+durch $... S \to \alpha$ austauschen und den Fall für $n$ betrachten.
+Damn haben wir eine Ableitung $S \overset{*}{\to} w_1$ welche genau $n$ mal eine Regel aus $P_S$ benutzt,
+und eine Ableitung $S \overset{*}{\to}_\mathcal{G} w_2$, welche genau 0 mal eine Regel aus $P_S$ benutzt.
+Nach Vorraussetzung und Basisfall gilt dann $w_1 \in L(\mathcal{G})^{n+1}$ und $w_2 \in L(\mathcal{G})$,
+also $w \in L(\mathcal{G})^{n+2}$. Nach Prinzip der vollst. Induktion gilt die Behauptung nun für
+$n \in \mathbb{N}$. Da insbesondere $\varepsilon \in L(\mathcal{G})^0$, folgt nun insgesamt, dass
+$L(\mathcal{G}') = L(\mathcal{G})^*$.
+
+\newpage
 
 \aufgabe{6}
 
@@ -97,5 +155,7 @@ Weiter ist
 $$
     F' := \{(f_\mathcal{A},f_\mathcal{B}) \mid f_\mathcal{A} \in F_\mathcal{A} \land f_\mathcal{B} \in F_\mathcal{B}\}
 $$
+
+\aufgabe{8}
 
 \end{document}
