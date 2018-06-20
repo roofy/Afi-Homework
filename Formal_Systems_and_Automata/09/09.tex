@@ -57,7 +57,8 @@
         \path[->] (q2)  edge [loop above]              node {$b,Z,Z$} (q2);
         \path[->] (q2)  edge [bend left]                node {$a,Z,Z$} (q1);
         
-        \path[->] (q3)  edge                node {$a,Z,Z$} (q4);
+        \path[->] (q3)  edge                node {$a,Z,Z\newline a,Z_0,Z_0$} (q4);
+        
         
         \path[->] (q4)  edge    [loop right]            node {$a,Z,Z$} (q4);
         \path[->] (q4)  edge                node {$b,Z,\varepsilon$} (q5);
