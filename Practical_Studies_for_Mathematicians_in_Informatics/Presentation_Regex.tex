@@ -218,7 +218,7 @@
     \begin{frame}[t]
         \frametitle{\textbf{Beispiel:} \texttt{iterate}}
         \texttt{iterate}$_w : Parser \to Parser$\\
-        \texttt{iterate}$_w(f) = \displaystyle M \mapsto \bigcup_{i \in \mathbb{N}_0} \texttt{p}^i(M)$\\[10pt]
+        \texttt{iterate}$_w(f) = \displaystyle M \mapsto \bigcup_{i \in \mathbb{N}_0} f^i(M)$\\[10pt]
         Sei $\Sigma = \{a,b\},\ w = bbaaabbb \in \Sigma^*,\ f_{a^*} := \texttt{iterate}_w(f_a)$\\
         \begin{center}
             $\underset{0}{|}$
@@ -283,22 +283,18 @@
             \pause
             \begin{center}
                 $\underset{0}{|}$
-                    {\Large b}
+                    {\Large x}
                 $\underset{1}{|}$
-                    {\Large b}
+                    {\Large a}
                 $\underset{2}{|}$
-                    {\Large a}
+                    {\Large b}
                 $\underset{3}{|}$
-                    {\Large a}
+                    {\Large c}
                 $\underset{4}{|}$
-                    {\Large a}
+                    {\Large c}
                 $\underset{5}{|}$
-                    {\Large b}
-                $\underset{6}{|}$
-                    {\Large b}
-                $\underset{7}{|}$
-                    {\Large b}
-                $\underset{8}{|}$\\[8pt]
+                    {\Large x}
+                $\underset{6}{|}$\\[8pt]
             \pause
             $
                 f(S_w)
@@ -333,9 +329,9 @@
                     \pause\{(i, j+1) \mid (i,j) \in M \land w_j = \sigma\}
                         &, r = \sigma \in \Sigma\\
                     \pause\texttt{ext}_w(r_2, \texttt{ext}_w(r_1, M))
-                        &, r = (r_1r_2), r1,r2 \in \mathcal{R}_\Sigma\\
-                    \pause\texttt{ext}_w(r1, M) \cup \texttt{ext}_w(r2,M)
-                        &, r = (r_1 \mid r_2),r1,r2 \in \mathcal{R}_\Sigma\\
+                        &, r = (r_1r_2), r_1,r_2 \in \mathcal{R}_\Sigma\\
+                    \pause\texttt{ext}_w(r_1, M) \cup \texttt{ext}_w(r_2,M)
+                        &, r = (r_1 \mid r_2),r_1,r_2 \in \mathcal{R}_\Sigma\\
                     \pause\texttt{iter}_w(t, M)
                         &, r = t^*,t \in \mathcal{R}_\Sigma
                 \end{cases}
@@ -410,13 +406,12 @@
             \pause
             \texttt{java.util.stream.Stream<A>}\\
             \texttt{Stream<A>.map :\ (A $\to$ B) $\to$ Stream<B>}\\\pause
-            \texttt{Stream.iterate :\ (A, A $\to$ A) $\to$ Stream<A>}\\[10pt]
+            \texttt{Stream.iterate :\ (A, A $\to$ A) $\to$ Stream<A>}\\[10pt]\pause
 
             \texttt{Stream<Double> s = Stream.iterate(0, i -> i+1); // $\mathbb{N}_0$}\\
-            \texttt{s = s.map(i -> Math.pow(2,3*i)).limit(8).forEach(System.out::println);}\\[5pt]
+            \texttt{s.map(i -> Math.pow(2,3*i)).limit(8).forEach(System.out::println);}\\[5pt]
             Ausgabe: $1, 8, 64, 512, 4096, 32768, 262144, 2097152$.\\
             Dies entspricht den ersten 8 Werten der Folge $(2^{3i})_{i \in \mathbb{N}_0}$.
-
         }
     \end{frame}
 
