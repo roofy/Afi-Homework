@@ -1,0 +1,79 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 9}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{6}
+
+ \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+        \node[state, initial]   (q0)                        {$q_0$};
+        \node[state]            (q1)    [above right of=q0] {$q_1$};
+        \node[state]            (q2)    [ right of=q1] {$q_2$};
+        \node[state]            (q3)    [below right of=q2] {$q_3$};
+        \node[state]            (q4)    [ below  of=q3] {$q_4$};
+        \node[state]            (q5)    [ left of=q4] {$q_5$};
+        \node[state,accepting]            (q6)    [left  of=q5] {$q_6$};
+       
+
+        \path[->] (q0)  edge                node {$a,Z_0,Z_0$} (q1);
+        
+        \path[->] (q1)  edge                node {$b,Z_0,ZZ_0\newline b,Z,ZZ$} (q2);
+        \path[->] (q1)  edge [loop above]                node {$a,Z_0,Z_0\newline  a,Z,Z$} (q1);
+        \path[->] (q1)  edge [bend right]             node {$c,Z,Z \newline c,Z_0,Z_0$} (q3);
+        
+        \path[->] (q2)  edge                node {$c,Z,Z$} (q3);
+        \path[->] (q2)  edge [loop above]              node {$b,Z,Z$} (q2);
+        \path[->] (q2)  edge [bend left]                node {$a,Z,Z$} (q1);
+        
+        \path[->] (q3)  edge                node {$a,Z,Z$} (q4);
+        
+        \path[->] (q4)  edge    [loop right]            node {$a,Z,Z$} (q4);
+        \path[->] (q4)  edge                node {$b,Z,\varepsilon$} (q5);
+        \path[->] (q4)  edge  [bend left]              node {$\varepsilon,Z_0,\varepsilon$} (q6);
+        
+        \path[->] (q5)  edge                node {$\varepsilon,Z_0,\varepsilon$} (q6);
+        \path[->] (q5)  edge [bend left]               node {$a,Z,Z$} (q4);
+        
+         
+       
+    \end{tikzpicture}
+    
+Der Automat fügt ein Z in den Kellerspeicher für jedes vollständige Infix $ab$ in $u$ ein und entfernt ein Z aus dem Kellerspeicher für jedes vollständige $ab$ in v.
+
+
+
+
+
+\end{document}
