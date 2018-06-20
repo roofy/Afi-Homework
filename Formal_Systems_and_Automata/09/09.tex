@@ -107,29 +107,40 @@ $L(\mathcal{G}') = L(\mathcal{G})^*$.
 
         \path[->] (q0)  edge                node {$a,Z_0,Z_0$} (q1);
         
-        \path[->] (q1)  edge                node {$b,Z_0,ZZ_0\newline b,Z,ZZ$} (q2);
-        \path[->] (q1)  edge [loop above]                node {$a,Z_0,Z_0\newline  a,Z,Z$} (q1);
-        \path[->] (q1)  edge [bend right]             node {$c,Z,Z \newline c,Z_0,Z_0$} (q3);
+        \path[->] (q1)  edge                node {$b,Z_0,ZZ_0\atop{ b,Z,ZZ}$} (q2);
+        \path[->] (q1)  edge [loop above]                node {$a,Z_0,Z_0\atop  a,Z,Z$} (q1);
+        \path[->] (q1)  edge [bend right]             node {$c,Z,Z \atop c,Z_0,Z_0$} (q3);
         
         \path[->] (q2)  edge                node {$c,Z,Z$} (q3);
         \path[->] (q2)  edge [loop above]              node {$b,Z,Z$} (q2);
         \path[->] (q2)  edge [bend left]                node {$a,Z,Z$} (q1);
         
-        \path[->] (q3)  edge                node {$a,Z,Z\newline a,Z_0,Z_0$} (q4);
+        \path[->] (q3)  edge                node {$a,Z,Z\atop a,Z_0,Z_0$} (q4);
         
         
-        \path[->] (q4)  edge    [loop right]            node {$a,Z,Z$} (q4);
+        \path[->] (q4)  edge    [loop right]            node {$a,Z,Z\atop a,Z_0,Z_0$} (q4);
         \path[->] (q4)  edge                node {$b,Z,\varepsilon$} (q5);
         \path[->] (q4)  edge  [bend left]              node {$\varepsilon,Z_0,\varepsilon$} (q6);
         
         \path[->] (q5)  edge                node {$\varepsilon,Z_0,\varepsilon$} (q6);
-        \path[->] (q5)  edge [bend left]               node {$a,Z,Z$} (q4);
+        \path[->] (q5)  edge [bend left]               node {$a,Z,Z\atop a,Z_0,Z_0$} (q4);
+         \path[->] (q5)  edge [loop above]               node {$b,Z,Z\atop b,Z_0,Z_0$} (q5);
         
          
        
     \end{tikzpicture}
     
 Der Automat fügt ein Z in den Kellerspeicher für jedes vollständige Infix $ab$ in $u$ ein und entfernt ein Z aus dem Kellerspeicher für jedes vollständige $ab$ in v.
+
+Akzeptierender Lauf auf $acaa$:\\
+$(q_0,Z_0,acaa)\rightarrow(q_1,Z_0,caa)\rightarrow(q_3,Z_0,aa)\rightarrow(q_4,Z_0,a)\rightarrow(q_4,Z_0,\varepsilon)\rightarrow(q_6,\varepsilon,\varepsilon)$
+
+Akzeptierender Lauf auf $abaacabba$:\\
+$(q_0,Z_0,abaacabba)\rightarrow(q_1,Z_0,baacabba)\rightarrow(q_2,ZZ_0,aacabba)\rightarrow(q_1,ZZ_0,acabba)\rightarrow(q_1,ZZ_0,cabba)$
+
+$\rightarrow(q_3,ZZ_0,abba)\rightarrow(q_4,ZZ_0,bba)\rightarrow(q_5,Z_0,ba)\rightarrow(q_5,Z_0,a)\rightarrow(q_4,Z_0,\varepsilon)\rightarrow(q_6,\varepsilon,\varepsilon)$
+
+
 
 \newpage
 
