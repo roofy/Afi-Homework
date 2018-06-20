@@ -73,8 +73,29 @@
     
 Der Automat fügt ein Z in den Kellerspeicher für jedes vollständige Infix $ab$ in $u$ ein und entfernt ein Z aus dem Kellerspeicher für jedes vollständige $ab$ in v.
 
+\newpage
 
+\aufgabe{7}
+Die Idee ist, eine Produktkonstruktion durchzuführen. Da wir nur einen PDA besitzen haben wir nicht das Problem,
+zwei Speicher gleichzeitig verwalten zu müssen. Wir lassen also ganz normal beide Automaton laufen
+und übernehmen den Speicher des PDA für den Speicher des Produkt-PDA's.
 
-
+Sei also $\mathcal{A} = (Q_\mathcal{A}, \Sigma, \Gamma, \Delta, q_{0_\mathcal{A}}), Z_0, F_\mathcal{A})$
+der PDA
+und $\mathcal{B} = (Q_\mathcal{B}, \Sigma, \delta, q_{0_\mathcal{B}}, F_\mathcal{B})$ der DFA.\\
+Dann definiere den PDA
+$$
+    \mathcal{P} := (Q_\mathcal{A} \times Q_\mathcal{B}, \Sigma, \Gamma, \Delta', (q_{0_\mathcal{A}}, q_{0_\mathcal{B}}), Z_0, F')
+$$
+wobei
+$$
+    \Delta' := \{((q_\mathcal{A}, q_\mathcal{B}), a, Z, (q'_\mathcal{A}, q'_\mathcal{B}), \gamma)
+    \mid (q_\mathcal{A}, a, Z, q'_\mathcal{A}, \gamma) \in \Delta \land \delta(q_\mathcal{B}, a) = q'_\mathcal{B}\}
+$$
+für $a \in \Sigma, Z \in \Gamma, \gamma \in \Gamma^*$.
+Weiter ist
+$$
+    F' := \{(f_\mathcal{A},f_\mathcal{B}) \mid f_\mathcal{A} \in F_\mathcal{A} \land f_\mathcal{B} \in F_\mathcal{B}\}
+$$
 
 \end{document}
