@@ -394,25 +394,14 @@
 
     \begin{frame}[t]
         \frametitle{Implementierung in Java}
-        {\scriptsize
-            \texttt{java.util.function.Function<A,B>}\\
-            \texttt{Function<A,B>.apply :\ A $\to$ B}\\
-            \texttt{Function<A,B>.compose :\ Function<B,C> $\to$ Function<A,C>}\\[10pt]
-            \pause
-            Syntax mit Java-Lambdas, ähnlich zum Syntax hier:\\[5pt]
-            \texttt{Function<String, String> f = s -> s+"!";}\\
-            \texttt{System.out.println(f.apply("ok"));}\\[5pt]
-            Ausgabe: \texttt{ok!}\\[10pt]
-            \pause
-            \texttt{java.util.stream.Stream<A>}\\
-            \texttt{Stream<A>.map :\ (A $\to$ B) $\to$ Stream<B>}\\\pause
-            \texttt{Stream.iterate :\ (A, A $\to$ A) $\to$ Stream<A>}\\[10pt]\pause
-
-            \texttt{Stream<Double> s = Stream.iterate(0, i -> i+1); // $\mathbb{N}_0$}\\
-            \texttt{s.map(i -> Math.pow(2,3*i)).limit(8).forEach(System.out::println);}\\[5pt]
-            Ausgabe: $1, 8, 64, 512, 4096, 32768, 262144, 2097152$.\\
-            Dies entspricht den ersten 8 Werten der Folge $(2^{3i})_{i \in \mathbb{N}_0}$.
-        }
+        \texttt{java.util.function.Function<A,B>}\\
+        \texttt{Function<A,B>.apply :\ A $\to$ B}\\
+        \texttt{Function<A,B>.compose :\ Function<B,C> $\to$ Function<A,C>}\\[10pt]
+        \pause
+        Syntax mit Java-Lambdas, ähnlich zum Syntax hier:\\[5pt]
+        \texttt{Function<String, String> f = s -> s+"!";}\\
+        \texttt{System.out.println(f.apply("ok"));}\\[5pt]
+        Ausgabe: \texttt{ok!}\\[10pt]
     \end{frame}
 
 \end{document}
