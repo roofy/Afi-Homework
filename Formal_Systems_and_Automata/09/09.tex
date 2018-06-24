@@ -169,4 +169,49 @@ $$
 
 \aufgabe{8}
 
+Die Aussage stimmt nicht. Wir verwenden eckige Klammern zur Veranschaulichung.
+
+Wir betrachten die Sprache $L := \{\texttt{[}^n(\texttt{[]})^n\texttt{]}^m \mid n,m \in \mathbb{N}_0\}$.\\
+Die Sprache der korrekten Klammerausdrücke in $L$ ist dann
+$K = \{\texttt{[}^n(\texttt{[]})^n\texttt{]}^n \mid \mathbb{N}_0\}$.
+
+Duch folgende Regeln lässt sich eine kontextfreie Grammatik für $L$ erstellen:
+$$
+    S \to AB
+    \qquad\qquad
+    A \to \texttt{[}A\texttt{[]} \mid \varepsilon
+    \qquad\qquad
+    B \to \texttt{]}B \mid \varepsilon
+$$
+Sei nun $K$ kontextfrei. Sei dann $n$ gemäß Pumping-Lemma gegeben.\\
+Wir betrachten $z = \texttt{[}^n(\texttt{[]})^n\texttt{]}^n$. Das Pumping Lemma liefert die Zerlegung $z = uvwxy$
+mit $vx \neq \varepsilon$ und $|vwx| \leq n$ und $uv^kwx^ky \in K$ für $k \in \mathbb{N}_0$.
+
+\textbf{Fall 1:} $vwx$ liegt ganz im Präfix $\texttt{[}^n(\texttt{[]})^n$.\\
+Dann folgt für $uwy$ wegen $vx \neq \varepsilon$, dass zu wenig geöffnete Klammern am Anfang des Wortes stehen,
+(und/) oder nicht genug der \texttt{[]}-Paare im Wort auftreten, da dann dass Suffix $\texttt{]}^n$ ganz in $y$ liegt.
+Es kann auch sein, dass $uwy$ dann eines der \texttt{[]}-Paare genau in der Mitte teilt, aber dann haben wir
+sofort zu wenig $\texttt{[]}$-Paare.
+Es gilt also einer der Fälle:
+$$
+    uwy = \texttt{[}^m(\texttt{[]})^n\texttt{]}^n,\qquad
+    uwy = \texttt{[}^n(\texttt{[]})^m\texttt{]}^n,\qquad
+    uwy = \texttt{[}^m(\texttt{[]})^p\texttt{]}^n\qquad
+$$
+wobei $m,p < n$. In jedem Fall ist dann jedoch $uwy \notin K$.
+
+\textbf{Fall 2:} $vwx$ liegt ganz im Suffix $(\texttt{[]})^n\texttt{]}^n$.\\
+Dies ist analog zu Fall 1. Es muss für $uwy$ einer der folgenden Fälle eintreten:
+$$
+    uwy = \texttt{[}^n(\texttt{[]})^n\texttt{]}^m,\qquad
+    uwy = \texttt{[}^n(\texttt{[]})^m\texttt{]}^n,\qquad
+    uwy = \texttt{[}^n(\texttt{[]})^p\texttt{]}^m\qquad
+$$
+wobei wieder $m,p < n$. Wieder folgt in jedem Fall $uwy \notin K$.
+
+Insgesamt gilt in beiden Fällen $uwy \notin K$, obwohl uns das Pumping-Lemma $uv^kwx^ky \in K$ für $k \in \mathbb{N}_0$
+versichert hat. Widerspruch! Damit ist $K$ nicht kontextfrei.
+
+
+
 \end{document}
