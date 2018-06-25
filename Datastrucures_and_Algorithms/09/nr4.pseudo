@@ -1,0 +1,23 @@
+void topoSort(List adj[n], int n, int &topo[n]) {
+    int color[n] = WHITE, topoNum = 0;
+    boolean allChildrenDone = true;
+
+    for (int v = 0; v < n; ++v) {
+        if (color[v] == WHITE) {
+            foreach (w in adj[v]) {
+                if (color[w] == WHITE) {
+                    allChildrenDone = false;
+                    break;
+                }
+            }
+
+            if (allChildrenDone) {
+                color[v] = BLACK;
+                topo[v] = ++topoNum;
+                v = -1; // incremented after current cycle ends, so we start from 0
+            }
+
+            allChildrenDone = true;
+        }
+    }
+}

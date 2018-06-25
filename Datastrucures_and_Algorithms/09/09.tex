@@ -1,0 +1,211 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 9}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\textbf{a)}
+Es gibt genau $4^{\binom{n}{2}}$ gerichtete Graphen mit $n$ Knoten. Für jedes Paar von den $\binom{n}{2}$ Paaren
+von Knoten haben wir genau 4 Möglichkeiten: Keine Kante, Kante von A nach B, Kante von B nach A, Zwei Kanten.
+
+\textbf{b)}
+Es gibt genau $2^{\binom{n}{2}}$ ungerichtete Graphen mit $n$ Knoten. Die Idee ist wie in a). Für jedes von
+den $\binom{n}{2}$ möglichen Paaren von Knoten haben wir entweder 1 Kante oder keine, also 2 Möglichkeiten
+pro Paar.
+
+\textbf{c)}
+Es gibt genau $\frac{n!}{(k-1)!} = n \cdot (n-1) \cdot (n-2) \cdots (n-k)$ mögliche einfache Pfade der Länge
+$k$ in einem ungerichtetem vollständigem Graphen mit $n$ Knoten. Dies liegt daran, dass wir $n$ Möglichkeiten
+haben eine Startposition auszusuchen. Danach haben wir $n-1$ Möglichkeiten für den nächsten zu besuchenden
+Knoten, danach $n-2$ etc. weil der Graph vollständig ist und wir nur einfache Pfade betrachten. Wenn wir
+dann beim Faktor $(n-k)$ angekommen sind haben wir einen Pfad der Länge $k$.
+
+\textbf{d)}
+Da Zykel in einem ungerichtetem Graph mindestens Länge 3 haben müssen, folgt sofort, dass für Graphen mit $n < 3$
+Knoten genau 0 der gesuchten Zykel existieren. Sei nun also $n \geq 3$. Dann haben wir
+genau $n(n-1)(n-2)$ Möglichkeiten für einen Zykel der Länge 3 in einem vollständigem ungerichtetem Graphen
+mit $n$ Knoten. Dies ist analog zu c), da wir $n$ mögliche Startknoten haben, und der letzte Knoten wieder
+der Startknoten, die restlichen aber unterschiedlich sein müssen. Analog haben wir $n(n-1)(n-2)(n-3)$
+Zykel der Länge 4, da wir beim vorletzten Knoten noch nicht die Möglichkeit haben zum Startknoten wiederzukehren
+ohne beim letzten die Eigenschaft der paarweisen Verschiedenheit zu verletzen.
+Insgesamt haben wir also $n(n-1)(n-2)+n(n-1)(n-2)(n-3)$ Zykel der Länge höchstens 4.
+
+\textbf{e)}
+\textbf{i.}
+Dies ist wahr, denn für $(u,v) \in \hat{E}$ gilt $(u,v) \in E\ \lor\ (u,v) \in E'$ und dann\\
+$(v,u) \in E\ \lor\ (v,u) \in E'$ also insgesamt $(v,u) \in \hat{E}$.
+
+\textbf{ii.}
+Dies ist falsch. Betrachte $V = \{1,2\}$ und $E = \{(1,2)\},\ E' = \{(2,1)\},\ \hat{E} = \{(1,2),(2,1)\}$.
+Dann ist $\hat{G}$ stark zsmhängend, aber weder $G$ noch $G^T$ stark zsmhängend.
+
+\textbf{iii.}
+Dies ist wahr. Sei o.B.d.A. $G$ stark zsmhängend, dann ist offensichtlich $E \subseteq \hat{E}$, und da
+die Graphen alle die gleiche Knotenmenge $V$ haben damit auch $\hat{G}$ stark zsmhängend.
+
+\textbf{iv.}
+Dies ist wahr. Sei o.B.d.A. $G$ schwach zsmhängend, d.h. wir haben\\
+$\forall u,v \in V: (u,v) \in E\ \lor\ (v,u) \in E$ und damit $\forall u,v \in V: (u,v) \in E'\ \lor\ (v,u) \in E'$. Für beide Knotenmengen
+folgt dann aber im entsprechenden ungerichtetem Graph mit Knotenmenge $K$, dass
+$\forall u,v \in V: (u,v) \in K$. Grundlegend entsprechen umgredrehte Kanten genau den gleichen ungerichteten wie
+ihr ''Urbild''.
+
+\newpage
+
+\textbf{f)}
+Dies ist falsch. Betrachte den DAG mit Knotenmenge $V = \{a,b,c\}$ und entsprechenden Gewichten $w_a = 0, w_b = 1,
+w_c = 1$.
+Weiter haben wir die Kantenmenge $E = \{(b,a),(c,a)\}$. Sowohl $b$ als auch $c$ hängen von $a$ ab, jedoch
+nicht untereinander. Die einzig sinvollen Pfade wären $(a,b,c)$ oder $(a,c,b)$. Je nachdem
+wie man die Definition nimmt ist nun entweder keiner von beiden ein kritischer Pfad ($v_i$ muss von $v_{i-1}$ abhängig
+sein) oder beide und damit nicht eindeutig. In beiden Fällen ist die Behauptung widerlegt.
+
+\aufgabe{2}
+\textbf{a)}
+Die asymptotische Laufzeit beträgt $\mathcal{O}(n^2)$. \texttt{DFS} wird grundsätzlich für jeden Knoten
+genau 1 mal aufgerufen. Die Methode prüft in jedem Aufruf ob vll. einer der Adjazenten Knoten noch nicht behandelt
+wurde und hat dabei konstante Kosten. Wenn \texttt{DFS} rekursiv aufgerufen wird, dann wird \texttt{DFS} halt
+nicht nocheinmal aus der obersten \texttt{completeDFS}-Schleife aufgerufen, welche aber trotzdem asymptotisch
+in $n$ vergleiche benötigt. Früher oder später wird auf jedem Knoten \texttt{DFS} aufgerufen und eine
+for-Schleife mit linear vielen vergleichen ausgeführt.
+
+\textbf{b)}
+Die vergleiche in den Schleifen fallen nun weg. Nach dem gleichen Argument wie in a), dass schlussendlich
+\texttt{DFS} genau 1 mal pro Knoten aufgerufen wird und konstant viele print aufrufe hat, folgt dann
+dass die asymptotische Laufzeit sich in $\mathcal{O}(n)$ befindet.
+
+\aufgabe{3}
+W für WHITE, B für BLACK, G für GRAY. Beachte wir haben keinen Knoten 0, also 0. index in arrays ignoriert.
+Stack von links nach rechts ist von top zu bottom.
+
+\textbf{Phase 1:}
+Nach 1. Iteration (0. Iteration ignoriert):\\
+\texttt{color = [W, B, W, W, B, B, B, B, B, B, B, B], stack = [1,5,6,7,10,9,8,11,4]}
+
+Nach 2. Iteration:\\
+\texttt{color = [W, B, B, B, B, B, B, B, B, B, B, B], stack = [2,3,1,5,6,7,10,9,8,11,4]}
+
+\textbf{Phase 3:}
+Nach 1. Aufruf:\\
+\texttt{color = [W, W, B, B, W, W, W, W, W, W, W, W], stack = [3,1,5,6,7,10,9,8,11,4]}\\
+\texttt{scc = [0,0,2,2,0,0,0,0,0,0,0,0]}
+
+Nach 2. Aufruf:\\
+\texttt{color = [W, B, B, B, W, B, B, B, B, B, B, B], stack = [5,6,7,10,9,8,11,4]}\\
+\texttt{scc = [0,1,2,2,0,1,1,1,1,1,1,1]}
+
+Nach 3. Aufruf:\\
+\texttt{color = [W, B, B, B, B, B, B, B, B, B, B, B], stack = []}\\
+\texttt{scc = [0,1,2,2,4,1,1,1,1,1,1,1]}
+
+\textbf{b)}
+\begin{center}
+    \begin{tikzpicture}
+        [scale=0.8, auto=left,every node/.style={circle,draw}]
+        \tikzset{edge/.style = {->,> = latex'}}
+        \node (n1) at (2,1) {1};
+        \node (n2) at (1,3)  {2};
+        \node (n3) at (3,3)  {4};
+
+        \foreach \from/\to in {n1/n3,n2/n1}
+            \draw[edge] (\from) to (\to);
+    \end{tikzpicture}
+\end{center}
+
+\aufgabe{4}
+\textbf{a)}
+
+\begin{tabular}{c|*{19}{c|}c}
+    \texttt{topo}(v) & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20\\
+    \hline
+    Knoten v & 2 & 1 & 17 & 13 & 19 & 14 & 9 & 5 & 6 & 10 & 15 & 11 & 7 & 8 & 4 & 3 & 12 & 20 & 16 & 18
+\end{tabular}
+
+\textbf{b)}
+\lstinputlisting{nr4.pseudo}
+
+\aufgabe{5}
+
+\begin{center}
+\begin{tabular}{l|*{13}{c|}c}
+    Knoten & A & B & C & D & E & F & G & H & I & J & K & L & M & N\\
+    \hline
+    \texttt{est}    & 16 & 11 & 10 & 8 & 13 & 3 & 6 & 6 & 0 & 4 & 0 & 0 & 0 & 0\\
+    \hline
+    \texttt{critDep}& E & G & D & F & C & M & J & L & - & N & - & - & - & -\\
+    \hline
+    \texttt{eft}    & 20 & 13 & 13 & 10 & 16 & 8 & 11 & 9 & 3 & 6 & 3 & 6 & 3 & 4\\
+\end{tabular}
+\end{center}
+Reihenfolge Schwarzfärbung: N, J, G, B, M, F, K, D, I, C, L, H, E, A\\
+Gesamtdauer: 20\\
+Kritischer Pfad: M, F, D, C, E, A
+
+\newpage
+
+\aufgabe{6}
+
+\lstinputlisting{nr6.pseudo}
+
+Der Algorithmus führt eine normale DFS durch und sucht dabei nach Zykeln ungerader Länge.
+Wenn wir während eines DFS auf einen grauen Knoten stossen, so haben wir einen Zykel im Graphen.
+Nebenbei merkt sich der Algorithmus die Parität der Länge des Pfades vom ursprünglichen Startpunkt.
+Somit können wir sofort erkennen wenn wir auf einen Zykel ungerader Länge treffen und dies returnen.
+
+\end{document}

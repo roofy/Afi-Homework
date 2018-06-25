@@ -1,0 +1,25 @@
+boolean isBipartit(List adj[n]) {
+    int color[n] = WHITE;
+
+    for (int v = 0; v < n; ++v) {
+        if (color[v] == WHITE && findOddCycleDFS(adj, v, color, false))
+            return false;
+    }
+
+    return true;
+}
+
+boolean findOddCycleDFS(List adj[n], int start, int &color[n], boolean odd) {
+    color[start] = GRAY;
+    foreach (next in adj[start]) {
+        if (odd && color[next] == GRAY)
+            return true;
+
+        if (color[next] == WHITE)
+            findOddCycleDFS(adj, next, color, !odd);
+    }
+
+    color[start] = BLACK;
+
+    return false;
+}
