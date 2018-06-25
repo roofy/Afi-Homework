@@ -1,7 +1,6 @@
 void topoSort(List adj[n], int n, int &topo[n]) {
     int color[n] = WHITE, topoNum = 0;
     boolean allChildrenDone = true;
-
     for (int v = 0; v < n; ++v) {
         if (color[v] == WHITE) {
             foreach (w in adj[v]) {
