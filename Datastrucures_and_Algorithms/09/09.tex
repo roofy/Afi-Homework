@@ -65,14 +65,14 @@ D.h. bspw. ein Graph mit Knoten A,B,C und Kante AC ist (isomorphisch zu, aber) n
 
 \textbf{a)}
 
-Es gibt genau $4^{\binom{n}{2}}2^n$ gerichtete Graphen mit $n$ Knoten. Für jedes Paar von den $\binom{n}{2}$ Paaren
+Es gibt genau $4^{\binom{n}{2}}2^n = 2^{n^2}$ gerichtete Graphen mit $n$ Knoten. Für jedes Paar von den $\binom{n}{2}$ Paaren
 von Knoten haben wir genau 4 Möglichkeiten: keine Kante, Kante von A nach B, Kante von B nach A, 2 Kanten.
 Dies entspricht dem Faktor $4^{\binom{n}{2}}$.
 Weiter haben wir für jeden der $n$ Knoten entweder 1 oder keinen self-loop dies entspricht dem weiteren Faktor $2^n$.
 
 \textbf{b)}
 
-Es gibt genau $2^{\binom{n}{2}}$ ungerichtete Graphen mit $n$ Knoten. Die Idee ist wie in a). Für jedes von
+Es gibt genau $2^{\binom{n}{2}} = 2^{\frac{n(n-1)}{2}}$ ungerichtete Graphen mit $n$ Knoten. Die Idee ist wie in a). Für jedes von
 den $\binom{n}{2}$ möglichen Paaren von Knoten haben wir entweder 1 Kante oder keine, also 2 Möglichkeiten
 pro Paar. Ein ungerichteter Graph hat keine self-loops.\\
 
@@ -91,9 +91,9 @@ Knoten genau 0 der gesuchten Zykel existieren. Sei nun also $n \geq 3$. Dann hab
 genau $n(n-1)(n-2)$ Möglichkeiten für einen Zykel der Länge 3 in einem vollständigem ungerichtetem Graphen
 mit $n$ Knoten. Dies ist analog zu c), da wir $n$ mögliche Startknoten haben, und der letzte Knoten wieder
 der Startknoten, die restlichen aber unterschiedlich sein müssen. Analog haben wir $n(n-1)(n-2)(n-3)$
-Zykel der Länge 4, da wir beim vorletzten Knoten noch nicht die Möglichkeit haben zum Startknoten wiederzukehren
-ohne beim letzten die Eigenschaft der paarweisen Verschiedenheit zu verletzen.
-Insgesamt haben wir also\\ $n(n-1)(n-2)+n(n-1)(n-2)(n-3)$ Zykel der Länge höchstens 4.
+Zykel der Länge 4, da wir beim nicht die Möglichkeit haben vor dem letzten Knoten zum Startknoten wiederzukehren
+ohne die Eigenschaft der paarweisen Verschiedenheit zu verletzen.
+Insgesamt haben wir also\\ $n(n-1)(n-2)+n(n-1)(n-2)(n-3) = n(n-1)(n-2)^2$ Zykel der Länge höchstens 4.
 
 \newpage
 
