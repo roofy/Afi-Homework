@@ -1,0 +1,131 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 10}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{5}
+Sei ein PDA $\mathcal{A} := (Q, \Sigma, \Gamma, \Delta, q_0, Z_0)$, der mit
+leerem Stapel akzeptiert gegeben.\\
+Wir zeigen, dass der PDA $\mathcal{A}' := (Q', \Sigma, \Gamma, \Delta', q_0, Z_0, F)$,
+die gleiche Sprache akzeptiert,
+wobei
+$$
+    Q' := Q \cup \{f\}\qquad
+    F' := \{f\}\qquad
+    \Delta' := \Delta \cup \{(q, \varepsilon, \varepsilon, f, \varepsilon) \mid q \in Q\}
+$$
+Wir zeigen zuerst $L(\mathcal{A}) \subseteq L(\mathcal{A}')$.\\
+Sei also $w \in L(\mathcal{A})$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n)$
+über $w$ auf $\mathcal{A}$ mit $\kappa_n = (q, \varepsilon, \varepsilon)$ für ein
+$q \in Q$.
+Folglich gibt es einen Lauf $(\kappa_0, \cdots, \kappa_n, \kappa_{n+1})$ über $w$
+auf $\mathcal{A}'$, sodass $\kappa_{n+1} = (f, \varepsilon, \varepsilon)$,
+da wir die gleichen Transitionen wie in $\mathcal{A}$ verwenden können und schließlich
+von $q$ aus die Transition $(q, \varepsilon, \varepsilon, f, \varepsilon) \in \Delta'$
+wodurch wir im Zustand $f$ enden und den beschriebenen Lauf bekommen.
+Folglich gilt $w \in L(\mathcal{A}')$.
+
+Wir zeigen nun $L(\mathcal{A}') \subseteq L(\mathcal{A})$.\\
+Sei also, $w \in L(\mathcal{A}')$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n, \kappa_{n+1})$ über $w$ auf $\mathcal{A}'$ mit $\kappa_{n+1} = (q, \gamma, \varepsilon)$ mit $q \in F$
+und $\gamma \in \Gamma^*$. Da $F = \{f\}$ folgt $q = f$.
+Weiter ist für $q \in Q, \sigma \in \Sigma, Z \in \Gamma, \gamma \in \Gamma^*$
+$$
+    (q, \sigma, Z, f, \gamma) \in \Delta' \,\Longrightarrow\, \sigma = Z = \gamma = \varepsilon
+$$
+nach Konstruktion von $\Delta'$. Folglich muss $\kappa_n = (q, \varepsilon, \varepsilon)$ und $\kappa_{n+1} = (f, \varepsilon, \varepsilon)$.
+Da wir ausser den Transitionen zu $f$ aber keine anderen Hinzugefügt haben,
+folgt, dass der Lauf $(\kappa_0, \cdots, \kappa_n)$ über $w$ auch auf
+$\mathcal{A}$ existiert. Da dieser aber durch $\kappa_n = (q, \varepsilon, \varepsilon)$
+beendet ist, also mit leerem Stapel aufhört und $\mathcal{A}$ eben genau dann
+akzeptiert, folgt also auch $w \in L(\mathcal{A})$.
+
+Insgesmat haben wir $L(\mathcal{A}) = L(\mathcal{A}')$.
+
+\newpage
+
+\aufgabe{6}
+\textbf{a)}
+Der gesuchte PDA akzeptiert mit leerem Stapel:
+\begin{center}
+ \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+        \node[state, initial]   (q0)                        {$q_0$};
+        \path[->] (q0)  edge [loop right]               node 
+        {\Large$\substack{
+            \varepsilon, S, ZR\\[2pt]
+            \varepsilon, Z, EX\\[2pt]
+            \varepsilon, R, KX\\[2pt]
+            \varepsilon, X, XX\\[5pt]
+            0, Z, \varepsilon\\[2pt]
+            0, X, \varepsilon\\[2pt]
+            1, X, \varepsilon\\[2pt]
+            1, E, \varepsilon\\[2pt]
+            \texttt{,}, K, \varepsilon
+        }$} (q0);
+    \end{tikzpicture}
+\end{center}
+
+\textbf{b)}
+Linksableitung in $\mathcal{G}:$
+$$
+    S \to ZR \to EXR \to 1XR \to 10R \to 10KX \to 10,X \to 10,XX
+$$$$
+    \to 10,1X \to 10,1XX \to 10,10X \to 10,101
+$$
+Lauf auf $\mathcal{A}_\mathcal{G}:$
+$$
+    (q_0, S, 10,101) \to
+    (q_0, ZR, 10,101) \to
+    (q_0, EXR, 10,101) \to
+    (q_0, XR, 0,101)
+$$$$
+    \to (q_0, R, ,101)
+    \to (q_0, KX, ,101)
+    \to (q_0, X, 101)
+    \to (q_0, XX, 101)
+    \to (q_0, X, 01)
+$$$$
+    \to (q_0, XX, 01)
+    \to (q_0, X, 1)
+    \to (q_0, \varepsilon, \varepsilon)
+$$
+
+\newpage
+
+\aufgabe{7}
+
+
+
+
+\end{document}
