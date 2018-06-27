@@ -50,7 +50,7 @@ Wir zeigen zuerst $L(\mathcal{A}) \subseteq L(\mathcal{A}')$.\\
 Sei $w \in L(\mathcal{A})$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n)$
 mit
 $$
-    \forall i \in [0,n] : \kappa_i = (q_i, \gamma_i, v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, v_i \sqsubseteq w
+    \forall i \in [0,n] : \kappa_i = (q_i, \gamma_i, v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, w \sqsubseteq v_i
 $$
 Dann ist weiter $\kappa_n = (q_n, \varepsilon, \varepsilon)$, also auch $\gamma_n = v_n = \varepsilon$.
 
@@ -72,7 +72,7 @@ Sei also $w \in L(\mathcal{A}')$. Wir gehen komplett analog vor:\\
 Sei $\kappa' := ((q'_0, Z_0', w), \kappa'_0, \cdots, \kappa'_n, (f, \varepsilon, \varepsilon))$
 der Lauf von $\mathcal{A}'$ über $w$. Dabei gelte
 $$
-    \forall i \in [0,n] : \kappa_i' = (q_i, \gamma_iZ_0', v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, v_i \sqsubseteq w
+    \forall i \in [0,n] : \kappa_i' = (q_i, \gamma_iZ_0', v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, w \sqsubseteq v_i
 $$
 Wir haben nun nach Konstruktion von $\Delta'$, dass $\kappa_0' = (q_0, Z_0Z_0', w)$ und
 $\kappa_n' = (q_n, Z_0', \varepsilon)$, also $\gamma_0 = Z_0$ und $\gamma_n = \varepsilon$.
@@ -145,11 +145,11 @@ $$$$
     [rXq] \to a
 $$$$
     [qZr] \to b[rXq][qZq][qZr]
-    \qquad\qquad
+\qquad\qquad
     [qZq] \to b[rXq][qZq][qZq]
 $$$$
     [rXr] \to b[rXr][rXr]
-    \qquad\qquad
+\qquad\qquad
     [rXq] \to b[rXq][qXq]
     \mid
     b[rXr][rXq]
