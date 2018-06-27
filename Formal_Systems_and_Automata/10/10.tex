@@ -38,45 +38,55 @@
 \aufgabe{5}
 Sei ein PDA $\mathcal{A} := (Q, \Sigma, \Gamma, \Delta, q_0, Z_0)$, der mit
 leerem Stapel akzeptiert gegeben.\\
-Wir zeigen, dass der PDA $\mathcal{A}' := (Q', \Sigma, \Gamma, \Delta', q_0, Z_0, F)$,
+Wir zeigen, dass der PDA $\mathcal{A}' := (Q', \Sigma, \Gamma, \Delta', q_0', Z_0', F)$,
 die gleiche Sprache akzeptiert,
 wobei
 $$
-    Q' := Q \cup \{f\}\qquad
-    F' := \{f\}\qquad
-    \Delta' := \Delta \cup \{(q, \varepsilon, \varepsilon, f, \varepsilon) \mid q \in Q\}
+    Q' := Q \cup \{q_0',f\}\qquad
+    F := \{f\}\qquad
+    \Delta' := \Delta \cup \{(q, \varepsilon, Z_0', f, \varepsilon) \mid q \in Q'\} \cup \{(q_0', \varepsilon, Z_0', q_0, Z_0Z_0')\}
 $$
 Wir zeigen zuerst $L(\mathcal{A}) \subseteq L(\mathcal{A}')$.\\
-Sei also $w \in L(\mathcal{A})$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n)$
-über $w$ auf $\mathcal{A}$ mit $\kappa_n = (q, \varepsilon, \varepsilon)$ für ein
-$q \in Q$.
-Folglich gibt es einen Lauf $(\kappa_0, \cdots, \kappa_n, \kappa_{n+1})$ über $w$
-auf $\mathcal{A}'$, sodass $\kappa_{n+1} = (f, \varepsilon, \varepsilon)$,
-da wir die gleichen Transitionen wie in $\mathcal{A}$ verwenden können und schließlich
-von $q$ aus die Transition $(q, \varepsilon, \varepsilon, f, \varepsilon) \in \Delta'$
-wodurch wir im Zustand $f$ enden und den beschriebenen Lauf bekommen.
-Folglich gilt $w \in L(\mathcal{A}')$.
+Sei $w \in L(\mathcal{A})$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n)$
+mit
+$$
+    \forall i \in [0,n] : \kappa_i = (q_i, \gamma_i, v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, v_i \sqsubseteq w
+$$
+Dann ist weiter $\kappa_n = (q_n, \varepsilon, \varepsilon)$, also auch $\gamma_n = v_n = \varepsilon$.
+
+Wir definieren nun das Tupel $\kappa' := ((q'_0, Z_0', w), \kappa'_0, \cdots, \kappa'_n, (f, \varepsilon, \varepsilon))$ mit
+$$
+    \forall i \in [0,n] : \kappa'_i := (q_i, \gamma_iZ_0',v_i)
+$$
+Dann ist $\kappa'$ ein Lauf über $w$ auf $\mathcal{A}'$: Wir beginnen im neuen Startzustand $q'_0$ mit neuem
+Stapelstartsymbol $Z_0'$. Durch $(q_0', \varepsilon, Z_0', q_0, Z_0Z_0')$ kommen wir dann zu $\kappa'_0$,
+was für $\mathcal{A}$ gleich zu $\kappa_0$ wirkt, da nun $Z_0$ oben auf dem Stapel liegt.
+Von da an kann der gegebenen PDA $\mathcal{A}$ wie zuvor laufen bis er schließlich zur Konfiguration
+$\kappa'_n$ kommt. Hier hatte er im originellen Lauf nun mit einem leerem Stapel akzeptiert ($\kappa_n$), doch
+hier ist jetzt $\kappa_n' = (q_n, Z_0', \varepsilon)$. Da $(q_n, \varepsilon, Z_0', f, \varepsilon) \in \Delta'$
+können wir dann noch zum Endzustand $f$ übergehen und akzeptieren in der Konfiguration $(f,\varepsilon,\varepsilon)$.
+Damit ist $w \in L(\mathcal{A}')$.
 
 Wir zeigen nun $L(\mathcal{A}') \subseteq L(\mathcal{A})$.\\
-Sei also, $w \in L(\mathcal{A}')$, d.h. es gibt einen Lauf $(\kappa_0, \cdots, \kappa_n, \kappa_{n+1})$ über $w$ auf $\mathcal{A}'$ mit $\kappa_{n+1} = (q, \gamma, \varepsilon)$ mit $q \in F$
-und $\gamma \in \Gamma^*$. Da $F = \{f\}$ folgt $q = f$.
-Weiter ist für $q \in Q, \sigma \in \Sigma, Z \in \Gamma, \gamma \in \Gamma^*$
+Sei also $w \in L(\mathcal{A}')$. Wir gehen komplett analog vor:\\
+Sei $\kappa' := ((q'_0, Z_0', w), \kappa'_0, \cdots, \kappa'_n, (f, \varepsilon, \varepsilon))$
+der Lauf von $\mathcal{A}'$ über $w$. Dabei gelte
 $$
-    (q, \sigma, Z, f, \gamma) \in \Delta' \,\Longrightarrow\, \sigma = Z = \gamma = \varepsilon
+    \forall i \in [0,n] : \kappa_i' = (q_i, \gamma_iZ_0', v_i),\ q_i \in Q, \gamma_i \in \Gamma^*, v_i \sqsubseteq w
 $$
-nach Konstruktion von $\Delta'$. Folglich muss $\kappa_n = (q, \varepsilon, \varepsilon)$ und $\kappa_{n+1} = (f, \varepsilon, \varepsilon)$.
-Da wir ausser den Transitionen zu $f$ aber keine anderen Hinzugefügt haben,
-folgt, dass der Lauf $(\kappa_0, \cdots, \kappa_n)$ über $w$ auch auf
-$\mathcal{A}$ existiert. Da dieser aber durch $\kappa_n = (q, \varepsilon, \varepsilon)$
-beendet ist, also mit leerem Stapel aufhört und $\mathcal{A}$ eben genau dann
-akzeptiert, folgt also auch $w \in L(\mathcal{A})$.
+Wir haben nun nach Konstruktion von $\Delta'$, dass $\kappa_0' = (q_0, Z_0Z_0', w)$ und
+$\kappa_n' = (q_n, Z_0', \varepsilon)$, also $\gamma_0 = Z_0$ und $\gamma_n = \varepsilon$.
+Damit das Tupel $\kappa := ((q_i, \gamma_i, v_i))_{i \in [0,n]}$ ein Lauf von $\mathcal{A}$ über $w$,
+also $w \in L(\mathcal{A})$.
 
-Insgesmat haben wir $L(\mathcal{A}) = L(\mathcal{A}')$.
+Insgesamt gilt also $L(\mathcal{A}) = L(\mathcal{A}')$.
+
 
 \newpage
 
 \aufgabe{6}
 \textbf{a)}
+
 Der gesuchte PDA akzeptiert mit leerem Stapel:
 \begin{center}
  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
@@ -97,6 +107,7 @@ Der gesuchte PDA akzeptiert mit leerem Stapel:
 \end{center}
 
 \textbf{b)}
+
 Linksableitung in $\mathcal{G}:$
 $$
     S \to ZR \to EXR \to 1XR \to 10R \to 10KX \to 10,X \to 10,XX
@@ -121,8 +132,6 @@ $$$$
     \to (q_0, \varepsilon, \varepsilon)
 $$
 
-\newpage
-
 \aufgabe{7}
 
 Die (vereinfachte) gesuchte Grammatik hat folgende Produktionsregeln (mit Startregel $S$):
@@ -136,14 +145,101 @@ $$$$
     [rXq] \to a
 $$$$
     [qZr] \to b[rXq][qZq][qZr]
-$$$$
+    \qquad\qquad
     [qZq] \to b[rXq][qZq][qZq]
 $$$$
     [rXr] \to b[rXr][rXr]
-$$$$
+    \qquad\qquad
     [rXq] \to b[rXq][qXq]
     \mid
     b[rXr][rXq]
 $$
+
+\newpage
+
+\aufgabe{8}
+Startstapelsymbol $Z_0$. $B^{-}$ bedeutet es fehlt momentan ein $b$, $B$ bedeutet
+wir haben momentan eins zu viel.
+
+\textbf{a)}
+\begin{center}
+ \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=5cm]
+        \node[state, initial]   (q0)                        {$q_0$};
+        \node[state,accepting]   (q1)  [below left of=q0]                      {$q_1$};
+        \node[state] (q2)  [below right of=q0]                      {$q_2$};
+        \path[->] (q0)  edge [loop above]               node 
+        {\Large$\substack{
+            a, Z_0,B^{-}B^{-}Z_0 \\[2pt]
+            b, Z_0,BZ_0 \\[5pt]
+            a, B^{-},B^{-}B^{-}B^{-} \\[2pt]
+            b, B^{-},\varepsilon \\[5pt]
+            b, B, BB \\[2pt]
+        }$} (q0);
+        \path[->] (q0) edge node {$\$,Z_0, \varepsilon$} (q1);
+        \path[->] (q0) edge node {$a,B,\varepsilon$} (q2);
+
+        \path[->] (q2) edge [bend left] node {
+            \Large$\substack{
+                \varepsilon, B, \varepsilon\\[2pt]
+                \varepsilon, Z_0, B^{-}Z_0\\[2pt]
+            }$
+        } (q0);
+    \end{tikzpicture}
+\end{center}
+
+\textbf{b)}
+\begin{center}
+ \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=5cm]
+        \node[state, initial, accepting]   (q0)                     {$0$};
+        \node[state] (q1)  [below left of=q0]                       {$+$};
+        \node[state] (q2)  [below of=q1]                            {$q$};
+        \node[state] (q3)  [below right of=q0]                      {$-$};
+        \node[state] (q4)  [below of=q3]                            {$r$};
+
+        \path[->] (q0) edge node [sloped,above] {$b,Z_0, BZ_0$} (q1);
+        \path[->] (q0) edge node {$a,Z_0, B^-B^-Z_0$} (q3);
+
+        \path[->] (q1) edge [loop left] node {$b,B,BB$} (q1);
+
+        \path[->] (q1) edge node {$a,B, \varepsilon$} (q2);
+
+        \path[->] (q2) edge node {$\Large\substack{
+            \varepsilon,B, \varepsilon\\
+            \varepsilon, Z_0, B^-Z_0
+        }$} (q4);
+
+        \path[->] (q3) edge [loop right] node {$a, B^-, B^-B^-B^-$} (q3);
+        \path[->] (q3) edge node {$b, B^-, \varepsilon$} (q4);
+
+        \path[->] (q4) edge [bend left=20] node [sloped,above] {$\varepsilon, B, B$} (q1);
+        \path[->] (q4) edge [bend left=40] node [pos=0.6,left] {$\varepsilon, Z_0, Z_0$} (q0);
+        \path[->] (q4) edge [bend left=40] node [pos=0.8,left] {$\varepsilon, B^-, B^-$} (q3);
+    \end{tikzpicture}
+\end{center}
+
+\newpage
+
+\aufgabe{9}
+\textbf{a)}
+
+Sei also $\mathcal{A}$ ein DPDA und $v,w \in L(\mathcal{A})$ mit $v\neq w$. Wir nehmen an, dass $v \sqsubset w$.
+Da $v \in L(\mathcal{A})$ und $\mathcal{A}$ ein DPDA existiert ein Lauf $(\kappa_0, \cdots, \kappa_n)$ über
+$v$ auf $\mathcal{A}$, sodass $\kappa_n = (q, \varepsilon, \varepsilon)$. Da nun $w \in L(\mathcal{A}),\ v \sqsubset w$
+und $\mathcal{A}$ deterministisch ist haben wir auch einen Lauf $(\kappa_0, \cdots, \kappa_n, \cdots, \kappa_m)$
+über $w$, d.h. während des Laufes von $w$ haben wir einen leeren Stapel. Dann muss es aber eine
+Transition mit leerem Stapel geben, welche es nach Definition der DPDA's nicht gibt. Damit haben wir einen Widerspruch.
+Folglich gilt $v \not\sqsubset w$, unter anderem auch da der Automat sich sonst in $\kappa_n$ zwischen akzeptieren
+und weitermachen entscheiden müsste, was eben genau eine nicht-deterministische Eigenschaft ist.\\
+
+
+\textbf{b)}
+
+Nach a) haben wir damit, dass DPDA's mit finalen Zuständen mächtiger sind als diese, welche mit
+leerem Stapel akzeptieren. Beispielsweise können wir mit den letzteren nur Sprachen $L$ mit
+$\forall w,v \in L: w \not\sqsubset v$ erkennen, welche nicht die reguläre Sprache $L(a^*)$
+beinhaltet. Andererseits wissen wir, dass jede reguläre Sprache DPDA-erkennbar ist, damit folgt die Behauptung.
+
+
+
 \end{document}
 
