@@ -125,7 +125,25 @@ $$
 
 \aufgabe{7}
 
-
-
-
+Die (vereinfachte) gesuchte Grammatik hat folgende Produktionsregeln (mit Startregel $S$):
+$$
+    S \to [qZq] \mid [qZr]
+$$$$
+    [qZq] \to \varepsilon
+    \qquad
+    [qXq] \to a
+    \qquad
+    [rXq] \to a
+$$$$
+    [qZr] \to b[rXq][qZq][qZr]
+$$$$
+    [qZq] \to b[rXq][qZq][qZq]
+$$$$
+    [rXr] \to b[rXr][rXr]
+$$$$
+    [rXq] \to b[rXq][qXq]
+    \mid
+    b[rXr][rXq]
+$$
 \end{document}
+
