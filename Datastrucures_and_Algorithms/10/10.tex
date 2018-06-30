@@ -1,0 +1,481 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{tikz}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 10}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\textbf{a)}
+
+Der Algorithmus berechnet einen minimalen Spannbaum. Die Ausgabe ist ungewichtet. \\
+Wir betrachten zuerst die Kanten mit höchstem Gewicht, absteigend zu denen mit kleinstem.
+Die betrachteten Kanten werden gelöscht insofern sie nicht eine notwendige Komponente des Spannbaums ist.
+Haben wir also 2 Kanten um einen Teil des Graphen mit einem anderen zu verbinden, so lösche wir die Kante
+mit höherem Gewicht. Analog zu Kruskal's Algorithmus.
+
+
+\textbf{b)}
+
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+        \foreach \from/\to in {a/b,a/c,b/c,b/d,c/d,c/e,c/h,d/e,d/f,e/j,f/e,g/h,g/i,g/j,g/k,h/j,i/k,j/k,j/l,k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 20\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in {a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/j, g/k, h/j, i/k, j/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+$\xrightarrow{\quad 19\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, h/j, i/k, j/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 18\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, h/j, i/k, j/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+$\xrightarrow{\quad 17\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 16\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+\newpage
+
+$\xrightarrow{\quad 15\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 14\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/b, a/c, b/c, b/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+$\xrightarrow{\quad 13\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 12\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, i/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+$\xrightarrow{\quad 11\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 10\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, c/e, d/e, d/f, e/j, f/e, g/h, g/i, g/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+$\xrightarrow{\quad 9\quad}$
+\begin{minipage}{0.43\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, c/e, d/f, e/j, f/e, g/h, g/i, g/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+$\xrightarrow{\quad 8\quad}$
+\begin{minipage}{0.4\textwidth}
+    \begin{tikzpicture}
+        [scale=1, auto=left,every node/.style={circle,draw}]
+        \node (a) at (1,3)      {A};
+        \node (b) at (0,2)      {B};
+        \node (c) at (2,2)      {C};
+        \node (d) at (0,0.5)    {D};
+        \node (e) at (2,0.5)    {E};
+        \node (f) at (1,-0.5)   {F};
+        \node (g) at (5,3)      {G};
+        \node (h) at (4,2)      {H};
+        \node (i) at (6,2)      {I};
+        \node (j) at (4,0.5)    {J};
+        \node (k) at (6,0.5)    {K};
+        \node (l) at (5,-0.5)   {L};
+
+
+        \foreach \from/\to in { a/c, b/c, b/d, d/f, e/j, f/e, g/h, g/i, g/k, j/l, k/l}
+            \draw (\from) -- (\to);
+    \end{tikzpicture}
+\end{minipage}
+
+Von hier an kann keine Kante mehr gelöscht werden, da sonst der Graph nicht mehr zusammenhängend währe. Die restlichen
+Iterationen sehen dementsprechend genau wie der zuletzt gezeigte Graph aus.
+
+\newpage
+
+\aufgabe{2}
+Die Aussage ist wahr:\\
+Angenommen wir haben 2 unterschiedliche minimale Spannbäume $S$ und $T$ von einem Graphen mit paarweise verschiedenen Kantengewichten.
+
+Da $S$ und $T$ verschieden haben wir $D_S := S_E \setminus T_E \neq \varnothing$. Weiter gibt es dann ein $k_S \in D_S$ mit
+$$
+    \forall k \in D_S \setminus \{k_S\} : W(k_S) < W(k)
+$$
+Da also $k_S \notin T_E$ folgt, dass $T_E \cup \{k_S\}$ einen Zykel enthält.
+Folglich hat dieser Zykel eine Kante $k_T \in D_T := T_E \setminus S_E \neq \varnothing$ mit minimalem Gewicht in $D_T$.
+Sei nun o.B.d.A. $W(k_S) < W(k_T)$, dann können wir $k_T$ durch $k_S$ in $T$ ersetzen und erhalten einen Spannbaum mit kleinerem
+Gewicht, Widerspruch zur annahme, dass $T$ minimaler Spannbaum ist. (Wenn $W(k_T) < W(k_S)$ so können wir einfach $k_S$ durch
+$k_T$ ersetzen, da es um den selben Zykel in einem Graphen geht).
+
+Insgesamt erhält man unter der Annahme einen Widerspruch, also muss der minimale Spannbaum eines Graphen mit paarweise verschiedenen
+Kantengewichten eindeutig sein.
+
+
+\aufgabe{3}
+
+\newpage
+
+\aufgabe{4}
+
+\newpage
+
+\aufgabe{5}
+
+\newpage
+
+\aufgabe{6}
+
+Wir geben nur die Prioritäten der Knoten \textbf{in} der Queue an, für entfernte -
+
+\begin{tabular}{c|*{12}{c|}c}
+    \#Iteration     & A     & B     & C     & D     & E     & F     & G     & H     & I     & J     & K     & L     & M\\
+    \hline
+    1               & \underline{0} &$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$\\
+    \hline
+    2               & -     & 4     & 3     &$\infty$&$\infty$& 9     &$\infty$&$\infty$&$\infty$& \underline{1}    &$\infty$&$\infty$&$\infty$\\
+    \hline
+    3               & -     & 4     & \underline{3} & $\infty$& $\infty$& 9     & $\infty$& $\infty$& $\infty$& -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    4               & -     & 4     & -     & 4     & \underline{3} & 9     & $\infty$& $\infty$& $\infty$& -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    5               & -     & \underline{4} & -     & 4     & -     & 5     & $\infty$& $\infty$& $\infty$& -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    6               & -     & -     & -     & 4     & -     & 5     & $\infty$& \underline{3} & 3     & -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    7               & -     & -     & -     & 4     & -     & 5     & $\infty$& -     & \underline{3} & -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    8               & -     & -     & -     & \underline{4} & -     & 5     & $\infty$& -     & -   & -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    9               & -     & -     & -     & -     & -     & 5     & \underline{3} & -     & -   & -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    10              & -     & -     & -     & -     & -     & \underline{5} & -     & -     & -   & -     & $\infty$& $\infty$& $\infty$\\
+    \hline
+    11              & -     & -     & -     & -     & -     & -     & -     & -     & -   & -     & \underline{4}   & $\infty$& 4\\
+    \hline
+    12              & -     & -     & -     & -     & -     & -     & -     & -     & -   & -     & -   & 4 & \underline{3}\\
+    \hline
+    13              & -     & -     & -     & -     & -     & -     & -     & -     & -   & -     & -   & \underline{4} & -\\
+\end{tabular}
+
+Minimaler Spannbaum (kantengewichte überflüssig, da sie nicht geändert werden)
+\begin{center}
+\begin{tikzpicture}
+    [scale=1, auto=left,every node/.style={circle,draw}]
+    \node (l) at (2,0)      {L};
+    \node (m) at (0,-2)     {M};
+    \node (k) at (2,-2)     {K};
+    \node (f) at (2,-4)     {F};
+    \node (c) at (2,-6)     {C};
+    \node (d) at (2,-8)     {D};
+    \node (g) at (0,-8)     {G};
+    \node (e) at (0,-6)     {E};
+    \node (a) at (4,-6)     {A};
+    \node (i) at (6,-6)     {I};
+    \node (b) at (6,-4)     {B};
+    \node (j) at (6,-8)     {J};
+    \node (h) at (8,-4)     {H};
+
+    \foreach \from/\to in {k/l,k/m,k/f,f/e,e/c,c/d,d/g,c/a,a/j,a/b,b/i,b/h}
+            \draw (\from) -- (\to);
+\end{tikzpicture}
+\end{center}
+
+
+
+\end{document}
