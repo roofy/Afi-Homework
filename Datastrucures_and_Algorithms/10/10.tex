@@ -412,6 +412,16 @@ Kantengewichten eindeutig sein.
 \newpage
 
 \aufgabe{4}
+Wir können das gegebene Problem als Graph modellieren, in dem wir die Knoten als Zustände des Puzzles betrachten. Eine Kante
+zwischen zwei Knoten entrspricht eben der Möglichkeit, mit genau einer Aktion von einem der beiden zum anderen zu gelangen.
+Da man jede Aktion auch wieder rückgängig machen kann, betrachten wie einen ungerichteten Graphen. Weiter ist jede Aktion
+gleich ''teuer'', also ist der Graph auch ungewichtet. Der ganze Graph kann hierbei $n!$ Zusände haben, jedoch ist es selten
+nötig alle zu generieren bzw zu besuchen.
+
+Das Problem lässt sich gut mit einer BFS lösen. Wir starten in dem Knoten der den Startzustand des Puzzles repräsentiert.
+Dann generieren wir alle möglichen von hier ausgehenden Zustände und besuchen diese mit dem BFS, welcher sich den Pfad und die
+Länge merkt. Wir führen dies rekursiv dann für die neubesuchten Zustände im typischen Muster einer BFS aus. Sobald wir irgendwo unseren gewünschten Endzustand besuchen, können wir terminieren und den entsprechenden Pfad
+mit seiner Länge zurückgeben.
 
 \newpage
 
