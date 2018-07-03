@@ -15,6 +15,7 @@
 \usepackage{graphicx,color,curves,epsf,float,rotating}
 \usepackage{tasks}
 \usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
@@ -408,6 +409,64 @@ Kantengewichten eindeutig sein.
 
 
 \aufgabe{3}
+\textbf{a)}
+
+\begin{minipage}{0.35\textwidth}
+\begin{tikzpicture}[>=stealth',shorten >=1pt,node distance=3cm,on grid,initial/.style    ={}]
+    \node[state]    (s)     at (0,0)    {$s$};
+    \node[state]    (a)     at (2,0)    {$a$};
+    \node[state]    (b)     at (2,2)    {$b$};
+    \node[state]    (t)     at (4,2)    {$t$};
+    \path (s)     edge [below] node {$2$} (a);
+    \path (s)     edge [sloped,above] node {$3.5$} (b);
+    \path (a)     edge [sloped,below] node {$3$} (t);
+    \path (b)     edge [below] node {$2$} (t);
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.7\textwidth}
+    Man betrachte nebenstehenden Graphen. Es gelte\\
+    $K(s) = (0,0), K(a) = (2,0), K(b) = (2,2), K(t) = (4,2)$.\\
+    Da $2 + h(a) = 6 > 3.5 + h(b) = 5.5$ wird der Algorithmus den Pfad $sat$ auswählen,
+    welcher offensichtlich nicht der kürzeste ist.\\
+    Damit ist die Aussage widerlegt.
+\end{minipage}
+
+\textbf{b)}
+Die Aussage ist wahr. Offensichtlich gilt $||(x,y)||_\text{max} \leq ||(x,y)||_2$ für $x,y \in \mathbb{R}$ (*).\\
+Wir nehmen an, der Algorithmus findet einen Pfad $p = (p_1, \cdots, p_n) \in V^n$ der Länge $n \in \mathbb{N}$,\\
+welcher nicht minimal ist. Sei weiter $q = (q_1, \cdots, q_m)$ ein minimaler Pfad mit Länge $m \in \mathbb{N}$.
+Wenn bei dem letzten Aufruf von \texttt{extractMin} der Knoten $q_{m-1}$ teil des Baumes gewesen wäre,
+so hätte der Algorithmus anstatt von $p_{n-1}$ zu $p_n = t$ den Pfad $q_{m-1}$ zu $q_m = t$ gewählt,
+da
+$$
+    \texttt{dist[$p$]}
+    := \texttt{dist[$p_{n-1}$]} + W(p_{n-1}, p_n)
+    > \texttt{dist[$q_{m-1}$]} + W(q_{m-1}, q_m)
+    =: \texttt{dist[$q$]}
+$$
+(weil $q$ minimal, und $p$ nicht). Außerdem gilt ja $h(t) = 0$)
+Folglich muss $q_{m-1} \notin \texttt{Q}$ gegolten haben als $p_n$ ausgewählt wurde, wobei \texttt{Q} die Liste aus dem Algoritmus ist.
+Damit gilt aber zu dem Zeitpunkt bevor $p_n = t$ ausgewählt wurde:
+$$
+    \exists i \in [1,m] : \texttt{dist[$q_i$]}+h(q_i) \geq \texttt{dist[$p$]}
+$$
+Jedoch:
+$$
+    h(q_i)
+    \up{\leq}{*} ||K(q_i) - K(t)||_2
+    \leq \sum_{k=i}^{m-1} ||K(q_i) - K(q_{i+1})||_2
+    \leq \sum_{k=i}^{m-1} W(q_i, q_{i+1})
+$$$$
+    \,\Longrightarrow\, \texttt{dist[$q_i$]}+h(q_i) \leq \texttt{dist[q]}
+$$
+Damit folgt aber:
+$$
+    \texttt{dist[$q$]}
+    \geq\texttt{dist[$q_i$]}+h(q_i)
+    \geq \texttt{dist[$p$]}
+$$
+Dies ist Widerspruch zur Annahme $\texttt{dist[$p$]} > \texttt{dist[$q$]}$. Folglich kann auch die Annahme, dass
+ein Pfad, welcher nicht minimal ist, erkannt wird, nicht eintreten.\hfill$\square$
 
 \newpage
 
@@ -423,11 +482,25 @@ Dann generieren wir alle möglichen von hier ausgehenden Zustände und besuchen 
 Länge merkt. Wir führen dies rekursiv dann für die neubesuchten Zustände im typischen Muster einer BFS aus. Sobald wir irgendwo unseren gewünschten Endzustand besuchen, können wir terminieren und den entsprechenden Pfad
 mit seiner Länge zurückgeben.
 
-\newpage
-
 \aufgabe{5}
 
-\newpage
+\begin{tabular}{c|c|c|c|c|c|c|c}
+    \textbf{Knoten} & A & D & E & B & F& G& H\\
+    \hline
+    \textbf{B} & 6 & 6 & 6 & 6 & 6 & 6 & 6\\
+    \hline
+    \textbf{C} & $\infty$ & $\infty$ & $\infty$ & 17 & 17 & 17 & 17\\
+    \hline
+    \textbf{D} & 3 & 3 & 3 & 3 & 3 & 3 & 3\\
+    \hline
+    \textbf{E} & 3 & 3 & 3 & 3 & 3 & 3 & 3\\
+    \hline
+    \textbf{F} & $\infty$ & 6 & 6 & 6 & 6 & 6 & 6\\
+    \hline
+    \textbf{G} & $\infty$ & 12 & 7 & 7 & 7 & 7 & 7\\
+    \hline
+    \textbf{H} & $\infty$ & 11 & 11 & 11 & 11 & 11 & 11\\
+\end{tabular}
 
 \aufgabe{6}
 
@@ -462,6 +535,8 @@ Wir geben nur die Prioritäten der Knoten \textbf{in} der Queue an, für entfern
     \hline
     13              & -     & -     & -     & -     & -     & -     & -     & -     & -   & -     & -   & \underline{4} & -\\
 \end{tabular}
+
+\newpage
 
 Minimaler Spannbaum (kantengewichte überflüssig, da sie nicht geändert werden)
 \begin{center}
