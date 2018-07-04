@@ -1,0 +1,119 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{3}}             \hfill Phil Pützstück, 377247\\
+\noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 11}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{5}
+\newpage
+\aufgabe{6}
+\textbf{a)}
+
+Wir markieren folgende Nichtterminale in angegebener Reihenfolge:
+C, A, D, G\\
+Wir können keine weitern Nichtterminale markieren, da sie eine zirkuläre
+Abhängigkeit haben:\\
+Um S zu markieren, müssten wir B oder F markiert haben.\\
+Um B zu markieren, müssten wir S oder F markiert haben.\\
+Um F zu markieren, müssten wir B markiert haben.
+
+\textbf{b)}
+Insbesondere ist die Sprache damit leer, da S kein terminierendes Nichtterminal ist.
+
+\aufgabe{7}
+\begin{minipage}{0.5\textwidth}
+\begin{tabular}{*{7}{c|}}
+                                                            \cline{2-7}
+                            a & A,B,C   & S & A & S,B & A & S,B   \\  \cline{2-7}
+    \multicolumn{1}{c} {} & b & B,C     &   & A & S & A       \\  \cline{3-7}
+    \multicolumn{2}{c} {} & c & C       & S & A & S           \\  \cline{4-7}
+    \multicolumn{3}{c} {} & a & A,B,C   & S & A               \\  \cline{5-7}
+    \multicolumn{4}{c} {} & b & B,C     &                     \\  \cline{6-7}
+    \multicolumn{5}{c} {} & c & C                       \\  \cline{7-7}
+\end{tabular}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{tabular}{*{6}{c|}}
+                                                        \cline{2-6}
+                            c & C &   &   & S & A   \\  \cline{2-6}
+    \multicolumn{1}{c} {} & c & C & S & A & S       \\  \cline{3-6}
+    \multicolumn{2}{c} {} & a & A,B,C & S & A           \\  \cline{4-6}
+    \multicolumn{3}{c} {} & c & C &                 \\  \cline{5-6}
+    \multicolumn{4}{c} {} & c & C                   \\  \cline{6-6}
+\end{tabular}
+\end{minipage}
+
+Damit gilt $abcabc \in L(\mathcal{G})$ und $ccacc \notin L(\mathcal{G})$.
+
+\aufgabe{8}
+Sei eine kontextfreie Grammatik $\mathcal{G} = (N, \Sigma, P, S)$ gegeben.
+Wenn $|L(\mathcal{G})| = \infty$, so muss ein Wort $z \in L(\mathcal{G})$
+mit $|z| \geq 2^{|N|+1}$ existieren, sodass der Ableitungsbaum
+von $z$ mindestens Höhe $h \geq |N| + 1$ hat, also eins der endlich vielen
+Nichtterminale mehr als einmal in der Ableitung von $z$ vorkommt (Idee Pumping-Lemma).
+Andererseits haben wir nun endlich viele Nichtterminale und damit endlich viele
+Ableitungen, in denen jedes Nichtterminal höchstens ein mal vorkommt.\\
+Weiter gilt auch, dass wenn ein $z \in L(\mathcal{G})$ mit $|z| \geq n = 2^{|N|+1}$
+existiert (wobei $n$ eben genau das $n$ aus dem Pumping-Lemma ist), dass
+dann das Pumping Lemma uns einer Zerlegung liefert, welche wir insebsondere beliebig
+oft ''pumpen'' können, um unendlich viele verschiedene Wörter in $L(\mathcal{G})$ 
+zu erhalten.\\
+Insgesamt haben wir also gezeigt, dass:
+$$
+    \exists z \in L(\mathcal{G}) : |z| \geq 2^{|N|+1}
+    \qquad \,\Longleftrightarrow\,\qquad
+    |L(\mathcal{G})| = \infty
+$$
+Nun können wir wie folgt entscheiden, ob $L(\mathcal{G})$ zu einer gegebenen 
+Grammatik $\mathcal{G}$ unendlich ist:
+Es ist $\Sigma$ endlich, also ist $\Sigma^n\Sigma^*$ ein regulärer Ausdruck,
+welcher alle Wörter über dem Eingabealphabeit mit mindestens Länge $n := 2^{|N|+1}$
+erkennt. Dann können wir einen DFA $\mathcal{A}$ erstellen mit $L(\mathcal{A}) =
+L(\Sigma^n\Sigma^*)$. Weiter können wir aus der gegebenen Grammatik $\mathcal{G}$
+einen PDA $\mathcal{B}$ mit $L(\mathcal{B}) = L(\mathcal{G})$ erstellen, welcher
+mit leerem Zustand akzeptiert. Dann können wir den PDA $\mathcal{C}$ erstellen, welcher
+die Produktkonstruktion der beiden darstellt.
+Also $L(\mathcal{C}) = L(\mathcal{A}) \cap L(\mathcal{B})$.
+Zu diesem können wir nun wieder eine kontextfreie Grammatik $\mathcal{G}'$ erstellen,
+sodass $L(\mathcal{G}') = L(\mathcal{C}) $. Ferner ist also
+$L(\mathcal{G}') = \{z \mid z \in L(\mathcal{G}) \land |z| \geq n\}$.
+Wenn wir also mit dem Markierungsalgoritmus das Leerheitsproblem auf $\mathcal{G}'$
+lösen, so wissen wir, ob die Sprache $L(\mathcal{G})$ ein Wort der Länge $\geq n$ enthält.
+Nach dem obigen Beweis ist dann
+$
+    L(\mathcal{G}') \neq \varnothing \,\Longrightarrow\, |L(\mathcal{G})| = \infty
+$.\\
+Somit können wir mit dem angegebenen Algorithmus testen, ob die Sprache einer
+gegebenen kontextfreien Grammatik unendlich ist.
+\end{document}
