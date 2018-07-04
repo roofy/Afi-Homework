@@ -1,6 +1,8 @@
 \documentclass[a4paper,graphics,11pt]{article}
 \pagenumbering{arabic}
 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage[margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -17,7 +19,16 @@
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 \usepackage{tikz}
-\usetikzlibrary{automata, arrows}
+\usetikzlibrary{automata, arrows, shapes.geometric,positioning}
+
+\tikzset{
+    heap/.style={
+    every node/.style={circle, draw},
+    every rectangle node/.style={draw},
+    level 1/.style={sibling distance=20mm},
+    level 2/.style={sibling distance=10mm}
+    }
+}
 
 \newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
 \newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
@@ -27,16 +38,185 @@
 \noindent Formale Systeme und Automaten \hfill Benedikt Gerlach, 376944\\
 \strut\hfill Sebastian Hackenberg, 377550\\
 \begin{center}
-	\LARGE{\textbf{Hausaufgabe 11}}
+    \LARGE{\textbf{Hausaufgabe 11}}
 \end{center}
 \begin{center}
-\rule[0.1ex]{\textwidth}{1pt}
+    \rule[0.1ex]{\textwidth}{1pt}
 \end{center}
 
-
-
 \aufgabe{5}
+\textbf{a)}
+\begin{center}
+    \begin{tikzpicture}[heap]
+        \node {S}
+        child{node[rectangle]{t}}
+        child{node[rectangle]{(}}
+        child{node{S}
+            child{node[rectangle]{l}}
+            child{node[rectangle]{(}}
+            child{node{Z}
+                child{node[rectangle]{0}}}
+            child{node[rectangle]{)}}}
+        child{node[rectangle]{,}}
+        child{node{S}
+            child{node[rectangle]{t}}
+            child{node[rectangle]{(}}
+            child{node{S}
+                child{node[rectangle]{l}}
+                child{node[rectangle]{(}}
+                child{node{Z}
+                    child{node[rectangle]{1}}}
+                child{node[rectangle]{)}}
+            }
+            child{node[rectangle]{)}}}
+        child{node[rectangle]{)}}
+        ;
+    \end{tikzpicture}
+\end{center}
+\textbf{c)}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
+        \node[state, initial]   (q0)     {$q_0$};
+        \node[state] (q1)  [below left of=q0]            {$q_1$};
+        \node[state,accepting] (q2)  [below right of=q0]            {$q_2$};
+
+        \path[->] (q0)  edge [loop above] node
+        {\Large$\substack{
+            t,\gamma,X_t\gamma \\[2pt]
+            \texttt{(},X_t,X_{t\texttt{(}}
+        }$} (q0);
+        \path[->] (q0) edge node [sloped,above] {$l,\gamma',X_l\gamma'$} (q1);
+
+        \path[->] (q1)  edge [loop left] node 
+        {\Large$\substack{
+            \texttt{(},X_l,X_{l\texttt{(}}\\[2pt]
+            i,X_{l\texttt{(}},X_{l\texttt{(}Z}
+        }$} (q1);
+
+        \path[->] (q1) edge node {$\texttt{)},X_{l\texttt{(}Z},\varepsilon$} (q2);
+
+        \path[->] (q2)  edge [loop right] node
+        {\Large$\substack{
+            \texttt{)},X_{t\texttt{(}},\varepsilon\\[2pt]
+            \texttt{)},X_{t\texttt{(}2},\varepsilon\\[2pt]
+        }$} (q2);
+
+        \path[->] (q2) edge node [sloped,above] {$\texttt{,},X_{t\texttt{(}},X_{t\texttt{(}2}$} (q0);
+    \end{tikzpicture}
+\end{center}
+
+\begin{algorithm}
+    \begin{algorithmic}[1]
+        \Function{ParseTree}{$text$}
+            \State $a \leftarrow$ first symbol of $text$
+            \State initialise Stack $S$
+            \While{$a \neq \texttt{EOF}$}
+                \If{$a \in \{0,1\}$}
+                    \State $T \leftarrow$ \Call{NumTree}{$a$}; \Call{Push}{$S,T$}
+                \ElsIf{$a \in \{\texttt{t},\texttt{l}, \texttt{(}, \texttt{,}\}$}
+                    \State \Call{Push}{$S,a$}
+                \ElsIf{$a = \texttt{)}$}
+                    \State $T \leftarrow$ \Call{Reduce}{$S$}; \Call{Push}{$S,T$}
+                \EndIf
+            \EndWhile
+            \State $T \leftarrow$ \Call{Pop}{$S$}
+            \If{$T$ is a tree and $S = \varnothing$}
+                \State \Return $T$
+            \EndIf
+        \EndFunction\\
+
+        \Function{Reduce}{$S$}
+            \State $T_1 \leftarrow$ \Call{Pop}{$S$}
+            \If{$T_1$ is a NumTree}
+                \State $X_\texttt{(} \leftarrow$ \Call{Pop}{$S$}
+                \State $X_\texttt{l} \leftarrow$ \Call{Pop}{$S$}
+                \If{$X_\texttt{(} = \texttt{(}$ and $X_\texttt{l} = \texttt{l}$}
+                    \State \Return \Call{Leaf}{$T$}
+                \EndIf
+            \ElsIf{$T_1$ is a S-Tree}
+                \State $k \leftarrow$ \Call{Pop}{$S$}
+                \If{$k = \texttt{,}$}
+                    \State $T_2 \leftarrow$ \Call{Pop}{$S$}
+                    \State $X_\texttt{(} \leftarrow$ \Call{Pop}{$S$}
+                    \State $X_\texttt{t} \leftarrow$ \Call{Pop}{$S$}
+                    \If{$T_2$ is a S-Tree and $X_\texttt{(} = \texttt{(}$ and $X_{\texttt{t}} = \texttt{t}$}
+                        \State \Return \Call{BinaryTree}{$T_2,T_1$}
+                    \EndIf
+                \ElsIf{$k = \texttt{(}$}
+                    \State $X_\texttt{t} \leftarrow$ \Call{Pop}{$S$}
+                    \If{$X_\texttt{t} = \texttt{t}$}
+                        \State \Return \Call{SingleTree}{$T_1$}
+                    \EndIf
+                \EndIf
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 \newpage
+Dabei werden folgende Ableitungsbäume widergegeben:
+
+\begin{minipage}{0.5\textwidth}
+    NumTree($a$):
+
+    \begin{tikzpicture}[heap]
+        \node {$Z$}
+            child{node[rectangle]{$a$}}
+        ;
+    \end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+    Leaf($Z$):
+
+    \begin{tikzpicture} [heap,
+        triangle/.style = {draw, regular polygon, regular polygon sides=3},
+        node rotated/.style = {rotate=180},
+        border rotated/.style = {shape border rotate=180}
+    ]
+        \node {S}
+            child{node[rectangle]{l}}
+            child{node[rectangle]{(}}
+            child{node[triangle] {$Z$}}
+            child{node[rectangle]{)}}
+            ;
+    \end{tikzpicture}
+\end{minipage}
+
+    BinaryTree($T_1,T_2$):
+
+    \begin{tikzpicture} [heap,
+        triangle/.style = {draw, regular polygon, regular polygon sides=3},
+        node rotated/.style = {rotate=180},
+        border rotated/.style = {shape border rotate=180}
+    ]
+        \node {S}
+            child{node[rectangle]{t}}
+            child{node[rectangle]{(}}
+            child{node[triangle] {$T_1$}}
+            child{node[rectangle]{,}}
+            child{node[triangle] {$T_2$}}
+            child{node[rectangle]{)}}
+            ;
+    \end{tikzpicture}
+
+
+\begin{minipage}{0.5\textwidth}
+    SingleTree($T$):
+
+    \begin{tikzpicture} [heap,
+        triangle/.style = {draw, regular polygon, regular polygon sides=3},
+        node rotated/.style = {rotate=180},
+        border rotated/.style = {shape border rotate=180}
+    ]
+        \node {S}
+            child{node[rectangle]{t}}
+            child{node[rectangle]{(}}
+            child{node[triangle] {$T$}}
+            child{node[rectangle]{)}}
+            ;
+    \end{tikzpicture}
+\end{minipage}
+
 \aufgabe{6}
 \textbf{a)}
 
@@ -53,25 +233,25 @@ Insbesondere ist die Sprache damit leer, da S kein terminierendes Nichtterminal 
 
 \aufgabe{7}
 \begin{minipage}{0.5\textwidth}
-\begin{tabular}{*{7}{c|}}
-                                                            \cline{2-7}
+    \begin{tabular}{*{7}{c|}}
+        \cline{2-7}
                             a & A,B,C   & S & A & S,B & A & S,B   \\  \cline{2-7}
-    \multicolumn{1}{c} {} & b & B,C     &   & A & S & A       \\  \cline{3-7}
-    \multicolumn{2}{c} {} & c & C       & S & A & S           \\  \cline{4-7}
-    \multicolumn{3}{c} {} & a & A,B,C   & S & A               \\  \cline{5-7}
-    \multicolumn{4}{c} {} & b & B,C     &                     \\  \cline{6-7}
-    \multicolumn{5}{c} {} & c & C                       \\  \cline{7-7}
-\end{tabular}
+        \multicolumn{1}{c} {} & b & B,C     &   & A & S & A       \\  \cline{3-7}
+        \multicolumn{2}{c} {} & c & C       & S & A & S           \\  \cline{4-7}
+        \multicolumn{3}{c} {} & a & A,B,C   & S & A               \\  \cline{5-7}
+        \multicolumn{4}{c} {} & b & B,C     &                     \\  \cline{6-7}
+        \multicolumn{5}{c} {} & c & C                       \\  \cline{7-7}
+    \end{tabular}
 \end{minipage}
 \begin{minipage}{0.5\textwidth}
-\begin{tabular}{*{6}{c|}}
-                                                        \cline{2-6}
+    \begin{tabular}{*{6}{c|}}
+        \cline{2-6}
                             c & C &   &   & S & A   \\  \cline{2-6}
-    \multicolumn{1}{c} {} & c & C & S & A & S       \\  \cline{3-6}
-    \multicolumn{2}{c} {} & a & A,B,C & S & A           \\  \cline{4-6}
-    \multicolumn{3}{c} {} & c & C &                 \\  \cline{5-6}
-    \multicolumn{4}{c} {} & c & C                   \\  \cline{6-6}
-\end{tabular}
+        \multicolumn{1}{c} {} & c & C & S & A & S       \\  \cline{3-6}
+        \multicolumn{2}{c} {} & a & A,B,C & S & A           \\  \cline{4-6}
+        \multicolumn{3}{c} {} & c & C &                 \\  \cline{5-6}
+        \multicolumn{4}{c} {} & c & C                   \\  \cline{6-6}
+    \end{tabular}
 \end{minipage}
 
 Damit gilt $abcabc \in L(\mathcal{G})$ und $ccacc \notin L(\mathcal{G})$.
