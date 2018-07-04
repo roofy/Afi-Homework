@@ -474,7 +474,7 @@ ein Pfad, welcher nicht minimal ist, erkannt wird, nicht eintreten.\hfill$\squar
 Wir können das gegebene Problem als Graph modellieren, in dem wir die Knoten als Zustände des Puzzles betrachten. Eine Kante
 zwischen zwei Knoten entrspricht eben der Möglichkeit, mit genau einer Aktion von einem der beiden zum anderen zu gelangen.
 Da man jede Aktion auch wieder rückgängig machen kann, betrachten wie einen ungerichteten Graphen. Weiter ist jede Aktion
-gleich ''teuer'', also ist der Graph auch ungewichtet. Der ganze Graph kann hierbei $n!$ Zusände haben, jedoch ist es selten
+gleich ''teuer'', also ist der Graph auch ungewichtet. Der ganze Graph kann hierbei $(n^2)!$ Zusände haben, jedoch ist es selten
 nötig alle zu generieren bzw zu besuchen.
 
 Das Problem lässt sich gut mit einer BFS lösen. Wir starten in dem Knoten der den Startzustand des Puzzles repräsentiert.
