@@ -74,6 +74,7 @@
     \end{tikzpicture}
 \end{center}
 \textbf{c)}
+Es sei $\gamma,\gamma' \in \Gamma$ und $i \in \{0,1\}$.
 \begin{center}
     \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=4cm]
         \node[state, initial]   (q0)     {$q_0$};
@@ -118,6 +119,7 @@
                 \ElsIf{$a = \texttt{)}$}
                     \State $T \leftarrow$ \Call{Reduce}{$S$}; \Call{Push}{$S,T$}
                 \EndIf
+                \State $a \leftarrow$ next symbol of $text$
             \EndWhile
             \State $T \leftarrow$ \Call{Pop}{$S$}
             \If{$T$ is a tree and $S = \varnothing$}
@@ -131,7 +133,7 @@
                 \State $X_\texttt{(} \leftarrow$ \Call{Pop}{$S$}
                 \State $X_\texttt{l} \leftarrow$ \Call{Pop}{$S$}
                 \If{$X_\texttt{(} = \texttt{(}$ and $X_\texttt{l} = \texttt{l}$}
-                    \State \Return \Call{Leaf}{$T$}
+                    \State \Return \Call{Leaf}{$T_1$}
                 \EndIf
             \ElsIf{$T_1$ is a S-Tree}
                 \State $k \leftarrow$ \Call{Pop}{$S$}
