@@ -1,0 +1,405 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=2mm,
+    belowskip=2mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    literate={ä}{{\"a}}1 {Ä}{{\"A}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{14}}             \hfill Phil Pützstück, 377247\\
+\noindent Datenstrukturen und Algorithmen \hfill Benedikt Gerlach, 376944\\
+\strut\hfill Sebastian Hackenberg, 377550\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 11}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+\aufgabe{1}
+\textbf{a)}
+
+Wert des Flusses insgesamt nach Iterationen: $1,\ 1+\phi,\ 1+2\phi,\ 2+\phi,\ 3,\ 2+2\phi\cdots$\\
+Dies lässt sich nach dem Hinweis auch in Potenzen von $\phi$ schreiben, also
+$$
+    1,\ 1+\phi,\ 1+2\phi,\ 1+2\phi+\phi^2,\ 1+2\phi+2\phi^2,\ 1+2\phi+2\phi^2+\phi^3\cdots
+$$
+\textbf{b)}
+
+Es ergibt sich ein offensichtliches Muster, wenn man den Wert des Flusses wie oben in Potenzen von $\phi$ schreibt.
+Insgesamt ist der Wert des Flusses nach der $2n$-ten Iteration gegeben durch:
+$$
+    f_{2n} = 1+2\sum_{i=1}^{n} \phi^i
+$$
+Es ergibt sich folgende Konvergenz:
+$$
+    1+2\sum_{i=1}^{\infty} \phi^i
+    \quad\up{=}{$|\phi| < 1$}\quad 1+2\frac{1}{1-\phi} = 4 + \sqrt{5} < 201
+$$
+Da also $201$ der eigentliche maximale Flusswert ist, konvergiert der Algorithmus hier nicht zum erwünschten maximalen
+Fluss.
+
+\textbf{c)}
+
+Es wird behauptet, dass wenn der Algorithmus terminiert, er dann auf jeden Fall einen maximalen Fluss bestimmt.
+Ferner wird jedoch nur garantiert, dass er bei rationalen Kapazitäten terminiert.
+Da aber $\phi \notin \mathbb{Q}$, ist die falsche Konvergenz hier kein Problem.
+
+\aufgabe{2}
+\textbf{a)}
+
+\begin{tikzpicture}
+    [scale=0.8, auto=left,every node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node (q1) at (0,0)  {};
+    \node (q2) at (2,0)  {};
+    \node (q3) at (4,0)  {};
+
+    \foreach \from/\to in {q1/q2,q2/q3}
+        \draw[edge] (\from) to (\to);
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}
+        [scale=0.8, auto=left,every node/.style={circle,draw}]
+        \tikzset{edge/.style = {->,> = latex'}}
+        \node (q1) at (0,0)  {};
+        \node (q2) at (2,0)  {};
+        \node (q3) at (4,0)  {};
+
+        \draw[edge] (q1) to (q2);
+        \draw[edge,bend left] (q2) to (q3);
+        \draw[edge,bend right] (q2) to (q3);
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}
+        [scale=0.8, auto=left,every node/.style={circle,draw}]
+        \tikzset{edge/.style = {->,> = latex'}}
+        \node (q1) at (0,0)  {};
+        \node (q2) at (2,0)  {};
+        \node (q3) at (4,0)  {};
+        \node (q4) at (6,0)  {};
+
+        \draw[edge,bend left] (q1) to (q4);
+        \draw[edge,bend right] (q1) to (q4);
+        \draw[edge] (q1) to (q2);
+        \draw[edge] (q2) to (q3);
+        \draw[edge] (q3) to (q4);
+\end{tikzpicture}
+
+\newpage
+
+\textbf{b)}
+
+Wir können so einen Algorithmus rekursiv über die Struktur der Graphen implementieren.\\
+Der Basisfall ist natürlich der Graph $s \to t$, bei welchem der maximale Fluss eben der Kapazität der Kante $(s,t)$
+entspricht.
+Nun können wir den rekursiven Fall betrachten:
+Bei einer Serie von SP-Graphen ist der maximale Fluss eben das Minimum der maximalen Flüsse der SP-Graphen, ähnlich
+wie bei den Kapazitäten der Kanten in einem augmentierenden Pfad.\\
+Wenn wir 2 SP-Graphen Parallel ausführen so ist der maximale Fluss eben die Summe der maximalen Flüsse der
+SP-Graphen.
+
+Insgesamt:
+
+MaxFlow($s,t$) = $c(s,t)$.\\
+MaxFlow(Serie($s_G, t_G$)) = $\min\{$MaxFlow($s_G$), MaxFlow($t_G$)$\}$\\
+MaxFlow(Parallel($s_G, t_G$)) = MaxFlow($s_G$) + MaxFlow($t_G$)
+
+\aufgabe{3}
+
+\begin{tabular}{c|c|c|c|c|c}
+    2 & A & B & C & D & E\\
+    \hline
+    A & 0 & 8 & 1 & 5 & $\infty$\\
+    \hline
+    B & $\infty$ & 0 & $\infty$ & $\infty$ & $\infty$\\
+    \hline
+    C & $\infty$ & 7 & 0 & 1 & 1\\
+    \hline
+    D & 8 & \underline{16} & 3 & 0 & 1\\
+    \hline
+    E & $\infty$ & 3 & 1 & $\infty$ & 0\\
+\end{tabular}
+\qquad
+\begin{tabular}{c|c|c|c|c|c}
+    3 & A & B & C & D & E\\
+    \hline
+    A & 0 & 8 & 1 & 5 & $\infty$\\
+    \hline
+    B & $\infty$ & 0 & $\infty$ & $\infty$ & $\infty$\\
+    \hline
+    C & $\infty$ & 7 & 0 & 1 & 1\\
+    \hline
+    D & 8 & 16 & 3 & 0 & 1\\
+    \hline
+    E & $\infty$ & 3 & 1 & $\infty$ & 0\\
+\end{tabular}
+\qquad
+\begin{tabular}{c|c|c|c|c|c}
+    4 & A & B & C & D & E\\
+    \hline
+    A & 0 & 8 & 1 & \underline{2} & \underline{2}\\
+    \hline
+    B & $\infty$ & 0 & $\infty$ & $\infty$ & $\infty$\\
+    \hline
+    C & $\infty$ & 7 & 0 & 1 & 1\\
+    \hline
+    D & 8 & \underline{10} & 3 & 0 & 1\\
+    \hline
+    E & $\infty$ & 3 & 1 & \underline{2} & 0\\
+\end{tabular}
+
+\begin{tabular}{c|c|c|c|c|c}
+    5 & A & B & C & D & E\\
+    \hline
+    A & 0 & 8 & 1 & 2 & 2\\
+    \hline
+    B & $\infty$ & 0 & $\infty$ & $\infty$ & $\infty$\\
+    \hline
+    C & \underline{9} & 7 & 0 & 1 & 1\\
+    \hline
+    D & 8 & 10 & 3 & 0 & 1\\
+    \hline
+    E & \underline{10} & 3 & 1 & 2 & 0\\
+\end{tabular}
+\qquad
+\begin{tabular}{c|c|c|c|c|c}
+    6 & A & B & C & D & E\\
+    \hline
+    A & 0 & \underline{5} & 1 & 2 & 2\\
+    \hline
+    B & $\infty$ & 0 & $\infty$ & $\infty$ & $\infty$\\
+    \hline
+    C & 9 & \underline{4} & 0 & 1 & 1\\
+    \hline
+    D & 8 & \underline{4} & \underline{2} & 0 & 1\\
+    \hline
+    E & 10 & 3 & 1 & 2 & 0\\
+\end{tabular}
+
+\aufgabe{4}
+
+initiales Restnetzwerk\hfill Nächstes Flussnetzwerk mit aktuellem Fluss
+
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$7$} (c);
+    \path[edge] (s) edge [above] node {$7$} (b);
+    \path[edge] (s) edge [below left] node {$7$} (a);
+    \path[edge] (c) edge [above right] node {$1$} (e);
+    \path[edge] (e) edge [above right] node {$7$} (t);
+    \path[edge] (b) edge [above] node {$3$} (e);
+    \path[edge] (a) edge [right] node {$5$} (b);
+    \path[edge] (a) edge [above] node {$3$} (d);
+    \path[edge] (d) edge [above] node {$7$} (t);
+    \path[edge] (d) edge [left] node {$3$} (e);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$0/7$} (c);
+    \path[edge] (s) edge [above] node {$0/7$} (b);
+    \path[edge] (s) edge [below left] node {$3/7$} (a);
+    \path[edge] (c) edge [above right] node {$0/1$} (e);
+    \path[edge] (e) edge [above right] node {$0/7$} (t);
+    \path[edge] (b) edge [above] node {$0/3$} (e);
+    \path[edge] (a) edge [right] node {$0/5$} (b);
+    \path[edge] (a) edge [above] node {$3/3$} (d);
+    \path[edge] (d) edge [above] node {$3/7$} (t);
+    \path[edge] (d) edge [left] node {$0/3$} (e);
+\end{tikzpicture}
+
+\newpage
+
+Restnetzwerk\hfill Nächstes Flussnetzwerk mit aktuellem Fluss
+
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$7$} (c);
+    \path[edge] (s) edge [above] node {$7$} (b);
+    \path[edge] (s) edge [below left] node {$4$} (a);
+    \path[edge] (a) [bend left=45] edge [below left] node {$3$} (s);
+    \path[edge] (c) edge [above right] node {$1$} (e);
+    \path[edge] (e) edge [above right] node {$7$} (t);
+    \path[edge] (b) edge [above] node {$3$} (e);
+    \path[edge] (a) edge [right] node {$5$} (b);
+    \path[edge] (d) edge [above] node {$3$} (a);
+    \path[edge] (d) edge [below] node {$4$} (t);
+    \path[edge] (t) [bend left=45] edge [below] node {$3$} (d);
+    \path[edge] (d) edge [left] node {$3$} (e);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$0/7$} (c);
+    \path[edge] (s) edge [above] node {$3/7$} (b);
+    \path[edge] (s) edge [below left] node {$3/7$} (a);
+    \path[edge] (c) edge [above right] node {$0/1$} (e);
+    \path[edge] (e) edge [above right] node {$3/7$} (t);
+    \path[edge] (b) edge [above] node {$3/3$} (e);
+    \path[edge] (a) edge [right] node {$0/5$} (b);
+    \path[edge] (a) edge [above] node {$3/3$} (d);
+    \path[edge] (d) edge [above] node {$3/7$} (t);
+    \path[edge] (d) edge [left] node {$0/3$} (e);
+\end{tikzpicture}
+
+Restnetzwerk\hfill Nächstes Flussnetzwerk mit aktuellem Fluss
+
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$7$} (c);
+    \path[edge] (b) [bend right=20] edge [above,pos=0.3] node {$3$} (s);
+    \path[edge] (s) edge [below] node {$4$} (b);
+    \path[edge] (s) edge [below left] node {$4$} (a);
+    \path[edge] (a) [bend left=45] edge [below left] node {$3$} (s);
+    \path[edge] (c) edge [above right] node {$1$} (e);
+    \path[edge] (e) edge [below left] node {$4$} (t);
+    \path[edge] (t) [bend right=45] edge [above right] node {$3$} (e);
+    \path[edge] (e) edge [above] node {$3$} (b);
+    \path[edge] (a) edge [right] node {$5$} (b);
+    \path[edge] (d) edge [above] node {$3$} (a);
+    \path[edge] (d) edge [below] node {$4$} (t);
+    \path[edge] (t) [bend left=45] edge [below] node {$3$} (d);
+    \path[edge] (d) edge [left] node {$3$} (e);
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [above left] node {$1/7$} (c);
+    \path[edge] (s) edge [above] node {$3/7$} (b);
+    \path[edge] (s) edge [below left] node {$3/7$} (a);
+    \path[edge] (c) edge [above right] node {$1/1$} (e);
+    \path[edge] (e) edge [above right] node {$4/7$} (t);
+    \path[edge] (b) edge [above] node {$3/3$} (e);
+    \path[edge] (a) edge [right] node {$0/5$} (b);
+    \path[edge] (a) edge [above] node {$3/3$} (d);
+    \path[edge] (d) edge [above] node {$3/7$} (t);
+    \path[edge] (d) edge [left] node {$0/3$} (e);
+\end{tikzpicture}
+
+Restnetzwerk
+
+\begin{tikzpicture}[node distance=3cm,every circle node/.style={circle,draw}]
+    \tikzset{edge/.style = {->,> = latex'}}
+    \node[circle] (s)     at (0,0)      {$s$};
+    \node[circle] (b)     at (2,0)      {$B$};
+    \node[circle] (e)     at (4,0)      {$E$};
+    \node[circle] (c)     at (2,2)      {$C$};
+    \node[circle] (a)     at (2,-2)     {$A$};
+    \node[circle] (d)     at (4,-2)     {$D$};
+    \node[circle] (t)     at (6,-2)     {$t$};
+
+    \path[edge] (s) edge [below right,pos=0.9] node {$6$} (c);
+    \path[edge] (c) [bend right=45] edge [above left] node {$1$} (s);
+    \path[edge] (b) [bend right=20] edge [above,pos=0.3] node {$3$} (s);
+    \path[edge] (s) edge [below] node {$4$} (b);
+    \path[edge] (s) edge [below left] node {$4$} (a);
+    \path[edge] (a) [bend left=45] edge [below left] node {$3$} (s);
+    \path[edge] (e) edge [above right] node {$1$} (c);
+    \path[edge] (e) edge [below left] node {$3$} (t);
+    \path[edge] (t) [bend right=45] edge [above right] node {$4$} (e);
+    \path[edge] (e) edge [above] node {$3$} (b);
+    \path[edge] (a) edge [right] node {$5$} (b);
+    \path[edge] (d) edge [above] node {$3$} (a);
+    \path[edge] (d) edge [below] node {$4$} (t);
+    \path[edge] (t) [bend left=45] edge [below] node {$3$} (d);
+    \path[edge] (d) edge [left] node {$3$} (e);
+\end{tikzpicture}
+
+Der maximale Fluss hat den Wert 7.
+
+\newpage
+\aufgabe{5}
+
+\end{document}
