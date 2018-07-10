@@ -468,10 +468,56 @@ Damit ist die längste gemeinsame Teilsequenz ERTEN.
 \newpage
 
 \aufgabe{6}
+\textbf{a)}
+Wir haben:
+$$
+    \sqcap_{v_3}^0 = \varnothing,\ \text{Pr}_{t}(\sqcap_{v_3}^0) = 0
+    \qquad
+    \sqcap_{v_2}^3 = \varnothing,\ \text{Pr}_{t}(\sqcap_{v_2}^3) = 0
+    \qquad
+    \sqcap_{t}^3 = \{t\},\ \text{Pr}_{t}(\sqcap_{t}^3) = 1
+$$$$
+    \sqcap_{v_3}^3 = \{v_3t,\ v_3v_1t,\ v_3v_1v_3t\},\ \text{Pr}_{t}(\sqcap_{v_3}^3) = 0.415
+    \quad
+    \sqcap_{v_1}^4 = \{v_1t,\ v_1v_3t,\ v_1v_3v_1v_3t,\ v_1v_3v_1t\},\ \text{Pr}_{t}(\sqcap_{v_1}^4) = 0.5075
+$$$$
+    \sqcap_{v_0}^5 = \{v_0v_1t,\ v_0v_1v_3t,\ v_0v_1v_3v_1v_3t,\ v_0v_1v_3v_1t\},\ \text{Pr}_{t}(\sqcap_{v_0}^5) = 0.5075
+$$
+\textbf{b)}
+
+$$
+    \sqcap_v^k = \begin{cases}
+        \varnothing & ,k = 0, v \neq t\\
+        \{v\} & ,v = t\\
+        \{vp \mid (v,v') \in E \land p \in \sqcap_{v'}^{k-1}\} & ,\text{sonst}
+    \end{cases}
+$$
+
+\textbf{c)}
+
+$$
+    \text{Pr}_{t}(\sqcap_v^k) = \begin{cases}
+        0 & ,k = 0, v \neq t\\
+        1 & ,v = t\\
+        \displaystyle\sum_{\substack{v' \in V\\ (v,v') \in E}} W(v,v')\text{Pr}_t(\sqcap_{v'}^{k-1}) & ,\text{sonst}
+    \end{cases}
+$$
+
+\aufgabe{7}
+Wir nehmen an, es gilt stets $i,j \in \mathbb{N}$.
+
+\textbf{a)}
+Dies lässt sich auch als geschlossene Formels ausdrücken, da stets $a_i = 1$ für $i > 2$ gilt.
+Wir gehen trotz dessen stumpf nach den Methoden der VL vor:
+
+\lstinputlisting{nr7.pseudo}
 
 \newpage
 
-\aufgabe{7}
+\textbf{b)}
+Hier gibt es ebenfalls die geschlossene Form $b_{i,j} = 2^{i-1}j$, aber wir werden wieder nach VL vorgehen:
+
+\lstinputlisting{nr7b.pseudo}
 
 \newpage
 \aufgabe{8}

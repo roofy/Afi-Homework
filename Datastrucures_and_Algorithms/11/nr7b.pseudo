@@ -1,0 +1,27 @@
+int b(int i, int j) {
+    // 2-dim-array to store the computed values
+    int n = i+j;
+    int[n][n] arr;
+
+    for (int k = 1; k < n; ++k) // set first row to 1 (case i = 1)
+        arr[1][k] = 1;
+
+    for (int l = 1; l < n; ++l) // set first column to itself (case j = 1)
+        arr[l][1] = l;
+
+    // now compute values from top left to bottom right, column-wise downwards
+    // starting on the diagonal, because b(j,i) = b(i,j) for numbers over it.
+    // we only need to compute to the column of the desired value; min(i,j),
+    // as we have leftwards ''triangular'' dependency. By the same argument
+    // we only need to compute each column to the n-kth entry.
+    for (int k = 2; k < min(i,j); ++k) {
+        for (int l = k; l <= n-k; ++l) {
+            arr[l][k] = arr[l+1][k-1] + arr[l-1][k-1];
+        }
+    }
+
+    if (j > i && i > 1)
+        return arr[j][i];
+
+    return arr[i][j];
+}

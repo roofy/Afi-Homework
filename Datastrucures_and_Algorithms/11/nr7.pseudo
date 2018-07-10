@@ -1,0 +1,19 @@
+int a(int n) {
+    // array to store the computed values, at least the first 3
+    int[n+3] arr;
+    // initialize, first condition
+    for (i = 0; i <= 2, ++i) {
+        arr[i] = i;
+    }
+    // compute values for odd numbers
+    for (i = 3; i <= n+1; i+=2) {
+        arr[i] = arr[i-2];
+    }
+    if (n % 2 == 1) // if n odd, return the computed value
+        return arr[n];
+    // now the even numbers, as they depend on the odd ones
+    for (i = 4; i <= n; i+=2) {
+        arr[i] = (arr[i-1]+arr[i+1])/2;
+    }
+    return arr[n];
+}
