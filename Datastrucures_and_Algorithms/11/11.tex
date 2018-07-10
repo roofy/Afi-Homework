@@ -24,7 +24,8 @@
 \usepackage{color}
 
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata,positioning}
+\usetikzlibrary{arrows,automata,positioning,backgrounds}
+\usepackage{pgfplots}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -472,4 +473,267 @@ Damit ist die längste gemeinsame Teilsequenz ERTEN.
 
 \aufgabe{7}
 
+\newpage
+\aufgabe{8}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(3.0,1.0);
+    \end{tikzpicture}
+}\\
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(4.0,4.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(4.0,5.0);
+    \end{tikzpicture}
+}\\
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(4.0,6.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(3.0,6.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(3.0,6.0);
+        \draw (3.0,6.0)--(2.0,4.0);
+    \end{tikzpicture}
+}\\
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(0.0,6.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(0.0,6.0);
+        \draw (0.0,6.0)--(0.0,5.0);
+    \end{tikzpicture}
+}
+\resizebox{.33\textwidth}{!}{%
+    \begin{tikzpicture}[framed,draw=black]
+        \node at (2.0, 0.0) {\textbullet};
+        \node at (4.0, 1.0) {\textbullet};
+        \node at (6.0, 3.0) {\textbullet};
+        \node at (3.0, 1.0) {\textbullet};
+        \node at (7.0, 8.0) {\textbullet};
+        \node at (4.0, 4.0) {\textbullet};
+        \node at (4.0, 5.0) {\textbullet};
+        \node at (4.0, 6.0) {\textbullet};
+        \node at (3.0, 6.0) {\textbullet};
+        \node at (2.0, 4.0) {\textbullet};
+        \node at (2.0, 3.0) {$\circ$};
+        \node at (0.0, 6.0) {\textbullet};
+        \node at (0.0, 5.0) {\textbullet};
+
+        \draw (2.0,0.0)--(4.0,1.0);
+        \draw (4.0,1.0)--(6.0,3.0);
+        \draw (6.0,3.0)--(7.0,8.0);
+        \draw (7.0,8.0)--(0.0,6.0);
+        \draw (0.0,6.0)--(0.0,5.0);
+        \draw (0.0,5.0)--(2.0,0.0);
+    \end{tikzpicture}
+}
 \end{document}
