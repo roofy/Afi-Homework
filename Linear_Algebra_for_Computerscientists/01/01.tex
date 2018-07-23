@@ -1,0 +1,137 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 1}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{4}
+\textbf{a)}\\
+Da $U_1$ und $U_2$ beides Vektorräume sind, folgt sofort $0 \in U_1 \cap U_2$.\\
+Seien nun $u,v \in U_1 \cap U_2$ gegeben. Wieder durch die VR-Eigenschaften von $U_1, U_2$ folgt:
+$$
+    u,v \in U_1 \cap U_2
+    \,\Longrightarrow\, u,v \in U_1 \land u,v \in U_2
+    \,\Longrightarrow\, u+v \in U_1 \land u+v \in U_2
+    \,\Longrightarrow\, u+v \in U_1 \cap U_2
+$$
+Sei nun $a \in K, u \in U_1 \cap U_2$. Analog folgt
+$$
+    u \in U_1 \cap U_2
+    \,\Longrightarrow\, u \in U_1 \land u \in U_2
+    \,\Longrightarrow\, au \in U_1 \land ua \in U_2
+    \,\Longrightarrow\, au \in U_1 \cap U_2
+$$
+Insgesamt erfüllt $U_1 \cap U_2$ die UVR-Kriterien.
+
+\textbf{b)}\\
+Gegenbeispiel. Sei $K = \mathbb{R}, V = R^2, U_1 = \langle(1,0)\rangle, U_2 = \langle(0,1)\rangle$.\\
+Dann gilt $(1,0),(0,1) \in U_1 \cup U_2$, jedoch $(1,0) + (0,1) = (1,1) \notin U_1 \cup U_2$.\\
+Damit kann $U_1 \cup U_2$ kein UVR von $V$ sein.
+
+\textbf{c)}\\
+Gegenbeispiel. Seien $K,V,U_1,U_2$ wie in b).\\
+Dann gilt $0 \in U_1$ und $0 \in U_2$, da beides VR sind. Jedoch gilt dann $0 \notin U_1 \setminus U_2$.\\
+Damit kann $U_1 \setminus U_2$ kein UVR von $V$ sein.
+
+\textbf{d)}\\
+Gegenbeispiel. Seien $K,V,U_1,U_2$ wie in b).\\
+Dann gilt $0_{U_1 \times U_2} = (0_{U_1}, 0_{U_2}) = ((0,0),(0,0)) \neq (0,0) = 0_{V}$.\\
+Damit kann $U_1 \times U_2$ kein UVR von $V$ sein.
+
+\textbf{e)}\\
+Da $U_1$ und $U_2$ beides VR sind, folgt sofort $0 + 0 = 0 \in U_1 + U_2$.\\
+Seien nun $u,v \in U_1 + U_2$ gegeben. Dann ist $u = u_1 + u_2, v = v_1 + v_2$ mit $u_1,v_1 \in U_1,\ u_2,v_2 \in U_2$.\\
+Es folgt durch die UVR-Eigenschaften von $U_1, U_2:$
+$$
+    u+v = (u_1+u_2) + (v_1+v_2) = (u_1+v_1) + (u_2+v_2) \in U_1 + U_2
+$$
+Sei nun $a \in K, u \in U_1+U_2$ sodass $u = u_1 + u_2$ für $u_1 \in U_1, u_2 \in U_2$. Analog folgt:
+$$
+    au = a(u_1 + u_2) = au_1 + au_2 \in U_1 + U_2
+$$
+Insgesamt erfüllt $U_1 + U_2$ die UVR-Kriterien.
+
+\newpage
+
+\aufgabe{5}
+\textbf{a)}\\
+Es ist $0_{\text{Map}(M,K)} : M \to K, m \mapsto 0_K \in \text{Map}(M,K).$
+Denn es gilt:
+$$
+    \forall f \in \text{Map}(M,K) : \forall m \in M : f(m) + 0(m) = f(m) + 0 = f(m)
+$$
+und damit $f+0 = f$ für alle $f \in \text{Map}(M,K)$. Also haben wir schonmal eine 0 für $\text{Map}(M,K)$.
+
+Seien nun $f,g \in \text{Map}(M,K), m \in M$.
+Dann ist offensichtlich $f(m), g(m) \in K$ also auch\\ $f(m) + g(m) \in K$. Es folgt, da $m$ beliebig:
+$$
+    (f + g)(m) \in K \,\Longrightarrow\, (f + g) \in \text{Map}(M,K)
+$$
+Analog sei weiter $a \in K$, dann ist stets $(af)(m) = a\cdot f(m)\in K$ für $m \in M$.\\
+Somit sind Addition und Skalierung wohldefiniert. Da diese beiden Verknüpfungen über die Bilder der Elemente von $M$,
+sprich, Elemente von $K$ definiert sind, gelten automatisch Assoziativität, Kommutativität und Distributivität für
+diese dank der Körpereigenschaften.
+
+Weiter definieren wir auf natürliche Weise negative:
+Sei $f \in \text{Map}(M,K)$. Definieren $-f \in \text{Map}(M,K)$ durch die Skalierung $(-1)\cdot f$.
+Es folgt:
+$$
+    \forall f \in \text{Map}(M,K) \forall m \in M : f(m) + (-f)(m) = f(m) + (-1)\cdot f(m) = f(m) - f(m) = 0
+$$
+Also insgesamt $f + (-f) = 0$.
+
+Ebenso folgt wider mit der 1 aus $K$, da $f(m) \in K \forall m \in M$ gilt, dass:
+$$
+    \forall m \in M : (1\cdot f)(m) = 1\cdot f(m) = f(m)
+$$
+Damit haben wir alle Eigenschaften durch zurückführen auf Eigenschaften von $K$ gezeigt.
+
+\textbf{b)}
+
+Offensichtlich ist $0 \in \text{Map}^{\text{fin}}(M,K)$. Seien nun $f,g \in \text{Map}^{\text{fin}}(M,K)$.\\
+Seien Ferner $F := \{m \in M \mid f(m) \neq 0\}, G:= \{m \in M \mid g(m) \neq 0\}$.\\
+Ferner gilt:
+$$
+    X := \{m \in M \mid (f+g)(m) \neq 0\} = (F \cup G) \setminus \{m \in M \mid f(m) = - g(m)\}
+    \subseteq F \cup G
+$$
+Da $F,G$ endlich, also $F \cup G$ endlich ist auch $X \subseteq F \cup G$ endlich und damit auch \\
+$(f+g) \in \text{Map}^{\text{fin}}(M,K)$.
+
+Ferner haben wir dass natürlich
+$$
+    a \cdot 0 = 0 \,\Longrightarrow\, (af)(M\setminus F) = \{a\cdot f(m) \mid m \in M\setminus F\} = \{0\}
+$$
+Insbesondere gilt also stets $\{m \in M \mid (af)(m) \neq 0\} \subseteq F$, d.h. es kann durch skalare Multiplikation
+niemals ein $m \in M$, welches vorher auf 0 abgebildet wurde, auf ein $0 \neq k \in K$ abgebildet werden.
+Wie gerade folgt dann $(af) \in \text{Map}^{\text{fin}}(M,K)$.
+
+\end{document}
