@@ -1,0 +1,71 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 2}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{10}
+\textbf{a)}
+
+Sei $Y := \{(1,x) \mid x \in [0,1]_{\mathbb{Q}}\}$. Da $[0,1]_{\mathbb{Q}}$ nicht endlich ist, ist $Y$ dies ebenfalls nicht.\\
+Damit ist $Y$ eine undendliche Teilmenge von $\mathbb{Q}^2$.
+Ferner seien nun $v,v' \in Y$ mit $v \neq v'$ gegeben. Dann sind $v = (1,x), v' = (1,x')$ für $x,x' \in Q$.
+Da $v \neq v'$ folgt sofort $x \neq x'$.\\
+Seien nun $a,b \in Q$. Dann folgt
+$$
+    av+bv' = 0
+    \,\Longleftrightarrow\, (a,ax) = (b,bx')
+    \,\Longleftrightarrow\, a = b \land a(x-x') = 0
+    \,\Longleftrightarrow\, a = b = 0
+$$
+Folglich sind $v,v'$ linear unabhängig.
+
+\textbf{b)}
+
+Wir führen Induktion:
+Sei $n = 1$. Da $f_1(1) = 1 \neq 0$ folgt auch $f_1 \neq 0$, also $(f_1)$ l.u.\\
+Sei nun $n \in \mathbb{N}$ mit $(f_i)_{i \in [1,n]}$ ist l.u, gegeben. Dann gilt nach Definition, dass
+$$
+    \forall a \in \mathbb{Q}^n : (\sum_{1}^{n} a_if_i)(n+1) = \sum_{1}^{n} a_if_i(n+1) = \sum_{1}^{n} a_i0 = 0
+$$
+Folglich kann es keine Linearkombination $f$ von $(f_i)_{i\in [1,n]}$ geben, sodass $f(n+1) = n+1$.
+Da aber $f_{n+1}(n+1) = n+1 \neq 0$ ist also auch $(f_i)_{i \in [1,n+1]}$ linear unabhängig.
+
+Nach dem Prinzip der vollst. Induktion folgt also, dass $(f_i)_{i \in [1,n]}$ für alle $n \in \mathbb{N}$ l.u. ist.
+Dies ist nach 1.72 äquivalent dazu, dass $\{f_i \mid i \in \mathbb{N}\}$ l.u. ist.
+
+\aufgabe{11}
+Trivial. (Dies sei dem Leser zur Übung überlassen)
+
+
+
+
+\end{document}
