@@ -108,7 +108,21 @@ Sei nun $v \in (U_1 + U_2)$. Dann gilt $v = u_1 + u_2$ für $u_1 \in U_1$ und $u
 Ferner gilt $U_1 \leq V$ und $U_2 \leq V$, also $u_1, u_2 \in V$. Es folgt direkt nach den
 Vektorraumgesetzen, dass auch\\
 $v = u_1 + u_2 \in V$.
-Also $(U_1 + U_2) \subseteq V$. Es folgt $V = U_1 + U_2$. $\hfill\square$
+Also $(U_1 + U_2) \subseteq V$. Es folgt $V = U_1 + U_2$.
+Sei weiter $u_1 \in U_1, u_2 \in U_2$ mit $u_1 + u_2 = 0$ gegeben, sodass
+$u_1 = \varphi(v), u_2 = v' - \varphi(v')$ für $v,v' \in V$. Dann gilt:
+$$
+    u_1 + u_2 = 0
+    \,\Longrightarrow\, \varphi(v) + v' = \varphi(v')
+    \,\Longrightarrow\, \varphi(\varphi(v) + v') = \varphi(\varphi(v'))
+    \,\Longrightarrow\, \varphi(v) + \varphi(v') = \varphi(v')
+$$$$
+    \,\Longrightarrow\, u_1 = \varphi(v) = 0
+    \,\Longrightarrow\, 0 = u_1 + u_2 = u_2
+    \,\Longrightarrow\, u_1 = u_2 = 0
+$$
+Folglich sind $U_1, U_2$ linear unabhängig. Damit gilt dann auch $V = U_1 \dot+ U_2$.
+
 
 \textbf{d)}
 Sei $u_1 \in U_1$. Dann gilt $u_1 = \varphi(v)$ für ein $v \in V$. Ferner gilt $\varphi \circ \varphi = \varphi$ (*).
@@ -192,30 +206,36 @@ $$
         c & d
 	\end{pmatrix}
     \mid c = -d\}
-    = \mathbb{R}
+    =
+    \langle
     \begin{pmatrix}
         0 & 0\\
         1 & -1
+	\end{pmatrix},
+    \begin{pmatrix}
+        1 & 0\\
+        0 & 0
+	\end{pmatrix},
+    \begin{pmatrix}
+        0 & 1\\
+        0 & 0
 	\end{pmatrix}
+    \rangle
 $$
-Es folgt direkt $\text{Ker}(\varphi) = \langle
-\begin{pmatrix}
-    0 & 0\\
-    1 & -1
-\end{pmatrix}
-\rangle$, also dass $(
-\begin{pmatrix}
-    0 & 0\\
-    1 & -1
-\end{pmatrix}
-)$ eine Basis von $\text{Ker}(\varphi)$ ist, da auch
-weiter $
-\begin{pmatrix}
-    0 & 0\\
-    1 & -1
-\end{pmatrix}
-\neq 0
-$.
+Offensichtlich ist dann auch ($\begin{pmatrix}
+        0 & 0\\
+        1 & -1
+	\end{pmatrix},
+    \begin{pmatrix}
+        1 & 0\\
+        0 & 0
+	\end{pmatrix},
+    \begin{pmatrix}
+        0 & 1\\
+        0 & 0
+	\end{pmatrix}
+$)
+eine Basis von Ker $\varphi$.
 
 Ebenso folgt mit (1) für $a,b,c,d \in \mathbb{R}$
 $$
@@ -228,8 +248,8 @@ $$
     \end{pmatrix}
     \mid c,d \in \mathbb{R}\}
     =\{
-    \begin{pmatrix}
-        0 & x\\
+\begin{pmatrix}
+    0 & x\\
         0 & x
     \end{pmatrix}
     \mid x \in \mathbb{R}\}
@@ -247,11 +267,11 @@ da auch weiter $A \neq 0$.
 
 Es ist $(v_1, v_2, v_3)$ eine Basis von $\mathbb{R}^{3\times 1}$, denn:
 $$
-    (1,0,0) = \frac{v_1 + v_2 - v_3}{2}
+    \begin{pmatrix}1\\0\\0\end{pmatrix} = \frac{v_1 + v_2 - v_3}{2}
     \qquad
-    (0,1,0) = \frac{v_1 - v_2 + v_3}{2}
+    \begin{pmatrix}0\\1\\0\end{pmatrix} = \frac{v_1 - v_2 + v_3}{2}
     \qquad
-    (0,0,1) = \frac{-v_1 + v_2 + v_3}{2}
+    \begin{pmatrix}0\\0\\1\end{pmatrix} = \frac{-v_1 + v_2 + v_3}{2}
 $$
 Damit gilt nach Proposition 2.19, dass es genau ein lineare Abbildung $\varphi$ mit
 $$
@@ -273,48 +293,22 @@ $$
     0 & -2
 \end{pmatrix}
 $$
-Für $a,b,c,x,y,z \in \mathbb{R}$ mit $a = x+y, b = x+z, c = y+z$ gilt:
+Damit ist dann
 $$
     \varphi(\begin{pmatrix}a\\b\\c\end{pmatrix})
-    =
-    \varphi(\begin{pmatrix}x+y\\x+z\\y+z\end{pmatrix})
-    =
-    \varphi(x\begin{pmatrix}1\\1\\0\end{pmatrix}
-        +
-    y\begin{pmatrix}1\\0\\1\end{pmatrix}
-        +
-    z\begin{pmatrix}0\\1\\1\end{pmatrix})
-    =
-    x\varphi(\begin{pmatrix}1\\1\\0\end{pmatrix})
-        +
-    y\varphi(\begin{pmatrix}1\\0\\1\end{pmatrix})
-        +
-    z\varphi(\begin{pmatrix}0\\1\\1\end{pmatrix})
+        = a\cdot \varphi(\begin{pmatrix}1\\0\\0\end{pmatrix})
+        + b\cdot \varphi(\begin{pmatrix}0\\1\\0\end{pmatrix})
+        + c\cdot \varphi(\begin{pmatrix}0\\0\\1\end{pmatrix})
 $$$$
-    =
-    \begin{pmatrix}
-    2x & 0\\
-    0 & 0
-    \end{pmatrix}
-    +
-    \begin{pmatrix}
-    2y & 0\\
-    -2y & 0
-    \end{pmatrix}
-    +
-    \begin{pmatrix}
-    0 & 0\\
-    0 & -2z
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-    2(x+y) & 0\\
-    -2y & -2z
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-    2a & 0\\
-    b-a-c & a-b-c
-    \end{pmatrix}
+    = \frac{a}{2}(\varphi(v_1)+\varphi(v_2)-\varphi(v_3))
+        + \frac{b}{2}(\varphi(v_1)-\varphi(v_2)+\varphi(v_3))
+        + \frac{c}{2}(-\varphi(v_1)+\varphi(v_2)+\varphi(v_3))
+$$$$
+    = \frac{a}{2}(\begin{pmatrix}2 & 0\\0 & 0\end{pmatrix} + \begin{pmatrix}2 & 0\\-2 & 0\end{pmatrix} - \begin{pmatrix}0 & 0\\0 & -2\end{pmatrix})
+    + \frac{b}{2}(\begin{pmatrix}2 & 0\\0 & 0\end{pmatrix} - \begin{pmatrix}2 & 0\\-2 & 0\end{pmatrix} + \begin{pmatrix}0 & 0\\0 & -2\end{pmatrix})
+    + \frac{c}{2}(-\begin{pmatrix}2 & 0\\0 & 0\end{pmatrix} + \begin{pmatrix}2 & 0\\-2 & 0\end{pmatrix} + \begin{pmatrix}0 & 0\\0 & -2\end{pmatrix})
+$$$$
+    = \begin{pmatrix}2a & 0\\b-a-c & a-b-c\end{pmatrix}
 $$
+
 \end{document}
