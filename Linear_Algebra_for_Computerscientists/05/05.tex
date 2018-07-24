@@ -1,0 +1,195 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 5}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{28}
+\textbf{a)}
+Sei $v \in K^n, i \in [0,n]$. Dann ist $d(v,w) = |\{j \mid v_j - w_j \neq 0\}|$ für $w \in K^n$.\\
+Insbesondere: wenn $d(v,w) = i$, dann gibt es Indizes $j_1,\cdots, j_i \in [1,n]$ sodass 
+$$
+    \forall k \in [1,i] : v_{j_k} - w_{j_k} \neq 0
+$$
+Auf deutsch; wir können $i$ verschieden Indizes aus $[1,n]$ wählen an denen sich $v$ und $w$ unterscheiden.
+Offensichtlich gibt es genau $\binom{n}{i}$ Möglichkeiten diese $i$ Indizes von den möglichen $n$ zu wählen.
+Weiter folgt aus $|K| = q$, dass es genau $q-1$ Elemente aus $K$ ungleich 0 gibt.\\
+Wir haben also zu jedem der gewählten Indizes $(j_k)_{k \in [1,i]}$ genau $q-1$ Möglichkeiten $w_{j_k}$ einen Wert aus $K$
+zuzuweisen, sodass $v_{j_k} - w_{j_k} \neq 0$ ist. Um also ein $w \in K^n$ zu finden, sodass $d(v,w) = i$, wählen
+wir zuerst die $i$ Indizes an denen sich $w$ von $v$ unterscheidet und dann für jeden dieser Indizes einen Wert aus
+$q-1$ Möglichkeiten.
+
+Insgesamt haben wir nach der Produktregel der Kombinatorik damit:
+$$
+    |\{w \in K^n \mid d(v,w) = i\}| = \binom{n}{i}\prod_{k = 1}^{i}(q-1) = \binom{n}{i}(q-1)^i
+$$
+\textbf{b)}
+Da $d(C) = 2e + 1$ haben wir $e \leq d(C) \leq n$, wir können also das Resultat aus a) verwenden:
+$$
+    |B_{e+1}(v)|
+    = |\{w \in K^n \mid d(v,w) < e+1\}|
+    = |\up{\displaystyle\bigcup_{i \in [0,e]}}{\Large .} \{w \in K^n \mid d(v,w) = i\}|
+    = \sum_{i = 0}^{e} \binom{n}{i}(q-1)^i
+$$
+
+\textbf{c)}
+Da $d(C) = 2e + 1$ und $e \in \mathbb{N}$ ist $d(C)$ ungerade und $e+1 = \frac{d(C)+1}{2}$. \\
+Ebenso ist auch stets $d(w,w') \in \mathbb{N}$ für $w,w' \in K^n$. Insbesondere folgt damit:
+$$
+    B_{e+1}(c)
+    = B_{\frac{d(C)+1}{2}}(c)
+    = B_{\frac{d(C)}{2}}(c)
+$$
+Da durch die Parität von $d(C)$ dann
+$\{x \in \mathbb{N}_0 \mid x < \frac{d(C)+1}{2}\} = \{x \in \mathbb{N}_0 \mid x < \frac{d(C)}{2}\} = [0,e]$ gilt.
+
+Wir wissen weiter, dass für $c,c' \in C$ gilt:
+$$
+    B_{\frac{d(C)}{2}}(c) \cap B_{\frac{d(C)}{2}}(c') = \varnothing
+    \qquad\text{sowie}\qquad
+    B_{\frac{d(C)}{2}}(c) \cap C = \{c\}
+$$
+Aus dieser Disjunktheit folgt dann
+$$
+    \forall c \in C : |B_{\frac{d(C)}{2}}(c)| = \sum_{i=0}^{e} \binom{n}{i}(q-1)^i
+$$
+
+\newpage
+
+Da also alle diese Kugeln disjunkt sind, haben wir mindestens $|C| \cdot \sum_{i=0}^{e} \binom{n}{i}(q-1)^i$
+verschiedene Elemente aus $K^n$ in den Kugeln der Codes von $C$. Offensichtlich sind das kleiner oder gleichviele
+wie alle Elemente von $K^n$. Ferner ist $|K| = q$ also $|K^n| = q^n$. Insgesamt folgt:
+$$
+    |C|\sum_{i=0}^{e} \binom{n}{i}(q-1)^i \leq q^n
+    \quad\,\Longleftrightarrow\,\quad
+    |C| \leq \frac{q^n}{\sum_{i=0}^{e} \binom{n}{i}(q-1)^i}
+$$
+
+\aufgabe{29}
+
+\textbf{a)}
+Wir wählen $\mathcal{B} := (\vect{1}{1}{0}{0}{0},\vect{0}{0}{0}{1}{1},\vect{1}{0}{1}{0}{0},\vect{1}{1}{1}{1}{0})$.
+Da $\vect{1}{0}{1}{1}{1} = \mathcal{B}_1 + \mathcal{B}_2$, ist $\mathcal{B}$ ein EZS von $C$.\\
+Weiter gilt für $a_1,a_2,a_3,a_4 \in K = \mathbb{F}_2:$
+$$
+    \sum_{i=1}^{4} a_i\mathcal{B}_i = \vect{a_1+a_3+a_4}{a_1+a_4}{a_3+a_4}{a_2+a_4}{a_2} = 0
+    \,\Longrightarrow\, a_2 = 0
+    \,\Longrightarrow\, \vect{a_1+a_3+a_4}{a_1+a_4}{a_3+a_4}{a_4}{0} = 0
+    \,\Longrightarrow\, a_4 = 0
+$$$$
+    \,\Longrightarrow\, \vect{a_1+a_3}{a_1}{a_3}{0}{0} = 0
+    \,\Longrightarrow\, a_1 = a_2 = a_3 = a_4 = 0
+$$
+Folglich ist $\mathcal{B}$ auch l.u. und damit eine Basis von $C$.
+
+\textbf{b)}
+Nach Proposition 3.73 gilt
+$$
+    \text{Sol}(H,0) = \text{Col}(A)
+    \qquad\,\Longleftrightarrow\,\qquad
+    \text{Sol}(A^{\text{tr}},0) = \text{Col}(H^{\text{tr}})
+$$
+Sei also $A \in K^{5\times 4} = \mathbb{F}_2^{5\times 4}$ mit $A_{-,i} = \mathcal{B}_i$ für $i \in [1,4]$.
+Dann ist Col$(A) = C$.\\
+Ferner ist damit rk $A = \text{rk } A^\text{tr} = 4$, also
+$$
+    \text{dim Col}(H^{\text{tr}}) = \text{dim Sol}(A^{\text{tr}}, 0) = \text{dim Ker}(\varphi_{A^{\text{tr}}}) = 5 - 
+    \text{rk} \varphi_{A^{\text{tr}}} = 5 - \text{rk } A = 1
+$$
+Wenn also der Spaltenraum von $H^\text{tr}$ dim 1 hat, so hat der Zeilenraum von $H$ ebenfalls dim 1.\\
+Die minimale Anzahl an Zeilen um dies zu erreichen ist 1.
+
+Folglich gibt es ein $H \in K^{1\times 5} = \mathbb{F}_2^{1\times 5}$ sodass Sol$(H, 0) = C$.
+
+\newpage 
+
+\textbf{c)}
+
+Wir gehen nach dem Algorithmus 3.74 vor und berechnen zuerst Sol$(A^\text{tr}, 0)$:
+$$
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 1 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 1 & 0\\
+        1 & 0 & 1 & 0 & 0 & 0\\
+        1 & 1 & 1 & 1 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\text{III + I, IV + I}}
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 1 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 1 & 0\\
+        0 & 1 & 1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 1 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\text{I + III}}
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 0 & 1 & 0 & 0 & 0\\
+        0 & 0 & 0 & 1 & 1 & 0\\
+        0 & 1 & 1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 1 & 0 & 0\\
+    \end{array}
+$$$$
+    \xrightarrow {\text{I + IV, III + IV}}
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 0 & 0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1 & 1 & 0\\
+        0 & 1 & 0 & 1 & 0 & 0\\
+        0 & 0 & 1 & 1 & 0 & 0\\
+    \end{array}
+    \xrightarrow {\text{I + II, III + II, IV + II}}
+    \begin{array}({@{}ccccc|c@{}})
+        1 & 0 & 0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 1 & 1 & 0\\
+        0 & 1 & 0 & 0 & 1 & 0\\
+        0 & 0 & 1 & 0 & 1 & 0\\
+    \end{array}
+$$
+Es folgt Sol$(A^\text{tr}, 0) = \langle \vect{1}{1}{1}{1}{1}\rangle$.
+Offensichtlich ist dann auch $(\vect{1}{1}{1}{1}{1})$ eine Basis von Sol$(A^\text{tr}, 0)$.\\
+Nach dem Algorithmus ist nun $\begin{pmatrix}1 & 1& 1& 1& 1\end{pmatrix}$ die gesuchte Matrix $H$ mit Sol$(H,0) = C$.
+
+\textbf{d)}
+Für $c \in K^{5\times 1} = \mathbb{F}_2^{5\times 1}$ gilt also $Hc = 0 \,\Longleftrightarrow\,c \in C$.
+Da durch $H$ nur einfach alle Einträge ausummiert werden, lässt sich sagen, dass für $c \in C$ stets
+$\sum_{i=1}^{5} c_i = 0$ gilt. Da wir über $\mathbb{F}_2$ rechnen, ist dies analog dazu, dass $c$ eine gerade
+Anzahl an 1 besitzt.
+
+\textbf{e)}
+Nach 4.30 haben wir $d(C) = 2$, also $\frac{d(C)}{2} = 1$. Wir können also alle 1-Fachen Fehler erkennen, da dann
+das Produkt $Hc' = 1$ für ein fehlerhaftes Codewort $c'$ ist. Jedoch können wir weniger als $\frac{d(C)}{2} = 1$,
+also gar keine Fehler korrigieren. Beispielsweise ist
+$$
+    d(\vect{1}{1}{1}{0}{0}, \vect{1}{1}{0}{0}{0}) = d(\vect{1}{1}{1}{0}{0}, \vect{1}{1}{1}{1}{0}) = 1
+$$
+Es gibt also keinen eindeutigen nächsten Nachbarn in $C$ für $\vect{1}{1}{1}{0}{0}$.
+
+\end{document}
