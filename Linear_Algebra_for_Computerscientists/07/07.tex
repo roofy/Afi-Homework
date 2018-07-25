@@ -1,0 +1,211 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 7}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{40}
+\textbf{a)}
+Wir Entwickeln nach der 4. Spalte, dann nach der 2. :
+
+$$
+    \chi_A
+    = \det(XE_4 - A)
+    = \det
+        \begin{pmatrix}
+            X-7 & 0 & 12 & 0\\
+            16 & X-1 & -32 & 0\\
+            -3 & 0 & X+5 & 0\\
+            3 & 0 & -6 & X-1
+        \end{pmatrix}
+$$$$
+    = (X-1)\cdot \det
+        \begin{pmatrix}
+            X-7 & 0 & 12 \\
+            16 & X-1 & -32 \\
+            -3 & 0 & X+5 \\
+        \end{pmatrix}
+    = (X-1)^2\cdot \det \begin{pmatrix} X-7 & 12\\ -3 & X+5\end{pmatrix}
+$$$$
+    = (X-1)^2(X^2-2X-35+36) = (X-1)^4
+$$
+Wir entwickeln nach der 4. Spalte, dann nach der 1. :
+$$
+    \chi_B
+    = \det(XE_4 - B)
+    = \det
+        \begin{pmatrix}
+            X-1 & -2 & -6 & 0\\
+            0 & X-4 & -9 & 0\\
+            0 & 1 & X+2 & 0\\
+            -1 & -1 & -5 & X-1
+        \end{pmatrix}
+$$$$
+    = (X-1)\cdot \det
+        \begin{pmatrix}
+            X-1 & -2 & -6 \\
+            0 & X-4 & -9 \\
+            0 & 1 & X+2
+        \end{pmatrix}
+    = (X-1)^2\cdot \det \begin{pmatrix} X-4 & -9\\ 1 & X+2\end{pmatrix}
+$$$$
+    = (X-1)^2(X^2-2X-8+9) = (X-1)^4
+$$
+
+\textbf{b)}
+Nach VL sind die EW eben genau die Nullstellen des Charakteristischen Polynoms.
+Folglich haben A und B beide nur den EW 1.
+
+Wir haben
+$$
+    m_1(A) = m_1(\chi_A) = m_1((X-1)^4) = 4 = m_1(\chi_B) = m_1(B)
+$$
+Weiter ist
+$$
+    g_1(A) = \text{dim Eig}_1(A) = \text{dim Sol}(A - E_4, =) = 4 - \text{rk}(A-E_4)
+$$
+Wir bestimmen also durch eine Spaltenumformung den Rang von $A-E_4 :$
+$$
+    \begin{pmatrix}
+        6 & 0 & -12 & 0\\
+        -16 & 0 & 32 & 0\\
+        3 & 0 & -6 & 0\\
+        -3 & 0 & 6 & 0
+    \end{pmatrix}
+    \xrightarrow {3.Sp + 2*1.Sp}
+    \begin{pmatrix}
+        6 & 0 & 0 & 0\\
+        16 & 0 & 0 & 0\\
+        3 & 0 & 0 & 0\\
+        -3 & 0 & 0 & 0
+    \end{pmatrix}
+$$
+Offensichtlich ist damit rk $A - E_4 = 1$. Also $g_1(A) = 4-1 = 3$.
+
+\newpage
+
+Wir gehen analog für rk $B-E_4$ vor :
+
+$$
+    \begin{pmatrix}
+        0 & 2 & 6 & 0\\
+        0 & 3 & 9 & 0\\
+        0 & -1 & -3 & 0\\
+        1 & 1 & 5 & 0
+    \end{pmatrix}
+    \xrightarrow {2.Sp - 1.Sp,\ 3.Sp - 5*1.Sp}
+    \begin{pmatrix}
+        0 & 2 & 6 & 0\\
+        0 & 3 & 9 & 0\\
+        0 & -1 & -3 & 0\\
+        1 & 0 & 0 & 0
+    \end{pmatrix}
+    \xrightarrow {3.Sp - 3*2.Sp}
+    \begin{pmatrix}
+        0 & 2 & 0 & 0\\
+        0 & 3 & 0 & 0\\
+        0 & -1 & 0 & 0\\
+        1 & 0 & 0 & 0
+    \end{pmatrix}
+$$
+Dann ist offensichtlich rk $B-E_4 = 2$ also $g_1(B) = 4-2 = 2$.
+
+\textbf{c)}
+Angenommen $A$ ist ähnlich zu $B$. Dann gibt es $P \in \text{GL}_4(K)$ mit
+$P^{-1}AP = B$.
+Es folgt:
+$$
+    P^{-1}AP = B
+    \,\Longrightarrow\, P^{-1}AP - P^{-1}E_4P = B - E_4
+    \,\Longrightarrow\, P^{-1}(A-E_4)P = B-E_4
+$$
+Damit ist also $A-E_4$ ähnlich zu $B-E_4$. Da Ähnlichkeit aber insbesondere Äquivalenz
+impliziert, muss
+$$
+    1 = \text{rk} A-E_4 = \text{rk} B-E_4 = 2
+$$
+Dies ist aber offensichtlich falsch. Folglich sind $A$ und $B$ nicht ähnlich.
+
+\aufgabe{41}
+Die (modifizierte) Linkmatrix entspricht hier der Standard-Linkmatrix, da jede
+der 4 Seiten mindestens auf eine andere verlinkt.
+Wir haben:
+$$
+    L := \begin{pmatrix}
+        0 & 0 & 0 & 1\\
+        0 & 0 & \frac{1}{2} & 0\\
+        \frac{1}{2} & 0 & 0 & 0\\
+        \frac{1}{2} & 1 & \frac{1}{2} & 0
+    \end{pmatrix}
+$$
+Weiter ist Eig$_1(L) = \text{Sol}(L-E_4, 0)$. Wir lösen dies:
+$$
+    \begin{array}({@{}cccc|c@{}})
+        -1 & 0 & 0 & 1 & 0\\
+        0 & -1 & \frac{1}{2} & 0 & 0\\
+        \frac{1}{2} & 0 & -1 & 0 & 0\\
+        \frac{1}{2} & 1 & \frac{1}{2} & -1 & 0\\
+    \end{array}
+    \xrightarrow {\text{IV,III + $\frac{1}{2}$I}}
+    \begin{array}({@{}cccc|c@{}})
+        -1 & 0 & 0 & 1 & 0\\
+        0 & -1 & \frac{1}{2} & 0 & 0\\
+        0 & 0 & -1 & \frac{1}{2} & 0\\
+        0 & 1 & \frac{1}{2} & -\frac{1}{2} & 0\\
+    \end{array}
+$$$$
+    \xrightarrow {\text{II + IV, (-1)*I, (-1)*III}}
+    \begin{array}({@{}cccc|c@{}})
+        1 & 0 & 0 & -1 & 0\\
+        0 & 0 & 1 & -\frac{1}{2} & 0\\
+        0 & 0 & 1 & -\frac{1}{2} & 0\\
+        0 & 1 & \frac{1}{2} & -\frac{1}{2} & 0\\
+    \end{array}
+    \xrightarrow {\text{III-II, IV - $\frac{1}{2}$II}}
+    \begin{array}({@{}cccc|c@{}})
+        1 & 0 & 0 & -1 & 0\\
+        0 & 0 & 1 & -\frac{1}{2} & 0\\
+        0 & 0 & 0 & 0 & 0\\
+        0 & 1 & 0 & -\frac{1}{4} & 0\\
+    \end{array}
+$$
+Folglich ist Sol$(L-E_4, 0) = \langle \begin{pmatrix}1\\\frac{1}{4}\\\frac{1}{2}\\1\end{pmatrix} \rangle$.
+
+    Der gefragte stochastische Vektor dazu ist dann $\begin{pmatrix}\frac{4}{11}\\[2pt]\frac{1}{11}\\[2pt]\frac{2}{11}\\[2pt]\frac{4}{11}\end{pmatrix}$.
+
+
+
+
+
+\end{document}
