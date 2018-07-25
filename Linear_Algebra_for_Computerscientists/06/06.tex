@@ -1,0 +1,168 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[3]{\begin{pmatrix}#1\\#2\\#3\end{pmatrix}}
+\newcommand{\vectt}[7]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\\#6\\#7\end{pmatrix}}
+\newcommand{\sgn}{\text{sgn }}
+
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 6}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{34}
+\textbf{a)}
+
+\begin{tabular}{c|c|c|c|c|c|c}
+    Syndrom & $\vect{0}{0}{0}$ & $\vect{0}{0}{1}$ & $\vect{0}{1}{0}$ & $\vect{0}{1}{1}$ & $\vect{1}{0}{0}$ & $\vect{1}{0}{1}$ \\
+    \hline
+    Anführer & $\vectt{0}{0}{0}{0}{0}{0}{0}$
+    & $\vectt{0}{0}{0}{0}{0}{0}{1}$
+    & $\vectt{0}{0}{0}{0}{0}{1}{0}$
+    & $\vectt{0}{0}{1}{0}{0}{0}{0}$,$\vectt{0}{0}{0}{1}{0}{0}{0}$
+    & $\vectt{0}{0}{0}{0}{1}{0}{0}$
+    & $\vectt{1}{0}{0}{0}{0}{0}{0}$,$\vectt{0}{1}{0}{0}{0}{0}{0}$\\
+    \hline
+    \hline
+    Syndrom & $\vect{1}{1}{0}$ & $\vect{1}{1}{1}$ \\
+    \hline
+    Anführer
+    & $\vectt{1}{0}{1}{0}{0}{0}{0}$,$\vectt{1}{0}{0}{1}{0}{0}{0}$,$\vectt{0}{1}{1}{0}{0}{0}{0}$,$\vectt{0}{1}{0}{1}{0}{0}{0}$,$\vectt{0}{0}{0}{0}{1}{1}{0}$
+    & $\vectt{1}{0}{0}{0}{0}{1}{0},\vectt{0}{1}{0}{0}{0}{1}{0},\vectt{0}{0}{1}{0}{1}{0}{0},\vectt{0}{0}{0}{1}{1}{0}{0}$\\
+\end{tabular}
+
+\textbf{b)}
+
+$x_1 = \vectt{1}{1}{0}{1}{0}{1}{1}$. Syndrom $Bx_1 = \vect{0}{0}{0}$.
+Decodiere $x_1$ zu $x_1 - e_{Bx_1} = \vectt{1}{1}{0}{1}{0}{1}{1} - \vectt{0}{0}{0}{0}{0}{0}{0} = x_1 \in C$.
+
+$x_2 = \vectt{0}{1}{1}{0}{1}{1}{1}$. Syndrom $Bx_2 = \vect{0}{0}{1}$.
+Decodiere $x_2$ zu $x_2 - e_{Bx_2} = \vectt{0}{1}{1}{0}{1}{1}{1} - \vectt{0}{0}{0}{0}{0}{0}{1} = \vectt{0}{1}{1}{0}{1}{1}{0} \in C$.
+
+$x_3 = \vectt{0}{1}{1}{1}{0}{0}{0}$. Syndrom $Bx_3 = \vect{1}{0}{1}$.
+Decodiere $x_3$ zu $x_3 - e_{Bx_3} = \vectt{0}{1}{1}{1}{0}{0}{0} - \vectt{0}{1}{0}{0}{0}{0}{0} = \vectt{0}{0}{1}{1}{0}{0}{0} \in C$.
+
+\aufgabe{35}
+
+\textbf{Lemma 1:}
+\ Sei $n \in \mathbb{N}$. Für $\pi \in S_n$ mit $\pi \neq \text{id}$ existiert ein $k \in [1,n]$ mit $\pi(k) > k$.
+
+\textit{Beweis durch Widerspruch.}\\
+Sei also $\pi \in S_n, \pi \neq \text{id}$ und $\pi(k) \leq k$ für alle $k \in [1,n]$. Wir führen Induktion über $k:$
+
+Für $k = 1$ haben wir $\pi(k) = 1$, da $\{i \in [1,n] \mid i \leq k\} = \{1\}$, also nur eine Möglichkeit besteht.
+Es gilt also $\pi(k) = k$ für $k = 1$.
+
+Sei nun ein $k \in [1,n]$ gegeben, sodass $\forall k' \in [1,k-1] : \pi(k') = k'$. Da Permutationen Bijektionen, also
+insbesondere injektiv sind, ist die Menge der möglichen Bilder für $k$ gleich \\
+$\{i \in [1,n]\setminus[1,k-1] \mid i\leq k\} = \{k\}$. Folglich muss also auch $\pi(k) = k$ gelten.
+
+Insgesamt folgt also $\forall k \in [1,n] : \pi(k) = k$, was ein Widerspruch zur Annahme $\pi \neq \text{id}$ ist.\\
+
+Damit haben ist das zu zeigende bewiesen, d.h. es gilt
+$$
+    \forall \pi \in S_n\setminus\{\text{id}\} : \exists k \in [1,n] : \pi(k) > k
+$$
+
+\textbf{a)}
+
+Sei also eine Matrix $A \in K^{n \times n}$ gegeben welche obere Dreicksform hat.
+Mit Lemma 1 folgt nun:
+$$
+    \text{det}(A)
+    = \sum_{\pi \in S_n} (\text{sgn } \pi)\prod_{j\in [1,n]} A_{\pi(j),j}
+    = (\text{sgn id}) \prod_{j\in [1,n]} A_{\text{id}(j),j}
+        + \sum_{\substack{\pi \in S_n\\ \pi \neq \text{id}}} (\text{sgn } \pi)
+        \prod_{j \in [1,n]} A_{\pi(j),j}
+$$
+Da nach Lemma 1 für jede Permutation außer id also ein $k \in [1,n]$ mit $\pi(k) > k$
+existiert ist das Produkt $\prod_{j\in [1,n]} A_{\pi(j), j} = 0$ für alle diese
+$\pi$, da nach Konstruktion von $A$ stetes $A_{i,j} = 0$ für $i,j \in [1,n]$ mit $i > j$. Also:
+$$
+    \text{det}(A) = 1\cdot \prod_{j \in [1,n]} A_{j,j} + \sum_{\substack{\pi \in S_n\\ \pi \neq \text{id}}}(\text{sgn } \pi) \prod_{j \in [1,n]} 0 = \prod_{j \in [1,n]} A_{j,j}
+$$
+
+\newpage
+
+\textbf{b)}
+Ein evtl. etwas einfacherer Beweis mittels Induktion lässt sich im Skript finden.
+
+Seien also $A \in R^{n\times n}$ mit $A = \begin{pmatrix}B & C \\ 0 & D\end{pmatrix}$
+wobei $B \in R^{k\times k}, C \in R^{k \times (n-k)}, D \in R^{(n-k)\times(n-k)}$.
+Dann ist:
+$$
+    \det(B)\cdot \det(D)
+    = \left(\sum_{\pi \in S_k}(\sgn \pi) \prod_{j \in [1,k]} B_{\pi(j),j}\right)
+        \cdot \left(\sum_{\pi' \in S_{n-k}}(\sgn \pi') \prod_{j \in [1,n-k]} D_{\pi'(j),j}\right)
+$$$$
+    = \left(\sum_{\pi \in S_k}(\sgn \pi) \prod_{j \in [1,k]} A_{\pi(j),j}\right)
+        \cdot \left(\sum_{\pi' \in S_k}(\sgn \pi') \prod_{j \in [1,n-k]} A_{\pi'(j)+k,j+k}\right)
+$$
+Wir fassen nun alle möglichen Permutationen in $S_k$ und $S_{n-k}$ zusammen in:
+$$
+    X := \{\sigma \in S_n \mid \exists \pi \in S_n, \pi' \in S_{n-k} :
+        (\forall j \in [1,k] : \sigma(j) = \pi(j))
+        \land
+        (\forall j \in [1,n-k] : \sigma(k+j) = k+\pi'(j))
+        \}
+$$
+Sei nun $\sigma \in X$. Dann existieren $\pi \in S_k, \pi' \in S_{n-k}$ nach
+Vorschrift der Menge $X$.\\
+Daraus folgt $\sgn \sigma = (\sgn \pi)(\sgn \pi')$. Weiter ist dann:
+$$
+    \prod_{j \in [1,k]} A_{\pi(j),j} \prod_{j \in [1,n-k]} A_{\pi'(j)+k, j+k}
+    = \prod_{j \in [1,n]} A_{\sigma(j), j}
+$$
+Das Multiplizieren der Summen entspricht den möglichen Kombinationen für
+$\pi, \pi'$, da z.B. für ein $\pi \in S_k$ genau $|S_{n-k}|$ verschiedene $\sigma \in X$ existieren. Insgesamt haben wir nun:
+$$
+    \det(B) \cdot \det(D)
+    = \sum_{\sigma \in X} (\sgn \sigma) \prod_{j \in [1,n]} A_{\sigma(j), j}
+$$
+Da nach Aufbau von $A$ aber stets $A_{i,j} = 0$ für $i \in [k+1,n]$ und $j \in [1,k]$,
+folgt mit Lemma 1 und id $\in X$, dass:
+$$
+    \forall \pi \in S_n \setminus X : (\exists j \in [1,k] : (\pi(j) > k \,\Longrightarrow\, A_{\pi(j),j} = 0) \,\Longrightarrow\, \prod_{j \in [1,n]} A_{\pi(j),j} = 0)
+$$$$
+    \,\Longrightarrow\, \sum_{\sigma \in X}(\sgn \sigma) \prod_{j \in [1,n]} A_{\sigma(j), j}
+    = \underbrace{\sum_{\pi \in S_n \setminus X} (\sgn \pi) \prod_{j \in [1,n]} A_{\pi(j),j}}_{=\ 0}
+    + \sum_{\sigma \in X} (\sgn \sigma) \prod_{j \in [1,n]} A_{\sigma(j),j}
+$$$$
+    = \sum_{\pi \in S_n}(\sgn \pi)\prod_{j \in [1,n]} A_{\pi(j),j} = \det(A)
+$$
+
+\textbf{c)}
+Nach Satz A.164 lässt sich jede Matrix über einem Körper in reduzierte Zeilenstufenform
+bringen (durch Elementaroperationen, für welche wir die entsprechende Änderung der
+Determinante definiert haben). Diese ist dann insbesondere eine obere Dreiecksmatrix.
+Mit a) haben wir dann ein leichte Formel für die Determinante dieser reduzierten Matrix.
+
+
+\end{document}
