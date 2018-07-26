@@ -1,0 +1,131 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 9}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{52}
+Die Rekursionsgleichung ist $a_{n+2} = 3a_{n+1} - 2a_n$ für $n \in \mathbb{N}_0$,
+wobei $a_0 = -1$ und $a_1 = 1$.\\
+Das entsprechend kodierte Polynom (siehe VL) ist dann $f = X^2-3X+2 = (X-1)(X-2)$.
+$f$ hat Nullstellen $b_1 = 1, b_2 = 2$. Nach Satz 6.75 folgt nun, dass
+$$
+    \forall n \in \mathbb{N}_0 : a_{n+2} = -2a_n+3a_{n+1}
+$$$$
+    \,\Longleftrightarrow\,
+    \forall n \in \mathbb{N}_0 : a_n = \frac{b_1^nb_2-b_2^nb_1}{b_2-b_1}x_0 + \frac{b_2^n-b_1^n}{b_2-b_1}x_1
+    = 2^{n+1}3
+$$
+Dies entspricht der gesuchten geschlossenen Formel.
+
+\aufgabe{53}
+
+\textbf{a)}
+Es gilt:
+$$
+    \frac{1}{2}(||v+w||^2 - ||v||^2-||w||^2)
+    = \frac{1}{2}(\langle v+w, v+w \rangle - \langle v,v\rangle - \langle w,w \rangle)
+$$$$
+    = \frac{1}{2}(\langle v, w \rangle + \langle w,v \rangle)
+    = \langle v,w \rangle
+$$
+
+\textbf{b)}
+$$
+    ||v+w||^2
+    = \langle v+w , v+w \rangle
+    = \langle v,v\rangle + 2\langle v,w\rangle + \langle w,w \rangle
+$$$$
+    \up{\leq}{Cauchy}\quad ||v||^2 + 2||v||||w|| + ||w||^2 = (||v|| + ||w||)^2
+$$$$
+    \up{\Longleftrightarrow}{Positivität}\quad ||v+w|| \leq ||v|| + ||w||
+$$
+
+\textbf{c)}
+$$
+    ||v|| = ||v - w + w|| \leq ||v - w|| + ||w||
+    \,\Longleftrightarrow\,
+    ||v|| - ||w|| \leq ||v-w||
+$$
+Da $v,w$ beliebig gilt also auch
+$$
+    | ||v|| - ||w|| | \leq ||v-w||
+$$
+
+\textbf{d)}
+$$
+    ||v+w||^2 + ||v-w||^2
+    = \langle v,v \rangle + \langle w,w \rangle + 2\langle v,w\rangle
+        + \langle v,v \rangle + \langle w,w \rangle - 2 \langle v,w \rangle
+$$$$
+    = 2\langle v,v \rangle + 2 \langle w,w \rangle
+    = 2(||v||^2 + ||w||^2)
+$$
+
+\newpage
+
+\textbf{e)}
+Sei $v \perp w \,\Longleftrightarrow\, \langle v,w \rangle = 0$. Dann:
+$$
+    ||v+w|| - ||v-w||
+    = \sqrt{\langle v+w, v+w\rangle} - \sqrt{\langle v-w, v-w \rangle}
+$$$$
+    = \sqrt{\langle v,v \rangle + \langle w,w \rangle + 2\langle v,w \rangle} -
+        \sqrt{\langle v,v \rangle + \langle w,w \rangle - 2 \langle v,w \rangle}
+$$$$
+    = \sqrt{\langle v,v \rangle + \langle w,w \rangle} -
+        \sqrt{\langle v,v \rangle + \langle w,w \rangle}
+    = 0
+    \,\Longleftrightarrow\, ||v+w|| = ||v-w||
+$$
+
+Sei nun $||v+w|| = ||v-w|| \,\Longleftrightarrow\, ||v+w|| - ||v-w|| = 0$.
+Dann gilt (s.o.) auch
+$$
+   \sqrt{\langle v,v \rangle + \langle w,w \rangle + 2\langle v,w \rangle} =
+        \sqrt{\langle v,v \rangle + \langle w,w \rangle - 2 \langle v,w \rangle}
+$$
+Da $\sqrt{\text{ }}$ injektiv und so folgt dann auch
+$$
+    2\langle v,w \rangle = - 2 \langle v,w \rangle
+    \,\Longleftrightarrow\, \langle v,w \rangle = 0
+$$
+
+Insgesamt gilt also:
+$$
+    ||v+w|| = ||v-w||
+    \,\Longleftrightarrow\, ||v+w||-||v-w|| = 0
+    \,\Longleftrightarrow\, v \perp w
+$$
+\end{document}
