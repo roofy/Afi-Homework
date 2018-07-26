@@ -1,0 +1,117 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 10}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{6}
+\textbf{a)}
+$A,B \in K^{n \times n}$ orthogonal. Dann:
+$$
+    AB(BA)^{\text{tr}} = ABB^{\text{tr}}A^\text{tr} = AA^\text{tr} = E_n
+$$
+Folglich ist auch $AB$ orthogonal.
+
+\textbf{b)}
+$A \in K^{n \times n}$ orthogonal. Da $A$ quadratisch ist, folgt aus
+$AA^\text{tr} = E_n$ schon dass $A$ invertierbar ist mit $A^{-1} = A^\text{tr}$.
+Ferner gilt stets $A^{-1}A = AA^{-1} = E_n$. Es folgt:
+$$
+    A^{-1}(A^{-1})^\text{tr} = A^{-1}(A^\text{tr})^\text{tr} = A^{-1}A = E_n
+$$
+Damit ist $A^{-1}$ ebenfalls orthogonal.
+
+\aufgabe{7}
+Da $A^3 = E_n$, ist $A$ Nullstelle von $f = X^3 - 1 \in \mathbb{C}[X]$.
+Insbesondere gilt in $\mathbb{C}$, dass $\sqrt{-3}$ definiert ist und damit:
+$$
+    X^3-1 = (X-1)(X^2+X+1) = (X-1)(X+\frac{1+\sqrt{-3}}{2})(X+\frac{1-\sqrt{-3}}{2})
+$$
+Also zerfällt $f$ in paarweise verschiedene Linearfaktoren. Nach VL gilt,
+da $A$ Nullstelle von $f$ ist, dass $\mu_A \mid f$, also $\mu_A$ ebenfalls
+in paarweise verschiedene Linearfaktoren zerfällt.
+Dies ist nach VL äquivalent dazu, dass $A$ diagonalisierbar ist.
+
+\aufgabe{8}
+Sei $\lambda$ EW von $A$, $v$ EV von $A$ bzgl. $\lambda$. Dann:
+$$
+    ABv = BAv = B\lambda v = \lambda Bv \,\Longrightarrow\, Bv \in \text{Eig}_\lambda(A)
+$$
+Da aber EV mit verschiedenen EW stets l.u. sind, und $A \in K^{n\times n}$ genau $n$
+verschiedene hat, müssen alle Eigenräume von $A$ dim 1 haben. Insbesondere
+folgt dann durch $v, Bv \in \text{Eig}_\lambda(A)$, dass ein $\mu \in K$ mit
+$Bv = \mu v$ existiert, also $v$ ein EV mit EW $\mu$ von $B$ ist.
+Da sich dies für alle $n$ EW von $A$ machen lässt, haben wir eine Eigenbasis
+von $K^{n \times 1}$ bzgl. $B$, wodurch $B$ diag. ist.
+
+Wenn bspw. $K = \mathbb{R}, n = 2, A = \begin{pmatrix}1 & 0 \\ 0 & 2\end{pmatrix},B = E_2$
+ dann gilt auch $AB = BA$, und $B$ ist diag. jedoch hat $B$ nur 1 EW.
+
+ \newpage
+
+\aufgabe{9}
+Sei $a \in K^n$ mit $\sum_{i=1}^{n} a_i \varphi(v_1) = 0$. Dann
+$$
+    \sum_{i=1}^{n} a_i \varphi(v_1) = 0
+    \,\Longrightarrow\, \varphi(\sum_{i=1}^{n} a_iv_i) = 0
+    \,\Longrightarrow\, \sum_{i=1}^{n} a_iv_i = 0
+    \,\Longrightarrow\, a = 0
+$$
+Damit ist auch $\varphi(M)$ l.u.
+
+\textbf{b)}
+Gegenbeispiel. $K = \mathbb{R}, V = \mathbb{R}^{2 \times 1}, W = \mathbb{R},
+\varphi : V \to W, \begin{pmatrix}x\\y\end{pmatrix} \mapsto x$ surjektiv.\\
+Mit l.u. Tupel $M = (e_1, e_2)$ ist $\varphi(M) = (1, 0)$ offensichtlich nicht l.u.
+in $V$.
+
+\textbf{c)}
+Gegenbeispiel. $K = \mathbb{R}, W = \mathbb{R}^{2 \times 1}, V = \mathbb{R},
+\varphi : V \to W, x \mapsto \begin{pmatrix}x\\0\end{pmatrix}$ injektiv.\\
+Mit EZS $M = (1)$ ist $\varphi(M) = (e_1)$ offensichtlich kein EZS von $W$.
+
+\textbf{d)}
+Da $\varphi$ surjektiv ex. für $w \in W$ ein $v' \in V$ mit $\varphi(v) = w$.
+Da $M$ Basis von $V$ haben wir ein $a \in K^n$ mit
+$\sum_{i=1}^{n} a_iv_i = v'$. Damit:
+$$
+    \varphi(v')
+    = \varphi(\sum_{i=1}^{n}a_iv_i) 
+    = \sum_{i=1}^{n} a_i\varphi(v_i) \in \langle \varphi(M) \rangle
+$$
+Damit ist $\varphi(M)$ ein EZS von $W$.
+
+
+
+\end{document}
