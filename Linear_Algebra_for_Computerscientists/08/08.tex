@@ -1,0 +1,150 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+
+\newcommand{\aufgabe}[1]{\subsection*{Aufgabe #1}}
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+
+\begin{document}
+\noindent Gruppe \fbox{\textbf{9}}             \hfill Phil Pützstück, 377247\\
+\noindent Lineare Algebra für Informatiker\\
+\begin{center}
+	\LARGE{\textbf{Hausaufgabe 8}}
+\end{center}
+\begin{center}
+\rule[0.1ex]{\textwidth}{1pt}
+\end{center}
+
+
+
+\aufgabe{46}
+\textbf{a)}
+
+Da $A$ eine obere Dreiecksmatrix ist, folgt sofort $\chi_A = \det(XE_n - A) = (X-c)^n$.\\
+Damit ist $m_c(A) = n$. Ferner ist $g_c(A) = n - \text{rk}(A - cE_n)$.
+Es gilt $(A-cE_n)_{i,j} = 1$ für $i \in [1,n-1], j=i+1$. Insbesondere
+ist also $(A-cE_n)_{-,n} = 0$ während die restlichen Spalten l.u. sind.
+Folglich ist rk $A-cE_n = n-1$ und damit $g_c(A) = 1$.
+
+Nach VL ist $A$ genau dann diagonalisierbar, wenn $\chi_A$ in Linearfaktoren zerfällt
+und für alle Eigenwerte $\lambda$ von $A$ stets $g_\lambda(A) = m_\lambda(A)$ gilt.
+Wir haben jedoch $g_c(A) = 1$ und $m_c(A) = n$.\\
+Es folgt, dass für $n \neq 1$, also auch $n \geq 2$ die Matrix $A$ nicht diagonalisierbar ist.\\
+
+\textbf{b)}
+
+Wenn $A$ diagonalisierbar ist, existieren $P \in \text{GL}_n(K), D \in K^{n\times n}$
+sodass $P^{-1}AP = D$, wobei $D$ eine Diagonalmatrix ist. Nach
+VL ist dann $f(A) = PXP^{-1}$ wobei $(X)_{i,j} = \delta_{i,j}f(D_{i,j})$ ist.
+Insbesondere ist also $f(A)$ ähnlich zu der Diagonalmatrix $X$, ist also
+ebenfalls diagonalisierbar.
+
+\aufgabe{47}
+Seien also $A,B \in K^{n\times n}$ trigonalisierbar mit $AB = BA$. Sei weiter
+$\lambda$ EW von $A$, $v \in \text{Eig}_\lambda(A)$. Es gilt:
+$$
+    ABv = BAv = B\lambda v = \lambda Bv \quad\Longrightarrow\quad Bv \in \text{Eig}_\lambda(A)
+$$
+Somit ist Eig$_\lambda(A)$ $B$-invariant.
+Man betrachte nun $\varphi' := \varphi_B|_{\text{Eig}_\lambda(A)}^{\text{Eig}_\lambda(A)}$, also $\varphi_B$ eingeschränkt auf den Eigenraum von $A$ zu $\lambda$.
+
+Da $B$ trigonalisierbar ist, zerfällt nach VL $\chi_B$ in Linearfaktoren. Ferner gilt:
+$$
+    \chi_B = \chi_{\varphi_B}
+    \qquad\text{und}\qquad
+    \chi_{\varphi'} \mid \chi_{\varphi_B}
+$$
+Da dim Eig$_\lambda(A) > 0$, ist also $\chi_{\varphi'}$ nicht trivial und es existiert
+ein EW $\mu$ von $\varphi'$. Damit folgt jedoch sofort,
+dass für ein $v \in \text{Eig}_\mu(\varphi')$ gilt, dass $v \in \text{Source }\varphi' = \text{Eig}_\lambda(A)$.\\
+Ferner haben wir nun durch
+$$
+    \text{Eig}_\mu(\varphi') \leq \text{Eig}_\mu(\varphi_B) = \text{Eig}_\mu(B)
+    \quad\text{dass}\quad
+    Av = \lambda v\ \land\ Bv = \mu v
+$$
+Also haben $A$ und $B$ einen gemeinsamen EV.
+
+\newpage
+
+Nun lässt sich analog zum Beweis aus der VL zeigen, dass $A$ und $B$ zsm.
+trigonalisierbar sind:
+
+Seien $\lambda$ EW von $A$, $\mu$ EW von $B$ sodass $0 \neq v \in \text{Eig}_\lambda(A) \cap \text{Eig}_\mu(B)$. Dann ist $\langle v \rangle$ sowohl $A$-, als auch
+$B$-invariant. Sei also $s := (v,s_2,\cdots,s_n)$ eine ergänzte Basis von $K^{n \times 1}$.
+
+Nun haben wir:
+$$
+    M_{s,s}(\varphi_A) =
+        \begin{array}({@{}c|c@{}})
+            \lambda & *\\
+            \hline
+            0 & C_1
+        \end{array}
+    \qquad\qquad
+    M_{s,s}(\varphi_B) =
+        \begin{array}({@{}c|c@{}})
+            \mu & *\\
+            \hline
+            0 & C_2
+        \end{array}
+$$
+und es gilt $C_1,C_2$ trigonalisierbar mit $C_1C_2 = C_2C_1$, also den gleichen
+Vorraussetzungen wie $A$ und $B$. Wir können also nach dem gleichen Argument für
+$C_1$ und $C_2$ vorgehen (bspw. mit Induktion). Nach endlich vielen Schritten
+folgt analog zum Beweis aus der VL, dass $T \in \text{GL}_{n-1}(K)$ existiert, sodass
+$T^{-1}C_1T$ und $T^{-1}C_2T$ beide obere $\Delta$-Matrizen sind. Dann folgt:
+$$
+    \begin{array}({@{}c|c@{}})
+        1 & 0\\
+        \hline
+        0 & T^{-1}
+    \end{array}
+    \begin{array}({@{}c|c@{}})
+        \lambda & *\\
+        \hline
+        0 & C_1
+    \end{array}
+    \begin{array}({@{}c|c@{}})
+        1 & 0\\
+        \hline
+        0 & T
+    \end{array}
+    \qquad\text{und}\qquad
+    \begin{array}({@{}c|c@{}})
+        1 & 0\\
+        \hline
+        0 & T^{-1}
+    \end{array}
+    \begin{array}({@{}c|c@{}})
+        \mu & *\\
+        \hline
+        0 & C_2
+    \end{array}
+    \begin{array}({@{}c|c@{}})
+        1 & 0\\
+        \hline
+        0 & T
+    \end{array}
+$$
+haben beide obere $\Delta$-Form. Folglich sind $M_{s,s}(\varphi_A)$ und
+$M_{s,s}(\varphi_B)$ zusammen trigonalisierbar, also auch $A$ und $B$.
+\end{document}
