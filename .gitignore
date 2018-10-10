@@ -5,4 +5,7 @@
 *.nav
 *.snm
 *.out
+*.bbl
+*.blg
+*.dvi
 Thumbs.db
