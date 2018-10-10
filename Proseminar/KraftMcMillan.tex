@@ -246,21 +246,24 @@ Proseminar Informationstheorie}
         where the $i \in [1,q]^n$ represents $n$ choices of $q$ possible summands (with repitition).\\[10pt]
         Now there are many different $i \in [1,q]^n$ which have the same sum $\sum_{k=1}^{n} l_{i_k}$
         (consider permutations for example). Set $M := \max\{l_k\mid k \in [1,q]\}, m := \min\{l_k \mid k \in [1,q]\}$.
-        Then we get $mn \leq \sum_{k=1}^{n} l_{i_k} \leq Mn$ for all $i \in [1,q]^n$. We define for $p \in \mathbb{N},
-        j \in [mn,Mn]$:
+        Then we get $mn \leq \sum_{k=1}^{n} l_{i_k} \leq Mn$ for all $i \in [1,q]^n$ (3). We define for
+        $j \in [mn,Mn], p \in [1,j]$:
         $$
             N_{j,p} := \{w_{i_1}w_{i_2}\cdots w_{i_p} \mid i \in [1,q]^n \land |w_{i_1}\cdots w_{i_n}| = j \}
         $$
         So $t \in N_{p,j}$ is a Code-sequence of length $j$, consisting of $p$ Code-words in $\mathcal{C}$.\\
         But since $\mathcal{C}$ is uniquely decodable, we know that
-        $$
+        $
             \forall t \in N_{j,p}: \exists!\ i \in [1,q]^n: t = w_{i_1}\cdots w_{i_n}
-        $$$$
-            \,\Longrightarrow\, |\{i \in [1,q]^n \mid \sum_{k=1}^{n} l_{i_k} = j\}|
-            = |\{i \in [1,q]^n \mid \sum_{k=1}^{n} |w_{i_k}| = j\}|
-            = |N_{j,p}| \leq r^j
-        $$
-        Hence, continuing in (2), we now have
+        $,
+        meaning there is only one way to construct $t \in N_{p,k}$ from $p$ Code-words of $\mathcal{C}$.\\
+        This implies that
+        \begin{equation}
+            |\{i \in [1,q]^n \mid \sum_{k=1}^{n} l_{i_k} = j\}|
+            = |\{i \in [1,q]^n \mid \sum_{k=1}^{n} |w_{i_k}| = j\}| \tag{4}
+            = |N_{j,p}|
+        \end{equation}
+        Furthermore, since $N_{j,p} \subseteq [0,r-1]^j$, we have $|N_{j,p}|$. Thus, from (2), (3), (4) we get
         $$
             K^n = \sum_{j = mn}^{Mn} \frac{|N_{j,n}|}{r^j} \leq \sum_{j = mn}^{Mn} 1 = (l-m)n + 1
             \,\Longrightarrow\, \frac{K^n}{n} \leq (M-m) + \frac{1}{n}
