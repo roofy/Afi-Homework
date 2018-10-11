@@ -7,70 +7,97 @@
 
 \newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
 \newcommand{\T}[0]{{\mathcal{T}_r^h}}
-\newcommand{\pre}[0]{\text{pre}}
+\newcommand{\he}[0]{\textit{height}}
+\newcommand{\ro}[0]{\textit{root}}
+\newcommand{\SUB}[0]{\textit{sub}}
 \newenvironment{statement2}[2]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{\end{trivlist}}
 \newenvironment{statement3}[3]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2} {#3}\textbf{.}]}{\end{trivlist}}
 
+\setlength{\parindent}{0pt}
 \begin{document}
-
 \title{Kraft's and McMillan's Inequalities}
-\author{Phil Pützstück, 377247\\
+\author{Phil Pützstück\\
 Proseminar Informationstheorie}
-
 \maketitle
-\begin{statement2}{(1.0)}{Assumptions} \strut
-    \begin{itemize}
-        \item Basic Graph-theory (Trees, acyclic, directed, height, etc.).
-        \item Familiarity with instantaneous Codes, as defined in \cite{ICT}.
-    \end{itemize}
-\end{statement2}
 
-\begin{statement3}{(1.1)}{Definition}{(r-ary Trees from r-ary Codes)}\strut\\[2pt]
-    Let $q,r \in \mathbb{N}, [0,r-1]$ be the Code-Alphabet for some $r$-ary Code $\mathcal{C}$ with word-lengths
-    $l \in \mathbb{N}^q$.\\
-    Set $h := \max\{l_i \mid i \in [1,q]\}$.
-    Define $W := \bigcup_{i \in [0,h]} [0,r-1]^i$ to be the set of all words over $T$ of maximum length $h$. Thus
-    $\mathcal{C} \subseteq W$. We define a rooted r-ary tree as a directed graph:
-    $$
-        V := \{v_w \mid w \in W\}\qquad E := \{(v_w, v_{w'}) \mid v_w,v_{w'} \in V \land w' = wx, x \in [0,r-1]\}
-    $$
-    Which means we have a vertex for each word in $W$, and an edge from $v_w$ to $v_{w'}$ iff $w$ is a prefix of $w'$
-    with $|w| = |w'|-1$.
-    We set $\T := (V,E)$ as the rooted $r$-ary tree of height $h$. The root $R(\T)$ is given by $v_\varepsilon$,
-    since $\varepsilon \in T^0 \subseteq W$ and $\varepsilon \sqsubseteq w$ for all $w \in W$.
-    We denote $V(\T) := V$ and $E(\T) := E$.
-    We can easily define the height $\mathcal{H}_{\T}(v_w) := |w| - |\mathcal{W}(R(\T))|$, where
-    $\mathcal{W}(v_w) = w$,
-    which defines the height of a vertex $v_w \in V(\T)$ as the length of $w$ minus the length of the word at
-    the root of the tree, which is usually $|\varepsilon| = 0$, but can be different.
-\end{statement3}
+\begin{abstract}
+    We study the existence of uniquely decodable or instantaneous $r$-ary codes for some given word-lengths.
+    To do this, we prove and discuss the known Kraft and McMillan Inequalities by utilising graph theory.
+    The approach is based on \cite{ICT}.
+\end{abstract}
+\section*{Introduction}
+As uniquely decodable $r$-ary codes and instantaneous codes are important concepts, we want to know under which
+constraints these exist. We specifically look at $r$-ary codes with given word-lengths, as the inequalities
+we will later prove relate these concepts. After introducing a special kind of tree we show the relation between them and $r$-ary codes, which we use in the proof for Kraft's Inequality. Following the proofs we discuss the implications of these inequalities and give examples.\\[10pt]
+Consider a tree, which is defined to be an acyclic, connected and undirected graph.
+A tree $T = (V,E)$ has the set of vertices $V$ and the set of edges $E$, which we denote by $V(T) := V, E(T) := E$.
+We call $T$ a rooted tree, if we have a distinct vertex $v \in V(T)$, called the root of $T$ and denoted as
+$\ro(T) = v$, and if we obtain $T$ from a tree by replacing the edges with directed edges, such that we have a unique path from the root of $T$ to each vertex of $T$.
+In this case each vertex $v \in V(T)$ has a height, denoted $\he(v) = \he_T(v)$,
+defined as the length of that unique path from $\ro(T)$ to $v$.\\[10pt]
+For the rest of this paper we will only consider rooted trees, in particular $r$-ary rooted trees of some height $h$, where $r,h \in \mathbb{N}$, which
+are rooted trees of finite height where each vertex of height less than $h$ has exactly $r$ children.
+We introduce subtrees and an ordering of vertices:
 
-\begin{statement3}{(1.2)}{Definition}{(Subtrees and Ordering)}\strut\\[2pt]
-    Let $h,r \in \mathbb{N}, v_w, v_{w'} \in V(\T)$.
-    We say $T$ is a rooted subtree of $\T$, written $T \leq \T$, iff $V(T) \subseteq V(\T), E(T) \subseteq E(\T)$
-    and $T$ fullfills the standard criteria of a rooted (directed) tree.\\[5pt]
-    We say $T$ is a rooted $r$-ary subtree of $\T$, written $T \leq_r \T$ iff $T \leq \T$ and $T$ is $r$-ary.\\[5pt]
-    We write $v_w \leq v_{w'}$ iff $w \sqsubseteq w'$. Now let $T \leq \T$ be a rooted subtree and
-    $v_w \in T \setminus \{R(T)\}$.\\
-    $$
-        V := \{v \in V(T) \mid v_w \leq v\} = \{v_{w'} \in V(T) \mid w \sqsubseteq w'\}
-        \quad E := \{(v,v') \in V(T) \mid v,v' \in V\}
-    $$
-    If we have $(V,E) \leq_r \T$, meaning the Graph $(V,E)$ is a rooted $r$-ary subtree of $\T$, then we define
-    $$
-        \mathcal{U}_T(v_w) := \mathcal{U}_\T(v_w) = (V,E)\quad\text{and}\quad
-        T \setminus v_w := T \setminus \mathcal{U}_T(v_w) = (V(T) \setminus V, E(T) \setminus E)
-    $$
+\begin{statement3}{(1.1)}{Definition}{(Subtrees and Ordering)}\strut\\[2pt]
+    Let $T, T'$ be rooted Trees. We say $T'$ is a rooted subtree of $T$, iff $T'$ is a subgraph of $T$ and write
+    $T' \leq T$. We write $T' \leq_r T$ iff $r \in \mathbb{N}$ and $T,T'$ are both $r$-ary.
+    Now let $v,w \in V(T)$. We write $v \leq w$ iff the unique path from $\ro(T)$ to $w$ visits $v$.
+    Let $v \in T \setminus \{\ro(T)\}$. Set
+    $V_v := \{u \in V(T) \mid v \leq u\}, E_v := \{(u,u') \in E(T) \mid u,u' \in V_v\}$
+    and let $\SUB(v) = \SUB_T(v) := (V_v, E_v)$ be the rooted subtree of $T$ with $v$ as its root.
+    At last we define $T \setminus v := T \setminus \SUB(v)$ by usual graph difference to be the rooted subtree of $T$
+    where all vertices and edges in $\SUB(v)$ are deleted from $T$.
 \end{statement3}
 
 \newpage
-\begin{statement2}{(1.3)}{Examples}\strut\\[5pt]
+
+In the definition for $T \setminus v$ we need $v \neq \ro(T)$, since otherwise $T \setminus v$ would be empty, and especially
+not rooted.
+Note also that if $T$ is a $r$-ary rooted tree and $v \in V(T) \setminus \{\ro(T)\}$ we have
+$\SUB(v) \leq_r T$, but $(T \setminus v) \not\leq_r T$, although $(T \setminus v) \leq T$.
+From basic graph theory we get statements about counting vertices, which will be useful later:
+
+\begin{statement3}{(1.2)}{Remark}{(Number of vertices of some height in rooted r-ary Trees)}\strut\\[2pt]
+    Let $h,r \in \mathbb{N}$ and $T$ be a rooted $r$-ary tree of height $h$.
+    Then $T$ has exactly $r^{h'}$ vertices of height $h' \leq h$.
+\end{statement3}
+
+\begin{statement3}{(1.3)}{Corollary}{(Number of Leaves of $T \setminus v$)}\strut\\[2pt]
+    Let $h,r \in \mathbb{N}$, $T$ be a rooted $r$-ary tree of height $h$, $T' \leq T$ and
+    $v \in V(T') \setminus \{\ro(T')\}$ such that $\SUB_{T'}(v) \leq_r T$.
+    If $L$ is the number of leaves of $T'$, then $T' \setminus v$ has $L - r^{h - \he_T(v)}$ leaves.
+
+    \begin{proof}
+        Since $\SUB_{T'}(v)$ is $r$-ary and has height $h - \he_T(v)$, we know $\SUB_{T'}(v)$ has
+        $r^{h- \he_T(v)}$ leaves by (1.2).
+        Thus $T' \setminus v = T' \setminus \SUB_{T'}(v)$ has $L - r^{h-\he_T(v)}$ leaves.
+    \end{proof}
+\end{statement3}
+
+For us, intervals are over $\mathbb{N}_0$, so for $m,n \in \mathbb{N}_0$ we have $[m,n] := \{p \in \mathbb{N} \mid
+m \leq p \leq n\}$.\\
+Now we will come to the relationship between $r$-ary codes and $r$-ary rooted trees.
+
+\begin{statement3}{(1.4)}{Definition}{(r-ary Trees from r-ary Codes)}\strut\\[2pt]
+    Let $q,r \in \mathbb{N}, [0,r-1]$ be the code-alphabet for some $r$-ary code $\mathcal{C}$ with word-lengths
+    $l \in \mathbb{N}^q$. This choice of the code-alphabet can always be made since any other code-alphabet
+    for $\mathcal{C}$ would stand in bijection to $[0,r-1]$.
+    Set $h := \max\{l_i \mid i \in [1,q]\}$.
+    Define $W := \bigcup_{i \in [0,h]} [0,r-1]^i$ to be the set of all words over $[0,r-1]$ of maximum length $h$. Thus
+    $\mathcal{C} \subseteq W$. We construct a rooted $r$-ary tree $\T$ of height $h$ indexed by $W$ by setting
+    $\ro(\T) := v_\varepsilon$, $V(\T) := \{v_w \mid w \in W\}$ and
+    $E(\T) := \{(v_w,v_{w'}) \mid w,w' \in W, wx = w', x\in [0,r-1]\}$. Notice that with this we have
+    $v_w \leq v_{w'} \,\Longleftrightarrow\, w \sqsubseteq w'$, and $\he(v_w) = |w|$.
+\end{statement3}
+
+\begin{statement2}{(1.5)}{Examples.} Note that $\T$ is uniquely determined by $r$ and $h$.
     $\mathcal{T}_3^2$ is given by
     \begin{center}
         \begin{forest}
-            [$R(\mathcal{T}_3^2)\text{=}v_\varepsilon$
+            [$\ro(\mathcal{T}_3^2)\text{=}v_\varepsilon$
                 [$v_0$
                     [$v_{00}$],
                     [$v_{01}$],
@@ -89,14 +116,13 @@ Proseminar Informationstheorie}
             ],
         \end{forest}\\
     \end{center}
-    We have $\mathcal{H}_{\mathcal{T}_3^2}(v_\varepsilon) = 0$ and $\mathcal{H}_{\mathcal{T}_3^2}(v_{12}) = 2$.
+    We have $\he(v_\varepsilon) = 0$ and $\he(v_{12}) = 2$.
     $v_0 \leq v_{02}$ holds, $v_0 \leq v_{10}$ does \textbf{not}.\\
-    The subtree $\mathcal{U}_{\mathcal{T}_3^2}(v_1)$ and $\mathcal{T}_3^2 \setminus v_1$
-    are given by:\\
+    The subtrees $\SUB(v_1)$ and $\mathcal{T}_3^2 \setminus v_1$ are given by:\\
     \begin{minipage}{.4\textwidth}
         \begin{center}
             \begin{forest}
-                [$R(\mathcal{U}_{\mathcal{T}_3^2}(v_1))\text{=}v_1$
+                [$\ro(\SUB(v_1))\text{=}v_1$
                     [$v_{10}$],
                     [$v_{11}$],
                     [$v_{12}$]
@@ -107,7 +133,7 @@ Proseminar Informationstheorie}
     \begin{minipage}{.4\textwidth}
         \begin{center}
             \begin{forest}
-                [$R(\mathcal{T}_3^2 \setminus v_1)\text{=}v_\varepsilon$
+                [$\ro(\mathcal{T}_3^2 \setminus v_1)\text{=}v_\varepsilon$
                     [$v_0$
                         [$v_{00}$],
                         [$v_{01}$],
@@ -122,70 +148,51 @@ Proseminar Informationstheorie}
             \end{forest}\\
         \end{center}
     \end{minipage}\\[10pt]
-    Note $\mathcal{U}_{\T}(v_1)$ is a 3-ary rooted subtree of height $1$, but $\mathcal{T}_3^2 \setminus v_1$ is only
+    $\SUB(v_1)$ is a 3-ary rooted subtree of height $1$, but $\mathcal{T}_3^2 \setminus v_1$ is only
     a rooted subtree of height $3$, not $r$-ary for any $r \in \mathbb{N}$.
-    We now have $\mathcal{H}_{\mathcal{U}_{\mathcal{T}_3^2}}(v_1) = 0,
-    \mathcal{H}_{\mathcal{U}_{\mathcal{T}_3^2}}(v_{12}) = 1$, but still\\
-    $\mathcal{H}_{\mathcal{T}_3^2 \setminus v_1}(v) = \mathcal{H}_{\mathcal{T}_3^2}(v)$ for $v \in V(\mathcal{T}_3^2 \setminus v_1)$.
+    We now have $\he_{\SUB(v_1)}(v_1) = 0, \he_{\SUB(v_1)}(v_{12}) = 1$, but still
+    $\he_{\mathcal{T}_3^2 \setminus v_1}(v) = \he_{\mathcal{T}_3^2}(v)$ for $v \in V(\mathcal{T}_3^2 \setminus v_1)$.
 \end{statement2}
 
-\begin{statement3}{(1.4)}{Proposition}{(Number of nodes in rooted r-ary subtrees)}\strut\\[2pt]
-    Let $h,r \in \mathbb{N}, T \leq_r \T$ be a rooted $r$-ary subtree of $\T$ with height $h' \leq h$.
-    Then T has exactly $r^l$ vertices of height $l$ for $l \in [0,h']$.
-    \begin{proof}
-        Left as exercise for the reader.
-    \end{proof}
-\end{statement3}
-
-\begin{statement3}{(1.5)}{Corollary}{(Number of leafs of $T \setminus v$)}\strut\\[2pt]
-    Let $h,r \in \mathbb{N}, T \leq \T, v_w \in V(T) \setminus \{R(\T)\}$ such that
-    $\mathcal{U}_T(v_w)$ is well defined, in particular $r$-ary.
-    Let $L \leq r^h$ be the number of leaves of $T$. Then $T \setminus v_w$ has $L - r^{h-|w|}$
-    leaves.
-    \begin{proof}
-        Since $\mathcal{U}_{T}(v_w)$ has height $h-\mathcal{H}_\T(v_w) = h - |w|$,
-        we know $\mathcal{U}_\T(v)$ has $r^{h-|w|}$ leaves by (1.4).
-        Thus $T \setminus v_w = T \setminus \mathcal{U}_T(v_w)$ has $L - r^{h-|w|}$ leaves.
-    \end{proof}
-\end{statement3}
-
 \begin{statement3}{(1.6)}{Theorem}{(Kraft's Inequality)}\strut\\[2pt]
-    Let $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Then there is an instantaneous $r$-ary Code $\mathcal{C}$
+    Let $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Then there is an instantaneous $r$-ary code $\mathcal{C}$
     with word-lengths $l$ iff
     \begin{equation}
         \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1
     \end{equation}
 
     \begin{proof}
-        If $q = 1$, then we always have an instantaneous Code, and since $r \in \mathbb{N}$, (1) always holds
+        If $q = 1$, then we always have an instantaneous code, and since $r \in \mathbb{N}$, (1) always holds
         as well.
-        So assume WLOG that $q > 1$ and $\forall i \in [1,q-1]: 0 < l_i \leq l_{i+1}$.
-        Furthermore we can assume WLOG that the Code-Alphabet of $\mathcal{C}$ is $[0,r-1]$, since any
-        other Alphabet of length $r$ is in bijection to this.\\[10pt]
-        We first show that (1) implies the existence of an $r$-ary prefix-Code, which by
+        So assume w.l.o.g. that $q > 1$, $\forall i \in [1,q-1]: 0 < l_i \leq l_{i+1}$
+        and that the code-alphabet of $\mathcal{C}$ is $[0,r-1]$.\\[10pt]
+        We first show that (1) implies the existence of an $r$-ary prefix-code, which by
         \cite{ICT} is instantaneous.
-        Set $h := l_q$ to be the maximum length of the supposed Code-words of $\mathcal{C}$.
-        Thus we should have, like in (1.1), that $\mathcal{C} \subseteq \bigcup_{i \in [0,h]} [0,r-1]^i =: W$, where
+        Set $h := l_q$ to be the maximum length of the supposed code-words of $\mathcal{C}$.
+        Thus we should have, like in (1.4), that $\mathcal{C} \subseteq \bigcup_{i \in [0,h]} [0,r-1]^i =: W$, where
         $W$ is in bijection with $V(\T)$.
-        So we construct the Code-words $w_i$ of the prefix-Code $\mathcal{C}$, with $|w_i| = l_i$ for $i \in [1,q]$
-        via finite induction over $i$.\\[5pt]
-        Let $i = 1$. Choose a Code-word $w_1 \in [1,r]^{l_1}$ of length $l_1$. Since $w_1 \in W$ and $l_1 > 0$ we have
-        $v_{w_1} \in V(\T) \setminus \{R(\T)\}$. Define $\mathcal{T}_1 := \T \setminus v_{w_1}$. We know
-        from (1.5) that $\mathcal{T}_1$ has
+        So we construct the code-words $w_i$ of the prefix-code $\mathcal{C}$, with $|w_i| = l_i$ for $i \in [1,q]$
+        via finite induction over $i$. The idea is to remove the subtrees rooted at $v_{w_i}$ and then
+        chose $v_{w_{i+1}}$ from the remaining vertices to uphold the prefix property of $\mathcal{C}$,
+        since for all $j \in [1,i]$ we have $l_j \leq l_{i+1}$ and for all $v_{w}$ with $w_j \sqsubseteq w$ we already removed $v_w$ before
+        chosing $v_{w_{i+1}}$.\\[5pt]
+        Let $i = 1$. Choose a code-word $w_1 \in [0,r-1]^{l_1}$ of length $l_1$. Since $w_1 \in W$ and $l_1 > 0$ we have
+        $v_{w_1} \in V(\T) \setminus \{R(\T)\}$. Define $\mathcal{T}_0 := \T, \mathcal{T}_1 := \mathcal{T}_0 \setminus v_{w_1}$. We know
+        from (1.3) that $\mathcal{T}_1$ has
         $$
-            r^h - r^{h - l_1} = r^h\left(1 - \sum_{k=1}^{1} \frac{1}{r^{l_k}}\right)
-            \up{>}{$q > 1$} r^h\left(1 - \sum_{k=1}^{q} \frac{1}{r^{l_k}}\right) \up{\geq}{(1)} 0
+            r^h - r^{h - \he(v_{w_1})} = r^h - r^{h - l_1} = r^h\left(1 - \sum_{k=1}^{1} \frac{1}{r^{l_k}}\right)
+            > r^h\left(1 - \sum_{k=1}^{q} \frac{1}{r^{l_k}}\right) \up{\geq}{(1)} 0
         $$
-        leaves. Now let $i \in [1,q-1]$ such that $\mathcal{C} := \{w_j \mid j \in [1,i]\}$ is a prefix-Code
+        leaves. Now let $i \in [1,q-1]$ such that $\mathcal{C} := \{w_j \mid j \in [1,i]\}$ is a prefix-code
         with $|w_j| = l_j$\\[2pt]
         for $j \in [1,i]$ and such that $\mathcal{T}_i$ is a rooted subtree of $\T$ and has $r^h(1 - \sum_{k=1}^{i}\frac{1}{r^{l_k}}) > 0$ leaves.
         Then since $l_{i+1} \leq l_q = h$ we know that there must also be at least one vertex
-        $v_w \in V(\mathcal{T}_i)$ with $\mathcal{H}_{\mathcal{T}_i}(v_w) = \mathcal{H}_{\T}(v_w) = l_{i+1}
-        \,\Longrightarrow\, |w| = l_{i+1}$ (since trees are connected). So set $w_{i+1} := w$. If we had $w_j \sqsubseteq w_{i+1}$ for
-        some $j \in [1,i]$, then it would follow that $v_{w_j} \leq v_{w_{i+1}}$, but then we would have
-        $v_{w_{i+1}} \notin V(\mathcal{T}_{j}) \subseteq V(\mathcal{T}_{i})$, a contradiction.
-        Thus $\mathcal{C} := \{w_j \mid j \in [1, i+1]\}$ is still a prefix-Code.
-        If $i+1 = q$ we are done, as we have constructed the desired prefix-Code. Otherwise,
+        $v_w \in V(\mathcal{T}_i)$ with $\he(v_w) = l_{i+1}$ since trees are connected and we have a leaf.
+        So set $w_{i+1} := w$. If we had $w_j \sqsubseteq w_{i+1}$ for
+        some $j \in [1,i]$, then also $v_{w_j} \leq v_{w_{i+1}}$, but then
+        $v_{w_{i+1}} \notin V(\mathcal{T}_{j-1} \setminus v_{w_j}) = V(\mathcal{T}_{j}) \subseteq V(\mathcal{T}_{i})$, a contradiction.
+        Thus $\mathcal{C} := \{w_j \mid j \in [1, i+1]\}$ is still a prefix-code.
+        If $i+1 = q$ we are done, as we have constructed the desired prefix-code. Otherwise,
         we set $\mathcal{T}_{i+1} := \mathcal{T}_i \setminus w_{i+1}$ and we get for the number of leaves:
         $$
             r^h\left(1-\sum_{k=1}^{i} \frac{1}{r^{l_k}}\right) - r^{h - l_{i+1}}
@@ -193,23 +200,23 @@ Proseminar Informationstheorie}
             > r^h\left(1-\sum_{k=1}^{q} \frac{1}{r^{l_k}}\right)
             \up{\geq}{(1)} 0
         $$
-        Thus we constructed the desired prefix-Code $\mathcal{C}$ by finite induction.\\[10pt]
-        Now we show the existence of a instantaneous $r$-ary Code $\mathcal{C}$ with word-lengths $l$ implies (1).
-        We know from \cite{ICT} that $\mathcal{C}$ is a prefix-Code. Let
+        Thus we constructed the desired prefix-code $\mathcal{C}$ by finite induction.\\[10pt]
+        Now we show the existence of an instantaneous $r$-ary code $\mathcal{C}$ with word-lengths $l$ implies (1).
+        We know from \cite{ICT} that $\mathcal{C}$ is a prefix-code. Let
         $$
             L_i := \{v_w \in V(\T) \mid w_i \sqsubseteq w \land |w| = h\}
-            = \{v_w \in \mathcal{U}_\T(v_{w_i}) \mid \mathcal{H}_\T(v_w) = h - |w_i|\}
+            = \{v_w \in \SUB(v_{w_i}) \mid \he_\T(v_w) = h\}
         $$
-        be the set of leaves in $\mathcal{U}_\T(v_{w_i})$, where $w_i \in \mathcal{C}$ with $|w_i| = l_i$ for $i \in [1,q]$. We know from (1.4) that $|L_i| = r^{h - l_i}$ 
-        for $i \in [1,q]$, as we have $\mathcal{H}_{\mathcal{U}_\T(v_{w_i})}(v_w) = h - l_i$ for $v_w \in L_i$.
+        be the set of leaves in $\SUB(v_{w_i})$, where $w_i \in \mathcal{C}$ with $|w_i| = l_i$ for $i \in [1,q]$. We know from (1.3) that $|L_i| = r^{h - l_i}$
+        for $i \in [1,q]$.
         Furthermore we know that for each $i\neq j \in [1,q]$ $L_i \cap L_j = \varnothing$:\\
-        Assume $i,j \in [1,q]$ and WLOG $i < j$. Let $v_w \in L_i \cap L_j$. Thus we get
+        Assume $i,j \in [1,q]$ and w.l.o.g. $i < j$. Let $v_w \in L_i \cap L_j$. Thus we get
         $$
             v_{w_i} \leq v_w \land v_{w_j} \leq v_w \,\Longrightarrow\, w_i \sqsubseteq w \land w_j \sqsubseteq w
             \,\Longrightarrow\, w_i \sqsubseteq w_j
         $$
-        which is a contradiction to the fact that $\mathcal{C}$ is a prefix-Code.
-        So now, since $\T$ only has $r^h$ leafs, we have
+        which is a contradiction to the fact that $\mathcal{C}$ is a prefix-code.
+        So now, since $\T$ only has $r^h$ leafs, we get what we wanted to show:
         $$
             r^h \geq |\bigcup_{i \in [1,q]} L_i| = \sum_{i = 1}^{q} |L_i| = \sum_{i=1}^{q} r^{h-l_i}
             = r^h\sum_{i=1}^{q} \frac{1}{r^{l_i}}
@@ -218,19 +225,20 @@ Proseminar Informationstheorie}
     \end{proof}
 \end{statement3}
 
-\newpage
+One could assume, that because being instantaneous implies being uniquely decodable, the constraints
+for being the latter are weaker. Suprisingly, this is not the case:
 
 \begin{statement3}{(1.7)}{Theorem}{(McMillan's Inequality)}\strut\\[2pt]
     Let $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Then there is an uniquely decodable
-    $r$-ary Code $\mathcal{C}$ iff
+    $r$-ary code $\mathcal{C}$ iff
     \begin{equation}
         \sum_{i=1}^{q} \frac{1}{r^{l_i}} \leq 1 \tag{1}
     \end{equation}
 
     \begin{proof}
-        If we assume (1), then by Kraft's Inequality we know that $\mathcal{C}$
+        If we assume (1), then by Kraft's inequality we know that $\mathcal{C}$
         is instantaneous, which by \cite{ICT} implies unique decodability.\\[10pt]
-        Now assume that $\mathcal{C}$ is a unique decodable $r$-ary Code with word-lengths
+        Now assume that $\mathcal{C}$ is a uniquely decodable $r$-ary code with word-lengths
         $l$.\\
         Let
         $
@@ -251,12 +259,12 @@ Proseminar Informationstheorie}
         $$
             N_{j,p} := \{w_{i_1}w_{i_2}\cdots w_{i_p} \mid i \in [1,q]^n \land |w_{i_1}\cdots w_{i_n}| = j \}
         $$
-        So $t \in N_{p,j}$ is a Code-sequence of length $j$, consisting of $p$ Code-words in $\mathcal{C}$.\\
+        So $t \in N_{p,j}$ is a code-sequence of length $j$, consisting of $p$ code-words in $\mathcal{C}$.\\
         But since $\mathcal{C}$ is uniquely decodable, we know that
         $
             \forall t \in N_{j,p}: \exists!\ i \in [1,q]^n: t = w_{i_1}\cdots w_{i_n}
         $,
-        meaning there is only one way to construct $t \in N_{p,k}$ from $p$ Code-words of $\mathcal{C}$.\\
+        meaning there is only one way to construct $t \in N_{p,k}$ from $p$ code-words of $\mathcal{C}$.\\
         This implies that
         \begin{equation}
             |\{i \in [1,q]^n \mid \sum_{k=1}^{n} l_{i_k} = j\}|
@@ -277,7 +285,115 @@ Proseminar Informationstheorie}
     \end{proof}
 \end{statement3}
 
+\begin{statement2}{(1.8)}{Corollary.}\strut\\[2pt]
+    Let $r,q \in \mathbb{N}, l \in \mathbb{N}^q$. Then by the above inequalities we get
+    that there exists an instantaneous $r$-ary code with word-lengths $l$ iff
+    there exists an uniquely decodable $r$-ary code with word-lenghts $l$.
+\end{statement2}
+
+So now we have necessary and sufficient conditions for when $r$-ary Codes of some given length exist.
+These Inequalities may be interpreted as the following:
+One usually wants a code to be instantaneous, have as small word-lengths as possible and a code-alphabet
+as small as possible. These 3 properties are related through the Inequalites we proved.
+In particular it is not possible to construct an instantaneous or uniquely decodable $r$-ary Code
+with arbitrarily small word-lengths for some fixed $r$. There exists a lower bound given by these
+Inequalities.
+
+\begin{statement2}{(1.9)}{Remark.}
+    Note that we know that if $q,r \in \mathbb{N}, l \in \mathbb{N}^q$
+    satisfy Kraft's Inequality, there \textbf{exists} an instantaneous $r$-ary Code. This does in no way imply
+    that every code with code-words of these lengths is instantaneous. Consider for example
+    $r = 2, q = 3, l = (1,2,3)$. Then we have $\sum_{k=1}^{q} \frac{1}{r^{l_k}} = \frac{7}{8} \leq 1$,
+    but the $2$-ary code $\{0, 01, 011\}$ is obviously not a prefix-code $\mathcal{C}$ and thus not instantaneous.
+    Similarly, by (1.8) we know that if we have some uniquely decodable code, there \textbf{exists} an
+    instantaneous code with the same word lengths, not that $\mathcal{C}$ is instantaneous. For this,
+    consider the code $\{0,01,11\}$, which is uniquely decodable, but not instantaneous since $0 \sqsubseteq 01$.
+\end{statement2}
+
+As the proof for Kraft's Inequality is constructive, we conclude with an example of constructing an instantaneous code
+for given constraints satisfying the Inequality:
+
+\begin{statement2}{(1.10)}{Example.}
+    Let $r = 2, q = 4, l = (1,2,3,4)$, which satisfy the Kraft Inequality. We may chose $w_1 \in [0,r-1]^{l_1} = [0,1]$
+    so set $w_1 := 1$. Now consider $\mathcal{T}_2^{\max l} \setminus v_{w_1} = \mathcal{T}_2^4 \setminus v_1$:\\
+    \begin{center}
+        \begin{forest}
+            [$\ro(\mathcal{T}_2^4 \setminus v_1)$
+                [$v_0$
+                    [$v_{00}$
+                        [$v_{000}$
+                            [$v_{0000}$],
+                            [$v_{0001}$]
+                        ],
+                        [$v_{001}$
+                            [$v_{0010}$],
+                            [$v_{0011}$]
+                        ]
+                    ],
+                    [$v_{01}$
+                        [$v_{010}$
+                            [$v_{0100}$],
+                            [$v_{0101}$]
+                        ],
+                        [$v_{011}$
+                            [$v_{0110}$],
+                            [$v_{0111}$]
+                        ]
+                    ]
+                ]
+            ],
+        \end{forest}\\
+    \end{center}
+
 \newpage
+
+    \begin{minipage}{.5\textwidth}
+        \begin{center}
+        Now we chose one of the vertices at the\\
+        height $l_2 = 2$, lets say $v_{00}$, and thus set\\
+        $w_2 := 00$. Again consider
+        $(\mathcal{T}_2^4 \setminus v_1) \setminus v_{00}$:\\[10pt]
+        \begin{forest}
+            [$\ro((\mathcal{T}_2^4 \setminus v_1) \setminus v_{00})$
+                [$v_0$
+                    [$v_{01}$
+                        [$v_{010}$
+                            [$v_{0100}$],
+                            [$v_{0101}$]
+                        ],
+                        [$v_{011}$
+                            [$v_{0110}$],
+                            [$v_{0111}$]
+                        ]
+                    ]
+                ]
+            ]
+        \end{forest}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{.5\textwidth}
+        \begin{center}
+        For $l_3 = 3$ we chose $v_{011}$, $w:= 011$ and see\\
+        $((\mathcal{T}_2^4 \setminus v_1) \setminus v_{00}) \setminus v_{011}$ is given by:\\[10pt]
+        \begin{forest}
+            [$\ro(((\mathcal{T}_2^4 \setminus v_1) \setminus v_{00}) \setminus v_{011})$
+                [$v_0$
+                    [$v_{01}$
+                        [$v_{010}$
+                            [$v_{0100}$],
+                            [$v_{0101}$]
+                        ]
+                    ]
+                ]
+            ],
+        \end{forest}
+        \end{center}
+    \end{minipage}\\[20pt]
+        For $l_4 = 4$ we have 2 choices, the leaves of $((\mathcal{T}_2^4 \setminus v_1) \setminus v_{00}) \setminus v_{011}$, left and set $w_4 := 0100$.
+        Now we have constructed the $r$-ary prefix-code $\mathcal{C} := \{1, 00, 011, 0100\}$ with
+        word-lengths $l$, which we know is instantaneous.
+\end{statement2}
+
 \bibliography{lit}{}
 \bibliographystyle{alpha}
 \end{document}
