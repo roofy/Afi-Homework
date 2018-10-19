@@ -18,8 +18,8 @@
 \setlength{\parindent}{0pt}
 \begin{document}
 \title{Kraft's and McMillan's Inequalities}
-\author{Phil Pützstück\\
-Proseminar Informationstheorie}
+\author{Phil Pützstück, 377247\\
+Proseminar Informationstheorie, Steffen van Bergerem}
 \maketitle
 
 \begin{abstract}
@@ -27,18 +27,22 @@ Proseminar Informationstheorie}
     To do this, we prove and discuss the known Kraft and McMillan Inequalities by utilising graph theory.
     The approach is based on \cite{ICT}.
 \end{abstract}
+
 \section*{Introduction}
-As uniquely decodable $r$-ary codes and instantaneous codes are important concepts, we want to know under which
-constraints these exist. We specifically look at $r$-ary codes with given word-lengths, as the inequalities
-we will later prove relate these concepts. After introducing a special kind of tree we show the relation between them and $r$-ary codes, which we use in the proof for Kraft's Inequality. Following the proofs we discuss the implications of these inequalities and give examples.\\[10pt]
+As uniquely decodable $r$-ary codes and instantaneous codes are important concepts,
+we want to know under which constraints these exist.
+We specifically look at $r$-ary codes with given word-lengths, as the inequalities
+we will later prove relate these concepts. After introducing a certain rooted Tree we show the relation between them and $r$-ary codes, which we use in the proof for Kraft's Inequality. Following the proofs we discuss the implications of these inequalities and give an example.
+For a quick introduction to our graph-terminology:\\[10pt]
 Consider a tree, which is defined to be an acyclic, connected and undirected graph.
 A tree $T = (V,E)$ has the set of vertices $V$ and the set of edges $E$, which we denote by $V(T) := V, E(T) := E$.
-We call $T$ a rooted tree, if we have a distinct vertex $v \in V(T)$, called the root of $T$ and denoted as
-$\ro(T) = v$, and if we obtain $T$ from a tree by replacing the edges with directed edges, such that we have a unique path from the root of $T$ to each vertex of $T$.
+We call $T$ a rooted tree, if we have a distinct vertex $v \in V(T)$,
+called the root of $T$ and denoted as $\ro(T) = v$.
+Note that we then have a unique path from the root of $T$ to each vertex of $T$.
 In this case each vertex $v \in V(T)$ has a height, denoted $\he(v) = \he_T(v)$,
 defined as the length of that unique path from $\ro(T)$ to $v$.\\[10pt]
 For the rest of this paper we will only consider rooted trees, in particular $r$-ary rooted trees of some height $h$, where $r,h \in \mathbb{N}$, which
-are rooted trees of finite height where each vertex of height less than $h$ has exactly $r$ children.
+are rooted trees of finite height $h$ where each vertex of height less than $h$ has exactly $r$ children.
 We introduce subtrees and an ordering of vertices:
 
 \begin{statement3}{(1.1)}{Definition}{(Subtrees and Ordering)}\strut\\[2pt]
@@ -49,16 +53,13 @@ We introduce subtrees and an ordering of vertices:
     $V_v := \{u \in V(T) \mid v \leq u\}, E_v := \{(u,u') \in E(T) \mid u,u' \in V_v\}$
     and let $\SUB(v) = \SUB_T(v) := (V_v, E_v)$ be the rooted subtree of $T$ with $v$ as its root.
     At last we define $T \setminus v := T \setminus \SUB(v)$ by usual graph difference to be the rooted subtree of $T$
-    where all vertices and edges in $\SUB(v)$ are deleted from $T$.
+    where all vertices and edges in $\SUB(v)$ (all vertices reachable from $v$, 
+    including their associated edges) are deleted from $T$.
 \end{statement3}
 
 \newpage
 
-In the definition for $T \setminus v$ we need $v \neq \ro(T)$, since otherwise $T \setminus v$ would be empty, and especially
-not rooted.
-Note also that if $T$ is a $r$-ary rooted tree and $v \in V(T) \setminus \{\ro(T)\}$ we have
-$\SUB(v) \leq_r T$, but $(T \setminus v) \not\leq_r T$, although $(T \setminus v) \leq T$.
-From basic graph theory we get statements about counting vertices, which will be useful later:
+\textbf{TEXT}
 
 \begin{statement3}{(1.2)}{Remark}{(Number of vertices of some height in rooted r-ary Trees)}\strut\\[2pt]
     Let $h,r \in \mathbb{N}$ and $T$ be a rooted $r$-ary tree of height $h$.
@@ -77,21 +78,24 @@ From basic graph theory we get statements about counting vertices, which will be
     \end{proof}
 \end{statement3}
 
-For us, intervals are over $\mathbb{N}_0$, so for $m,n \in \mathbb{N}_0$ we have $[m,n] := \{p \in \mathbb{N} \mid
+For us, intervals are over $\mathbb{N}_0$, so for $m,n \in \mathbb{N}_0$ we have $[m,n] := \{p \in \mathbb{N}_0 \mid
 m \leq p \leq n\}$.\\
 Now we will come to the relationship between $r$-ary codes and $r$-ary rooted trees.
 
 \begin{statement3}{(1.4)}{Definition}{(r-ary Trees from r-ary Codes)}\strut\\[2pt]
-    Let $q,r \in \mathbb{N}, [0,r-1]$ be the code-alphabet for some $r$-ary code $\mathcal{C}$ with word-lengths
+    Let $q,r \in \mathbb{N}, A := [0,r-1]$ be the code-alphabet for some $r$-ary code $\mathcal{C}$ with word-lengths
     $l \in \mathbb{N}^q$. This choice of the code-alphabet can always be made since any other code-alphabet
-    for $\mathcal{C}$ would stand in bijection to $[0,r-1]$.
+    for $\mathcal{C}$ would stand in bijection to $A$.
     Set $h := \max\{l_i \mid i \in [1,q]\}$.
-    Define $W := \bigcup_{i \in [0,h]} [0,r-1]^i$ to be the set of all words over $[0,r-1]$ of maximum length $h$. Thus
+    Define $W := \bigcup_{i \in [0,h]} A^i$ to be the set of all words over $A$ of maximum length $h$. Thus
     $\mathcal{C} \subseteq W$. We construct a rooted $r$-ary tree $\T$ of height $h$ indexed by $W$ by setting
     $\ro(\T) := v_\varepsilon$, $V(\T) := \{v_w \mid w \in W\}$ and
-    $E(\T) := \{(v_w,v_{w'}) \mid w,w' \in W, wx = w', x\in [0,r-1]\}$. Notice that with this we have
-    $v_w \leq v_{w'} \,\Longleftrightarrow\, w \sqsubseteq w'$, and $\he(v_w) = |w|$.
+    $E(\T) := \{(v_w,v_{w'}) \mid w,w' \in W, wx = w', x\in A\}$.
 \end{statement3}
+This gives us the correlation between tree-structure and prefix codes we talked about above:
+$v_w \leq v_{w'} \,\Longleftrightarrow\, w \sqsubseteq w'$, and $\he(v_w) = |w|$ (Without
+proof).
+We give an example:
 
 \begin{statement2}{(1.5)}{Examples.} Note that $\T$ is uniquely determined by $r$ and $h$.
     $\mathcal{T}_3^2$ is given by
@@ -202,18 +206,19 @@ Now we will come to the relationship between $r$-ary codes and $r$-ary rooted tr
         $$
         Thus we constructed the desired prefix-code $\mathcal{C}$ by finite induction.\\[10pt]
         Now we show the existence of an instantaneous $r$-ary code $\mathcal{C}$ with word-lengths $l$ implies (1).
-        We know from \cite{ICT} that $\mathcal{C}$ is a prefix-code. Let
+        We know from \cite{ICT} that $\mathcal{C}$ is a prefix-code. Let $i \in [1,q],
+        w_i \in \mathcal{C}, |w_i| = l_i$ and set
         $$
             L_i := \{v_w \in V(\T) \mid w_i \sqsubseteq w \land |w| = h\}
             = \{v_w \in \SUB(v_{w_i}) \mid \he_\T(v_w) = h\}
         $$
-        be the set of leaves in $\SUB(v_{w_i})$, where $w_i \in \mathcal{C}$ with $|w_i| = l_i$ for $i \in [1,q]$. We know from (1.3) that $|L_i| = r^{h - l_i}$
+        to be the set of leaves in $\SUB(v_{w_i})$. We know from (1.3) that $|L_i| = r^{h - l_i}$
         for $i \in [1,q]$.
         Furthermore we know that for each $i\neq j \in [1,q]$ $L_i \cap L_j = \varnothing$:\\
         Assume $i,j \in [1,q]$ and w.l.o.g. $i < j$. Let $v_w \in L_i \cap L_j$. Thus we get
         $$
             v_{w_i} \leq v_w \land v_{w_j} \leq v_w \,\Longrightarrow\, w_i \sqsubseteq w \land w_j \sqsubseteq w
-            \,\Longrightarrow\, w_i \sqsubseteq w_j
+            \up{\,\Longrightarrow\,}{$i < j$} w_i \sqsubseteq w_j
         $$
         which is a contradiction to the fact that $\mathcal{C}$ is a prefix-code.
         So now, since $\T$ only has $r^h$ leafs, we get what we wanted to show:
@@ -264,14 +269,14 @@ for being the latter are weaker. Suprisingly, this is not the case:
         $
             \forall t \in N_{j,p}: \exists!\ i \in [1,q]^n: t = w_{i_1}\cdots w_{i_n}
         $,
-        meaning there is only one way to construct $t \in N_{p,k}$ from $p$ code-words of $\mathcal{C}$.\\
+        meaning there is one and only one way to construct $t \in N_{p,k}$ from $p$ code-words of $\mathcal{C}$.\\
         This implies that
         \begin{equation}
             |\{i \in [1,q]^n \mid \sum_{k=1}^{n} l_{i_k} = j\}|
             = |\{i \in [1,q]^n \mid \sum_{k=1}^{n} |w_{i_k}| = j\}| \tag{4}
             = |N_{j,p}|
         \end{equation}
-        Furthermore, since $N_{j,p} \subseteq [0,r-1]^j$, we have $|N_{j,p}|$. Thus, from (2), (3), (4) we get
+        Furthermore, since $N_{j,p} \subseteq [0,r-1]^j$, we have $|N_{j,p}| \leq r^j$. Thus, from (2), (3), (4) we get
         $$
             K^n = \sum_{j = mn}^{Mn} \frac{|N_{j,n}|}{r^j} \leq \sum_{j = mn}^{Mn} 1 = (l-m)n + 1
             \,\Longrightarrow\, \frac{K^n}{n} \leq (M-m) + \frac{1}{n}
@@ -291,13 +296,15 @@ for being the latter are weaker. Suprisingly, this is not the case:
     there exists an uniquely decodable $r$-ary code with word-lenghts $l$.
 \end{statement2}
 
-So now we have necessary and sufficient conditions for when $r$-ary Codes of some given length exist.
-These Inequalities may be interpreted as the following:
-One usually wants a code to be instantaneous, have as small word-lengths as possible and a code-alphabet
-as small as possible. These 3 properties are related through the Inequalites we proved.
+So now we have necessary conditions for when instantaneous $r$-ary Codes of some
+given length exist for some $r \in \mathbb{N}$.
+When searching / constructing a code, one usually wants a it to be instantaneous and have
+its word lengths and code-alphabet as small as possible.
+These properties are related through the Inequalites we proved.
 In particular it is not possible to construct an instantaneous or uniquely decodable $r$-ary Code
-with arbitrarily small word-lengths for some fixed $r$. There exists a lower bound given by these
-Inequalities.
+with arbitrarily small word-lengths for some fixed $r$, neither for an arbitrarily small
+$r$, given fixed word-lengths;\\
+There exists a lower bound given by these Inequalities.
 
 \begin{statement2}{(1.9)}{Remark.}
     Note that we know that if $q,r \in \mathbb{N}, l \in \mathbb{N}^q$
@@ -311,7 +318,7 @@ Inequalities.
 \end{statement2}
 
 As the proof for Kraft's Inequality is constructive, we conclude with an example of constructing an instantaneous code
-for given constraints satisfying the Inequality:
+for given constraints satisfying Kraft's Inequality:
 
 \begin{statement2}{(1.10)}{Example.}
     Let $r = 2, q = 4, l = (1,2,3,4)$, which satisfy the Kraft Inequality. We may chose $w_1 \in [0,r-1]^{l_1} = [0,1]$
