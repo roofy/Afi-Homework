@@ -31,6 +31,7 @@
 \begin{frame}
     \frametitle{Motivation / Überblick}
     \begin{itemize}
+        \setlength\itemsep{1em}
         \item Gesehen, dass \UC und \IC sehr nützlich.
         \item Wann bzw. unter welchen Bedingungen existieren diese?
         \item Insbesondere: Wortlängen und Größe des Code-Alphabets
@@ -65,13 +66,13 @@
             \only<1,2,3>{\onslide\begin{tikzpicture}
                 [scale=0.8, auto=left]
                 \tikzset{edge/.style = {> = latex'}}
-                \only<1>{\node[circle,draw] (q1) at (0,4)  {a};}
-                \only<2->{\node[circle,draw,fill=red] (q1) at (0,4) {\textcolor{white}a};}
-                \node[circle,draw] (q2) at (0,2)  {b};
-                \node[circle,draw] (q3) at (2,2)  {c};
-                \node[circle,draw] (q4) at (0,0)  {d};
-                \node[circle,draw] (q5) at (2,0)  {e};
-                \node[circle,draw] (q6) at (4,0)  {f};
+                \only<1>{\node[circle,draw] (q1) at (0,4)  {$a$};}
+                \only<2->{\node[circle,draw,fill=red] (q1) at (0,4) {\textcolor{white}{$a$}};}
+                \node[circle,draw] (q2) at (0,2)  {$b$};
+                \node[circle,draw] (q3) at (2,2)  {$c$};
+                \node[circle,draw] (q4) at (0,0)  {$d$};
+                \node[circle,draw] (q5) at (2,0)  {$e$};
+                \node[circle,draw] (q6) at (4,0)  {$f$};
 
                 \foreach \from/\to in {q1/q2,q1/q3,q2/q4,q3/q5,q3/q6}
                     \draw[edge] (\from) to (\to);
@@ -79,7 +80,7 @@
                 \only<3>{
                     \draw (q1) [->,red,line width=1pt] -- node[left] {1} (q2);
                     \draw (q2) [->,red,line width=1pt] -- node[left] {2} (q4);
-                    \node [below = 0.1 cm of q4] {\small{$height(4) = 2$}};
+                    \node [below = 0.1 cm of q4] {\small{$height(d) = 2$}};
                 }
             \end{tikzpicture}
             }
@@ -89,13 +90,13 @@
                 \begin{tikzpicture}
                     [scale=1, auto=left]
                     \tikzset{edge/.style = {> = latex'}}
-                    \node[circle,draw] (q1) at (0,0)  {a};
-                    \node[circle,draw] (q2) at (1,-1)  {b};
-                    \node[circle,draw] (q3) at (-1,-1)  {c};
-                    \node[circle,draw] (q4) at (-2,-2)  {d};
-                    \node[circle,draw] (q5) at (-1,-2)  {e};
-                    \node[circle,draw] (q6) at (1,-2)  {f};
-                    \node[circle,draw] (q7) at (2,-2)  {g};
+                    \node[circle,draw] (q1) at (0,0)    {$a$};
+                    \node[circle,draw] (q2) at (1,-1)   {$b$};
+                    \node[circle,draw] (q3) at (-1,-1)  {$c$};
+                    \node[circle,draw] (q4) at (-2,-2)  {$d$};
+                    \node[circle,draw] (q5) at (-1,-2)  {$e$};
+                    \node[circle,draw] (q6) at (1,-2)   {$f$};
+                    \node[circle,draw] (q7) at (2,-2)   {$g$};
 
                     \foreach \from/\to in {q1/q2,q1/q3,q2/q6,q2/q7,q3/q4,q3/q5}
                         \draw[edge] (\from) to (\to);
@@ -106,7 +107,7 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{Teilbäume und Ordnung von Knoten}
     \only<1-2>{
         $T,T'$ gewurzelte Bäume.
@@ -115,23 +116,21 @@
             \pause
             \item Schreibe $T' \leq_{\color{red}{r}} T$ wenn $T' \leq T$ und $T,T'$ {\color{red}$r$-är}.\\[5pt]
         \end{itemize}
-        \pause
     }
     \only<3>{Für $v,v' \in T$ schreiben wir $v' \leq v$, genau dann, wenn der eindeutige Pfad von $root(T)$ zu $v$
-    den Knoten $v'$ besucht.\\}
-    \pause
-    \only<4>{sub(v) ?}
+    den Knoten $v'$ besucht.\\
+    Hier $root(T) = a$}
     \pause
     \begin{center}
         \begin{tikzpicture}
             [scale=0.8, auto=left]
             \tikzset{edge/.style = {> = latex'}}
-            \node[circle,draw] (q1) at (0,4)  {a};
-            \node[circle,draw] (q2) at (0,2)  {b};
-            \node[circle,draw] (q3) at (2,2)  {c};
-            \node[circle,draw] (q4) at (0,0)  {d};
-            \node[circle,draw] (q5) at (2,0)  {e};
-            \node[circle,draw] (q6) at (4,0)  {f};
+            \node[circle,draw] (q1) at (0,4)  {$a$};
+            \node[circle,draw] (q2) at (0,2)  {$b$};
+            \node[circle,draw] (q3) at (2,2)  {$c$};
+            \node[circle,draw] (q4) at (0,0)  {$d$};
+            \node[circle,draw] (q5) at (2,0)  {$e$};
+            \node[circle,draw] (q6) at (4,0)  {$f$};
 
         \only<3>{
             \draw (q1) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q2);
@@ -140,16 +139,69 @@
             \draw (q3) [-,line width=.8pt] -- node[sloped,above] {$\geq$} (q5);
             \draw (q3) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q6);
         }
-        \only<4>{
-            \draw (q1) [-,line width=.8pt] -- (q2);
-            \draw (q1) [-,line width=.8pt] -- (q3);
-            \draw (q2) [-,line width=.8pt] -- (q4);
-            \draw (q3) [-,line width=.8pt] -- (q5);
-            \draw (q3) [-,line width=.8pt] -- (q6);
-        }
-
         \end{tikzpicture}
     \end{center}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Teilbäume und Ordnung von Knoten}
+    Sei $v \in V(T)$. Wir wollen $v$ und seine ''Nachfolger'' $w \in V(T), v \leq w$ von $T$ inklusive
+    Kanten ''ausschneiden''.
+
+    \begin{center}
+        \begin{tikzpicture}
+            [scale=0.8, auto=left]
+            \tikzset{edge/.style = {> = latex'}}
+
+            \node[circle,draw] (q1) at (0,4)  {$a$};
+            \node[circle,draw] (q2) at (0,2)  {$b$};
+            \node[circle,draw] (q4) at (0,0)  {$d$};
+
+            \draw (q1) [-,line width=.8pt] -- (q2);
+            \draw (q2) [-,line width=.8pt] -- (q4);
+
+            \only<1>{
+                \node[circle,draw] (q5) at (2,0)  {$e$};
+                \node[circle,draw] (q6) at (4,0)  {$f$};
+
+                \draw (q3) [-,line width=.8pt] -- (q5);
+                \draw (q3) [-,line width=.8pt] -- (q6);
+            }
+
+            \only<1-2>{
+                \draw (q1) [-,line width=.8pt] -- (q3);
+            }
+
+            \only<1-3>{
+                \node[circle,draw,fill=red] (q3) at (2,2)  {\textcolor{white}{$v$}};
+            }
+
+            \only<2-3>{
+                \node[circle,draw,fill=red] (q5) at (2,0)  {\textcolor{white}{$w$}};
+                \node[circle,draw,fill=red] (q6) at (4,0)  {\textcolor{white}{$w$}};
+
+                \draw (q3) [-,line width=.8pt,color=red] -- node[sloped,above] {$\geq$} (q5);
+                \draw (q3) [-,line width=.8pt,color=red] -- node[sloped,above] {$\leq$} (q6);
+            }
+
+            \only<3>{
+                \node at (-1.6, 4) {$root(T) = $};
+                \node at (3.8, 2) {$ = root(T')$};
+                \draw (q1) [dashed,line width=.5pt] -- (q3);
+            }
+
+            \only<4>{
+                \node at (-2,4) {$root(T \setminus v) = $};
+                \node at (3,4) {};
+            }
+        \end{tikzpicture}
+    \end{center}
+
+    \only<3->{
+        Definiere $T \setminus v := T \setminus T'$, wobei $T' \leq T$ der Teilbaum
+        von $T$ mit Wurzel $v \in V(T) \setminus \{root(T)\}$ ist.\\
+        Insbesondere ist $T \setminus v$ wieder ein gewurzelter Baum.
+    }
 \end{frame}
 
 \begin{frame}
@@ -526,6 +578,32 @@
             \end{center}
         }
     }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Review of Kraft or smth.}
+
+    Wir haben also gezeigt [...]
+
+    \begin{itemize}
+        \item Nach [JJ00] bekannt, dass instantaneous $\,\Longrightarrow\,$ uniquely decodable
+        \item Jedoch vorraussetzungen für letzteres \textbf{nicht} schwächer:
+    \end{itemize}
+
+\end{frame}
+
+\section{Ungleichung von McMillan}
+
+\begin{frame}
+    \frametitle{Ungleichung von McMillan}
+    Seien $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Dann existiert ein $r$-ärer uniquely decodable Code $\mathcal{C}$
+    mit Wortlängen $l$ genau dann, wenn
+    \begin{equation}
+        \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1
+    \end{equation}\\[20pt]
+    \pause
+
+    Richtung ''$(1) \,\Longrightarrow\, \mathcal{C}$ existiert'' mit Kraft geschenkt.\\
 \end{frame}
 
 \end{document}
