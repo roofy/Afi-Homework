@@ -6,8 +6,6 @@
 \usepackage{amsmath}
 \usetikzlibrary{arrows,automata,positioning,backgrounds}
 
-
-
 \usetheme{default}  %% Themenwahl
 \beamertemplatenavigationsymbolsempty
 
@@ -230,7 +228,85 @@
         \end{forest}\\
         \centerline{\LARGE{\dots}}
     \end{center}
-    \pause
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Code als Baum}
+    Seien $h,r \in \mathbb{N}$, $A := [0, r-1]$ das Code-Alphabet eines $r$-ären Codes $\mathcal{C}$
+    mit maximaler Wortlänge $h \in \mathbb{N}$.
+    Dann ist $W := \bigcup_{i \in [0,h]} A^i$ die Menge aller Wörter über $A$ mit maximaler Länge $h$.
+    Definiere gewurzelten $r$-ären Baum $\mathcal{T}_r^h$ der Höhe $h$ durch:
+    $$
+        V(\mathcal{T}_r^h) := \{v_w \mid w \in W\}
+    $$
+    $$
+        E(\mathcal{T}_r^h) := \{(v_w,v_{w'}) \mid w,w' \in W, wx = w', x\in A\}
+    $$
+    $$
+        root(\mathcal{T}_r^h) := v_\varepsilon
+    $$
+    Insbesondere $\mathcal{T}_r^h$ eindeutig durch $r,h$ bestimmt.\\
+    (Bis auf Bijektionen des Code-Alphabets).
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Bemerkungen zu $\mathcal{T}_r^h$}
+    Betrachte $\mathcal{T}_3^2$:
+    \begin{center}
+        \only<1-2>{
+        \Large
+        \begin{forest}
+            [$v_\varepsilon$
+                [$v_0$
+                    [$v_{00}$],
+                    [$v_{01}$],
+                    [$v_{02}$]
+                ],
+                [$v_1$
+                    [$v_{10}$],
+                    [$v_{11}$],
+                    [$v_{12}$]
+                ],
+                [$v_2$
+                    [$v_{20}$],
+                    [$v_{21}$],
+                    [$v_{22}$]
+                ]
+            ],
+        \end{forest}\\
+        }
+        \only<3>{
+        \Large
+        \begin{forest}
+            [\LARGE $v_{\color{red}\varepsilon}$
+                [$v_0$
+                    [$v_{00}$],
+                    [$v_{01}$],
+                    [$v_{02}$]
+                ],
+                [\LARGE $v_{\color{red}1}$
+                    [\LARGE$v_{{\color{red}1}0}$],
+                    [\LARGE$v_{{\color{red}1}1}$],
+                    [\LARGE$v_{{\color{red}1}2}$]
+                ],
+                [$v_2$
+                    [$v_{20}$],
+                    [$v_{21}$],
+                    [$v_{22}$]
+                ]
+            ],
+        \end{forest}\\
+        }
+    \end{center}
+    Wir haben:
+    \begin{itemize}
+        \setlength\itemsep{2em}
+        \item Für $v_w \in V(\mathcal{T}_r^h)$ gilt $height(v_w) = |w|$.
+        \pause
+        \item Für $v_w, v_{w'} \in V(\mathcal{T}_r^h)$ gilt
+            $v_w \leq v_{w'} \,\Longleftrightarrow\, w \sqsubseteq w'$.
+        \pause
+    \end{itemize}
 \end{frame}
 
 \section{Ungleichung von Kraft}
@@ -261,7 +337,7 @@
     Nach [JJ00] sind die instantaneous Codes genau die Präfixcodes.\\[10pt]
     \pause
     Konstuiere Codewörter $w_i$ mit $|w_i| = l_i$ via endlicher Induktion über $i$.
-    Betrachte dabei den zum Code-Alphabet zug. Baum und wähle die $w_i$ so, dass
+    Betrachte dabei den zum Code-Alphabet zug. Baum $\mathcal{T}_r^h$ und wähle die $w_i$ so, dass
     am Ende $\mathcal{C} = \{w_i \mid i \in [1,q]\}$ ein Präfixcode ist.
 \end{frame}
 
@@ -271,7 +347,7 @@
     \begin{columns}
     \begin{column}{0.5\textwidth}
         \only<1-3>{Sei also $i = 1$. Wähle Knoten $v_w$ der Höhe $l_1 > 0$ beliebig und setze $w_1 := w$.\\[10pt]\pause
-        Setze $h = l_q$ (max. Wortlänge) und $\mathcal{T}_1 := \mathcal{T}_r^h \setminus v_{w_1}$.\\[10pt]}\pause
+        Setze $h = l_q$ (max. Wortlänge) und $\mathcal{T}_0 := \mathcal{T}_r^h,\ \mathcal{T}_1 := \mathcal{T}_r^h \setminus v_{w_1}$.\\[10pt]}\pause
         $\mathcal{T}_1$ hat dann noch
         $r^h - r^{h -l_1}$ Blätter.\\
         \only<4->{
@@ -534,26 +610,27 @@
     \only<6->{
         \\[10pt]
         Wir wissen weiter, dass $\mathcal{T}_r^h$ nur $r^h$ Blätter hat, und $|L_i| = r^{h-l_i}$.
-        \only<7->{
+        \only<9->{
             \\[10pt]
             Damit haben wir nun:
             $$
                 r^h \geq \left| \bigcup_{i \in [1,q]} L_i \right|
-            \only<8->{
+            \only<10->{
                 = \sum_{i=1}^{q} |L_i|
-            }\only<9->{
+            }\only<11->{
                 = \sum_{i=1}^{q} r^{h-l_i}
                 = r^h\sum_{i=1}^{q} \frac{1}{r^{l_i}}
             }
             $$
-            \only<11->{
+            \only<13->{
                 $$
                     \,\Longleftrightarrow\, \sum_{i=1}^{q} \frac{1}{r^{l_i}} \leq 1
                 $$
                 Dies war zu zeigen. \hfill $\square$
             }
         }
-        \only<6>{
+        \only<6-8>{
+            \\[30pt]
             \begin{center}\onslide
                 \begin{tikzpicture}
                     \node at (0,-1) {$\mathcal{T}_r^h$};
@@ -569,11 +646,19 @@
 
                     \draw[line width = 2pt, color=red] (-1,-4) -- (2,-4);
 
-                    \draw[|-|] (-1,-4.6) -- node[below] {$r^{h-l_i}$} (2,-4.6);
-                    \draw[|-|] (-4,-5.4) -- node[below] {$r^h$} (4,-5.4);
-                    \draw[|-|] (-4.5,-4) -- node[left] {$h$} (-4.5, 0);
-                    \draw[|-|] (4.5,-4) -- node[right] {$h-l_i$} (4.5, -2.5);
-                    \draw[dotted, line width = 1pt] (4.5, -2.5) -- (.5, -2.5);
+                    \only<6-8>{
+                        \draw[dotted, line width = .8pt] (-5.5, -2.5) -- (.5, -2.5);
+                        \draw[dotted, line width = .8pt] (-5.5, 0) -- (0, 0);
+                        \draw[|-|, line width = .8pt] (-5.5,-2.5) --
+                            node[right] {$height(v_{w_i}) = |w_i| = l_i$} (-5.5, 0);
+                    }
+                    \only<7-8>{
+                        \draw[dotted, line width = .8pt] (-5.5, -2.5) -- (.5, -2.5);
+                        \draw[|-|, line width = .8pt] (-5.5,-4) -- node[right] {$h-l_i$} (-5.5, -2.5);
+                    }
+                    \only<8>{
+                        \draw[|-|, line width = .8pt] (-1,-4.6) -- node[below] {$r^{h-l_i}$} (2,-4.6);
+                    }
                 \end{tikzpicture}
             \end{center}
         }
