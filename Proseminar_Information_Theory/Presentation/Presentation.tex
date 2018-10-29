@@ -253,7 +253,7 @@
     \frametitle{Bemerkungen zu $\mathcal{T}_r^h$}
     Betrachte $\mathcal{T}_3^2$:
     \begin{center}
-        \only<1-2>{
+        \only<1>{
         \Large
         \begin{forest}
             [$v_\varepsilon$
@@ -275,7 +275,7 @@
             ],
         \end{forest}\\
         }
-        \only<3>{
+        \only<2>{
         \Large
         \begin{forest}
             [\LARGE $v_{\color{red}\varepsilon}$
@@ -284,10 +284,10 @@
                     [$v_{01}$],
                     [$v_{02}$]
                 ],
-                [\LARGE $v_{\color{red}1}$
-                    [\LARGE$v_{{\color{red}1}0}$],
-                    [\LARGE$v_{{\color{red}1}1}$],
-                    [\LARGE$v_{{\color{red}1}2}$]
+                [\LARGE $v_{\color{red}1}$, edge label={node [midway, sloped, above] {\color{blue}$\geq$}}
+                    [\LARGE$v_{{\color{red}1}0}$, edge label={node [midway, sloped, above] {\color{blue}$\geq$}}],
+                    [\LARGE$v_{{\color{red}1}1}$, edge label={node [midway, sloped, above] {\normalsize\color{blue}$\leq$}}],
+                    [\LARGE$v_{{\color{red}1}2}$, edge label={node [midway, sloped, above] {\color{blue}$\leq$}}]
                 ],
                 [$v_2$
                     [$v_{20}$],
@@ -304,8 +304,7 @@
         \item Für $v_w \in V(\mathcal{T}_r^h)$ gilt $height(v_w) = |w|$.
         \pause
         \item Für $v_w, v_{w'} \in V(\mathcal{T}_r^h)$ gilt
-            $v_w \leq v_{w'} \,\Longleftrightarrow\, w \sqsubseteq w'$.
-        \pause
+            $v_w\ {\color{blue}\leq}\ v_{w'} \,\Longleftrightarrow\, w\ {\color{red}\sqsubseteq}\ w'$.
     \end{itemize}
 \end{frame}
 
