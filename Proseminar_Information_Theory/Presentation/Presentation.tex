@@ -9,14 +9,12 @@
 \usetheme{default}  %% Themenwahl
 \beamertemplatenavigationsymbolsempty
 
-
-\newcommand{\UC}[0]{uniquely decodable codes }
-\newcommand{\IC}[0]{instantenous codes }
-
 \title{Ungleichungen von Kraft \& McMillan}
 \subtitle{Proseminar Informationstheorie}
 \author{Phil Pützstück}
 \date{\today}
+
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
 
 \setbeamerfont{myTOC}{series=\bfseries,size=\Large}
 \AtBeginSection[]{\frame{\frametitle{Inhalt}
@@ -27,13 +25,25 @@
 
 \section{Bäume}
 \begin{frame}
-    \frametitle{Motivation / Überblick}
+    \frametitle{Motivation}
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item Gesehen, dass \UC und \IC sehr nützlich.
+        \item Gesehen, dass eindeutig bzw. sofort dekodierbare Codes sehr nützlich sind.
         \item Wann bzw. unter welchen Bedingungen existieren diese?
         \item Insbesondere: Wortlängen und Größe des Code-Alphabets
         \item Ungleichungen setzen diese Aspekte in Relation
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Überblick}
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item Graphen und Bäume: Wiederholung und Definitionen
+        \item Zusammenhang Codes und Bäume
+        \item Ungleichung von Kraft
+        \item Ungleichung von McMillan
+        \item Intepretationen / Ausblick
     \end{itemize}
 \end{frame}
 
@@ -143,7 +153,7 @@
 
 \begin{frame}[t]
     \frametitle{Teilbäume und Ordnung von Knoten}
-    Sei $v \in V(T)$. Wir wollen $v$ und seine ''Nachfolger'' $w \in V(T), v \leq w$ von $T$ inklusive
+    Sei $root(T) \neq v \in V(T)$. Wir wollen $v$ und seine ''Nachfolger'' $w \in V(T), v \leq w$ von $T$ inklusive
     Kanten ''ausschneiden''.
 
     \begin{center}
@@ -311,7 +321,7 @@
 \section{Ungleichung von Kraft}
 \begin{frame}
     \frametitle{Ungleichung von Kraft}
-    Seien $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Dann existiert ein $r$-ärer instantaneous Code $\mathcal{C}$
+    Seien $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Dann existiert ein $r$-ärer sofort dekodierbarer Code $\mathcal{C}$
     mit Wortlängen $l$ genau dann, wenn
     $$
         \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1
@@ -330,10 +340,15 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Ungleichung von Kraft: Beweisidee}
+    \textbf{TODO}
+\end{frame}
+
+\begin{frame}
     \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$''}
     Richtung ''$\sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1 \,\Longrightarrow\,$ $\mathcal{C}$ existiert''.\\[10pt]
     \pause
-    Nach [JJ00] sind die instantaneous Codes genau die Präfixcodes.\\[10pt]
+    Nach [JJ00] sind die sofort dekodierbaren Codes genau die Präfixcodes.\\[10pt]
     \pause
     Konstuiere Codewörter $w_i$ mit $|w_i| = l_i$ via endlicher Induktion über $i$.
     Betrachte dabei den zum Code-Alphabet zug. Baum $\mathcal{T}_r^h$ und wähle die $w_i$ so, dass
@@ -518,7 +533,7 @@
                 \geq 0
             $$
             Blätter. Somit können wir einen Präfix-Code $\mathcal{C}$ unter den gegebenen Bedingungen konstruieren.
-            Dieser ist nach [JJ00] auch instantaneous.
+            Dieser ist nach [JJ00] auch sofort dekodierbar.
         }
     }
 
@@ -561,7 +576,7 @@
 \begin{frame}[t]
     \frametitle{Ungleichung von Kraft: ''$\,\Longleftarrow\,$''}
     \only<1-2>{
-        Nun zeigen wir, dass wenn $\mathcal{C}$ instantaneous, also ein Präfix-Code ist, auch
+        Nun zeigen wir, dass wenn $\mathcal{C}$ sofort dekodierbar, also ein Präfix-Code ist, auch
         die Ungleichung gelten muss. \pause\\
         Betrachte für $i \in [1,q]$ die Menge der Blätter unter $v_{w_i}$:
     }
@@ -670,7 +685,8 @@
     Wir haben also gezeigt [...]
 
     \begin{itemize}
-        \item Nach [JJ00] bekannt, dass instantaneous $\,\Longrightarrow\,$ uniquely decodable
+        \item Nach [JJ00] bekannt, dass sofort dekodierbar $\,\Longrightarrow\,$ eindeutig
+            dekodierbar
         \item Jedoch vorraussetzungen für letzteres \textbf{nicht} schwächer:
     \end{itemize}
 
@@ -678,16 +694,233 @@
 
 \section{Ungleichung von McMillan}
 
-\begin{frame}
+\begin{frame}[t]
     \frametitle{Ungleichung von McMillan}
-    Seien $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Dann existiert ein $r$-ärer uniquely decodable Code $\mathcal{C}$
+    Seien $q,r \in \mathbb{N}, l \in \mathbb{N}^q$. Dann existiert ein $r$-ärer eindeutig dekodierbarer Code $\mathcal{C}$
     mit Wortlängen $l$ genau dann, wenn
     \begin{equation}
-        \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1
+        K := \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1
     \end{equation}\\[20pt]
     \pause
 
-    Richtung ''$(1) \,\Longrightarrow\, \mathcal{C}$ existiert'' mit Kraft geschenkt.\\
+    Richtung ''$(1) \,\Longrightarrow\, \mathcal{C}$ existiert'' folgt sofort mit Kraft.\\
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: Beweisidee}
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item Zu zeigen: $K := \sum_{k=1}^{q} \frac{1}{r^{l_k}} \leq 1$
+        \pause
+        \item Betrachte $K^n$ für beliebiges $n \in \mathbb{N}$.
+        \pause
+        \item $K^n$ als Summe abhängig von Wahl von $n$ Wortlängen aus $l$.
+        \pause
+        \item Fasse Auswahlen (Indextupel) mit selbem Summand zusammen
+            und summiere über möglichen Wertebereich
+        \pause
+        \item Nun finde aus Form von $K^n$ konstante obere Schranke
+        \pause
+        \item Dann muss $K \leq 1$, da sonst $K^n$ für geeignetes $n$ größer
+            als jede Konstante
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
+        Wir müssen also zeigen, dass $K \leq 1$, wobei
+        $$
+            K = \sum_{k=1}^{q} \frac{1}{r^{l_k}}
+        $$
+        \pause
+        Sei $n \in \mathbb{N}$. Wir betrachten:
+        $$
+            K^n = \left(\sum_{k=1}^{q} \frac{1}{r^{l_k}}\right)^n
+            \pause
+            = \sum_{i \in [1,q]^n} \prod_{k=1}^{n} \frac{1}{r^{l_{i_k}}}
+            \pause
+            = \sum_{i\in [1,q]^n} r^{-\sum_{k=1}^{n} l_{i_k}}
+        $$\pause
+
+        Werden Summe über Auswahl an Wortlängen noch oft brauchen, definiere:
+        $$
+            \mathcal{S}: [1,q]^n \to \mathbb{N},\ i \mapsto \sum_{k=1}^{n} l_{i_k}
+        $$
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: Beispiel}
+        Anzahl Codewörter $q = 3$. Wortlängen $l = (1,3,5)$. $n = 2$.
+        \only<1-2>{
+            $$
+                [1,q]^n = \{(1,1), (1,2), (1,3), (2,1), (2,2), (2,3), (3,1), (3,2), (3,3)\}
+            $$$$
+                i = (3,1) \in [1,q]^n \,\Longrightarrow\, \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k}
+                = l_{i_1} + l_{i_2} = l_3 + l_1 = 5 + 1 \only<2>{= \color{red} \text{\LARGE 6}}
+            $$$$
+                i = (2,3) \in [1,q]^n \,\Longrightarrow\, \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k}
+                = l_2 + l_3 = 3 + 5
+            $$$$
+                i = (2,2) \in [1,q]^n \,\Longrightarrow\, \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k}
+                = l_2 + l_2 = 3 + 3 \only<2>{= \color{red} \text{\LARGE 6}}
+            $$
+            \only<2>{Also auch selber Wert bei unterschiedlichen Indextupeln.}
+        }
+        \only<3->{
+            \only<3-4>{
+                \\[5pt]
+                \begin{itemize}
+                    \item Summe minimal $3$, maximal $15$.
+                    \item Fasse Indextupel mit gleicher Summe $j \in [3,15]$ zusammen
+                \end{itemize}
+                $$
+                    N_{\only<3>{\color{red}}6} := \mathcal{S}^{-1}(\{{\only<3>{\color{red}}6}\}) = 
+                        \{i \in [1,3]^2 \mid \mathcal{S}(i) = {\only<3>{\color{red}}6}\}
+                    = \{\underbrace{(1,3)}_{l_1+l_3 = {\only<3>{\color{red}}6}},
+                        \overbrace{(3,1)}^{l_3+l_1 = {\only<3>{\color{red}}6}},
+                        \underbrace{(2,2)}_{l_2+l_2 = {\only<3>{\color{red}}6}}\}
+                $$
+                \only<4>{
+                    $$
+                        N_{\color{red}j} :=
+                        \mathcal{S}^{-1}({\color{red}j})
+                        = \{i \in [1,q]^n \mid \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k} = {\color{red}j}\}
+                    $$
+                }
+            }
+            \only<5->{\\
+                \begin{itemize}
+                    \setlength\itemsep{1em}
+                    \item Betrachte Alphabet $[0,1], \mathcal{C}
+                        = \{\underbrace{0}_{w_1},
+                            \underbrace{100}_{w_2},
+                            \underbrace{11111}_{w_3}\}$
+                \only<6->{
+                    \item Zu $i \in [1,q]^n$ eindeutige Code-Sequenz
+                        $\mathcal{W}(i) = w_{i_1}w_{i_2}\cdots w_{i_n}$.
+                }\\[15pt]
+                \end{itemize}
+                \only<7->{
+                    $$
+                        \mathcal{W}(N_6)
+                        = \{\mathcal{W}(t) \mid t \in N_6\}
+                        = \{\mathcal{W}(t) \mid t \in \{(1,3),(3,1),(2,2)\}\}
+                    $$
+                    $$
+                        = \{w_1w_3, w_3w_1, w_2w_2\}
+                        = \{011111,111110,100100\}
+                    $$
+                    \only<8->{\\[10pt]
+                        Da $N_6$ gerade die Indextupel Wortlängensumme $6$:
+                        $$
+                            \forall i \in N_6: |\mathcal{W}(i)| = 6
+                            \qquad\text{und}\qquad
+                            \mathcal{W}(N_6) \subseteq \{0,1\}^6
+                        $$
+                    }
+                }
+            }
+        }
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
+    Kürzeste Wortlänge $\displaystyle m := \min_{k \in [1,q]} l_k$,
+    längste $\displaystyle M := \max_{k \in [1,q]} l_k$
+    \pause
+    \\Damit gilt auch
+    $$
+        n\cdot m \leq \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k} \leq n\cdot M
+    $$
+    für alle Indextupel $i \in [1,q]^n$.
+    \pause
+    Definiere für $j \in [nm, nM]$:
+    $$
+        N_j := \mathcal{S}^{-1}(j) = \{i \in [1,q]^n \mid \mathcal{S}(i) = \sum_{k=1}^{n} l_{i_k} = j\}
+    $$
+    \pause
+    $$
+        \mathcal{W} : [1,q]^n \to [0,r-1]^{*},\ i \mapsto w_{i_1}w_{i_2}\cdots w_{i_n}
+    $$
+    \pause\\
+    $\mathcal{C}$ eindeutig dekodierbar $\,\Longrightarrow\,$ $\mathcal{W}$ injektiv, da
+    $i \in [1,q]^n$ die eindeutige Kombination von Codewörtern aus $\mathcal{C}$ für $\mathcal{W}(i)$.
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
+    $j \in [nm,nM]$ zwischen min / max Wortlängensumme.
+    $$
+        N_j := \mathcal{S}^{-1}(j),\quad
+        \mathcal{W} : [1,q]^n \to [0,r-1]^{*},\ i \mapsto w_{i_1}w_{i_2}\cdots w_{i_n}
+    $$
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item $\mathcal{W}$ injektiv $\,\Longrightarrow\, |N_j| = |\mathcal{W}(N_j)|$
+        \pause
+        \item $|\mathcal{W}(i)| = j$ für $i \in N_j$ nach Konstruktion
+        \pause
+        \item $\mathcal{W}(N_j) \subseteq [0,r-1]^j \,\Longrightarrow\, |\mathcal{W}(N_j)| \leq |[0,r-1]^j|$
+        \pause
+        \item $|N_j| \leq r^j$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
+        \only<1>{
+            Recap:
+        }
+        $$
+            K := \sum_{i=1}^{q} \frac{1}{r^{l_i}}
+        $$
+        $$
+            K^n = \sum_{i\in [1,q]^n} r^{-\sum_{k=1}^{n} l_{i_k}} = \sum_{i\in [1,q]^n} r^{-\mathcal{S}(i)}
+        $$
+        \pause
+        \begin{itemize}
+            \setlength\itemsep{1em}
+            \item {\only<4>{\color{red}} $|N_j| \leq r^j$} Anzahl der $i \in [1,q]^n$ mit gleichem $\mathcal{S}(i)$.
+            \pause
+            \item Fasse zusammen via $N_j$, summiere über $[nm,nM]$
+        \end{itemize}
+        \strut\\
+        $$
+            K^n = \sum_{j = nm}^{nM} |N_j|r^{-j} = \sum_{j = nm}^{nM} \frac{|N_j|}{r^j}
+            \only<4>{
+                \quad{\color{red}\leq}\quad \sum_{j = nm}^{nM} 1
+                = (M-m)n + 1
+            }
+        $$
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
+    $$
+        K := \sum_{i=1}^{q} \frac{1}{r^{l_i}},\quad K^n \leq (M-m)n + 1
+        \only<2->{\,\Longrightarrow\, \frac{K^n}{n} \leq (M-m) + 1}
+    $$
+    \only<2->{
+        \begin{itemize}
+            \setlength\itemsep{1em}
+            \item Code $\mathcal{C}$ gegeben; $q = |\mathcal{C}|$, Alphabetgröße $r$, Wortlängen $l$ fix.
+            \item Damit auch $m,M,K$ fix.
+            \pause
+            \item $n \in \mathbb{N}$ beliebig; Ungleichung muss für alle $n \in \mathbb{N}$ gelten.
+            \pause
+            \item Nach Analysis bekannt: nur möglich für $K \leq 1$.
+        \end{itemize}
+        $$
+            \,\Longrightarrow\, \sum_{i=1}^{q} \frac{1}{r^{l_i}} = K \leq 1
+        $$
+        \strut\hfill$\square$
+    }
+\end{frame}
+
+\begin{frame}
+    \frametitle{Review of McMillan or smth.}
+
+    [...]
 \end{frame}
 
 \end{document}
