@@ -6,7 +6,7 @@
 \usepackage{amsmath}
 \usetikzlibrary{arrows,automata,positioning,backgrounds}
 
-\usetheme{default}  %% Themenwahl
+\usetheme{default}
 \beamertemplatenavigationsymbolsempty
 
 \title{Ungleichungen von Kraft \& McMillan}
@@ -15,6 +15,12 @@
 \date{\today}
 
 \newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+
+\forestset{%
+  only/.code args={<#1>}{%
+    \alt<#1>{}{\pgfkeysalso{before typesetting nodes={remove}}}
+  },
+}
 
 \begin{document}
 \maketitle
@@ -27,7 +33,7 @@
         \item Gesehen, dass eindeutig bzw. sofort dekodierbare Codes sehr nützlich sind.
         \item Wann bzw. unter welchen Bedingungen existieren diese?
         \item Insbesondere: Wortlängen und Größe des Code-Alphabets
-        \item Vorgestellte Ungleichungen setzen diese Aspekte in Relation
+        \item Vorgestellte Ungleichungen geben untere Schranken für diese
     \end{itemize}
 \end{frame}
 
@@ -35,7 +41,6 @@
     \frametitle{Überblick}
     \begin{itemize}
         \setlength\itemsep{2em}
-%        \item Graphen und Bäume: Wiederholung und Definitionen
         \item Zusammenhang Codes und Bäume
         \item Ungleichung von Kraft
         \item Ungleichung von McMillan
@@ -43,234 +48,7 @@
     \end{itemize}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Bäume}
-%    \begin{columns}
-%    \begin{column}{0.5\textwidth}
-%        Baum $T = (V, E)$. Knotenmenge $V(T) := V$.
-%        Kantenmenge $E(T) := E$.\\
-%
-%        \begin{itemize}
-%            \item ungerichtet
-%            \item azyklisch
-%            \item zusammenhängend
-%            \pause
-%            \item eindeutige Wurzel $root(T)$
-%            \pause
-%            \item Höhe $height(v), v \in V$
-%            \item Höhe von $T$ als max Höhe der Blätter
-%        \end{itemize}
-%        \pause
-%        Nenne $T$ $r$-är wenn jeder Knoten
-%        mit Ausnahme von Blättern
-%        genau $r \in \mathbb{N}$ Kinder hat.
-%    \end{column}
-%
-%    \begin{column}{0.5\textwidth}
-%        \begin{center}
-%            \only<1,2,3>{\onslide\begin{tikzpicture}
-%                [scale=0.8, auto=left, graphnode/.style={minimum size=2em}]
-%                \tikzset{edge/.style = {> = latex'}}
-%                \only<1>{\node[circle,draw,graphnode] (q1) at (0,4)  {$a$};}
-%                \only<2->{\node[circle,draw,graphnode,fill=red] (q1) at (0,4) {\textcolor{white}{$a$}};}
-%                \node[circle,draw,graphnode] (q2) at (0,2)  {$b$};
-%                \node[circle,draw,graphnode] (q3) at (2,2)  {$c$};
-%                \node[circle,draw,graphnode] (q4) at (0,0)  {$d$};
-%                \node[circle,draw,graphnode] (q5) at (2,0)  {$e$};
-%                \node[circle,draw,graphnode] (q6) at (4,0)  {$f$};
-%
-%                \foreach \from/\to in {q1/q2,q1/q3,q2/q4,q3/q5,q3/q6}
-%                    \draw[edge] (\from) to (\to);
-%
-%                \only<3>{
-%                    \draw (q1) [->,red,line width=1pt] -- node[left] {1} (q2);
-%                    \draw (q2) [->,red,line width=1pt] -- node[left] {2} (q4);
-%                    \node [below = 0.1 cm of q4] {\small{$height(d) = 2$}};
-%                }
-%            \end{tikzpicture}
-%            }
-%            \only<4>{\onslide
-%                \centerline{2-är bzw. binär}\
-%
-%                \begin{tikzpicture}
-%                    [scale=1, auto=left, every node/.style={minimum size=2em}]
-%                    \tikzset{edge/.style = {> = latex'}}
-%                    \node[circle,draw] (q1) at (0,0)    {$a$};
-%                    \node[circle,draw] (q2) at (1,-1)   {$b$};
-%                    \node[circle,draw] (q3) at (-1,-1)  {$c$};
-%                    \node[circle,draw] (q4) at (-2,-2)  {$d$};
-%                    \node[circle,draw] (q5) at (-1,-2)  {$e$};
-%                    \node[circle,draw] (q6) at (1,-2)   {$f$};
-%                    \node[circle,draw] (q7) at (2,-2)   {$g$};
-%
-%                    \foreach \from/\to in {q1/q2,q1/q3,q2/q6,q2/q7,q3/q4,q3/q5}
-%                        \draw[edge] (\from) to (\to);
-%                \end{tikzpicture}
-%            }
-%         \end{center}
-%    \end{column}
-%    \end{columns}
-%\end{frame}
-
-%\begin{frame}[t]
-%    \frametitle{Teilbäume und Ordnung von Knoten}
-%    \only<1-2>{
-%        $T,T'$ gewurzelte Bäume.\\
-%
-%        \begin{itemize}
-%            \setlength\itemsep{1.2em}
-%            \item Schreibe $T'\leq T$ wenn $T'$ Teilgraph von $T$.
-%            \pause
-%            \item Schreibe $T' \leq_{\color{red}{r}} T$ wenn $T' \leq T$ und $T,T'$ {\color{red}$r$-är}.\\[5pt]
-%        \end{itemize}
-%    }
-%    \only<3>{
-%        $v,v' \in V(T)$.\\
-%        Schreibe $v' \leq v$ genau dann, wenn der eindeutige Pfad von $root(T)$ zu $v$
-%        den Knoten $v'$ besucht. Hier $root(T) = a$:
-%    }
-%    \pause
-%    \begin{center}
-%        \begin{tikzpicture}
-%            [scale=0.8, auto=left]
-%            \tikzset{edge/.style = {> = latex'}}
-%            \node[circle,draw] (q1) at (0,4)  {$a$};
-%            \node[circle,draw] (q2) at (0,2)  {$b$};
-%            \node[circle,draw] (q3) at (2,2)  {$c$};
-%            \node[circle,draw] (q4) at (0,0)  {$d$};
-%            \node[circle,draw] (q5) at (2,0)  {$e$};
-%            \node[circle,draw] (q6) at (4,0)  {$f$};
-%
-%        \only<3>{
-%            \draw (q1) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q2);
-%            \draw (q1) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q3);
-%            \draw (q2) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q4);
-%            \draw (q3) [-,line width=.8pt] -- node[sloped,above] {$\geq$} (q5);
-%            \draw (q3) [-,line width=.8pt] -- node[sloped,above] {$\leq$} (q6);
-%        }
-%        \end{tikzpicture}
-%    \end{center}
-%\end{frame}
-%
-%\begin{frame}[t]
-%    \frametitle{Teilbäume und Ordnung von Knoten}
-%    Sei $root(T) \neq v \in V(T)$. Wir wollen $v$ und seine ''Nachfolger'' $w \in V(T)$ mit $v \leq w$
-%    aus $T$ inklusive Kanten ''ausschneiden''.
-%
-%    \begin{center}
-%        \begin{tikzpicture}
-%            [scale=0.8, auto=left]
-%            \tikzset{edge/.style = {> = latex'}}
-%
-%            \node[circle,draw] (q1) at (0,4)  {$a$};
-%            \node[circle,draw] (q2) at (0,2)  {$b$};
-%            \node[circle,draw] (q4) at (0,0)  {$d$};
-%
-%            \draw (q1) [-,line width=.8pt] -- (q2);
-%            \draw (q2) [-,line width=.8pt] -- (q4);
-%
-%            \only<1>{
-%                \node[circle,draw] (q5) at (2,0)  {$e$};
-%                \node[circle,draw] (q6) at (4,0)  {$f$};
-%
-%                \draw (q3) [-,line width=.8pt] -- (q5);
-%                \draw (q3) [-,line width=.8pt] -- (q6);
-%            }
-%
-%            \only<1-2>{
-%                \draw (q1) [-,line width=.8pt] -- (q3);
-%            }
-%
-%            \only<1-3>{
-%                \node[circle,draw,fill=red] (q3) at (2,2)  {\textcolor{white}{$v$}};
-%            }
-%
-%            \only<2-3>{
-%                \node[circle,draw,fill=red] (q5) at (2,0)  {\textcolor{white}{$w$}};
-%                \node[circle,draw,fill=red] (q6) at (4,0)  {\textcolor{white}{$w$}};
-%
-%                \draw (q3) [-,line width=.8pt,color=red] -- node[sloped,above] {$\geq$} (q5);
-%                \draw (q3) [-,line width=.8pt,color=red] -- node[sloped,above] {$\leq$} (q6);
-%            }
-%
-%            \only<3>{
-%                \node at (-1.6, 4) {$root(T) = $};
-%                \node at (3.8, 2) {$ = root(T')$};
-%                \draw (q1) [dashed,line width=.5pt] -- (q3);
-%            }
-%
-%            \only<4>{
-%                \node at (-2,4) {$root(T \setminus v) = $};
-%                \node at (3,4) {};
-%            }
-%        \end{tikzpicture}
-%    \end{center}
-%
-%    \only<3->{
-%        Definiere $T \setminus v := T \setminus T'$, wobei $T' \leq T$ der Teilbaum
-%        von $T$ mit Wurzel $v \in V(T) \setminus \{root(T)\}$ ist.\\
-%        Insbesondere ist $T \setminus v$ wieder ein gewurzelter Baum.
-%    }
-%\end{frame}
-
-%\begin{frame}
-%    \frametitle{Code als Baum}
-%    Sei $\mathcal{C}$ ein Code über dem Code-Alphabet $\{0,1,2\}$.\\
-%    $\mathcal{C}$ als Teilmenge von $V(T)$, wobei $T$:\\[30pt]
-%    \begin{center}
-%        \begin{forest}
-%            [$\varepsilon$
-%                [$0$
-%                    [$00$],
-%                    [$01$],
-%                    [$02$]
-%                ],
-%                [$1$
-%                    [$10$],
-%                    [$11$],
-%                    [$12$]
-%                ],
-%                [$2$
-%                    [$20$],
-%                    [$21$],
-%                    [$22$]
-%                ]
-%            ]
-%        \end{forest}\\
-%        \centerline{\LARGE\dots\ \,\quad\qquad\dots\ \,\quad\qquad\dots}
-%    \end{center}
-%\end{frame}
-
-%\begin{frame}[t]
-%    \frametitle{Code als Baum}
-%
-%    \begin{itemize}
-%        \setlength\itemsep{1em}
-%        \item $h,r \in \mathbb{N}, A := [0,r-1]$ Code-Alphabet eines $r$-ären Codes $\mathcal{C}$
-%            mit max. Wortlänge $h$.
-%        \pause
-%        \item $W := \bigcup_{i \in [0,h]} A^i$ Menge aller Wörter über $A$ mit Länge $\leq h$.
-%        \pause
-%        \item Definiere gewurzelten $r$-ären Baum $\mathcal{T}_r^h$ der Höhe $h$ durch:
-%    \end{itemize}
-%    $$
-%        V(\mathcal{T}_r^h) := \{v_w \mid w \in W\}
-%    $$
-%
-%    $$
-%        root(\mathcal{T}_r^h) := v_\varepsilon
-%    $$
-%    \pause
-%    $$
-%        E(\mathcal{T}_r^h) := \{(v_w,v_{w'}) \mid w,w' \in W, wx = w', x\in A\}
-%    $$
-%    \pause
-%
-%    Inbesondere $\mathcal{T}_r^h$ eindeutig durch $r,h$ bestimmt.
-%\end{frame}
-
 \begin{frame}[t]
-%    \frametitle{Bemerkungen zu $\mathcal{T}_r^h$}
     \frametitle{Code als Baum: $\mathcal{T}_r^h$}
     Höhe $h \in \mathbb{N}$, Verzweigungsgrad $r \in \mathbb{N}$.
     \begin{center}
@@ -345,7 +123,7 @@
         \setlength\itemsep{1em}
         \item Anzahl Code-Wörter $q > 1$
         \pause
-        \item Wortlängen $0 < \ell_1, \leq \ell_2 \leq \cdots \leq \ell_q$
+        \item Wortlängen $0 < \ell_1 \leq \ell_2 \leq \cdots \leq \ell_q$
             aufsteigend sortiert
         \pause
         \item Code-Alphabet von $\mathcal{C}$ ist $[0,r-1]$
@@ -354,218 +132,345 @@
 
 \begin{frame}[t]
     \frametitle{Ungleichung von Kraft: Beweisidee ''$\,\Longrightarrow\,$''}
-    Richtung ''$\sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1 \,\Longrightarrow\,$ $\mathcal{C}$ existiert''.\\[10pt]
+    Richtung ''$\sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1 \,\Longrightarrow\,$ $\mathcal{C}$ existiert''.\\[5pt]
     \pause
-    Nach [JJ00]: $\mathcal{C}$ sofort dekodierbar $\,\Longleftrightarrow\,$ $\mathcal{C}$ Präfixcode.\\
+    Bekannt: $\mathcal{C}$ sofort dekodierbar $\,\Longleftrightarrow\,$ $\mathcal{C}$ Präfixcode.\\[5pt]
     \pause
-    Am Beispiel
+    Beispiel:
     $
     q=3,
-    {\only<2-3>{\color{red}}r=2},
+    {\only<4>{\color{red}}r=2},
     \ell=(
-    {\only<4>{\color{blue}}1},
-    {\only<7>{\color{blue}}2},
-    {\only<2-3>{\color{blue}}3})
-    $.\only<10>{ $w_1=0,w_2=11,w_3=101$}
-    \only<1-9>{
+    {\only<5>{\color{blue}}1},
+    {\only<9>{\color{blue}}2},
+    {\only<4,13>{\color{blue}}3})
+    $.
+    \only<15>{\\$w_1=0$,\ \ $w_2=11$,\ $w_3=101$}
+    \only<4-14>{
         Betrachte
-        \only<1-6>{$\mathcal{T}_{\only<2-3>{\color{red}}2}^{\only<2-3>{\color{blue}}3}$}
-        \only<7-8>{$\mathcal{T}_2^3 \setminus v_0$}
-        \only<9>{$(\mathcal{T}_2^3 \setminus v_0) \setminus v_{11}$}:\\
-        \only<5-9>{
-            {\only<5>{\color{blue}}$w_1 = {\only<6>{\color{red}}0}$},
-            \only<7-9>{
-                {\only<7>{\color{blue}}$w_2 = {\only<8>{\color{red}}11}$},
-                \only<9>{{\color{blue}$w_3 = 101$}}
+        \only<4-7>{$\mathcal{T}_{\only<4>{\color{red}}2}^{\only<4>{\color{blue}}3}$}
+        \only<8-11>{{\only<8>{\color{red}}$\mathcal{T}_2^3 \setminus v_0$}}
+        \only<12-14>{{\only<12>{\color{red}}$(\mathcal{T}_2^3 \setminus v_0) \setminus v_{11}$}}
+        \\
+        \only<6-14>{
+            {\only<6>{\color{blue}}$w_1 = {\only<7>{\color{red}}0}$},
+            \only<10-14>{
+                {\only<10>{\color{blue}}$w_2 = {\only<11>{\color{red}}11}$},
+                \only<14>{{\color{blue}$w_3 = 101$}}
             }
         }
     }
-    \pause
     \strut\\[20pt]
-    \begin{center}
-        \only<3>{
-        \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$
-                    [$v_{00}$
-                        [$v_{000}$],
-                        [$v_{001}$]
-                    ],
-                    [$v_{01}$
-                        [$v_{010}$],
-                        [$v_{011}$]
-                    ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{11}$
-                        [$v_{110}$],
-                        [$v_{111}$]
-                    ]
-                ]
-            ]
-        \end{forest}
-        }
+    \onslide{
         \only<4>{
-        \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$,circle,draw,blue
-                    [$v_{00}$
-                        [$v_{000}$],
-                        [$v_{001}$]
-                    ],
-                    [$v_{01}$
-                        [$v_{010}$],
-                        [$v_{011}$]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$
+                            [$v_{00}$
+                                [$v_{000}$],
+                                [$v_{001}$]
+                            ],
+                            [$v_{01}$
+                                [$v_{010}$],
+                                [$v_{011}$]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$,circle,draw,blue
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{11}$
-                        [$v_{110}$],
-                        [$v_{111}$]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
         \only<5>{
-        \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$,circle,draw,blue
-                    [$v_{00}$
-                        [$v_{000}$],
-                        [$v_{001}$]
-                    ],
-                    [$v_{01}$
-                        [$v_{010}$],
-                        [$v_{011}$]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,blue,draw
+                            [$v_{00}$
+                                [$v_{000}$],
+                                [$v_{001}$]
+                            ],
+                            [$v_{01}$
+                                [$v_{010}$],
+                                [$v_{011}$]
+                            ]
+                        ],
+                        [$v_1$,blue,draw
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{11}$
-                        [$v_{110}$],
-                        [$v_{111}$]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
         \only<6>{
-            \begin{forest}
-            [$v_\varepsilon$
-                [$v_{\color{red}0}$
-                    [$v_{{\color{red}0}0}$
-                        [$v_{{\color{red}0}00}$],
-                        [$v_{{\color{red}0}01}$]
-                    ],
-                    [$v_{{\color{red}0}1}$
-                        [$v_{{\color{red}0}10}$],
-                        [$v_{{\color{red}0}11}$]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,draw,blue
+                            [$v_{00}$
+                                [$v_{000}$],
+                                [$v_{001}$]
+                            ],
+                            [$v_{01}$
+                                [$v_{010}$],
+                                [$v_{011}$]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{11}$
-                        [$v_{110}$],
-                        [$v_{111}$]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
         \only<7>{
-            \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$,red
-                    [$v_{00}$,red
-                        [$v_{000}$,red],
-                        [$v_{001}$,red]
-                    ],
-                    [$v_{01}$,red
-                        [$v_{010}$,red],
-                        [$v_{011}$,red]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_{\color{red}0}$
+                            [$v_{{\color{red}0}0}$
+                                [$v_{{\color{red}0}00}$],
+                                [$v_{{\color{red}0}01}$]
+                            ],
+                            [$v_{{\color{red}0}1}$
+                                [$v_{{\color{red}0}10}$],
+                                [$v_{{\color{red}0}11}$]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{11}$,circle,draw,blue
-                        [$v_{110}$],
-                        [$v_{111}$]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
         \only<8>{
-            \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$,red
-                    [$v_{00}$,red
-                        [$v_{000}$,red],
-                        [$v_{001}$,red]
-                    ],
-                    [$v_{01}$,red
-                        [$v_{010}$,red],
-                        [$v_{011}$,red]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed},
+                            [$v_{00}$,red
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$,
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$,
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$]
-                    ],
-                    [$v_{\color{red}11}$
-                        [$v_{{\color{red}11}0}$],
-                        [$v_{{\color{red}11}1}$]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
         \only<9>{
-            \begin{forest}
-            [$v_\varepsilon$
-                [$v_0$,red
-                    [$v_{00}$,red
-                        [$v_{000}$,red],
-                        [$v_{001}$,red]
-                    ],
-                    [$v_{01}$,red
-                        [$v_{010}$,red],
-                        [$v_{011}$,red]
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed},
+                            [$v_{00}$,red,draw,dashed
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red,draw,dashed
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$,draw,blue
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$,draw,blue
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
                     ]
-                ],
-                [$v_1$
-                    [$v_{10}$
-                        [$v_{100}$],
-                        [$v_{101}$,circle,draw,blue]
-                    ],
-                    [$v_{11}$,red
-                        [$v_{110}$,red],
-                        [$v_{111}$,red]
-                    ]
-                ]
-            ]
-        \end{forest}
+                \end{forest}
+            \end{center}
         }
-        \only<10->{
+        \only<10>{
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed},
+                            [$v_{00}$,red
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$,
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$,draw,blue
+                                [$v_{110}$],
+                                [$v_{111}$]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+        }
+        \only<11>{
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed}
+                            [$v_{00}$,red
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{\color{red}11}$
+                                [$v_{{\color{red}11}0}$],
+                                [$v_{{\color{red}11}1}$]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+        }
+        \only<12>{
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed}
+                            [$v_{00}$,red
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$]
+                            ],
+                            [$v_{11}$,red,edge={dashed}
+                                [$v_{110}$,red],
+                                [$v_{111}$,red]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+        }
+        \only<13>{
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed}
+                            [$v_{00}$,red
+                                [$v_{000}$,red,draw,dashed],
+                                [$v_{001}$,red,draw,dashed]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red,draw,dashed],
+                                [$v_{011}$,red,draw,dashed]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$,draw,blue],
+                                [$v_{101}$,draw,blue]
+                            ],
+                            [$v_{11}$,red,edge={dashed}
+                                [$v_{110}$,red,draw,dashed],
+                                [$v_{111}$,red,draw,dashed]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+        }
+        \only<14>{
+            \begin{center}
+                \begin{forest}
+                    [$v_\varepsilon$
+                        [$v_0$,red,edge={dashed}
+                            [$v_{00}$,red
+                                [$v_{000}$,red],
+                                [$v_{001}$,red]
+                            ],
+                            [$v_{01}$,red
+                                [$v_{010}$,red],
+                                [$v_{011}$,red]
+                            ]
+                        ],
+                        [$v_1$
+                            [$v_{10}$
+                                [$v_{100}$],
+                                [$v_{101}$,draw,blue]
+                            ],
+                            [$v_{11}$,red,edge={dashed}
+                                [$v_{110}$,red],
+                                [$v_{111}$,red]
+                            ]
+                        ]
+                    ]
+                \end{forest}
+            \end{center}
+        }
+        \only<15->{
             \begin{itemize}
                 \setlength\itemsep{1.5em}
                 \item $q = 3$ Wörter über Alphabet $[0,r-1] = [0,1] = \{0,1\}$.
@@ -573,37 +478,38 @@
                 \item Präfixcode $\mathcal{C} = \{w_1,w_2,w_3\} = \{0,11,101\}$ konstruiert.
             \end{itemize}
         }
-    \end{center}
+    }
 \end{frame}
 
-\begin{frame}[t]
-    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$''}
-
+\begin{frame}
+    \frametitle{Ungleichung von Kraft ''$\,\Longrightarrow\,$'': Induktionsanfang}
     \begin{columns}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.7\textwidth}
         \visible<1->{
-            Sei also $i = 1$. Wähle Knoten $v_w$ der Höhe $\ell_1 > 0$ beliebig und setze $w_i = w_1 := w$.\\[10pt]\pause
-            Setze $h := \ell_q$ (max. Wortlänge) und
-            $\mathcal{T}_0 := \mathcal{T}_r^h,\ \mathcal{T}_1 := \mathcal{T}_r^h \setminus v_{w_1}$.\\[10pt]
-        }\pause
-        $\mathcal{T}_1$ noch
-        $r^h - r^{h - \ell_1}$ Blätter.\\
-        \visible<4->{
-            Weiter gilt:
-            $$
-                r^h - r^{h - \ell_1} = r^h\left(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\right)
-            $$
-            \visible<5->{
-                $$
-                    > r^h\left(1 - \sum_{k=1}^{q} \frac{1}{r^{\ell_k}}\right) \visible<6>{\geq 0}
-                $$
-            }
+            \begin{itemize}
+                \setlength\itemsep{1em}
+                \item zz: Auswahl von $w_i$ aus Baum möglich.
+                \item Via endlicher Induktion über $i$.
+                \item $h := \ell_q$ (max. Wortlänge)
+            \end{itemize}\strut\\[20pt]\pause
+
+            $i=1$:\\
+
+            \begin{itemize}
+                \setlength\itemsep{1em}
+                \item Wähle
+                    ${\only<2>{\color{red}}v_w} \in V(\mathcal{T}_r^h), height({\only<2>{\color{red}}v_w}) = \ell_1$
+                \pause
+                \item Setze $w_1 := w$, dann $|w_1| = \ell_1$
+                \pause
+                \item Entferne Nachfolger; $\mathcal{T} := \mathcal{T}_r^h \setminus v_w$
+            \end{itemize}
         }
     \end{column}
 
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
         \onslide
-            \only<1>{
+        \visible<2->{
             \quad$\mathcal{T}_r^h$:\\
             \begin{center}
                 \begin{forest}
@@ -613,7 +519,7 @@
                         ],
                         [$v_1$
                             [\dots
-                                [$v_w$,color=red,
+                                [$v_w$,only=<2-3>,color=red,
                                     [$v_{w0}$
                                         [\dots]
                                     ],
@@ -622,32 +528,14 @@
                                     ],
                                     [\dots]
                                 ],
-                            ],
-                            [\dots]
-                        ],
-                        [\dots]
-                    ]
-                \end{forest}
-            \end{center}
-            }
-            \only<2>{
-            \quad$\mathcal{T}_r^h$:\\
-            \begin{center}
-                \begin{forest}
-                    [$v_\varepsilon$
-                        [$v_0$,
-                            [\dots]
-                        ],
-                        [$v_1$
-                            [\dots
-                                [$v_w$,color=red,tikz={\node [draw,red,fit=()(!1)(!11)(!2)(!3)] {};}
-                                    [$v_{w0}$
-                                        [\dots]
+                                [$v_w$,only=<4>,color=red,edge={dashed,red}
+                                    [$v_{w0}$,red
+                                        [\dots,red]
                                     ],
-                                    [$v_{w1}$
-                                        [\dots]
+                                    [$v_{w1}$,red
+                                        [\dots,red]
                                     ],
-                                    [\dots]
+                                    [\dots,red]
                                 ],
                             ],
                             [\dots]
@@ -656,11 +544,53 @@
                     ]
                 \end{forest}
             \end{center}
-            }
-            \only<3->{
+        }
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von Kraft ''$\,\Longrightarrow\,$'': Induktionsanfang}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \visible<1->{
+            \begin{itemize}
+                \setlength\itemsep{1em}
+                \item Teilbaum der Höhe $\ell_1$ entfernt
+                \pause
+                \item $\mathcal{T}_1$ noch $r^h - r^{h-\ell_1}$ Blätter
+            \end{itemize}\strut\\[10pt]\pause
+        }
+        Weiter gilt:
+        \begin{overprint}
+            \onslide<3>
+            $$
+                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+            $$
+            \onslide<4>
+            $$
+                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+            $$
+            $$
+                {>}\ r^h\bigg(1 - \sum_{k=1}^{q} \frac{1}{r^{\ell_k}}\,\bigg )\visible<5>{> 0}
+            $$
+            \onslide<5>
+            $$
+                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+            $$
+            $$
+                {\color{red} >}\ r^h\bigg(1 - \underbrace{\sum_{k=1}^{q} \frac{1}{r^{\ell_k}}}_{\leq\ 1}\bigg)
+                > {\color{red}0}
+            $$
+        \end{overprint}
+    \end{column}
+
+        \begin{column}{0.55\textwidth}
+        \onslide
             \begin{center}
                 \begin{tikzpicture}
-                    \node[color=red] at (0.5,-3) {$v_{w_1}$};
+                    \only<1>{\node[color=red] at (0.5,-3) {$v_{w_1}$};}
+                    \only<2->{\node at (0.5,-3) {$v_{w_1}$};}
                     \node at (0,-1.5) {$\mathcal{T}_1$};
 
                     \draw (0,0) node[above]{$v_\varepsilon$}
@@ -671,93 +601,80 @@
                         -- (2.5,-4)
                         -- cycle;
 
-                    \draw[|-|] (-.5,-4.5) -- node[below] {$r^{h-\ell_1}$} (1.5,-4.5);
-
-                    \draw[|-|] (-2.5,-5.4) -- node[below] {$r^h$} (2.5,-5.4);
+                    \draw[|-|] (3,-2.4) -- node[left] {$\ell_1$} (3, 0);
+                    \draw[|-|] (3,-2.4) -- node[left] {\scriptsize{$h-\ell_1$}} (3, -4);
+                    \draw[dotted, line width = .6pt] (3,-2.4) -- (0.5,-2.4);
+                    \draw[dotted, line width = .6pt] (3,0) -- (0,0);
+                    \draw[dotted, line width = .6pt] (2.5,-4) -- (3,-4);
+                    \visible<2->{
+                        \draw[|-|] (-.5,-4.5) -- node[below] {$r^{h-\ell_1}$} (1.5,-4.5);
+                        \draw[|-|] (-2.5,-5.4) -- node[below] {$r^h$} (2.5,-5.4);
+                    }
                 \end{tikzpicture}
             \end{center}
-            }
     \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}[t]
-    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$''}
-    Nun $i \in [1,q-1]$ sodass $\{w_j \mid j \in [1,i]\}$ ein Präfix-Code
-    mit $|w_j| = \ell_j$ ist, und $\mathcal{T}_i$ noch mindestens 1 Blatt $v_x$ hat.\\[10pt]\pause
+    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$'': Induktionsschritt}
 
     \begin{columns}
-    \begin{column}{0.77\textwidth}
+    \begin{column}{0.7\textwidth}
+        Vorraussetzungen für $i \in [1,q-1]$:
         \begin{itemize}
-            \item $\mathcal{T}_i$ zusammenhängend\\[10pt]
-            \item $\exists v_w \in V(\mathcal{T}_i)$ mit $height(v_w) = \ell_{i+1} \leq h$\\[10pt]
-            \item Setze $w_{i+1} := w$.
+            \setlength\itemsep{.8em}
+            \item $\forall j \in [1,i]: |w_j| = \ell_j$
+            \item $\{w_j \mid j \in [1,i]\}$ Präfix-Code
+            \item $|leaves(\mathcal{T}_j)| > 0$
+        \end{itemize}\strut\\[10pt]
+        \pause
+        Dann:
+        \begin{itemize}
+            \setlength\itemsep{.8em}
+            \item Es gibt Blatt $v_x \in V(\mathcal{T}_i)$.
+            \item $\mathcal{T}_i$ als Baum zusammenhängend
+            \pause
+            \item $\exists v_w \in V(\mathcal{T}_i): height(v_w) = \ell_{i+1} \leq h$
+            \pause
+            \item Setze $w_{i+1} := w$. Dann $|w_{i+1}| = \ell_{i+1}$
         \end{itemize}
     \end{column}
-    \begin{column}{0.23\textwidth}\onslide
+    \begin{column}{0.3\textwidth}\onslide
+        \only<2->{
         \begin{center}
-            \only<1>{
-                \begin{forest}
-                    [$v_\varepsilon$
-                        [\vdots
-                            [$v_{x}$]
-                        ]
-                    ]
-                \end{forest}
-            }
-            \only<2->{
-                \begin{forest}
-                    [$v_\varepsilon$
-                        [\vdots
-                            [$v_{w_{i+1}}$,color=blue
-                                [\vdots
-                                    [$v_x$]
-                                ]
-                            ]
-                        ]
-                    ]
-                \end{forest}
-            }
+            \begin{tikzpicture}
+                \node at (0,0) {$v_\varepsilon$};
+                \node at (0,-4) {$v_x$};
+                \visible<3->{\node[blue] at (0,-2) {$v_w$};}
+
+                \draw[dotted,line width = 1pt] (0,-0.5) -- (0,-1.5);
+                \visible<2>{\draw[dotted,line width = 1pt] (0,-0.5) -- (0,-2.5);}
+                \draw[dotted,line width = 1pt] (0,-2.5) -- (0,-3.5);
+
+                \visible<3->{\draw[|-|] (.5, 0) -- node[right] {$\ell_{i+1}$}(.5, -2);}
+                \draw[|-|] (1.5, 0) -- node[right] {$h$}(1.5, -4);
+            \end{tikzpicture}
         \end{center}
+        }
     \end{column}
     \end{columns}
 \end{frame}
 
 \begin{frame}[t]
-    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$''}
-    \only<1>{Sei $j \in [1,i]$. Wir haben bereits alle Knoten $v_w \geq v_{w_j}$ im Schritt
-    $\mathcal{T}_j := \mathcal{T}_{j-1} \setminus v_{w_j}$ gelöscht. Da wir $v_{w_{i+1}}$
-    aus $\mathcal{T}_i$ gewählt haben, kann also \textbf{nicht} $v_{w_j} \leq v_{w_{i+1}}$ gelten.} \pause
-    \only<2->{
-        Folglich haben wir auch $w_j \not\sqsubseteq w_{i+1}$ für $j \in [1,i]$. $\mathcal{C}$ bleibt also
-        durch Wahl von $w_{i+1}$ ein Präfix-Code ($\ell_j \leq \ell_{i+1}$, also $w_{i+1} \not\sqsubseteq w_j$).
-    }
-    \pause
-    \only<3->{
-        \\[10pt]
-        Wenn $i+1 = q$, so haben wir $q$ Wörter gewählt und sind fertig.\pause\\[10pt]
-        Falls hingegen $i+1 < q$, so definiere $\mathcal{T}_{i+1} := \mathcal{T}_i \setminus v_{w_{i+1}}$.\\
-        Dann hat $\mathcal{T}_{i+1}$ immernoch mindestens 1 Blatt, denn:
-        \only<4->{
-            \\
-            $$
-                r^h - \sum_{k=1}^{i+1} r^{h-\ell_k}
-                \pause
-                > r^h - \sum_{k=1}^{q} r^{h-\ell_k}
-                \pause
-                = r^h \left(1 - \sum_{k=1}^{q} \frac{1}{r^{\ell_k}}\right)
-                \pause
-                \geq 0
-            $$
-            Blätter.\\[5pt]
-            Somit Präfixcode $\mathcal{C}$ nach dieser Methode konstruierbar.\\
-            Dieser ist nach [JJ00] auch sofort dekodierbar.
-        }
-    }
+    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$'': Induktionsschritt}
+    Für $j \in [1,i]$:
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item Knoten ''unter'' $v_{w_j}$ bereits entfernt
+        \pause
+        \item Damit $v_{w_j} \not\leq v_{w_{i+1}}$, also auch $w_j \not\sqsubseteq w_{i+1}$
+        \pause
+        \item Ausserdem $w_{i+1} \not\sqsubseteq w_{j}$ durch $|w_j| = \ell_j \leq \ell_{i+1} = |w_{i+1}|$
+    \end{itemize}
 
-    \only<1-2>{
     \begin{center}\onslide
-        \begin{tikzpicture}
+        \begin{tikzpicture}[scale=.9]
             \node[color=red] at (2,-4) {$v_{w_1}$};
             \node[color=red] at (-4.5,-5) {$v_{w_j}$};
             \node[color=red] at (-2.5,-5.2) {$v_{w_k}$};
@@ -788,6 +705,37 @@
                 -- (-1,-5.5);
         \end{tikzpicture}
     \end{center}
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$'': Induktionsschritt}
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item Damit $\{w_j \mid j \in [1,{\color{blue}i+1}]\}$ wieder Präfix-Code.
+        \pause
+        \item Falls $i+1 = q$: Setze $\mathcal{C} := \{w_j \mid j \in [1,i+1]\}$.
+        \pause
+        \item Falls $i+1 < q$: Entferne Nachfolger: $\mathcal{T}_{i+1} := \mathcal{T}_i \setminus v_{w_{i+1}}$
+        \pause
+        \item Dann $|leaves(\mathcal{T}_{i+1})| > 0$, denn:
+    \end{itemize}
+    \visible<4->{
+        $$
+            r^h - \sum_{k=1}^{i+1} r^{h-\ell_k}
+            \visible<5->{
+                \quad{\color{red}>}\quad r^h - \sum_{k=1}^{q} r^{h-\ell_k}
+            }
+        $$
+        \visible<6->{
+            $$
+                =\ r^h \bigg(1 - \underbrace{\sum_{k=1}^{q} \frac{1}{r^{\ell_k}}}_{\leq\ 1}\bigg)
+                \ \geq\ {\color{red}0}
+            $$
+        }
+    }\strut
+    \visible<7->{
+        Vorraussetzungen für I.S. erfüllt, also Induktion vollendet.\\
+        \ \ Sofort dekodierbares $\mathcal{C}$ für $q,r,l$ konstruierbar.\hfill$\square$
     }
 \end{frame}
 
