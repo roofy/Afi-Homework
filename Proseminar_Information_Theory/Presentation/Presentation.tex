@@ -27,7 +27,6 @@
 \begin{document}
 \maketitle
 
-\section{Bäume}
 \begin{frame}
     \frametitle{Motivation}
     \begin{itemize}
@@ -128,10 +127,10 @@
     \pause
     \begin{itemize}
         \setlength\itemsep{2em}
-        \item Für $v_w \in V(\mathcal{T}_r^h)$ gilt $height(v_w) = |w|$.
+        \item Knoten $v_w$ hat Höhe $|w|$
         \pause
-        \item Für $v_w, v_{w'} \in V(\mathcal{T}_r^h)$ gilt
-            $v_w\ {\color{blue}\leq}\ v_{w'} \,\Longleftrightarrow\, w\ {\color{red}\sqsubseteq}\ w'$.
+        \item Für $v_w, v_{w'}$ gelte
+            $v_w\ {\color{blue}\leq}\ v_{w'} \,\Longleftrightarrow\, w\ {\color{red}\sqsubseteq}\ w'$
     \end{itemize}
 \end{frame}
 
@@ -158,37 +157,33 @@
 
 \begin{frame}[t]
     \frametitle{Ungleichung von Kraft: Beweisidee ''$\,\Longrightarrow\,$''}
-    Richtung ''$\sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1 \,\Longrightarrow\,$ $\mathcal{C}$ existiert''.\\[5pt]
-    \pause
     Bekannt: $\mathcal{C}$ sofort dekodierbar $\,\Longleftrightarrow\,$ $\mathcal{C}$ Präfixcode.\\[5pt]
-    \pause
     Beispiel:
     $
     q=3,
-    {\only<4>{\color{red}}r=2},
+    {\only<2>{\color{red}}r=2},
     \ell=(
-    {\only<5>{\color{blue}}1},
-    {\only<9>{\color{blue}}2},
-    {\only<4,13>{\color{blue}}3})
+    {\only<3>{\color{blue}}1},
+    {\only<7>{\color{blue}}2},
+    {\only<2,11>{\color{blue}}3})
     $.
-    \only<15>{\\$w_1=0$,\ \ $w_2=11$,\ $w_3=101$}
-    \only<4-14>{
+    \only<2-12>{
         Betrachte
-        \only<4-7>{$\mathcal{T}_{\only<4>{\color{red}}2}^{\only<4>{\color{blue}}3}$}
-        \only<8-11>{{\only<8>{\color{red}}$\mathcal{T}_2^3 \setminus v_0$}}
-        \only<12-14>{{\only<12>{\color{red}}$(\mathcal{T}_2^3 \setminus v_0) \setminus v_{11}$}}
+        \only<2-5>{$\mathcal{T}_{\only<2>{\color{red}}2}^{\only<2>{\color{blue}}3}$}
+        \only<6-9>{{\only<6>{\color{red}}$\mathcal{T}_2^3 \setminus v_0$}}
+        \only<10-12>{{\only<10>{\color{red}}$(\mathcal{T}_2^3 \setminus v_0) \setminus v_{11}$}}
         \\
-        \only<6-14>{
-            {\only<6>{\color{blue}}$w_1 = {\only<7>{\color{red}}0}$},
-            \only<10-14>{
-                {\only<10>{\color{blue}}$w_2 = {\only<11>{\color{red}}11}$},
-                \only<14>{{\color{blue}$w_3 = 101$}}
+        \only<4-12>{
+            {\only<4>{\color{blue}}$w_1 = {\only<5>{\color{red}}0}$},
+            \only<8-12>{
+                {\only<8>{\color{blue}}$w_2 = {\only<9>{\color{red}}11}$},
+                \only<12>{{\color{blue}$w_3 = 101$}}
             }
         }
     }
     \strut\\[20pt]
     \onslide{
-        \only<4>{
+        \only<2>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -216,7 +211,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<5>{
+        \only<3>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -244,7 +239,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<6>{
+        \only<4>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -272,7 +267,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<7>{
+        \only<5>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -300,7 +295,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<8>{
+        \only<6>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -328,7 +323,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<9>{
+        \only<7>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -356,7 +351,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<10>{
+        \only<8>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -384,7 +379,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<11>{
+        \only<9>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -412,7 +407,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<12>{
+        \only<10>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -440,7 +435,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<13>{
+        \only<11>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -468,7 +463,7 @@
                 \end{forest}
             \end{center}
         }
-        \only<14>{
+        \only<12>{
             \begin{center}
                 \begin{forest}
                     [$v_\varepsilon$
@@ -515,12 +510,11 @@
 
             \begin{itemize}
                 \setlength\itemsep{1em}
-                \item Wähle
-                    ${\only<2>{\color{red}}v_w} \in V(\mathcal{T}_r^h), height({\only<2>{\color{red}}v_w}) = \ell_1$
+                \item Wähle Knoten ${\only<2>{\color{red}}v_w}$ der Höhe $\ell_1$
                 \pause
                 \item Setze $w_1 := w$, dann $|w_1| = \ell_1$
                 \pause
-                \item Entferne Nachfolger; $\mathcal{T} := \mathcal{T}_r^h \setminus v_w$
+                \item Entferne Nachfolger; $\mathcal{T}_1 := \mathcal{T}_r^h \setminus v_w$
             \end{itemize}
         }
     \end{column}
@@ -574,7 +568,7 @@
         \visible<1->{
             \begin{itemize}
                 \setlength\itemsep{1em}
-                \item Teilbaum der Höhe $\ell_1$ entfernt
+                \item Teilbaum der Höhe $h - \ell_1$ entfernt
                 \pause
             \item $\mathcal{T}_1$ noch {\color{red}$r^h - r^{h-\ell_1}$} Blätter
             \end{itemize}\strut\\[10pt]\pause
@@ -649,14 +643,14 @@
             \setlength\itemsep{.8em}
             \item $\forall j \in [1,i]: |w_j| = \ell_j$
             \item $\{w_j \mid j \in [1,i]\}$ Präfix-Code
-            \item $|leaves(\mathcal{T}_j)| > 0$
+            \item $\mathcal{T}_i$ mindestens 1 Blatt
         \end{itemize}\strut\\[10pt]
         \pause
         Dann:
         \begin{itemize}
             \setlength\itemsep{.8em}
             \pause
-            \item Knoten {\color{red}$v_w$} der Höhe $\ell_{i+1} \leq h$
+            \item Wähle {\color{red}$v_w$} der Höhe $\ell_{i+1} \leq h$
             \pause
             \item Setze $w_{i+1} := w$, da $|w_{i+1}| = \ell_{i+1}$
         \end{itemize}
@@ -737,7 +731,7 @@
         \pause
         \item Falls $i+1 < q$: Entferne Nachfolger: $\mathcal{T}_{i+1} := \mathcal{T}_i \setminus v_{w_{i+1}}$
         \pause
-        \item Dann $|leaves(\mathcal{T}_{i+1})| > 0$, denn:
+        \item Dann $\mathcal{T}_{i+1}$ noch mindestens 1 Blatt:
     \end{itemize}
     \visible<3->{
         $$
@@ -755,7 +749,7 @@
     }\strut
     \visible<6->{
         Vorraussetzungen für I.S. erfüllt, Induktion vollendet.\\
-        \ \ Sofort dekodierbares $\mathcal{C}$ für $r,q,l$ konstruierbar.\hfill$\square$
+        \ \ Sofort dekodierbares $\mathcal{C}$ für $r,q,\ell$ konstruierbar.\hfill$\square$
     }
 \end{frame}
 
@@ -935,6 +929,7 @@
             \quad=\quad n(\ell_{max}-\ell_{min}) + 1
         $$
         \pause
+        \strut
         $$
             \,\Longrightarrow\, \frac{K^n}{n}\ \leq\ (\ell_{max}-\ell_{min}) + 1
         $$
@@ -943,11 +938,11 @@
 \begin{frame}[t]
     \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
         $$
-            \frac{K^n}{n} \leq (\ell_{max}-\ell_{min}) + 1
+            \frac{K^n}{n}\ \leq\ (\ell_{max}-\ell_{min}) + 1
         $$
         \begin{itemize}
             \setlength\itemsep{1em}
-            \item Code $\mathcal{C}$ gegeben; $q = |\mathcal{C}|$, Alphabetgröße $r$, Wortlängen $\ell$ fix.
+            \item Code $\mathcal{C}$ gegeben: $q,r,\ell$ fix.
             \item Damit auch $\ell_{min},\ell_{max}, K$ fix.
             \pause
             \item $n \in \mathbb{N}$ beliebig; Ungleichung muss für alle $n \in \mathbb{N}$ gelten.
