@@ -111,7 +111,7 @@
                     [$v_{01}$],
                     [$v_{02}$]
                 ],
-                [$v_{\color{red}1}$, edge label={node [midway, sloped, above] {\color{blue}$\geq$}}
+                [$v_{\color{red}1}$, edge label={node [midway, sloped, above] {\color{blue}$\leq$}}
                     [$v_{{\color{red}1}0}$, edge label={node [midway, sloped, above] {\color{blue}$\geq$}}],
                     [$v_{{\color{red}1}1}$, edge label={node [midway, sloped, above] {\normalsize\color{blue}$\leq$}}],
                     [$v_{{\color{red}1}2}$, edge label={node [midway, sloped, above] {\color{blue}$\leq$}}]
@@ -150,10 +150,8 @@
     \begin{itemize}
         \setlength\itemsep{1em}
         \item Anzahl Code-Wörter $q > 1$
-        \pause
         \item Wortlängen $0 < \ell_1 \leq \ell_2 \leq \cdots \leq \ell_q$
             aufsteigend sortiert
-        \pause
         \item Code-Alphabet von $\mathcal{C}$ ist $[0,r-1]$
     \end{itemize}
 \end{frame}
@@ -498,14 +496,6 @@
                 \end{forest}
             \end{center}
         }
-        \only<15->{
-            \begin{itemize}
-                \setlength\itemsep{1.5em}
-                \item $q = 3$ Wörter über Alphabet $[0,r-1] = [0,1] = \{0,1\}$.
-                \item Wortlängen $|w_1| = \ell_1, |w_2| = \ell_2, |w_3| = \ell_3$ eingehalten.
-                \item Präfixcode $\mathcal{C} = \{w_1,w_2,w_3\} = \{0,11,101\}$ konstruiert.
-            \end{itemize}
-        }
     }
 \end{frame}
 
@@ -518,7 +508,7 @@
                 \setlength\itemsep{1em}
                 \item zz: Auswahl von $w_i$ aus Baum möglich.
                 \item Via endlicher Induktion über $i$.
-                \item $h := \ell_q$ (max. Wortlänge)
+                \item $h := \ell_{max}$
             \end{itemize}\strut\\[20pt]\pause
 
             $i=1$:\\
@@ -586,29 +576,32 @@
                 \setlength\itemsep{1em}
                 \item Teilbaum der Höhe $\ell_1$ entfernt
                 \pause
-                \item $\mathcal{T}_1$ noch $r^h - r^{h-\ell_1}$ Blätter
+            \item $\mathcal{T}_1$ noch {\color{red}$r^h - r^{h-\ell_1}$} Blätter
             \end{itemize}\strut\\[10pt]\pause
         }
         Weiter gilt:
         \begin{overprint}
             \onslide<3>
             $$
-                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+                {\color{red}r^h - r^{h - \ell_1}}
+                = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
             $$
             \onslide<4>
             $$
-                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+                {\color{red}r^h - r^{h - \ell_1}}
+                = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
             $$
             $$
-                {>}\ r^h\bigg(1 - \sum_{k=1}^{q} \frac{1}{r^{\ell_k}}\,\bigg )\visible<5>{> 0}
+                {>}\ r^h\bigg(1 - \sum_{k=1}^{{\color{blue}q}} \frac{1}{r^{\ell_k}}\,\bigg )\visible<5>{> 0}
             $$
             \onslide<5>
             $$
-                r^h - r^{h - \ell_1} = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
+                {\color{red}r^h - r^{h - \ell_1}}
+                = r^h\bigg(1 - \sum_{k=1}^{1} \frac{1}{r^{\ell_k}}\bigg)
             $$
             $$
                 {\color{red} >}\ r^h\bigg(1 - \underbrace{\sum_{k=1}^{q} \frac{1}{r^{\ell_k}}}_{\leq\ 1}\bigg)
-                > {\color{red}0}
+                \geq {\color{red}0}
             $$
         \end{overprint}
     \end{column}
@@ -637,6 +630,8 @@
                     \visible<2->{
                         \draw[|-|] (-.5,-4.5) -- node[below] {$r^{h-\ell_1}$} (1.5,-4.5);
                         \draw[|-|] (-2.5,-5.4) -- node[below] {$r^h$} (2.5,-5.4);
+                        \draw[line width = 2pt,red] (-2.5,-4) -- (-.5,-4);
+                        \draw[line width = 2pt,red] (1.5,-4) -- (2.5,-4);
                     }
                 \end{tikzpicture}
             \end{center}
@@ -660,12 +655,10 @@
         Dann:
         \begin{itemize}
             \setlength\itemsep{.8em}
-            \item Es gibt Blatt $v_x \in V(\mathcal{T}_i)$.
-            \item $\mathcal{T}_i$ als Baum zusammenhängend
             \pause
-            \item $\exists v_w \in V(\mathcal{T}_i): height(v_w) = \ell_{i+1} \leq h$
+            \item Knoten {\color{red}$v_w$} der Höhe $\ell_{i+1} \leq h$
             \pause
-            \item Setze $w_{i+1} := w$. Dann $|w_{i+1}| = \ell_{i+1}$
+            \item Setze $w_{i+1} := w$, da $|w_{i+1}| = \ell_{i+1}$
         \end{itemize}
     \end{column}
     \begin{column}{0.3\textwidth}\onslide
@@ -674,7 +667,7 @@
             \begin{tikzpicture}
                 \node at (0,0) {$v_\varepsilon$};
                 \node at (0,-4) {$v_x$};
-                \visible<3->{\node[blue] at (0,-2) {$v_w$};}
+                \visible<3->{\node[red] at (0,-2) {$v_w$};}
 
                 \draw[dotted,line width = 1pt] (0,-0.5) -- (0,-1.5);
                 \visible<2>{\draw[dotted,line width = 1pt] (0,-0.5) -- (0,-2.5);}
@@ -697,8 +690,8 @@
         \item Knoten ''unter'' $v_{w_j}$ bereits entfernt
         \pause
         \item Damit $v_{w_j} \not\leq v_{w_{i+1}}$, also auch $w_j \not\sqsubseteq w_{i+1}$
-        \pause
-        \item Ausserdem $w_{i+1} \not\sqsubseteq w_{j}$ durch $|w_j| = \ell_j \leq \ell_{i+1} = |w_{i+1}|$
+%        \pause
+%        \item Außerdem $w_{i+1} \not\sqsubseteq w_{j}$ durch $|w_j| = \ell_j \leq \ell_{i+1} = |w_{i+1}|$
     \end{itemize}
 
     \begin{center}\onslide
@@ -739,30 +732,29 @@
     \frametitle{Ungleichung von Kraft: ''$\,\Longrightarrow\,$'': Induktionsschritt}
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item Damit $\{w_j \mid j \in [1,{\color{blue}i+1}]\}$ wieder Präfix-Code.
-        \pause
-        \item Falls $i+1 = q$: Setze $\mathcal{C} := \{w_j \mid j \in [1,i+1]\}$.
+        \item Damit $\{w_j \mid j \in [1,{\only<1>{\color{blue}}i+1}]\}$ wieder Präfix-Code
+        \item Falls $i+1 = q$: Setze $\mathcal{C} := \{w_j \mid j \in [1,i+1]\}$
         \pause
         \item Falls $i+1 < q$: Entferne Nachfolger: $\mathcal{T}_{i+1} := \mathcal{T}_i \setminus v_{w_{i+1}}$
         \pause
         \item Dann $|leaves(\mathcal{T}_{i+1})| > 0$, denn:
     \end{itemize}
-    \visible<4->{
+    \visible<3->{
         $$
             r^h - \sum_{k=1}^{i+1} r^{h-\ell_k}
-            \visible<5->{
-                \quad{\color{red}>}\quad r^h - \sum_{k=1}^{q} r^{h-\ell_k}
+            \visible<4->{
+                \quad{\only<5>{\color{red}}>}\quad r^h - \sum_{k=1}^{q} r^{h-\ell_k}
             }
         $$
-        \visible<6->{
+        \visible<5->{
             $$
                 =\ r^h \bigg(1 - \underbrace{\sum_{k=1}^{q} \frac{1}{r^{\ell_k}}}_{\leq\ 1}\bigg)
                 \ \geq\ {\color{red}0}
             $$
         }
     }\strut
-    \visible<7->{
-        Vorraussetzungen für I.S. erfüllt, also Induktion vollendet.\\
+    \visible<6->{
+        Vorraussetzungen für I.S. erfüllt, Induktion vollendet.\\
         \ \ Sofort dekodierbares $\mathcal{C}$ für $r,q,l$ konstruierbar.\hfill$\square$
     }
 \end{frame}
@@ -770,67 +762,43 @@
 \begin{frame}[t]
     \frametitle{Ungleichung von Kraft: ''$\,\Longleftarrow\,$''}
     Zeige: $\mathcal{C}$ sofort dekodierbar $\,\Longrightarrow\,$ 
-    Ungleichung gilt für Parameter
-    \visible<2->{
-        $$
-            {\color{red}L_i} := \{v \in V(\mathcal{T}_r^h) \mid v_{w_i} \leq v \land height(v) = h\}
-        $$
-        \begin{center}\onslide
-            \begin{tikzpicture}
-                \node at (0,-1) {$\mathcal{T}_r^h$};
-                \node at (.5, -2.3) {$v_{w_i}$};
-                \node[color=red] at (.5, -4.3) {$L_i$};
-
-                \draw (0,0)
-                    -- (-4,-4)
-                    -- (4,-4)
-                    -- cycle;
-
-                \draw[dashed] (-1,-4) -- (.5, -2.5) -- (2,-4);
-
-                \draw[line width = 2pt, color=red] (-1,-4) -- (2,-4);
-            \end{tikzpicture}
-        \end{center}
-        \visible<3>{
-            \begin{itemize}
-                \item Für $i,j \in [1,q]: i \neq j \,\Longrightarrow\, L_i \cap L_j = \varnothing$
-            \end{itemize}
-        }
-    }
-\end{frame}
-
-\begin{frame}[t]
-    \frametitle{Ungleichung von Kraft: ''$\,\Longleftarrow\,$''}
-
+    Ungleichung gilt für Parameter\\
     \begin{itemize}
-        \item Anzahl dieser Blätter: {\color{red}$|L_i| = r^{h-\ell_i}$}
+        \item $i \in [1,q]$. $L_i$'s paarweise disjunkt.
     \end{itemize}
     \strut
-        \begin{center}
-            \begin{tikzpicture}
-                \node at (0,-1) {$\mathcal{T}_r^h$};
-                \node at (.5, -2.3) {$v_{w_i}$};
+    \begin{center}\onslide
+        \begin{tikzpicture}
+            \node at (0,-1) {$\mathcal{T}_r^h$};
+            \node at (.5, -2.3) {$v_{w_i}$};
+
+            \draw (0,0)
+                -- (-4,-4)
+                -- (4,-4)
+                -- cycle;
+
+            \draw[dashed] (-1,-4) -- (.5, -2.5) -- (2,-4);
+
+            \only<1>{
+                \draw[line width = 2pt,red] (-1,-4) -- (2,-4);
+                \node[color=red] at (.5, -4.3) {$L_i$};
+            }
+
+            \visible<2->{
                 \node at (.5, -4.3) {$L_i$};
-
-                \draw (0,0)
-                    -- (-4,-4)
-                    -- (4,-4)
-                    -- cycle;
-
-                \draw[dashed] (-1,-4) -- (.5, -2.5) -- (2,-4);
-
                 \draw[line width = 2pt] (-1,-4) -- (2,-4);
-
                 \draw[dotted, line width = .8pt] (-5.5, -2.5) -- (.5, -2.5);
+
                 \draw[dotted, line width = .8pt] (-5.5, 0) -- (0, 0);
                 \draw[|-|, line width = .8pt] (-5.5,-2.5) --
                     node[right] {$height(v_{w_i}) = |w_i| = \ell_i$} (-5.5, 0);
-                    \draw[dotted, line width = .8pt] (-5.5, -2.5) -- (.5, -2.5);
-                    \draw[|-|, line width = .8pt] (-5.5,-4) -- node[right] {$h-\ell_i$} (-5.5, -2.5);
-                    \draw[|-|, line width = .8pt,color=red] (-1,-4.6) -- node[below] {$r^{h-\ell_i}$} (2,-4.6);
-                    \draw[|-|, line width = .8pt] (4,-5.5) -- node[below] {$r^h$} (-4,-5.5);
-            \end{tikzpicture}
-        \end{center}
+                \draw[dotted, line width = .8pt] (-5.5, -2.5) -- (.5, -2.5);
+                \draw[|-|, line width = .8pt] (-5.5,-4) -- node[right] {$h-\ell_i$} (-5.5, -2.5);
+                \draw[|-|, line width = .8pt,color=red] (-1,-4.6) -- node[below] {$r^{h-\ell_i}$} (2,-4.6);
+            }
+        \end{tikzpicture}
+
+    \end{center}
 \end{frame}
 
 \begin{frame}[t]
@@ -878,12 +846,12 @@
 
 \begin{frame}[t]
     \frametitle{Ungleichung von McMillan}
-    Seien $q,r \in \mathbb{N}, \ell \in \mathbb{N}^q$. Dann existiert ein $r$-ärer eindeutig dekodierbarer Code $\mathcal{C}$
+    Seien $q,r \in \mathbb{N}, \ell \in \mathbb{N}^q$.
+    Dann existiert ein $r$-ärer {\color{red}eindeutig dekodierbarer} Code $\mathcal{C}$
     mit Wortlängen $\ell$ genau dann, wenn
     \begin{equation}
         K := \sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1
     \end{equation}\\[20pt]
-    \pause
 
     Richtung ''$(1) \,\Longrightarrow\, \mathcal{C}$ existiert'' durch Kraft.\\
 \end{frame}
@@ -958,7 +926,6 @@
         Mit {\only<2>{\color{red}}$N_j \leq r^j$} folgt:
         $$
             K^n
-            \ =\ \sum_{i\in [1,q]^n} r^{-\sum_{k=1}^{n} \ell_{i_k}}
             \ =\ \sum_{j = n\cdot \ell_{min}}^{n\cdot \ell_{max}} N_jr^{-j}
             \ =\ \sum_{j = n\cdot\ell_{min}}^{n\cdot\ell_{max}} \frac{N_j}{r^j}
         $$
