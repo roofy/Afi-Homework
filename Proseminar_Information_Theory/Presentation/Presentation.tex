@@ -514,7 +514,7 @@
                 \pause
                 \item Setze $w_1 := w$, dann $|w_1| = \ell_1$
                 \pause
-                \item Entferne Nachfolger; $\mathcal{T}_1 := \mathcal{T}_r^h \setminus v_w$
+            \item Entferne Nachfolger; $\mathcal{T}_1 := \mathcal{T}_r^h \setminus v_{w_1}$
             \end{itemize}
         }
     \end{column}
@@ -643,7 +643,7 @@
             \setlength\itemsep{.8em}
             \item $\forall j \in [1,i]: |w_j| = \ell_j$
             \item $\{w_j \mid j \in [1,i]\}$ Präfix-Code
-            \item $\mathcal{T}_i$ mindestens 1 Blatt
+            \item $\mathcal{T}_i$ mindestens 1 Blatt $v_x$
         \end{itemize}\strut\\[10pt]
         \pause
         Dann:
@@ -829,7 +829,7 @@
     \begin{itemize}
         \setlength\itemsep{1em}
         \item Beweis konstruktiv
-        \item Untere Schranke für Wortlänge, Alphabetgröße
+        \item Untere Schranke für Wortlängen, Alphabetgröße
         \setlength\itemsep{3em}
         \pause
         \item Bekannt: sofort dekodierbar $\,\Longrightarrow\,$ eindeutig dekodierbar
@@ -850,17 +850,17 @@
     Richtung ''$(1) \,\Longrightarrow\, \mathcal{C}$ existiert'' durch Kraft.\\
 \end{frame}
 
-\begin{frame}[t]
-    \frametitle{Ungleichung von McMillan: Beweisidee}
-    \begin{itemize}
-        \setlength\itemsep{1.3em}
-        \item Zu zeigen: $K = \sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1$
-        \item Betrachte $K^n$ abhängig von Wortlängen für beliebiges $n \in \mathbb{N}$.
-        \item Finde aus Form von $K^n$ konstante obere Schranke
-        \item Dann muss $K \leq 1$, da sonst $K^n$ für geeignetes $n$ größer
-            als jede Konstante
-    \end{itemize}
-\end{frame}
+%\begin{frame}[t]
+%    \frametitle{Ungleichung von McMillan: Beweisidee}
+%    \begin{itemize}
+%        \setlength\itemsep{1.3em}
+%        \item Zu zeigen: $K = \sum_{k=1}^{q} \frac{1}{r^{\ell_k}} \leq 1$
+%        \item Betrachte $K^n$ abhängig von Wortlängen für beliebiges $n \in \mathbb{N}$.
+%        \item Finde aus Form von $K^n$ konstante obere Schranke
+%        \item Dann muss $K \leq 1$, da sonst $K^n$ für geeignetes $n$ größer
+%            als jede Konstante
+%    \end{itemize}
+%\end{frame}
 
 \begin{frame}[t]
     \frametitle{Ungleichung von McMillan: ''$\,\Longleftarrow\,$''}
@@ -905,12 +905,13 @@
         \pause
         \item Äquivalent: Anzahl $i \in [1,q]^n$ mit $|w_{i_1}w_{i_2}\dots w_{i_n}| = j$
         \pause
+        \item Maximal $r^j$ Wörter mit Länge $j$
+        \pause
         \item $\mathcal{C}$ eindeutig dekodierbar
             $\,\Longrightarrow\,$ Jede Code-Sequenz aus eindeutiger Auswahl
                 $i \in [1,q]^n$
         \pause
-    \item $r^j$ Wörter mit Länge $j$, nicht alles Code-Sequenzen von $\mathcal{C}$
-    \item Für jedes max. ein $i \in [1,q]^n \,\Longrightarrow\, N_j \leq r^j$
+        \item Für jedes max. ein $i \in [1,q]^n \,\Longrightarrow\, N_j \leq r^j$
     \end{itemize}
 
 \end{frame}
@@ -967,7 +968,7 @@
     Außerdem, für festen Code $\mathcal{C}_{r,q,\ell}:$
     $$
         \sum_{i=1}^{q} \frac{1}{r^{\ell_i}} \leq 1
-        \quad\xcancel{\large\ \Longrightarrow\ }\quad
+        \quad\xcancel{\Longrightarrow}\quad
         \mathcal{C}_{r,q,\ell}\ \text{sofort dekodierbar}
     $$
     \pause
@@ -995,6 +996,7 @@
             $$
                 \sum_{i=1}^{q} \frac{1}{r^{\ell_i}} \leq 1
             $$
+        \item Intuition: Beschränktes Budget, kurze Worte teurer
         \item Zusammenhang/Konstruktion von Codes durch Bäume
     \end{itemize}
 
