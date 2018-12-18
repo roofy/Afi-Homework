@@ -1,0 +1,330 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\setcounter{section}{-1}
+
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+\newcommand{\eps}[0]{\varepsilon}
+
+\begin{document}
+
+\section{VL0}
+
+\begin{itemize}
+    \item David Hilbert
+    \item Travelling Salesman Problem (TSP)
+\end{itemize}
+
+
+\textbf{Person:} David Hilbert (1862-1943)
+\begin{itemize}
+    \item Deutscher Mathematiker
+    \item ''Wir müssen wissen, wir werden wissen.''
+\end{itemize}
+\strut\\
+
+
+\textbf{TSP} Travelling Salesman Problem
+\begin{itemize}
+    \item Eingabe: vollständiger Graph $G$, alle Kantenlängen (Gewichtung)
+    \item Ausgabe: eine Rundreise, die alle Knoten in $G$ besucht und dabei so kurz wie mögl. ist.
+    \item {\color{red}$P \neq NP$} $\,\Longrightarrow\,$  kein effizienter Algorithmus existiert
+\end{itemize}
+\strut\\
+
+\newpage
+
+\section{VL1 - Turing Maschinen I}
+
+\begin{itemize}
+    \item Probleme
+    \item Turingmaschinen
+    \item rekursive / berechenbare Funktionen
+    \item rekursive / entscheidbare Sprachen
+    \item Konfigurationen
+    \item Programmiertechniken: Speicher im Zustandsraum
+    \item Programmiertechniken: Mehrspurmaschinen
+    \item Programmiertechniken: Weiteres
+\end{itemize}
+
+\textbf{Definition:} Probleme
+\begin{itemize}
+    \item \textbf{Problem als Relation} $R \subseteq \Sigma^* \times \Gamma^*$ für Alphabete $\Sigma, \Gamma$
+    \item Es ist $(x,y) \in R \,\Longleftrightarrow\, y$ ist zulässige Ausgabe zur Eingabe $x$
+    \item Beispiel Primfaktorbestimmung:
+        $$
+            R := \{(x,y) \in \{0,1\}^* \times \{0,1\}^* \mid x = \text{bin}(q), y = \text{bin}(p), q,p \in \mathbb{N},
+            q\geq 2, p \text{ prim}, p \mid q\}
+        $$
+        \\
+    \item Bei eindeutiger Lösung \textbf{Problem als Funktion} $f: \Sigma^* \to \Gamma^*$
+    \item Beispiel Multiplikation inklusive Trennzeichen:
+        $$
+            f : \{0,1,\#\}^* \to \{0,1,\#\}, f(\text{bin}(i_1)\#\text{bin}(i_2)) = \text{bin}(i_1 \cdot i_2)
+        $$
+        \\
+    \item \textbf{Problem als Entscheidungsproblem}: Form $f : \Sigma^* \to \{0,1\}$
+    \item $L := f^{-1}(1) \subseteq \Sigma^*$ ist Sprache vom durch $f$ definiertem Entscheidungsproblem.
+    \item Beispiel Graphzusammenhang: Bestimme zur Eingabe $G = (V,E)$ ob $G$ zsmhgd.
+    \item Wenn Graph $G$ codiert in $\Sigma$ durch $code(G)$, so ist
+        $$
+            L := \{w \in \Sigma^* \mid \exists \text{ zusammenhängender Graph } G: w = code(G)\}
+        $$
+        die zu diesem Entscheidungsproblem gehörende Sprache.
+\end{itemize}
+\newpage
+
+
+\textbf{Definition:} Turingmaschine (TM)
+
+Eine Turingmaschine $M$ ist gegeben durch $M = (Q, \Sigma, \Gamma, B, q_0, \overline{q}, \delta)$, wobei
+\begin{itemize}
+    \item $Q$ endliche Zustandsmenge
+    \item $\Sigma$ endliches Eingabealphabet
+    \item $\Gamma \supsetneq \Sigma$ endliches Bandalphabet
+    \item $B \in \Gamma \setminus \Sigma$ Leerzeichen, Blank
+    \item $q_0 \in Q$ Anfangszustand
+    \item $\overline{q}$ Endzustand
+    \item $\delta : (Q \setminus \{\overline{q}\}) \times \Gamma \to Q \times \Gamma \times \{R, L, N\}$
+        Zustandsüberführungsfunktion
+\end{itemize}
+
+Weiteres:
+\begin{itemize}
+    \item Startet in $q_0$, Kopf über (1. Symbol vom) Eingabewort eingerahmt von Blanks
+    \item TM stoppt, sobald Endzustand $\overline{q}$ erreicht.
+    \item Ausgabewort $y \in \Sigma^*$ beginnt Kopfposition und endet vor erstem Symbol in $\Gamma\setminus\Sigma$
+    \\
+    \item akzeptiert $\,\Longleftrightarrow\,$ terminiert und Ausgabe beginnt mit 1
+    \item verwirft $\,\Longleftrightarrow\,$ terminiert und Ausgabe beginnt nicht mit 1
+    \\
+    \item \textbf{Laufzeit} ist Anzahl von Zustandsübergängen bis zur Terminierung
+    \item \textbf{Speicherbedarf} Anzahl während Berechnung besuchter Bandzellen 
+    \\
+    \item TM $M$ \textbf{entscheidet} $L \subset \Sigma^*$ wenn $M$ $w \in L$ akzeptiert und $w \notin L$ verwirft
+        (hält stets)
+\end{itemize}
+\strut\\
+
+\textbf{Definition:} rekursive / T-berechenbare Funktionen
+
+$f : \Sigma^* \to \Sigma^*$ heißt rekursiv bzw (T-)berechenbar,\\
+wenn es eine TM gibt welche bei Eingabe $x \in \Sigma^*$ stets $f(x)$ berechnet.
+
+\strut\\
+\textbf{Definition:} rekursive / T-entscheidbare Sprachen
+
+Eine Sprache $L \subseteq \Sigma^*$ heißt rekursiv bzw (T-)entscheidbar,\\
+wenn es eine TM gibt welche stets terminiert und $w \in \Sigma^*$ akzeptiert gdw. $w \in L$.
+
+\newpage
+
+\textbf{Definition:} Konfiguration
+
+Eine Konfiguration einer TM ist ein String $\alpha q \beta$, wobei $\alpha,\beta \in \Gamma^*,q \in Q$
+wobei $\beta \neq \eps$.\\
+$\alpha$ entspricht dem Wort links vom Kopf, 1. Symbol von $\beta$ unter dem Kopf (evtl. $B$), rest rechts.
+
+$\alpha'q'\beta'$ ist \textbf{direkte Nacholgerkonfiguration} von $\alpha q \beta$,\\
+wenn sie in einem Rechenschritt aus $\alpha q \beta$ entsteht. Man schreibt $\alpha q\beta \vdash \alpha'q'\beta'$.
+
+Analog schreibt man für endlich viele (auch 0) Rechenschritte $\alpha q \beta \vdash^* \alpha''q''\beta''$.
+
+\strut\\
+
+\textbf{Techniken zur Programmierung TM's (1):} Speicher im Zustandsraum
+
+Zu $k \in \mathbb{N}_{>0}$ können wir $k$ Symbole des Bandalphabets $\Gamma$ im Zustand abspeichern,\\
+indem wir den Zustandsraum um den Faktor $|\Gamma|^k$ vergrößern, d.h.
+$$
+    Q_{neu} := Q \times \Gamma^k
+$$
+Bspw sind neue Zustände für $k = 2$ dann $(q_0, BB)$ oder $(q_1, 01)$ (wenn $0,1 \in \Gamma$).
+
+\strut\\
+
+\textbf{Techniken zur Programmierung TM's (2):} Mehrspurmaschinen
+
+$k$-spurige TM: TM mit zusätzlich $k$-Vektoren als Symbole für $k \in \mathbb{N}$. Man schreibt
+$$
+    \Gamma_{neu} := \Gamma \cup \Gamma^k
+$$
+
+\strut\\
+
+\textbf{Techniken zur Programmierung TM's (3):} Weiteres
+\begin{itemize}
+    \item Variablen: pro Variable eine Spur
+    \item Arrays: ebenfalls in einer Spur möglich
+    \item Unterprogramme: eine Spur als Prozedurstack benutzen
+\end{itemize}
+
+\newpage
+
+\section{VL2 - Turing Maschinen II}
+\begin{itemize}
+    \item $k$-Band-TM's
+    \item Simulation von $k$-Band-TM's mit 1-Band-TM's
+    \item Gödelnummern
+    \item Universelle TM
+    \item Alan Turing
+    \item Alonzo Church
+    \item Church-Turing-These
+\end{itemize}
+
+\textbf{Definition:} $k$-Band-TM
+
+Besitzt $k \in \mathbb{N}_{>0}$ Arbeitsbänder mit unabhängigen Köpfen. Zustandsübergangsfkt ist dann
+$$
+    \delta : (Q\setminus \{\overline{q}\}) \times \Gamma^k \to Q \times \Gamma^k \times \{R,L,N\}^k
+$$
+Dabei ist Band 1 das Eingabe / Ausgabeband. Die anderen sind zunächst leer (Blanks).
+
+\strut\\
+
+\textbf{Satz:} Simulation von $k$-Band TM's durch 1-Band-TM's
+
+Eine $k$-Band TM $M$ mit Zeitbedarf $t(n)$ und Platzbedarf $s(n)$ kann mit einer 1-Band-TM $M'$
+in Zeitbedarf $\mathcal{O}(t^2(n))$ und Platzbedarf $\mathcal{O}(s(n))$ simuliert werden.
+
+Also \textbf{quadratischer Zeitverlust} und \textbf{konstanter Speicherverlust}.
+
+Bewies vie $2k$ Spuren; Inhalt der Bänder und Positionen der Köpfe (markiert mit \#).\\
+Jeder Rechenschritt von $M$ wird wie folgt durch $M'$ simuliert:
+\begin{itemize}
+    \item Kopf steht auf linkestem \#, $M'$ kennt Zustand von $M$.
+    \item Laufe nach rechts und speichere alle Zeichen and den Kopfpositionen auf den zugeh. Bändern
+        im Zustand.
+    \item Werte damit $\delta_M$ aus
+    \item Laufe zurück und verändere entsprechend Kopfpositionen / Bandinhalte
+    \\
+    \item Nach $t$ Schritten von $M$ können \#'s höchstens $2t$ Positionen auseinanderliegen
+    \item Simulation eines Schrittes also in $\mathcal{O}(t(n))$
+    \item Für $t(n)$ Schritte damit $\mathcal{O}(t(n)^2)$
+\end{itemize}
+
+\newpage
+
+\textbf{Definition:} Gödelnummer
+
+Die Gödelnummer einer TM $M$ wird durch $\langle M \rangle$ bezeichnet.
+
+\begin{itemize}
+    \item Eindeutige, \textbf{präfixfreie} Kodierung über $\{0,1\}$.
+    \item $\langle M \rangle$ beginnt und endet stets mit 111, enthält sonst 111 nicht.
+    \item Man beschränkt sich auf TM's mit $Q= \{q_1,q_2,\cdots,q_t\}, t \geq 2$\\
+        wobei $q_1,q_2$ Anfangs-/Endzustand sind. Ferner soll $\Gamma = \{0,1,B\}$.
+
+        Man kodiert den $t$-ten Übergang mit $code(t)$ in der Form $0^a10^b10^c10^d10^e$.\\
+        Dann kodiert man die TM $M$ mit $s$ Übergängen durch:
+        $$
+            \langle M \rangle = 111code(1)11code(2)11\dots 11code(s)111
+        $$
+\end{itemize}
+
+\strut
+
+\textbf{Definition:} Universelle Turingmaschine
+
+Eingabe ist ein Wort der Form $\langle M\rangle w$ für $w \in \{0,1\}^*$.
+
+Simulation via 3-Spur TM in \textbf{konstanter Zeit} möglich: Gödelnr auf Spur 2, Zustand auf 3.
+
+\strut\\
+
+\textbf{Person:} Alan Turing (1912-1954)
+\begin{itemize}
+    \item Englischer Mathematiker, Informatiker, Logiker, Philospher
+    \item Angesehen als Vater der theoretischen Informatik
+\end{itemize}
+
+\strut\\
+
+\textbf{Person:} Alonzo Church (1903-1995)
+\begin{itemize}
+    \item Amerikanischer Mathematiker, Logiker
+    \item Erfinder des Lambda-Calculus
+\end{itemize}
+
+\strut\\
+
+\textbf{Behauptung:} Church-Turing-These (1930)
+
+Die Klasse der TM-berechenbaren Funktionen stimmt mit der Klasse der\\
+''intuitiv berechenbaren'' Funktionen überein.
+
+Daher (in dieser Vorlesung)
+$$
+    \text{berechenbare Funktion} = \text{TM-berechenbare Funktion} = \text{rekursive Funktion}
+$$$$
+    \text{enstschiedbare Sprache} = \text{TM-entscheidbare Sprache} = \text{rekursive Sprache}
+$$
+
+\newpage
+
+\section{VL3 - Registermaschinen}
+
+\begin{itemize}
+    \item Registermaschinen
+    \item Kostenmaße
+    \item Simulation RAM durch TM
+\end{itemize}
+
+\textbf{Definition:} Registermaschine (RAM)
+
+Besteht aus Befehlszähler, Akkumulator (c(0)), unbeschränkter Speicher c(1),c(2),...\\
+Programme haben Befehlssatz:
+
+(IND/C)LOAD, (IND)STORE, (IND/C)ADD, (IND/C)SUB, (IND/C)MULT, (IND/C)DIV
+
+IF c(0) ? x THEN GOTO j \qquad wobei j Zeile im Programm und $? \in \{=,<,\leq,\geq,>\}$
+
+GOTO, END
+
+
+\begin{itemize}
+    \item Inhalt des Speichers sind Elemente von $\mathbb{N}$ (beliebig groß)
+    \item Eingabe ebenfalls in $\mathbb{N}^*$, zu Beginn in den ersten Registern
+    \item Andere Register mit 0 initialisiert.
+    \item Befehlszähler startet mit 1. Als nächstes wird immer die Zeile, auf die der Befehlszähler
+        verweist, ausgeführt.
+    \item Rechnung stoppt sobald END ausgeführt wird.
+    \item Ausgabe befindet sich dann in den ersten Registern.
+\end{itemize}
+
+\strut
+
+\textbf{Definition:} Kostenmaße für RAM's
+
+\textbf{Uniformes Kostenmaß:} Jeder Schritt / Befehl zählt eine Zeiteinheit
+
+\textbf{Logarithmisches Kostenmaß:} Die Laufzeitkosten eines Schrittes sind Maximum der\\
+Logarithmen der involvierten Zahlen. (Maximale Zahlenlänge)
+
+\strut\\
+
+\textbf{Satz:} Simulation von RAM durch TM
+
+Für jede im logarithmischen Kostenmass $t(n)$-zeitbeschränkte RAM $R$ gibt es ein Polynom $q$
+und eine $q(n + t(n))$-zeitbeschränkte TM $M$, welche $R$ simuliert.
+
+Simulation hat also \textbf{polynomiellen Overhead}.
+
+\end{document}
