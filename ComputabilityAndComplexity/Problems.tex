@@ -1,0 +1,78 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\setcounter{section}{-1}
+
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+\newcommand{\eps}[0]{\varepsilon}
+\newcommand{\godel}[1]{\langle #1 \rangle}
+
+\begin{document}
+
+\section*{Entscheidbare Probleme}
+\begin{itemize}
+    \item Gegeben CFG $\godel{G}$, ist $L(G)$ leer / endlich / $w \in L(G)$ für ein festes $w \in \Sigma^*$.
+\end{itemize}
+
+
+
+\section*{Unentscheidbare Probleme}
+
+Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedbar.
+\begin{itemize}
+    \item Diagonalsprache $D := \{w \in \{0,1\}^* \mid w = w_i \text{ und } M_i \text{ akzeptiert } w \text{ nicht}\}$
+    \\
+\item Halteproblem $H := \{\godel{M} w \mid M \text{ hält auf } w\}$.
+\item $\eps$-Halteproblem $H_\eps := \{\godel{M} \mid M \text{ hält auf } \eps \}$.
+    \item Totales Halteproblem $H_{tot} := \{\godel{M} \mid M \text{ hält auf allen Eingaben}\}$.
+    \\
+    \item PCP, MPCP und PCP mit 5 oder mehr als 7 Dominos
+    \\
+    \item Besitzt eine elementare Funktion eine elementare Stammfunktion? (Satz von Richardson)
+    \item Dioph $:= \{\godel{p} \mid p \text{ Polynom über $\mathbb{Z}$ mit Nullstelle in $\mathbb{Z}$}\}$
+    \\
+    \item Gegeben $\godel{M}$, ist $L(M) = \Sigma^*$  / leer / (un)endlich / regulär / kontext-frei?
+    \item Gegeben CFG $\godel{G}$, ist $G$ eindeutig / $L(G) = \Sigma^*$ / $L(G)$ regulär?
+    \item Gegeben CFGs $\godel{G_1}, \godel{G_2}$, ist $L(G_1) \subseteq L(G_2)$ / $L(G_1) \cap L(G_2) = \varnothing$?
+\end{itemize}
+
+
+\section*{Rekursiv-aufzählbare Probleme}
+\begin{itemize}
+    \item $H$ (Halteproblem)
+    \item $H_\eps$ ($\eps$-Halteproblem)
+    \item $\overline{D}$ (Komplement der Diagonalsprache)
+    \item PCP und MPCP
+    \item Dioph
+\end{itemize}
+
+\newpage
+
+\section*{Nicht rekursiv-aufzählbare Probleme}
+\begin{itemize}
+    \item $\overline{H}$ (Komplement des Halteproblems)
+    \item $\overline{H_\eps}$ (Komplement des $\eps$-Halteproblems)
+    \item $H_{tot}$ und $\overline{H_{tot}}$ (Totales Halteproblem und sein Komplement)
+    \item $D$ (Diagonalsprache)
+    \item $\overline{\text{PCP}}$ und $\overline{\text{MPCP}}$
+    \item $\overline{\text{Dioph}}$
+\end{itemize}
+
+\end{document}

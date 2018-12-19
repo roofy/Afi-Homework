@@ -17,41 +17,16 @@
 \usepackage{delarray}
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
-\setcounter{section}{-1}
 
 \newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
 \newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
 \newcommand{\eps}[0]{\varepsilon}
+\newcommand{\godel}[1]{\langle #1 \rangle}
+\newcommand{\Iff}[0]{\,\Longleftrightarrow\,}
 
 \begin{document}
 
-\section{VL0}
-
-\begin{itemize}
-    \item David Hilbert
-    \item Travelling Salesman Problem (TSP)
-\end{itemize}
-
-
-\textbf{Person:} David Hilbert (1862-1943)
-\begin{itemize}
-    \item Deutscher Mathematiker
-    \item ''Wir müssen wissen, wir werden wissen.''
-\end{itemize}
-\strut\\
-
-
-\textbf{TSP} Travelling Salesman Problem
-\begin{itemize}
-    \item Eingabe: vollständiger Graph $G$, alle Kantenlängen (Gewichtung)
-    \item Ausgabe: eine Rundreise, die alle Knoten in $G$ besucht und dabei so kurz wie mögl. ist.
-    \item {\color{red}$P \neq NP$} $\,\Longrightarrow\,$  kein effizienter Algorithmus existiert
-\end{itemize}
-\strut\\
-
-\newpage
-
-\section{VL1 - Turing Maschinen I}
+\section{Turing Maschinen I}
 
 \begin{itemize}
     \item Probleme
@@ -67,7 +42,7 @@
 \textbf{Definition:} Probleme
 \begin{itemize}
     \item \textbf{Problem als Relation} $R \subseteq \Sigma^* \times \Gamma^*$ für Alphabete $\Sigma, \Gamma$
-    \item Es ist $(x,y) \in R \,\Longleftrightarrow\, y$ ist zulässige Ausgabe zur Eingabe $x$
+    \item Es ist $(x,y) \in R \Iff y$ ist zulässige Ausgabe zur Eingabe $x$
     \item Beispiel Primfaktorbestimmung:
         $$
             R := \{(x,y) \in \{0,1\}^* \times \{0,1\}^* \mid x = \text{bin}(q), y = \text{bin}(p), q,p \in \mathbb{N},
@@ -112,8 +87,8 @@ Weiteres:
     \item TM stoppt, sobald Endzustand $\overline{q}$ erreicht.
     \item Ausgabewort $y \in \Sigma^*$ beginnt Kopfposition und endet vor erstem Symbol in $\Gamma\setminus\Sigma$
     \\
-    \item akzeptiert $\,\Longleftrightarrow\,$ terminiert und Ausgabe beginnt mit 1
-    \item verwirft $\,\Longleftrightarrow\,$ terminiert und Ausgabe beginnt nicht mit 1
+    \item akzeptiert $\Iff$ terminiert und Ausgabe beginnt mit 1
+    \item verwirft $\Iff$ terminiert und Ausgabe beginnt nicht mit 1
     \\
     \item \textbf{Laufzeit} ist Anzahl von Zustandsübergängen bis zur Terminierung
     \item \textbf{Speicherbedarf} Anzahl während Berechnung besuchter Bandzellen 
@@ -178,7 +153,7 @@ $$
 
 \newpage
 
-\section{VL2 - Turing Maschinen II}
+\section{Turing Maschinen II}
 \begin{itemize}
     \item $k$-Band-TM's
     \item Simulation von $k$-Band-TM's mit 1-Band-TM's
@@ -279,12 +254,14 @@ $$
 
 \newpage
 
-\section{VL3 - Registermaschinen}
+\section{Registermaschinen}
 
 \begin{itemize}
     \item Registermaschinen
     \item Kostenmaße
     \item Simulation RAM durch TM
+    \item Simulation TM durch RAM
+    \item Collatz Problem
 \end{itemize}
 
 \textbf{Definition:} Registermaschine (RAM)
@@ -326,5 +303,700 @@ Für jede im logarithmischen Kostenmass $t(n)$-zeitbeschränkte RAM $R$ gibt es 
 und eine $q(n + t(n))$-zeitbeschränkte TM $M$, welche $R$ simuliert.
 
 Simulation hat also \textbf{polynomiellen Overhead}.
+
+Beweisidee: Verwende 2 Bänder, Unterprogramme für einzelne Zeilen des Programmes auf dem 1.
+Dann Registerinhalte auf dem 2.
+
+\newpage
+
+\textbf{Satz:} Simulation von TM durch RAM
+
+Jede $t(n)$-zeitbeschränkte TM kann durch eine RAM simuliert werden,
+die Zeitbeschränkt ist durch
+$$
+    \mathcal{O}(t(n)+n)\qquad \text{(uniformes Kostenmaß)}
+$$$$
+    \mathcal{O}((t(n)+n)\cdot \log(t(n)+n))
+    \qquad \text{(logarithmisches Kostenmaß)}
+$$
+
+Beweisidee: \textbf{O.E. einseitig beschränktes Band} (Positionen $\mathbb{N}_0$ anstatt
+$\mathbb{Z}$).\\
+Reg. 1 für Index des Kopfes, Reg. 2 für Zustand, andere für Bandinhalt.
+Programm ist if-abfragen nach Zustand und gelesenem ($\delta$ Modellierung).
+
+\strut\\
+
+\textbf{Problem:} Collatz-Problem
+
+Wird folgende Funktion bei wiederholter Anwendung stets bei jeder Eingabe
+den Wert 1 erreichen?
+$$
+    f : \mathbb{N} \to \mathbb{N}, x \mapsto
+    \begin{cases}
+        \frac{x}{2} &, x \text{ gerade}\\
+        3x+1 &, x \text{ ungerade}
+    \end{cases}
+$$
+
+
+\newpage
+
+\section{Unentscheidbarkeit I}
+
+\begin{itemize}
+    \item Abzählbarkeit
+    \item Entscheidungsprobleme
+    \item Diagonalsprache
+    \item Unterprogrammtechnik
+    \item Komplement und Entscheidbarkeit
+    \item Halteproblem
+\end{itemize}
+
+\textbf{Definition:} Abzählbarkeit
+
+Eine Menge $M$ heißt abzählbar, wenn
+$$
+    M = \varnothing\quad \lor\quad \exists c : \mathbb{N} \to M \text{ surj.}
+$$
+Wissenswertes:
+\begin{itemize}
+    \item Wenn $M$ abzählbar unendlich, gibt es eine Bijektion zwischen $\mathbb{N}$ und $M$.
+    \item $\mathbb{N}, \mathbb{Z}, \mathbb{Q}$ abzählbar.
+    \item $\{0,1\}^*$ ist abzählbar in der \textbf{kanonischen Reihenfolge}
+        $\eps, 0,1, 00, 01, 10, 11, 000, \dots$
+    \item Damit Menge der Gödelnummern und Menge der TM's ist abzählbar.
+    \\
+    \item $i$-tes Wort der kanonischen Reihenfolge über $\{0,1\}$ ist $w_i$
+    \item $i$-te TM der kanonischen Reihenfolge der Gödelnummern ist $M_i$
+    \\
+    \item $\mathcal{P}(\mathbb{N})$ ist überabzählbar (Diagonalargument)
+\end{itemize}
+
+\strut\\
+
+\textbf{Bemerkungen:} Entscheidungsprobleme
+
+\begin{itemize}
+    \item Jedes Entscheidungsproblem mit binär kodierter Eingabe entspricht
+        einem $L \subseteq \Sigma^*$
+    \item Dann ist $\mathcal{L} = \mathcal{P}(\{0,1\}^*)$ Menge aller Entscheidungsprobleme
+        überabzählbar
+    \item Da TM's abzählbar, gibt es unentscheidbare Probleme
+\end{itemize}
+
+\newpage
+
+\textbf{Definition:} Diagonalsprache
+
+Die Diagonalsprache ist definiert durch:
+$$
+    D := \{w \in \{0,1\}^* \mid w = w_i \text{ und } M_i \text{ akzeptiert } w \textbf{ nicht}\}
+$$
+Diese Sprache ist \textbf{unentscheidbar} (Diagonalargument). Beweis:
+
+Angenommen entscheidbar, dann ex. $j \in \mathbb{N}$ mit $M_j$ entscheidet $D$. Dann
+$$
+    w_j \in D \,\Longrightarrow\, M_j \text{ akzeptiert } w_j \,\Longrightarrow\, w_j \notin D
+$$
+Ebenso
+$$
+    w_j \notin D \,\Longrightarrow\, M_j \text{ akzeptiert } w_j \text{ nicht }
+    \,\Longrightarrow\, w_j \in D
+$$
+Beides Widerspruch, also Annahme falsch, also unentscheidbar.
+
+Das Komplement
+$$
+    \overline{D} = \{w \in \{0,1\}^* \mid w = w_i \text{ und } M_i \text{ akzeptiert } w\}
+$$
+ist ebenfalls unentscheidbar. (Allein schon, da entscheidbares abgeschl. unter Komplement).
+
+\strut\\
+
+\textbf{Definition:} Unterprogrammtechnik
+
+Beweistechnik zur Unentscheidbarkeit. Nehme an Problem ist entscheidbar. Benutze TM, welche dieses
+Problem entscheidet als Unterprogramm um ein bekanntlich unentscheidbares Problem zu entscheiden.
+Widerspruch, Annahme der Entscheidbarkeit muss falsch sein.
+
+\strut\\
+
+\textbf{Bemerkungen:} Komplement und Entscheidbarkeit.
+
+Per Unterprogrammtechnik folgt sofot,
+dass zu einer Sprachen $L \subseteq \{0,1\}^*$ stets gilt
+$$
+    L \text{ (un-)entscheidbar } \Iff \overline{L} \text{ (un-)entscheidbar }
+$$
+indem man Output des Unterprogramms negiert.
+
+\strut\\
+
+\textbf{Problem:} Halteproblem
+
+Das Halteproblem $H$, definiert durch
+$$
+    H := \{\langle M \rangle w \mid M \text{ hält auf } w\}
+$$
+ist nicht entscheidbar. Beweisidee: Unterprogrammtechnik, zeige Entscheidbarkeit
+des Komplements der Diagonalsprache, $\overline{D}$. Zu einer Eingabe $w$ ermitteln
+wir $i \in \mathbb{N}$ mit $w = w_i$ und lassen $M_H$ auf $\langle M_i \rangle w_i$ laufen.
+Wenn es verwirft (also $M_i$ nicht auf $w_i$ hält), verwerfen wir, sonst lassen wir einfach
+$M_i$ auf $w_i$ laufen und übernehmen den Output.
+
+\newpage
+
+\section{Unentscheidbarkeit II}
+
+
+\begin{itemize}
+    \item $\eps$-Halteproblem
+    \item Partielle Funktionen
+    \item Satz von Rice
+\end{itemize}
+
+
+\textbf{Problem:} Epsilon-Halteproblem
+
+Das $\eps$-Halteproblem $H_\eps$, definiert durch
+$$
+    H_\eps := \{\langle M \rangle \mid M \text{ hält auf } \eps\}
+$$
+ist nicht entscheidbar. Beweisidee: Unterprogrammtechnik, zeige Entscheidbarkeit vom normalen Halteproblem $H$.
+Aus Eingabe $\langle M \rangle w$ konstruiere $\langle M'\rangle$ von TM $M'$, welche $M$ auf $w$ simuliert
+und die Eingabe ignoriert. Lasse dann $M_{H_\eps}$ auf $\langle M'\rangle$ laufen.
+
+\strut\\
+
+\textbf{Definition:} Partielle Funktionen
+
+TM-berechenbare Funktionen sind partielle Funktionen. TM's halten im allgemeinen nicht.
+
+Die von einer TM $M$ berechnete Funktion ist von der Form
+$$
+    f_M : \{0,1\}^* \to \{0,1\}^* \cup \{\bot\}
+$$
+wobei $\bot$ für undefiniert steht, und bedeutet, dass $M$ nicht hält. Speziell Entscheidungsprobleme:
+$$
+    f_M : \{0,1\}^* \to \{0,1,\bot\}
+$$
+Dabie steht $0$ für Verwerfen, $1$ für Akzeptieren und $\bot$ für Nicht-Halten.
+
+\newpage
+
+\textbf{Satz:} Satz von Rice (Henry Gordon Rice, 1920-2003)
+
+Sei $\mathcal{R}$ die Menge der TM-berechenbaren partiellen Funktionen.
+Betrachte $\varnothing \neq \mathcal{S} \subsetneq \mathcal{R}$.\\
+Dann ist
+$$
+    L(\mathcal{S}) = \{\langle M \rangle \mid M \text{ berechnet eine Funktion aus } \mathcal{S}\}
+$$
+nicht entscheidbar.
+\begin{itemize}
+    \item Bsp 1: Sei $\mathcal{S} = \{f_M \mid f_M(\eps) \neq \bot\}$.
+        Dann ist $L(\mathcal{S}) = H_\eps$ unentscheidbar.
+    \item Bsp 2: Sei $\mathcal{S} = \{f_M \mid \forall w \in \{0,1\}^*: f_M(w) \neq \bot\}$.
+        $$
+            L(\mathcal{S}) = \{\godel{M} \mid M \text{ hält auf jeder Eingabe}\} =: H_{tot}
+        $$
+        ist nicht entscheidbar.
+    \item Bsp 3: Sei $\mathcal{S} = \{f_M \mid \forall w \in \{0,1\}^*: f_M(w) = 1\}$. Dann ist
+        $
+            L(\mathcal{S}) = \{\godel{M} \mid L(M) = \Sigma^*\}
+        $
+        unentscheidbar.
+\end{itemize}
+Beweisidee:
+Unterprogrammtechnik mit $H_\eps$. (Siehe Folien für mehr)
+
+Weitere Anwendungsbsp:
+\begin{itemize}
+    \item Bsp 4: Sei $L_{17} = \{\godel{M} \mid M \text{berechnet bei Eingabe 17 Ausgabe 42}\}$. Dann ist
+        $$
+            L_{17} = L(\mathcal{S})\text{ für } \mathcal{S} = \{f_M \mid f_M(\text{bin}(17)) = \text{bin}(42)\}
+        $$
+        Da $\varnothing \neq \mathcal{S} \subsetneq \mathcal{R}$ ist $L_{17}$ unentscheidbar.
+    \item Der Satz von Rice \textbf{sagt nichts über Verhalten der TM aus}.\\
+        (Zustand / Anzahl Schritte / genauere Implementierungsdetails).
+    \item Konsequenzen: Es ist nicht möglich, ob ein gegebenes Programm in einer
+        Turing-mächtigen Sprache eine gegebene nicht-triviale Spezifikation erfüllt.
+\end{itemize}
+
+\newpage
+
+\section{Rerkursive Aufzählbarkeit}
+
+\begin{itemize}
+    \item TM erkennt / Semi-Entscheidbarkeit
+    \item Aufzähler
+    \item Rekursive Aufzählbarkeit
+    \item rek. aufzählbar $\Iff$ semi-entscheidbar
+    \item Abschlusseigenschaften (semi-)entscheidbarer Sprachen
+    \item Reduktionen und Übertragungseigenschaften
+    \item Totales Halteproblem
+\end{itemize}
+
+\textbf{Definition:} TM Erkennt / Semi-entscheidbar
+
+Eine Sprache $L$ wird von einer TM $M$ erkannt, wenn $M$ jedes Wort aus $L$ akzeptiert
+und $M$ kein Wort akzeptiert, welches nicht in $L$ liegt.
+\begin{itemize}
+    \item ''Also: Die von $M$ erkannte Sprache ist genau $L(M)$.''
+    \item Wenn eine TM existiert, die eine Sprache $L$ erkennt, so ist $L$ semi-entscheidbar.
+    \item Insbesondere gilt $L$ entscheidbar $\,\Longrightarrow\,$ $L$ semi-entscheidbar.
+    \item Bsp: Das Halteproblem ist semi-entscheidbar. Einfach simulieren.
+\end{itemize}
+
+\strut\\
+
+\textbf{Definition:} Aufzähler
+
+Ein Aufzähler für eine Sprache $L \subseteq \Sigma^*$ ist eine TM mit Drucker.
+Die TM wird ohne Eingabe mit leerem Band gestartet und gibt mit der Zeit alle Wörter in $L$
+aus (mögl. Wiederholungen).
+
+Ausgegebene Wörter werden durch ein Trennzeihen $\# \notin \Sigma$ separiert.
+
+Der Drucker druckt ausschließlich Wörter aus $L$.
+
+\strut\\
+
+\textbf{Definition:} Rekursive Aufzählbarkeit
+
+Wenn es für eine Sprache $L$ einen Aufzähler gibt,
+so wird $L$ als rekursiv aufzählbar bezeichnet.
+
+\strut\\
+
+\textbf{Satz:} Äquivalenz semi-entscheidbar und rekursiv aufzählbar
+
+Zu einer Sprache $L$ haben wir
+$$
+    \exists M: M \text{ erkennt } L
+    \Iff L \text{ semi-entscheidbar }
+    \Iff L \text{ rekursiv aufzählbar }
+$$
+
+\newpage
+
+\textbf{Satz:} Abschlusseigenschaften der (Semi-)Entscheidbarkeit
+\begin{itemize}
+    \item (Semi-)Entscheidbare Sprachen sind unter $\cup,\cap$ abgeschlossen.
+    \item $L$ und $\overline{L}$ rekursiv aufzählbar $\,\Longrightarrow\,$ $L$ entscheidbar.
+    \item Entscheidbare Sprachen sind unter Komplementbildung abgeschlossen.
+    \item Semi-entscheidbare Sprachen sind \textbf{nicht} unter Komplementbildung abgeschlossen.
+
+        Betrachte dazu bspw $H$ rekursiv aufzählbar, aber nicht entscheidbar.
+\end{itemize}
+
+\strut\\
+
+\textbf{Definition:} Reduzierbarkeit
+
+Seien $L_1,L_2$ Sprachen über einem Alphabet $\Sigma$. Dann heißt $L_1$ auf $L_2$ reduzierbar ($L_1 \leq L_2$)\\
+wenn es eine berechenbare Funktion $f : \Sigma^* \to \Sigma^*$ gibt mit
+$$
+    \forall w \in \Sigma^* : w \in L_1 \Iff f(w) \in L_2
+$$
+
+\strut\\
+
+\textbf{Satz:} Übertragungseigenschaften von Reduktionen
+
+Für zwei Sprachen $L_1,L_2 \subseteq \Sigma^*$ gilt
+$$
+    (L_1 \leq L_2) \land (L_2 \text{ entscheidbar / rek. aufzählbar})
+    \,\Longrightarrow\, L_1 \text{ entscheidbar / rek. aufzählbar}
+$$
+ebenso gilt
+$$
+    (L_1 \leq L_2) \land (L_1 \text{ nicht entscheidbar / rek. aufzählbar})
+    \,\Longrightarrow\, L_1 \text{ nicht entscheidbar / rek. aufzählbar}
+$$
+
+\strut\\
+
+\textbf{Problem:} Totales Halteproblem ($H_{tot}$)
+
+Das totale Halteproblem $H_{tot}$ ist definiert durch
+$$
+    H_{tot} := \{\godel{M} \mid M \text{ hält auf jeder Eingabe} \}
+$$
+Es sind $H_{tot}$ und $\overline{H_{tot}}$ nicht rekursiv aufzählbar.
+
+Beweisidee: Zeige $\overline{H_\eps} \leq H_{tot}$ und $\overline{H_\eps} \leq \overline{H_{tot}}$.
+
+Letzteres trivial mit Reduktion, bilde $\godel{M}$ auf $\godel{M'}$ ab, wobei $M'$ Eingabe ignoriert
+und $M$ mit Eingabe $\eps$ simuliert. Bilde ausserdem Müll auf Müll ab.
+
+Ersteres:
+Wir bilden Müll auf ein festes Wort $w \in H_{tot}$ ab. Sonst sei $f(\godel{M}) = \godel{M'}$,
+wobei $M'$ bei Eingaben der Länge $\ell$ die ersten $\ell$ Schritte von $M$ bei Eingabe $\eps$ simuliert.
+Hält $M$ in diesen, so geht $M'$ in Endlosschleife, andernfalls hält $M'$.
+
+\newpage
+
+\section{Postsches Correspondenzproblem}
+
+
+\begin{itemize}
+    \item Emil Leon Post
+    \item Postsches Correspondezproblem (PCP)
+    \item Einschränkungen des PCP's
+\end{itemize}
+
+\textbf{Person:} Emil Leon Post (1897-1954)
+
+\strut\\
+
+\textbf{Problem:} Postsches Correspondenzproblem (PCP)
+
+Eine Instanz des PCP besteht aus eine endlichen Menge
+$$
+    K = \{\left[\frac{x_1}{y_1}\right], \cdots, \left[\frac{x_k}{y_k}\right]\}
+    \quad \text{ für }\quad
+    x_1,\dots,x_k,y_1,\dots,y_k \in \Sigma^+ = \Sigma^* \setminus \{\eps\}
+$$
+Elemente von $K$ nennen wir Dominos.
+Frage:
+$$
+    \text{Existiert }\quad
+    I = (i_1,i_2,\dots,i_n) \in [1,k]^n
+    \quad\text{ mit }\quad
+    x_{i_1}x_{i_2}\dots x_{i_n} = y_{i_1}y_{i_2}\dots y_{i_n}
+    \quad ?
+$$
+Die Modizierte Version, das MPCP verlangt nur, dass $I$ mit $i_1 = 1$ beginnt.
+
+Das PCP und MPCP sind \textbf{unentscheidbar}, dazu zeigt man $H$ $\leq$ MPCP $\leq$ PCP.\\
+(Details siehe VL).
+
+Aus diesen Reduktionen folgt jedoch die \textbf{rekursive Aufzählbarkeit} von MPCP und PCP.
+
+\strut\\
+
+\textbf{Probleme:} Einschränkungen des PCP's
+\begin{itemize}
+    \item Zu Wörtern der Länge 1 ist das PCP entscheidbar.
+    \item Wenn alle Wörter Länge 1 oder 2 haben ist das PCP unentscheidbar.
+    \\[5pt]
+    \item Für 1 oder 2 Dominos ist das PCP entscheidbar
+    \item Für 5 Dominos ist das PCP unentscheidbar
+    \item Für 7 oder mehr Dominos ist das PCP unentscheidbar
+\end{itemize}
+
+
+\newpage
+
+\section{Turing-Mächtigkeit}
+
+
+\begin{itemize}
+    \item Kontext-freie Grammatik (CFG)
+    \item Leerheit Schnitt zweier CFG's
+    \item Satz von Richardson (Rationale Funktion als Summe)
+    \item David Hilbert
+    \item Hilberts 10. Problem / Satz von Matiyasevich
+    \item Satz von Davi,Robinson,... (Ganzzahlige Polynome gleichstark wie TM's)
+    \item Turing-Mächtigkeit
+    \item John Conway
+    \item Conway's Game of Life
+\end{itemize}
+
+\textbf{Definition:} Eine kontext-freie Grammatik (CFG) $G$ ist ein Quadrupel $(N, \Sigma, P, S)$
+wobei
+\begin{itemize}
+    \item $N$ die Menge der Non-Terminalsymbole
+    \item $\Sigma$ das Terminalalphabet
+    \item $P$ die Menge der Regeln der Form $A \to w, A \in N, w \in (\Sigma \cup N)^*$
+    \item $S \in N$ das Startsymbol
+\end{itemize}
+
+Wir definieren $L(G)$ als die Menge aller Worte über dem Terminalalphabet $\Sigma$, die
+durch wiederholte Anwendung von Regeln in $P$ aus dem Startsymbol $S$ hergeleitet werden können.
+
+\strut\\
+
+\textbf{Problem:} Leerheit des Schnittes der Sprachen zweier CFG's
+
+Es ist unentscheidbar, ob zu zwei CFG's $G_1,G_2$ gilt, dass $L(G_1) \cap L(G_2) = \varnothing$.
+
+Beweisidee:
+\begin{itemize}
+    \item Betrachte PCP-Instanz
+        $\displaystyle\left\{\left[\frac{x_1}{y_1}\right],\dots,\left[\frac{x_n}{y_n} \right]\right\}$.\\
+    \item Es seien $a,b,c \notin x_i,y_i \forall i \in [1,n]$.
+    \item Konstruiere CFG's $G_1,G_2$ mit folgenden Regeln:
+        $$
+            G_1:\quad S\mapsto x_1Sa^1b \mid x_2 Sa^2b \mid \dots \mid x_n S^nb \mid c
+            \qquad
+            G_2:\quad S\mapsto y_1Sa^1b \mid y_2 Sa^2b \mid \dots \mid y_n S^nb \mid c
+        $$
+    \item PCP lösbar genau dann, wenn $L_1(G) \cap L_2(G) \neq \varnothing$.
+\end{itemize}
+
+\newpage
+
+\textbf{Satz:} Satz von Richardson (1968), (Integration in geschlossener Form)
+
+Es ist unentscheidbar, ob eine gegebene elementare Funktion eine elementare Stammfunktion besitzt.
+
+\strut\\
+
+\textbf{Person:} David Hilbert (1862-1943)
+
+Deutscher Mathematiker. Hilberts 10. Problem.
+
+\strut\\
+
+\textbf{Problem:} Hilberts zehntes Problem (BuK-Formulierung) / Satz von Matiyasevich
+
+Hilberts zehntes Problem handelt von diophantischen Gleichungen und ist beschrieben durch:
+$$
+    \text{Dioph} =  \{\godel{p} \mid p \text{ ist ein Polynom mit ganzzahligen Koeffizienten und mit
+    einer ganzzahligen Nullstelle}\}
+$$
+Nach dem \textbf{Satz von Matiyasevich}(1970) ist \textbf{Dioph unentscheidbar}.
+
+Jedoch ist \textbf{Dioph rekursiv aufzählbar}, was aus der Abzählbarkeit von $\mathbb{Z}^n$ folgt.
+
+\strut\\
+
+\textbf{Satz:} Satz von Davis, Robinson, Putnam, Matiyasevich. (Ganzzahlige Polynome und TM's)
+
+Der Satz besagt, dass zu $X\subseteq \mathbb{Z}$ gilt:
+$$
+    X \text{ rek. aufzählbar} \Iff
+    \exists p \in \mathbb{Z}[x_1,\dots,x_k] : X = \{x \in \mathbb{Z} \mid \exists y \in \mathbb{Z}^{k-1}: p(x,y) = 0\}
+$$
+Er sagt aus, dass \textbf{ganzzahlige Polynome so berechnugsstark wie TM's} sind.
+
+\strut\\
+
+\textbf{Definition:} Turing-Mächtigkeit
+
+Ein Rechnermodell wird als Turing-mächtig bezeichnet, wenn jede TM-berechenbare Funktion
+auch durch dieses Rechnermodell berechnet werden kann.
+
+\textbf{RAM's sind Turing-mächtig}
+
+\strut\\
+
+\textbf{Satz:} Mini-RAM / RAM mit eingeschränktem Befehlssatz ist Turing-mächtig
+
+Die Mini-RAM verfügt nurnoch über \textbf{endlich viele Register} und folgende 8 Befehle:
+
+LOAD, STORE, CLOAD, CADD, CSUB, GOTO, IF $c(0) > 0$ THEN GOTO, END.
+
+Die \textbf{Mini-RAM ist Turing-mächtig}.
+
+\newpage
+
+\textbf{Bemerkungen:} Turing-mächtige Beispiele
+\begin{itemize}
+    \item Lambda Calculus von Alonzo Church
+    \item $\mu$-rekursiven Funktion von Stephen Kleene
+    \item Alle gängigen höheren Programmiersprachen (C, Java, etc.)
+    \item Postscript, Tex, Latex
+    \item Power-Point (wegen Animationen)
+\end{itemize}
+
+\strut\\
+
+\textbf{Person:} John Horton Conway (1937-)
+
+Englischer Mathematiker, Zahlentheorie, Gruppentheorie, Game-Theory, Game Of Life
+
+\strut\\
+
+\textbf{Definition:} Conway's Game of Life (1970)
+
+Conway's Game of Life ist ein zellulärer Automat, der auf einem unendlichen 2-dimensionalen Gitter
+arbeitet. Zu jedem Zeitpunkt ist jede Zelle entweder lebend oder tod.
+
+In jedem Schritt passiert dann:
+\begin{itemize}
+    \item Eine tote Zelle mit genau 3 lebenden Nachbarn ist im nächsten Schritt lebendig.
+    \item Lebende Zellen mit weniger als 2 oder mehr als 3 lebenden Nachbarn sterben.
+    \item Alle anderen Zellen bleiben unverändert.
+\end{itemize}
+
+\textbf{Conway's Game of Life ist Turing-mächtig}.
+
+\newpage
+
+\section{LOOP und WHILE Programm I}
+\begin{itemize}
+    \item LOOP
+    \item LOOP-Programme
+    \item WHILE
+    \item WHILE ist Turing-mächtig
+\end{itemize}
+
+\textbf{Definition:} Die Programmiersprache LOOP
+\begin{itemize}
+    \item Variablen: $x_1,x_2,x_3,\dots$
+    \item Konstanten: 0 und 1
+    \item Symbole: :=, +, ;
+    \item Keywords: LOOP, DO, ENDLOOP
+    \\
+    \item $x_i := x_j + c$ für $i,j \in \mathbb{N}, c\in {0,1}$ ist ein LOOP-Programm.
+    \item Wenn $P_1,P_2$ LOOP-Programme sind, dann ist $P_1;P_2$ ein LOOP-Programm.
+    \item Falls $P$ ein LOOP-Programm ist, dann ist LOOP $x_i$ DO $P$ ENDLOOP ein LOOP-Programm.
+\end{itemize}
+Ein LOOP-Programm $P$ berechnet eine \textbf{totale} $k$-stellige Funktion der Form
+$[P] : \mathbb{N}^k \to \mathbb{N}^k$.
+
+\textbf{LOOP-Programme sind nicht Turing-mächtig}
+
+\strut\\
+
+\textbf{Bemerkungen:} Nützliche LOOP-Programme:
+\begin{itemize}
+    \item $x_i := x_j$ via $x_i := x_j + 0$.
+    \item $x_i := c$ für $c \in \mathbb{N}_0$ via festes $x_{zero} = 0$ und wiederholtem $x_i := x_i + 1$.
+    \item $x_0 := x_1 + x_2$ via LOOP-Konstrukt ($x_j := x_j + 1$ einfach $x_k$ mal)
+    \item $x_0 := x_1 \cdot x_2$ via LOOP-Konstrukt ($x_0$ Anfangs 0 und dann $x_0 := x_0 + x_1$ genau $x_2$ mal)
+    \item $x_0 := x_1 \up{-}{\large.} x_2 = \max(x_1-x_2,0)$
+    \item $x_0 := x_1 \text{ DIV } x_2$
+    \item $x_0 := x_1 \text{ MOD } x_2$
+    \item IF $x_1 = 0$ THEN $P_1$ ELSE $P_2$ ENDIF wie folgt:
+
+        $x_2 := 1; x_3 := 0$;\\
+        LOOP $x_1$ DO $x_2 := 0;x_3 := 1$ ENDLOOP;\\
+        LOOP $x_2$ DO $P_1$ ENDLOOP;\\
+        LOOP $x_3$ DO $P_2$ ENDLOOP;\\
+    \item IF $x_1 = c$ THEN $P_1$ ELSE $P_2$ ENDIF auch möglich.
+\end{itemize}
+
+\newpage
+
+\textbf{Definition:} Die Programmiersprache WHILE
+\begin{itemize}
+    \item Variablen: $x_1,x_2,x_3,\dots$
+    \item Konstanten: 0 und 1
+    \item Symbole: :=, +, ;, {\color{red}$\neq$}
+    \item Keywords: WHILE, DO, ENDWHILE
+    \\
+    \item $x_i := x_j + c$ für $i,j \in \mathbb{N}, c\in {0,1}$ ist ein WHILE-Programm.
+    \item Wenn $P_1,P_2$ WHILE-Programme sind, dann ist $P_1;P_2$ ein WHILE-Programm.
+    \item Falls $P$ ein WHILE-Programm ist, dann ist WHILE $x_i \neq 0$ DO $P$ ENDWHILE ein WHILE-Programm.
+\end{itemize}
+
+Ein WHILE-Programm $P$ berechnet eine (nicht unbedingt totale) $k$-stellige Funktion der Form
+$[P] : \mathbb{N}^k \to \mathbb{N}^k$.
+
+Jedes LOOP-Programm kann durch ein WHILE-Programm simuliert werden.
+
+\strut\\
+
+\textbf{Satz:} While-Programme sind Turing-mächtig
+
+Eine äußere Schleife WHILE Zustand $\neq 0$ DO, und dadrin dann mit if-Abfragen $\delta$ simuliert.
+(benötigt explizit sogar nur die äußerste While-Schleife, alles andere könnte mit LOOP simuliert werden).
+
+\newpage
+
+\section{LOOP und WHILE Programme II}
+
+
+\begin{itemize}
+    \item Wilhelm Ackermann
+    \item Donald Knuth
+    \item Up-Arrow-Notation
+    \item Ackermann-Funktion
+    \item Wachstumsfunktion
+    \item Wachstumslemma / LOOP nicht Turing-mächtig
+\end{itemize}
+
+\textbf{Person:} Wilhelm Ackermann (1896-1962)
+
+Deutscher Mathematiker, Schüler von Hilbert, Ackermann-Funktion.
+
+\strut\\
+
+\textbf{Person:} Donald Knuth (1938-)
+
+Amerikanischer Informatiker, Mathematiker, big-O, TeX, Up-Arrow-Notation
+
+\strut\\
+
+\textbf{Exkurs:} Up-Arrow-Notation (Donald Knuth)
+$$
+    a \uparrow^m b :=
+    \begin{cases}
+        1               &, b = 0\\
+        a \cdot b       &, m = 0\\
+        a^b \cdot b     &, m = 1\\
+        a \uparrow^{m-1}(a \uparrow^m(b-1)) &, \text{sonst}
+    \end{cases}
+$$
+Es gilt:
+\begin{itemize}
+    \item $A(1,n) \equiv 2 + (n+3) - 3$
+    \item $A(2,n) \equiv 2 \cdot (n+3) - 3$
+    \item $A(3,n) \equiv 2 \uparrow (n+3) - 3$
+    \item $A(4,n) \equiv 2 \uparrow\uparrow (n+3) - 3$
+    \item $A(m,n) \equiv 2 \uparrow^{m-2} (n+3) - 3$
+\end{itemize}
+
+\newpage
+
+\textbf{Definition:} Ackermann-Funktion
+
+Die Ackermann-Funktion $A : \mathbb{N}^2 \to \mathbb{N}$ ist rekursiv wie folgt definiert:
+$$
+    A(0,n) = n+1
+    \qquad\qquad
+    A(m+1,0) = A(m,1)
+$$$$
+    A(m+1,n+1) = A(m, A(m+1,n))
+$$
+\begin{itemize}
+    \item $A(1,n) \equiv n+2$
+    \item $A(2,n) \equiv 2n+3$
+    \item $A(3,n) \equiv 2^{n+3}-3$
+    \item $A(4,n) \equiv \underbrace{2^{2^{.^{.^{.^2}}}}}_{n+3} - 3$
+\end{itemize}
+
+Die Ackermann-Funktion ist Turing-berechenbar und streng monoton in beiden Parametern.
+
+\strut\\
+
+\textbf{Definition:} Wachstumsfunktion
+
+Zu einem LOOP-Programm $P$ und Inputs $a \in \mathbb{N}^k$ definiert man
+$
+    f_P(a) := \sum_{i=1}^{k} b_i
+$
+als die Summe der Ergebniswerte $b = [P](a)$. Die Wachstumsfunktion ist dann gegeben durch:
+$$
+    F_P(n) := \max\left\{f_P(a) \mid a \in \mathbb{N}^k, \sum_{i=1}^{k} a_i \leq n\right\}
+$$
+
+\strut\\
+
+\textbf{Satz:} Wachstumslemma
+
+Sei $P$ ein LOOP-Programm. Dann gilt:
+$$
+    \exists m_P \in \mathbb{N} : \forall n \in \mathbb{N} : F_P(n) < A(m_P,n)
+$$
+Beweisidee: Zeige via (algebraische) Induktion, dass:
+\begin{itemize}
+    \item $m_{x_i := x_j + c} = 2$.
+    \item Zu LOOP-Programmen $P,Q$ ist $m_{P;Q} = \max(m_P,m_Q)+1$.
+    \item Zu LOOP-Programm $P$ ist $m_{\text{LOOP } x_i \text{ DO } P \text{ ENDLOOP}} = m_P + 1$.
+\end{itemize}
+
+Es folgt, dass \textbf{LOOP-Programme nicht Turing-mächtig} sind, da die Ackermann TM-berechenbar,
+aber nicht LOOP-berechenbar ist.
+
+\newpage
+
+\section{Primitiv-rekursive Funktionen}
+
 
 \end{document}
