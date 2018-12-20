@@ -923,27 +923,6 @@ Amerikanischer Informatiker, Mathematiker, big-O, TeX, Up-Arrow-Notation
 
 \strut\\
 
-\textbf{Exkurs:} Up-Arrow-Notation (Donald Knuth)
-$$
-    a \uparrow^m b :=
-    \begin{cases}
-        1               &, b = 0\\
-        a \cdot b       &, m = 0\\
-        a^b \cdot b     &, m = 1\\
-        a \uparrow^{m-1}(a \uparrow^m(b-1)) &, \text{sonst}
-    \end{cases}
-$$
-Es gilt:
-\begin{itemize}
-    \item $A(1,n) \equiv 2 + (n+3) - 3$
-    \item $A(2,n) \equiv 2 \cdot (n+3) - 3$
-    \item $A(3,n) \equiv 2 \uparrow (n+3) - 3$
-    \item $A(4,n) \equiv 2 \uparrow\uparrow (n+3) - 3$
-    \item $A(m,n) \equiv 2 \uparrow^{m-2} (n+3) - 3$
-\end{itemize}
-
-\newpage
-
 \textbf{Definition:} Ackermann-Funktion
 
 Die Ackermann-Funktion $A : \mathbb{N}^2 \to \mathbb{N}$ ist rekursiv wie folgt definiert:
@@ -962,6 +941,27 @@ $$
 \end{itemize}
 
 Die Ackermann-Funktion ist Turing-berechenbar und streng monoton in beiden Parametern.
+
+\newpage
+
+\textbf{Exkurs:} Up-Arrow-Notation (Donald Knuth)
+$$
+    a \uparrow^m b :=
+    \begin{cases}
+        1               &, b = 0\\
+        a \cdot b       &, m = 0\\
+        a^b \cdot b     &, m = 1\\
+        a \uparrow^{m-1}(a \uparrow^m(b-1)) &, \text{sonst}
+    \end{cases}
+$$
+Es gilt:
+\begin{itemize}
+    \item $A(1,n) \equiv 2 + (n+3) - 3$
+    \item $A(2,n) \equiv 2 \cdot (n+3) - 3$
+    \item $A(3,n) \equiv 2 \uparrow (n+3) - 3$
+    \item $A(4,n) \equiv 2 \uparrow\uparrow (n+3) - 3$
+    \item $A(m,n) \equiv 2 \uparrow^{m-2} (n+3) - 3$
+\end{itemize}
 
 \strut\\
 
