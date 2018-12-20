@@ -31,8 +31,6 @@
     \item Gegeben CFG $\godel{G}$, ist $L(G)$ leer / endlich / $w \in L(G)$ für ein festes $w \in \Sigma^*$.
 \end{itemize}
 
-
-
 \section*{Unentscheidbare Probleme}
 
 Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedbar.
@@ -53,6 +51,7 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item Gegeben CFGs $\godel{G_1}, \godel{G_2}$, ist $L(G_1) \subseteq L(G_2)$ / $L(G_1) \cap L(G_2) = \varnothing$?
 \end{itemize}
 
+\newpage
 
 \section*{Rekursiv-aufzählbare Probleme}
 \begin{itemize}
@@ -63,8 +62,6 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item Dioph
 \end{itemize}
 
-\newpage
-
 \section*{Nicht rekursiv-aufzählbare Probleme}
 \begin{itemize}
     \item $\overline{H}$ (Komplement des Halteproblems)
@@ -74,5 +71,150 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item $\overline{\text{PCP}}$ und $\overline{\text{MPCP}}$
     \item $\overline{\text{Dioph}}$
 \end{itemize}
+
+\newpage
+
+\section*{Probleme in \textsf{P}}
+
+\begin{itemize}
+    \item SORTIEREN
+    \item Graphzusammenhang
+    \item Primzahltest
+    \item Eulerkreis
+    \item Minimaler Spannbaum
+    \item Maximaler Fluss
+    \item Maximum Matching
+    \item ggT
+    \item Konvexe Hülle in 2D
+\end{itemize}
+
+\section*{Probleme in \textsf{NP}}
+
+\begin{itemize}
+    \item SAT
+    \item 3-SAT
+    \item CLIQUE
+    \item INDEP-SET
+    \item VC (Vertex-Cover)
+    \item COLORING
+    \item HAM-CYCLE
+    \item TSP
+    \item EX-COVER
+    \item SUBSET-SUM
+    \item PARTITION
+    \item KP (Rucksack / Knapsack)
+    \item BPP
+\end{itemize}
+
+\newpage
+
+\section*{Definitionen}
+
+\textbf{SAT}
+\\[5pt]
+Eingabe: Eine Aussagenlogische Formel $\varphi$ in CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.
+\\[5pt]
+Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
+
+\strut
+
+\textbf{3-SAT}
+\\[5pt]
+Eingabe: Eine Aussagenlogische Formel $\varphi$ in 3-CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.\\
+\strut\qquad Dabei ist 3-CNF wie CNF, nur dass jede Klausul exakt 3 Literale haben muss.
+\\[5pt]
+Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
+
+\strut
+
+\textbf{CLIQUE}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ eine Clique (vollständiger Teilgraph) mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{INDEP-SET}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ eine unabhängige Menge ($S \subseteq V$ pw. nicht adjazent) mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{VC} (Vertex-Cover)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
+
+\strut
+
+\textbf{COLORING}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Gibt es eine Färbung $c : V \to [1,k]$ sodass $\forall e \in E : c(e_1) \neq c(e_2)$?
+
+\strut
+
+\textbf{HAM-CYCLE}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$
+\\[5pt]
+Frage: Besitzt $G$ einen Hamiltonkreis (geschl. Pfad, der jeden Knoten genau einmal enthält)?
+
+\strut
+
+\textbf{TSP}
+\\[5pt]
+Eingabe: Städte $1,\dots,n$, Distanzen $d(i,j) \in \mathbb{N}$ und $\gamma \in \mathbb{N}$.
+\\[5pt]
+Frage: Gibt es eine Rundreise (TSP-Tour) mit Länge $\leq \gamma$?
+
+\strut
+
+\textbf{EX-COVER}
+\\[5pt]
+Eingabe: Eine endliche Menge $X$ und $S_1,\cdots,S_M \subseteq X$
+\\[5pt]
+Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von $X$ ist?
+
+\strut
+
+\textbf{SUBSET-SUM}
+\\[5pt]
+Eingabe: $a \in \mathbb{N}^k, b \in \mathbb{N}$
+\\[5pt]
+Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = b$?
+
+\strut
+
+\textbf{KP} (Rucksack / Knapsack)
+\\[10pt]
+Eingabe: $w,p \in \mathbb{N}^k$ und $b\in \mathbb{N}$ (und $\gamma \in \mathbb{N}$)
+\\[10pt]
+Zulässige Lösung: Menge $K \subseteq [1,n]$ mit $w(K) := \sum_{i \in K} w_i \leq b$
+\\[10pt]
+Optimierungsziel: Maximiere $p(K) := \sum_{i \in K} p_i$
+\\[10pt]
+Als Entscheidungsproblem: Existiert $K$ sodass $p(k) \geq \gamma$?
+
+\strut
+
+\textbf{BPP}
+\\[10pt]
+Eingabe: $b \in \mathbb{N}$ und $w \in [1,b]^n$ (und $\gamma \in \mathbb{N}$)
+\\[10pt]
+Zulässige Lösung: $k \in \mathbb{N}$ und $f : [1,n] \to [1,k]$ sodass
+$\displaystyle\forall i \in [1,k]: \sum_{j \in f^{-1}(i)} w_j \leq b$\\
+(Zuordnung von Gewichten zu Kisten, sodass Tragkraft $b$ der Kisten nicht überschritten wird)
+\\[10pt]
+Optimierungsziel: Minimiere $k$ (= Anzahl Kisten)
+\\[10pt]
+Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $k \leq \gamma$?
+
+\strut
 
 \end{document}

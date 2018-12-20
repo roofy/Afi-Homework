@@ -96,14 +96,14 @@ Weiteres:
     \item TM $M$ \textbf{entscheidet} $L \subset \Sigma^*$ wenn $M$ $w \in L$ akzeptiert und $w \notin L$ verwirft
         (hält stets)
 \end{itemize}
-\strut\\
+\strut
 
 \textbf{Definition:} rekursive / T-berechenbare Funktionen
 
 $f : \Sigma^* \to \Sigma^*$ heißt rekursiv bzw (T-)berechenbar,\\
 wenn es eine TM gibt welche bei Eingabe $x \in \Sigma^*$ stets $f(x)$ berechnet.
 
-\strut\\
+\strut
 \textbf{Definition:} rekursive / T-entscheidbare Sprachen
 
 Eine Sprache $L \subseteq \Sigma^*$ heißt rekursiv bzw (T-)entscheidbar,\\
@@ -122,7 +122,7 @@ wenn sie in einem Rechenschritt aus $\alpha q \beta$ entsteht. Man schreibt $\al
 
 Analog schreibt man für endlich viele (auch 0) Rechenschritte $\alpha q \beta \vdash^* \alpha''q''\beta''$.
 
-\strut\\
+\strut
 
 \textbf{Techniken zur Programmierung TM's (1):} Speicher im Zustandsraum
 
@@ -133,7 +133,7 @@ $$
 $$
 Bspw sind neue Zustände für $k = 2$ dann $(q_0, BB)$ oder $(q_1, 01)$ (wenn $0,1 \in \Gamma$).
 
-\strut\\
+\strut
 
 \textbf{Techniken zur Programmierung TM's (2):} Mehrspurmaschinen
 
@@ -142,7 +142,7 @@ $$
     \Gamma_{neu} := \Gamma \cup \Gamma^k
 $$
 
-\strut\\
+\strut
 
 \textbf{Techniken zur Programmierung TM's (3):} Weiteres
 \begin{itemize}
@@ -159,8 +159,6 @@ $$
     \item Simulation von $k$-Band-TM's mit 1-Band-TM's
     \item Gödelnummern
     \item Universelle TM
-    \item Alan Turing
-    \item Alonzo Church
     \item Church-Turing-These
 \end{itemize}
 
@@ -172,7 +170,7 @@ $$
 $$
 Dabei ist Band 1 das Eingabe / Ausgabeband. Die anderen sind zunächst leer (Blanks).
 
-\strut\\
+\strut
 
 \textbf{Satz:} Simulation von $k$-Band TM's durch 1-Band-TM's
 
@@ -222,23 +220,7 @@ Eingabe ist ein Wort der Form $\langle M\rangle w$ für $w \in \{0,1\}^*$.
 
 Simulation via 3-Spur TM in \textbf{konstanter Zeit} möglich: Gödelnr auf Spur 2, Zustand auf 3.
 
-\strut\\
-
-\textbf{Person:} Alan Turing (1912-1954)
-\begin{itemize}
-    \item Englischer Mathematiker, Informatiker, Logiker, Philospher
-    \item Angesehen als Vater der theoretischen Informatik
-\end{itemize}
-
-\strut\\
-
-\textbf{Person:} Alonzo Church (1903-1995)
-\begin{itemize}
-    \item Amerikanischer Mathematiker, Logiker
-    \item Erfinder des Lambda-Calculus
-\end{itemize}
-
-\strut\\
+\strut
 
 \textbf{Behauptung:} Church-Turing-These (1930)
 
@@ -295,7 +277,7 @@ GOTO, END
 \textbf{Logarithmisches Kostenmaß:} Die Laufzeitkosten eines Schrittes sind Maximum der\\
 Logarithmen der involvierten Zahlen. (Maximale Zahlenlänge)
 
-\strut\\
+\strut
 
 \textbf{Satz:} Simulation von RAM durch TM
 
@@ -325,7 +307,7 @@ $\mathbb{Z}$).\\
 Reg. 1 für Index des Kopfes, Reg. 2 für Zustand, andere für Bandinhalt.
 Programm ist if-abfragen nach Zustand und gelesenem ($\delta$ Modellierung).
 
-\strut\\
+\strut
 
 \textbf{Problem:} Collatz-Problem
 
@@ -373,7 +355,7 @@ Wissenswertes:
     \item $\mathcal{P}(\mathbb{N})$ ist überabzählbar (Diagonalargument)
 \end{itemize}
 
-\strut\\
+\strut
 
 \textbf{Bemerkungen:} Entscheidungsprobleme
 
@@ -412,7 +394,7 @@ $$
 $$
 ist ebenfalls unentscheidbar. (Allein schon, da entscheidbares abgeschl. unter Komplement).
 
-\strut\\
+\strut
 
 \textbf{Definition:} Unterprogrammtechnik
 
@@ -420,7 +402,7 @@ Beweistechnik zur Unentscheidbarkeit. Nehme an Problem ist entscheidbar. Benutze
 Problem entscheidet als Unterprogramm um ein bekanntlich unentscheidbares Problem zu entscheiden.
 Widerspruch, Annahme der Entscheidbarkeit muss falsch sein.
 
-\strut\\
+\strut
 
 \textbf{Bemerkungen:} Komplement und Entscheidbarkeit.
 
@@ -431,7 +413,7 @@ $$
 $$
 indem man Output des Unterprogramms negiert.
 
-\strut\\
+\strut
 
 \textbf{Problem:} Halteproblem
 
@@ -467,7 +449,7 @@ ist nicht entscheidbar. Beweisidee: Unterprogrammtechnik, zeige Entscheidbarkeit
 Aus Eingabe $\langle M \rangle w$ konstruiere $\langle M'\rangle$ von TM $M'$, welche $M$ auf $w$ simuliert
 und die Eingabe ignoriert. Lasse dann $M_{H_\eps}$ auf $\langle M'\rangle$ laufen.
 
-\strut\\
+\strut
 
 \textbf{Definition:} Partielle Funktionen
 
@@ -549,7 +531,7 @@ und $M$ kein Wort akzeptiert, welches nicht in $L$ liegt.
     \item Bsp: Das Halteproblem ist semi-entscheidbar. Einfach simulieren.
 \end{itemize}
 
-\strut\\
+\strut
 
 \textbf{Definition:} Aufzähler
 
@@ -561,14 +543,14 @@ Ausgegebene Wörter werden durch ein Trennzeihen $\# \notin \Sigma$ separiert.
 
 Der Drucker druckt ausschließlich Wörter aus $L$.
 
-\strut\\
+\strut
 
 \textbf{Definition:} Rekursive Aufzählbarkeit
 
 Wenn es für eine Sprache $L$ einen Aufzähler gibt,
 so wird $L$ als rekursiv aufzählbar bezeichnet.
 
-\strut\\
+\strut
 
 \textbf{Satz:} Äquivalenz semi-entscheidbar und rekursiv aufzählbar
 
@@ -591,7 +573,7 @@ $$
         Betrachte dazu bspw $H$ rekursiv aufzählbar, aber nicht entscheidbar.
 \end{itemize}
 
-\strut\\
+\strut
 
 \textbf{Definition:} Reduzierbarkeit
 
@@ -601,7 +583,7 @@ $$
     \forall w \in \Sigma^* : w \in L_1 \Iff f(w) \in L_2
 $$
 
-\strut\\
+\strut
 
 \textbf{Satz:} Übertragungseigenschaften von Reduktionen
 
@@ -616,7 +598,7 @@ $$
     \,\Longrightarrow\, L_1 \text{ nicht entscheidbar / rek. aufzählbar}
 $$
 
-\strut\\
+\strut
 
 \textbf{Problem:} Totales Halteproblem ($H_{tot}$)
 
@@ -642,14 +624,11 @@ Hält $M$ in diesen, so geht $M'$ in Endlosschleife, andernfalls hält $M'$.
 
 
 \begin{itemize}
-    \item Emil Leon Post
     \item Postsches Correspondezproblem (PCP)
     \item Einschränkungen des PCP's
 \end{itemize}
 
-\textbf{Person:} Emil Leon Post (1897-1954)
-
-\strut\\
+\strut
 
 \textbf{Problem:} Postsches Correspondenzproblem (PCP)
 
@@ -675,7 +654,7 @@ Das PCP und MPCP sind \textbf{unentscheidbar}, dazu zeigt man $H$ $\leq$ MPCP $\
 
 Aus diesen Reduktionen folgt jedoch die \textbf{rekursive Aufzählbarkeit} von MPCP und PCP.
 
-\strut\\
+\strut
 
 \textbf{Probleme:} Einschränkungen des PCP's
 \begin{itemize}
@@ -697,11 +676,9 @@ Aus diesen Reduktionen folgt jedoch die \textbf{rekursive Aufzählbarkeit} von M
     \item Kontext-freie Grammatik (CFG)
     \item Leerheit Schnitt zweier CFG's
     \item Satz von Richardson (Rationale Funktion als Summe)
-    \item David Hilbert
     \item Hilberts 10. Problem / Satz von Matiyasevich
-    \item Satz von Davi,Robinson,... (Ganzzahlige Polynome gleichstark wie TM's)
+    \item Satz von David, Robinson,... (Ganzzahlige Polynome gleichstark wie TM's)
     \item Turing-Mächtigkeit
-    \item John Conway
     \item Conway's Game of Life
 \end{itemize}
 
@@ -717,7 +694,7 @@ wobei
 Wir definieren $L(G)$ als die Menge aller Worte über dem Terminalalphabet $\Sigma$, die
 durch wiederholte Anwendung von Regeln in $P$ aus dem Startsymbol $S$ hergeleitet werden können.
 
-\strut\\
+\strut
 
 \textbf{Problem:} Leerheit des Schnittes der Sprachen zweier CFG's
 
@@ -743,13 +720,7 @@ Beweisidee:
 
 Es ist unentscheidbar, ob eine gegebene elementare Funktion eine elementare Stammfunktion besitzt.
 
-\strut\\
-
-\textbf{Person:} David Hilbert (1862-1943)
-
-Deutscher Mathematiker. Hilberts 10. Problem.
-
-\strut\\
+\strut
 
 \textbf{Problem:} Hilberts zehntes Problem (BuK-Formulierung) / Satz von Matiyasevich
 
@@ -762,7 +733,7 @@ Nach dem \textbf{Satz von Matiyasevich}(1970) ist \textbf{Dioph unentscheidbar}.
 
 Jedoch ist \textbf{Dioph rekursiv aufzählbar}, was aus der Abzählbarkeit von $\mathbb{Z}^n$ folgt.
 
-\strut\\
+\strut
 
 \textbf{Satz:} Satz von Davis, Robinson, Putnam, Matiyasevich. (Ganzzahlige Polynome und TM's)
 
@@ -773,7 +744,7 @@ $$
 $$
 Er sagt aus, dass \textbf{ganzzahlige Polynome so berechnugsstark wie TM's} sind.
 
-\strut\\
+\strut
 
 \textbf{Definition:} Turing-Mächtigkeit
 
@@ -782,7 +753,7 @@ auch durch dieses Rechnermodell berechnet werden kann.
 
 \textbf{RAM's sind Turing-mächtig}
 
-\strut\\
+\strut
 
 \textbf{Satz:} Mini-RAM / RAM mit eingeschränktem Befehlssatz ist Turing-mächtig
 
@@ -803,13 +774,7 @@ Die \textbf{Mini-RAM ist Turing-mächtig}.
     \item Power-Point (wegen Animationen)
 \end{itemize}
 
-\strut\\
-
-\textbf{Person:} John Horton Conway (1937-)
-
-Englischer Mathematiker, Zahlentheorie, Gruppentheorie, Game-Theory, Game Of Life
-
-\strut\\
+\strut
 
 \textbf{Definition:} Conway's Game of Life (1970)
 
@@ -851,7 +816,7 @@ $[P] : \mathbb{N}^k \to \mathbb{N}^k$.
 
 \textbf{LOOP-Programme sind nicht Turing-mächtig}
 
-\strut\\
+\strut
 
 \textbf{Bemerkungen:} Nützliche LOOP-Programme:
 \begin{itemize}
@@ -890,7 +855,7 @@ $[P] : \mathbb{N}^k \to \mathbb{N}^k$.
 
 Jedes LOOP-Programm kann durch ein WHILE-Programm simuliert werden.
 
-\strut\\
+\strut
 
 \textbf{Satz:} While-Programme sind Turing-mächtig
 
@@ -903,25 +868,11 @@ Eine äußere Schleife WHILE Zustand $\neq 0$ DO, und dadrin dann mit if-Abfrage
 
 
 \begin{itemize}
-    \item Wilhelm Ackermann
-    \item Donald Knuth
-    \item Up-Arrow-Notation
     \item Ackermann-Funktion
+    \item Up-Arrow-Notation
     \item Wachstumsfunktion
     \item Wachstumslemma / LOOP nicht Turing-mächtig
 \end{itemize}
-
-\textbf{Person:} Wilhelm Ackermann (1896-1962)
-
-Deutscher Mathematiker, Schüler von Hilbert, Ackermann-Funktion.
-
-\strut\\
-
-\textbf{Person:} Donald Knuth (1938-)
-
-Amerikanischer Informatiker, Mathematiker, big-O, TeX, Up-Arrow-Notation
-
-\strut\\
 
 \textbf{Definition:} Ackermann-Funktion
 
@@ -942,7 +893,7 @@ $$
 
 Die Ackermann-Funktion ist Turing-berechenbar und streng monoton in beiden Parametern.
 
-\newpage
+\strut
 
 \textbf{Exkurs:} Up-Arrow-Notation (Donald Knuth)
 $$
@@ -963,7 +914,7 @@ Es gilt:
     \item $A(m,n) \equiv 2 \uparrow^{m-2} (n+3) - 3$
 \end{itemize}
 
-\strut\\
+\newpage
 
 \textbf{Definition:} Wachstumsfunktion
 
@@ -976,7 +927,7 @@ $$
     F_P(n) := \max\left\{f_P(a) \mid a \in \mathbb{N}^k, \sum_{i=1}^{k} a_i \leq n\right\}
 $$
 
-\strut\\
+\strut
 
 \textbf{Satz:} Wachstumslemma
 
@@ -1005,7 +956,6 @@ aber nicht LOOP-berechenbar ist.
     \item Weitere primitiv-rekursive Funktionen
     \item Bijektion $\mathbb{N}^2 \to \mathbb{N}$
     \item Äquivalenz primitiv-rekursiv und LOOP
-    \item Stephen Kleene
     \item Kleenscher $\mu$-Operator
     \item Klasse der $\mu$-rekursiven Funktionen ist Turing-mächtig
 \end{itemize}
@@ -1041,7 +991,7 @@ wieder prim.-rek.
 
 \textbf{Primitiv-rekursive Funktionen sind stets berechenbar und total}.
 
-\strut\\
+\strut
 
 \textbf{Notation:} Prädikatsfunktion
 
@@ -1070,7 +1020,7 @@ Wir schreiben $[x \geq 1]$ für $f : \mathbb{N} \to \{0,1\}, x \mapsto \begin{ca
 \end{itemize}
 \end{minipage}
 
-\strut\\
+\strut
 
 \textbf{Bemerkung} Bijektion $\mathbb{N}^2 \to \mathbb{N}$
 
@@ -1083,7 +1033,7 @@ $$
     \Omega(x_1,\cdots,x_k) := \beta(x_1,\beta(x_2,\beta(x_3,\cdots,\beta(x_{k-1},x_k)\cdots)))
 $$
 
-\strut\\
+\strut
 
 \textbf{Satz:} Äquivalenz primitiv-rekursiv und LOOP
 
@@ -1131,13 +1081,7 @@ Rückrichtung: prim.-rek. in LOOP: (Erinnerung: Ausgabe bei LOOP-Programm ist $x
         \textsc{ENDLOOP};
 \end{itemize}
 
-\strut\\
-
-\textbf{Person:} Stephen Cole Kleene (1909-1994)
-
-Amerikanischer Student von Alonzo Church. Rekursionstheorie, Kleene-stern, regexp's.
-
-\strut\\
+\strut
 
 \textbf{Definition:} Der Kleen'sche $\mu$-Operator
 
@@ -1156,7 +1100,7 @@ Bspw. ist zu $g: \mathbb{N}^3 \to \mathbb{N}$ mit $g \equiv 1$ dann $\mu g \equi
 
 Der $\mu$-Operator lässt sich wiederholt anwenden.
 
-\strut\\
+\strut
 
 \textbf{Definition:} Klasse der $\mu$-rekursiven Funktionen
 
@@ -1197,6 +1141,277 @@ ENDLOOP;
 
 \section{P versus NP}
 
+\begin{itemize}
+    \item Worst Case Laufzeit
+    \item Polynomielle Algorithmen
+    \item Komplexitätsklasse \textsf{P}
+    \item Non-deterministische Turingmaschinene (NTM's)
+    \item Laufzeit einer NTM
+    \item Komplexitätsklasse \textsf{NP}
+    \item CLIQUE
+    \item Zertifikat-Charakterisierung von \textsf{NP}
+\end{itemize}
 
+\textbf{Definition:} Worst Case Laufzeit
+
+Die Wort Case Laufzeit eines Algorithmus $A$ mit die maximalen Laufzeitkosten
+auf Eingaben der Länge $n$ bezüglich des logarithmischen Kostenmaßes der RAM.
+Wir schreiben dazu $t_A(n)$.
+
+\strut
+
+\textbf{Definition:} Polynomielle Algorithmen
+
+Ein Algorithmus $A$ heißt polynomiell (beschränkt), wenn
+$$
+    \exists \alpha \in \mathbb{N}: t_A(n) \in \mathcal{O}(n^\alpha)
+$$
+
+\strut
+
+\textbf{Definition:} Komplexitätsklasse \textsf{P}
+
+\textsf{P} ist die Klasse aller Entscheidungsprobleme, für die es einen polynomiellen
+Algorithmus gibt.
+
+\strut
+
+\textbf{Definition:} Non-deterministische Turingmaschine (NTM)
+
+Einziger Unterschied ist die Zustandsübergangs\textbf{relation}, für die nun
+$$
+    \delta \subseteq ((Q\setminus \{\overline{q}\}) \times \Gamma) \times (Q \times \Gamma \times \{L,R,N\})
+$$
+
+Die mögl. Rechenwege einer NTM können in einem Berechnungsbaum zsmgefasst werden. Dabei entsprechen
+Knoten Konfigurationen, die Wurzel der Startkonfig., die Kinder einer Konfig alle mögl. Nachfolgekonfigurationen.
+
+Wir definieren den maximalen Verzweigungsgrad
+$$
+    \Delta := \max\{|\delta(q,a)| : q \in Q \setminus \{\overline{q}\}, a \in \Gamma\}
+$$
+
+Eine NTM $M$ akzeptiert eine Eingabe $x \in \Sigma^*$, falls es \textbf{mindestens} einen Rechenweg
+von $M$, indem $M$ die Eingabe $x$ akzeptiert (im Sinne einer normalen TM). Dann ist in diesem Sinne:
+$$
+    L(M) := \{x \in \Sigma^* \mid M \text{ akzeptiert } x\}
+$$
+
+\strut
+
+\textbf{Definition:} Laufzeit einer NTM
+
+Sei $M$ eine NTM und $x \in \Sigma^*$ eine Eingabe. Die Laufzeit $T_M(x)$ ist gegeben durch:
+\begin{itemize}
+    \item Falls $x \in L(M)$, so ist $T_M(x)$ die Länge des \textbf{kürzesten akzeptierenden} Rechenweges.
+    \item Falls $x \notin L(M)$, so ist $T_M(x) := 0$.
+\end{itemize}
+Die \textbf{Worst Case Laufzeit} der NTM $M$ auf Eingaben der Länge $n$ ist dann
+$$
+    t_M(n) := \max\{T_M(x) \mid x \in \Sigma^n\}
+$$
+
+\strut
+
+\textbf{Definition:} Komplexitätsklasse \textsf{NP}
+
+\textsf{NP} ist die Klasse alle Entscheidungsprobleme, die durch eine NTM $M$ erkannt werden,
+derne Worst Case Laufzeit $t_M(n)$ polynomiell beschränkt ist.
+
+\strut
+
+\textbf{Problem:} CLIQUE
+
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$.\\
+Frage: Enthält $G$ eine Clique (vollständigen Teilgraph) mit $\geq k$ Knoten?
+
+Es gilt CLIQUE $\in \textsf{NP}$. Beweisidee: Eine NTM $M$ mit $L(M) = $ CLIQUE geht wie folgt vor:
+\begin{itemize}
+    \item Syntaxcheck
+    \item Rate non-deterministisch einen 0-1-String $y$ der Länge $|V|$.
+    \item M akzeptiert, falls der String $y$ mindestens $k$ Einsen enthält und die Knotenmenge
+        $C := \{i \in V \mid y_i = 1\}$ eine Clique bildet.
+\end{itemize}
+
+\strut\\
+
+\textbf{Satz:} Zertifikat Charakterisierung von \textsf{NP}
+
+Eine Sprache $L \subseteq \Sigma^*$ liegt genau dann in \textsf{NP}, wenn es
+einene polynomiellen deterministischen Algorithmus $V$ und ein Polynom $p$ gibt, sodass:
+$$
+    x \in L \Iff \exists y \in \{0,1\}^*, |y| \leq p(|x|): y\#x \in L(V)
+$$
+$V$ heißt hier Verifizierer, das Wort $y \in \{0,1\}^*$ Zertifikat.
+
+\newpage
+
+\section{Polynomielle Reduktionen}
+
+\begin{itemize}
+    \item Lösungen zu SAT konstruieren
+    \item Optimierungsprobleme
+    \item \textsf{EXPTIME}
+    \item \textsf{NP} $\subseteq$ \textsf{EXPTIME}
+    \item Polynomielle Reduktionen
+\end{itemize}
+
+\textbf{Satz:} Lösungen zu SAT konstruieren
+
+Wir betrachten SAT Instanzen mit $n$ Variablen und $m$ Klauseln. Angenommen, Algorithmus $A$ entscheidet
+SAT Instanzen in $T(n,m)$ Zeit. Dann gibt es einen Algorithmus $B$, der zu erfüllbaren SAT Instanzen
+in $n\cdot T(n,m)$ eine Variablenbelegung konstruiert.
+
+Beweisidee: Lege die Variablen einzeln fest und überprüfe ob die Formel erfüllbar bleibt.
+
+\strut
+
+\textbf{Definition:} Optimierungsprobleme
+
+Die Eingabe eines Optimierungsproblems spezfiziert eine Menge $\mathcal{L}$ von zulässigen Lösungen
+zusammen mit einer Zielfunktion $f : \mathcal{L} \to \mathbb{N}$, die Kosten, Gewicht, oder Profit misst.
+Das Ziel ist dann, eine Optimale Lösung in $\mathcal{L}$ zu bestimmen.
+
+Diese Probleme lassen sich oft in ''sehr ähnliche'' Entscheidungsprobleme umwandeln.
+Hierbei fügt man dem Problem eine Schranke hinzu und fragt dann, ob es eine Lösung gibt,
+welche dieser Schranke genügt.
+
+Am Beispiel KP (Rucksackproblem): Angenommen $A \in \textsc{P}$ löst das zugehörige Entscheidungsproblem
+\begin{itemize}
+    \item Bestimme mit binärer Suche den optimalen Zielfunktionswert\\
+        (min. Profit 0, max. Summe aller Profite). Dies ist immernoch polynomiell
+    \item Bestimme beste Gegenstandswahl durch $n+1$ Aufrufe des letzten Algoritmus:\\
+        Teste ob optimaler Wert erreichbar wenn wir Gegenstand $k \in [1,n]$ nicht mitnehmen.
+\end{itemize}
+
+\strut
+
+\textbf{Definition:} \textsf{EXPTIME}
+
+\textsf{EXPTIME} ist die Klasse aller Entscheidungsprobleme,
+die durch eine DTM $M$ entschieden werden, dessen Worst Case Laufzeit $t(n)$
+durch $2^{q(n)}$ mit einem Polynom $q$ beschränkt ist.
+
+Laufzeit-Beispiele: $2^{\sqrt{n}}, 2^n, 3^n, n!, n^n$
+
+\newpage
+
+\textbf{Satz:} $\textsf{NP} \subseteq \textsf{EXPTIME}$
+
+Beweisidee:
+\begin{itemize}
+    \item Sei $L \in \textsf{NP}$. Benutze Zertifikat-Charakterisierung und erhalte Verifizierer $V \in \textsf{P}$.
+    \item Nummeriere alle möglichen Zertifikate $y \in \{0,1\}^*$  mit $|y| \leq p(|x|)$ und teste jedes mit $V$.
+    \item Es gibt ca. $2^{p(|x|)}$ von diesen, und $V$ ist polynomiell in $|x| + |y|$
+    \item Damit ist die Gesamtzeit ca. $poly(|x|)\cdot 2^{p(|x|)}$
+\end{itemize}
+
+\strut
+
+\textbf{Definition:} Polynomielle Reduktionen
+
+Es seien $L_1,L_2 \subseteq \Sigma^*$. Dann ist $L_1$ polynomiell reduzierbar auf $L_2$, geschrieben $L_1 \leq_p L_2$,
+wenn ein polynomiell berechenbares $f : \Sigma^* \to \Sigma^+$ existiert sodass:
+$$
+    \forall x \in \Sigma^* : x \in L_1 \Iff f(x) \in L_2
+$$
+Analog zu den Entscheidbarkeitsreduktionen ergibt sich:
+$$
+    (L_2 \in \textsf{P}) \land (L_1 \leq_p L_2) \,\Longrightarrow\, L_1 \in \textsf{P}
+$$
+
+\newpage
+
+\section{Satz von Cook und Levin}
+
+\begin{itemize}
+    \item \textsf{NP}-Schwierigkeit
+    \item \textsf{NP}-Vollständigkeit
+    \item SAT ist \textsf{NP}-vollständig (Cook \& Levin)
+    \item Kochrezept für \textsf{NP}-Vollständigkeitsbeweise
+    \item 3-SAT + \textsf{NP}-Vollständigkeit
+\end{itemize}
+
+\textbf{Definition:} \textsf{NP}-Schwierigkeit
+
+Ein Problem $L$ heißt \textsf{NP}-schwer (\textsf{NP}-hard) falls gilt:
+$$
+    \forall L' \in \textsf{NP} : L' \leq_p L
+$$
+Es folgt sofort
+$$
+    (L \text{ \textsf{NP}-schwer}) \land (L \in \textsf{P}) \,\Longrightarrow\, \textsf{P} = \textsf{NP}
+$$
+sowie
+$$
+    (L^* \text{ \textsf{NP}-schwer}) \land (L^* \leq_p L) \,\Longrightarrow\, L \text{ \textsf{NP}-schwer}
+$$
+
+\strut
+
+\textbf{Definition:} \textsf{NP}-vollständig
+
+Ein Problem $L$ heißt \textsf{NP}-vollständig (\textsf{NP}-complete) falls $L \in \textsf{NP}$ und $L$ 
+\textsf{NP}-schwer.
+
+Die Klasse der \textsf{NP}-vollständigen Probleme wird mit \textsf{NPC} bezeichnet.
+
+\strut
+
+\textbf{Satz:} SAT ist \textsf{NP}-vollständig (Cook \& Levin)
+
+Beweisidee:
+\begin{itemize}
+    \item Betrachte zu $L \in \textsf{NP}$ eine NTM $M$ mit $L(M) = L$.
+    \item Kodiere Verhalten von $M$ in Variablen:
+        \begin{enumerate}
+            \item Variablen $Q(t,q)$, die 1 sind, gdw. $M$ zum Zeitpunkt $t$ in Zustand $q$.
+            \item Variablen $H(t,j)$, die 1 sind, gdw. Kopf an Position $j$ zum Zeitpunkt $t$.
+            \item Variablen $B(t,j,a)$, die 1 sind, gdw zum Zeitpunkt $t$ in Zelle $j$ das Symbol $a$ steht.
+        \end{enumerate}
+    \item Erstelle Klauseln:
+        \begin{enumerate}
+            \item Zu jedem Zeitpunkt beschreiben die Variablen valide Konfiguration.
+            \item Konfiguration bei Zeit $t+1$ entsteht legal aus der zur Zeit $t$.
+            \item Start-/Endkonfiguration sind legal.
+        \end{enumerate}
+    \item Geht alles in polynomiell vielen Klauseln aus jeweils polynomiell vielen Literalen.
+\end{itemize}
+
+\newpage
+
+\textbf{Kochrezept:} Kochrezept für \textsf{NP}-Vollständigkeitsbeweise
+
+\begin{enumerate}
+    \item Man zeige $L \in \textsf{NP}$.
+    \item Man wähle eine \textsf{NP}-vollständige Sprache $L^*$.
+    \item (Reduktionsabbildung): Man konstruiere eine Funktion $f$, die Instanzen von $L^*$ auf
+        Instanzen von $L$ abbildet.
+    \item (Polynomielle Zeit): Man zeige, dass $f$ polynomiell beschränkt ist.
+    \item (Korrektheit): Man beweise, dass $f$ tatsächlich eine Reduktion ist.
+\end{enumerate}
+
+\strut
+
+\textbf{Problem:} 3-SAT + \textsf{NP}-Vollständigkeit
+
+3-SAT ist wie SAT, nur dass alle Formeln in 3-CNF (jede Klausel genau 3 Terme) sein müssen.
+
+Beweisidee:
+\begin{itemize}
+    \item 3-SAT $\in \textsf{NP}$ als Spezialfall von SAT.
+    \item Klauseln mit $< 3$ Termen durch Variablenwiederholung aufstocken.\\
+        Klauseln mit $> 3$ Termen durch Hilfsvariablen trennen:
+        $$
+            (x_1 + x_2 + x_3 + x_4)
+            \qquad\rightarrow\qquad
+            (x_1 + x_2 + h) + (\overline{h} + x_3 + x_4)
+        $$
+    \item Offensichtlich polynomiell und korrekt.
+\end{itemize}
+
+\newpage
+
+\section{}
 
 \end{document}
