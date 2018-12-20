@@ -999,4 +999,204 @@ aber nicht LOOP-berechenbar ist.
 \section{Primitiv-rekursive Funktionen}
 
 
+\begin{itemize}
+    \item Primitive-rekursive Funktionen
+    \item Prädikatsfunktion
+    \item Weitere primitiv-rekursive Funktionen
+    \item Bijektion $\mathbb{N}^2 \to \mathbb{N}$
+    \item Äquivalenz primitiv-rekursiv und LOOP
+    \item Stephen Kleene
+    \item Kleenscher $\mu$-Operator
+    \item Klasse der $\mu$-rekursiven Funktionen ist Turing-mächtig
+\end{itemize}
+
+\textbf{Definition:} Primitiv-rekursive Funktionen
+
+Die primitiv-rekursiven Funktionen setzen sich aus Basifunktionen mittles 2 Operationen zsm.
+und bilden eine Unterklasse der Funktionen $\mathbb{N}^k \to \mathbb{N}$.
+
+Die Basisfunktionen sind:
+\begin{itemize}
+    \item Konstante Funktionen, also $g: \mathbb{N}^k \to \mathbb{N}, x \mapsto c$ für $c \in \mathbb{N}$.
+    \item Projektionen, notiert $\pi_{k,i}: \mathbb{N}^k \to \mathbb{N}, x \mapsto x_i$.
+    \item Die Nachfolgerfunktion $succ : \mathbb{N} \to \mathbb{N}, x \mapsto x+1$.
+\end{itemize}
+Komposition von prim.-rek. Funktionen ist wieder prim.-rek.\\
+Das heißt, für prim.-rek. Funktionen
+$g : \mathbb{N}^a \to \mathbb{N}$ und $h_1,h_2,\dots,h_a : \mathbb{N}^b \to \mathbb{N}$ ist
+$$
+    f: \mathbb{N}^b \to \mathbb{N}, x \mapsto g(h_1(x), h_2(x), \cdots, h_a(x))
+$$
+wieder prim.-rek.
+
+Weiter können wir via primitiver Rekursion neue prim.-rek. Funktionen aus alten bauen:\\
+Seien $g: \mathbb{N}^k \to \mathbb{N}, h: \mathbb{N}^{k+2} \to \mathbb{N}$ prim.-rek.
+Dann ist $f: \mathbb{N}^{k+1} \to \mathbb{N}$, definiert durch:
+$$
+    f(0,x_1,\cdots,x_k) := g(x_1,\cdots,x_k)
+$$$$
+    f(n+1,x_1,\cdots,x_k) := h(n, f(n,x_1,\cdots,x_k), x_1,\cdots,x_k)
+$$
+wieder prim.-rek.
+
+\textbf{Primitiv-rekursive Funktionen sind stets berechenbar und total}.
+
+\strut\\
+
+\textbf{Notation:} Prädikatsfunktion
+
+Wir schreiben $[x \geq 1]$ für $f : \mathbb{N} \to \{0,1\}, x \mapsto \begin{cases}1 &, x \geq 1\\ 0 &, \text{sonst}\end{cases}$. Generell $[P]$ für ein Prädikat $P$.
+
+\newpage
+
+\textbf{Bemerkung:} Weitere primitiv-rekursive Funktionen
+
+\begin{minipage}{.5\textwidth}
+\begin{itemize}
+    \item $\text{add}:\mathbb{N}^2 \to \mathbb{N}, (x,y) \mapsto x+y$
+    \item $\text{mult}: \mathbb{N}^2 \to \mathbb{N}, (x,y) \mapsto x \cdot y$
+    \item $\text{pred}: \mathbb{N} \to \mathbb{N}, x \mapsto \max(x-1, 0)$
+    \item $\text{sub}: \mathbb{N}^2 \to \mathbb{N}, (x,y) \mapsto \max(x-y, 0)$
+    \item $[x = y], [x < y], [x \leq y] = \text{leq}$
+\end{itemize}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{itemize}
+    \item $\text{sgn} = [x \geq 1]$
+    \item $\text{binom}(n,k) = \binom{n}{k}$
+    \item $\max(x,y), \min(x,y)$
+    \item $[x \text{ ungerade}], [x \mid y], [x \text{ prim}]$
+    \item $x\text{ mod } y,\quad \text{ggT}(x,y),\quad x\text{ DIV }y = \lfloor\frac{x}{y}\rfloor$
+\end{itemize}
+\end{minipage}
+
+\strut\\
+
+\textbf{Bemerkung} Bijektion $\mathbb{N}^2 \to \mathbb{N}$
+
+Wir haben eine \textbf{primitiv-rekursive} Bijektion $\beta : \mathbb{N}^2 \to \mathbb{N}$, gegeben durch
+$$
+    \beta(x,y) := \binom{x+y+1}{2}+x
+$$
+Aus dieser lässt sich eine primitiv-rekursive Bijektion $\Omega : \mathbb{N}^{k} \to \mathbb{N}$ bauen, gegeben durch
+$$
+    \Omega(x_1,\cdots,x_k) := \beta(x_1,\beta(x_2,\beta(x_3,\cdots,\beta(x_{k-1},x_k)\cdots)))
+$$
+
+\strut\\
+
+\textbf{Satz:} Äquivalenz primitiv-rekursiv und LOOP
+
+Die Menge der primitiv-rekursiven Funktionen fällt mit der Menge der LOOP-berechenbaren zusammen.
+
+Beweisidee: LOOP in prim.-rek.:
+
+\begin{itemize}
+    \item Zuweisungen via entsprechender Veränderung des Eingabetupels, also
+        $$
+            P = [x_i := x_j + c] \qquad\text{durch}
+        $$$$
+            g_P(x) := \Omega(\pi_{k,1}(x),\cdots,\pi_{k,i-1}(x),\pi_{k,j}(x) + c, \pi_{k,i+1}(x), \cdots, \pi_{k,k}(x))
+        $$
+        Wobei $\Omega:\mathbb{N}^k \to \mathbb{N}$ bijektiv.
+    \item Hintereinanderausführung via Komposition, also
+        $$
+            P = [Q;R] \qquad\text{durch}\qquad g_P(x) := g_R(g_Q(x))
+        $$
+        Für LOOP-Programme $Q,R$.
+    \item LOOPS durch wiederholtes Hintereinanderausführen:
+        $$
+            P = [\textsc{LOOP } x_i \textsc{ DO } Q \textsc{ ENDLOOP}]
+            \qquad\text{durch}\qquad
+        $$$$
+            g_P(x) := g_Q^{x_i}(x) = g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))
+        $$
+\end{itemize}
+
+\newpage
+
+Rückrichtung: prim.-rek. in LOOP: (Erinnerung: Ausgabe bei LOOP-Programm ist $x_0$)
+\begin{itemize}
+    \item Konstante Funktionen durch $x_0 := c$.
+    \item Projektion $\pi_{k,j}$ durch $x_0 := x_j$.
+    \item Nachfolgerfunktion $succ(x_j)$ durch $x_0 := x_j + 1$.
+    \item Komposition durch ''geeignetes Hintereinanderausführen''
+    \item Primitive Rekursion (siehe def., gleiche Fkt im folgenden) durch ''bottom-up'':
+
+        $x_0 := g(x_1,\cdots,x_k)$;\\
+        $s := 0$;\\
+        \textsc{LOOP} $n$ \textsc{DO}\\
+        \strut\qquad$x_0 := h(s,x_0,x_1,\cdots,x_k)$;\\
+        \strut\qquad$s := s+1$;\\
+        \textsc{ENDLOOP};
+\end{itemize}
+
+\strut\\
+
+\textbf{Person:} Stephen Cole Kleene (1909-1994)
+
+Amerikanischer Student von Alonzo Church. Rekursionstheorie, Kleene-stern, regexp's.
+
+\strut\\
+
+\textbf{Definition:} Der Kleen'sche $\mu$-Operator
+
+Es gilt im folgenden $\min \varnothing = \bot$.
+
+Es sei $g: \mathbb{N}^{k+1} \to \mathbb{N}$ eine (partielle oder totale) Funktion.
+Der $\mu$-Operator ist definiert durch:
+$$
+    \mu g : \mathbb{N}^k \to \mathbb{N}\cup\{\bot\},
+    x \mapsto \min\{n \in \mathbb{N}\mid g(n,x) = 0 \land \forall m < n: g(m,x) \neq \bot\}
+$$
+Die resultierende Funktion gibt also die kleinste Nullstelle zu den festen letzten $k$ Parametern,
+oder $\bot$ wenn diese nicht existiert.
+
+Bspw. ist zu $g: \mathbb{N}^3 \to \mathbb{N}$ mit $g \equiv 1$ dann $\mu g \equiv \bot$
+
+Der $\mu$-Operator lässt sich wiederholt anwenden.
+
+\strut\\
+
+\textbf{Definition:} Klasse der $\mu$-rekursiven Funktionen
+
+Diese Klasse von (partiellen und totalen) Funktionen ist die kleinste, welche die Basisfunktionen enthält
+und abgeschlossen unter Komposition, primitiver-rekursion und des $\mu$-Operators ist.
+
+\newpage
+
+\textbf{Satz:} $\mu$-rekursive Funktionen sind Turing-mächtig
+
+Die Menge der $\mu$-rekursiven Funktionen fällt mit der Menge der WHILE-/TM-/RAM-berechenbaren Funktionen
+zusammen.
+
+Beweisidee: Es genügt zu zeigen, dass WHILE-Schleifen und $\mu$-Operatoren sich gegenseitig simulieren können.
+
+Man simuliert ein Programm $P$ der Form WHILE $x_i \neq 0$ DO $Q$ ENDWHILE durch
+$$
+    g_P(x_1, \cdots, x_k)
+    := g_Q^{\mu \pi_{k,i}(g_Q^n(x))}(x)
+    = \underbrace{g_Q(g_Q(g_Q(\cdots g_Q(x)\cdots)))}_{\mu \pi_{k,i}(\underbrace{g_Q(\cdots g_Q(x)\cdots)}_{n})}
+$$
+Dies benutzt den $\mu$-Operator, um das kleinste $n \in \mathbb{N}$ zu finden,
+sodass nach $\pi_{k,i}(g_Q^n(x)) = 0$ gilt, also die $i$-te Variable nach $n$-maligem Ausführen von $g_Q$
+gleich 0 ist. Dies kann auch $\bot$ sein, wenn die While-Schleife nicht terminiert.
+
+Das LOOP-Programm zu einer Funktion,
+welche aus Anwendung des $\mu$-Operators auf ein $g: \mathbb{N}^{k+1} \to \mathbb{N}$ entstanden ist,
+lautet wie folgt:
+
+$x_0 := 0$;\\
+$y := g(0,x_1,\cdots,x_k)$;\\
+WHILE $y\neq 0$ DO\\
+\strut\qquad$x_0 := x_0 +1$;\\
+\strut\qquad$y := g(x_0,x_1\cdots,x_k)$;\\
+ENDLOOP;
+
+\newpage
+
+\section{P versus NP}
+
+
+
 \end{document}
