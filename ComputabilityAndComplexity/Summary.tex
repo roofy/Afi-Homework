@@ -26,6 +26,253 @@
 
 \begin{document}
 
+\begin{center}
+    \LARGE \textbf{Probleme}
+\end{center}
+
+\section*{Entscheidbare Probleme}
+\begin{itemize}
+    \item Gegeben CFG $\godel{G}$, ist $L(G)$ leer / endlich / $w \in L(G)$ für ein festes $w \in \Sigma^*$.
+\end{itemize}
+
+\section*{Unentscheidbare Probleme}
+
+Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedbar.
+\begin{itemize}
+    \item Diagonalsprache $D := \{w \in \{0,1\}^* \mid w = w_i \text{ und } M_i \text{ akzeptiert } w \text{ nicht}\}$
+    \\
+\item Halteproblem $H := \{\godel{M} w \mid M \text{ hält auf } w\}$.
+\item $\eps$-Halteproblem $H_\eps := \{\godel{M} \mid M \text{ hält auf } \eps \}$.
+    \item Totales Halteproblem $H_{tot} := \{\godel{M} \mid M \text{ hält auf allen Eingaben}\}$.
+    \item $H_{never} := \{\godel{M} \mid M \text{ hält auf keiner Eingabe}\}$
+    \\
+    \item PCP, MPCP und PCP mit 5 oder mehr als 7 Dominos
+    \\
+    \item Besitzt eine elementare Funktion eine elementare Stammfunktion? (Satz von Richardson)
+    \item Dioph $:= \{\godel{p} \mid p \text{ Polynom über $\mathbb{Z}$ mit Nullstelle in $\mathbb{Z}$}\}$
+    \\
+    \item Gegeben $\godel{M}$, ist $L(M) = \Sigma^*$  / leer / (un)endlich / regulär / kontext-frei?
+    \item Gegeben CFG $\godel{G}$, ist $G$ eindeutig / $L(G) = \Sigma^*$ / $L(G)$ regulär?
+    \item Gegeben CFG $\godel{G}$, enthält $L(G)$ ein Palindrom?
+    \item Gegeben CFGs $\godel{G_1}, \godel{G_2}$, ist $L(G_1) \subseteq L(G_2)$ / $L(G_1) \cap L(G_2) = \varnothing$?
+\end{itemize}
+
+\newpage
+
+\section*{Rekursiv-aufzählbare Probleme}
+\begin{itemize}
+    \item $H$
+    \item $H_\eps$
+    \item $\overline{D}$
+    \item PCP und MPCP
+    \item Dioph
+\end{itemize}
+
+\section*{Nicht rekursiv-aufzählbare Probleme}
+\begin{itemize}
+    \item $\overline{H}$
+    \item $\overline{H_\eps}$
+    \item $H_{tot}$ und $\overline{H_{tot}}$
+    \item $H_{never}$
+    \item $D$
+    \item $\overline{\text{PCP}}$ und $\overline{\text{MPCP}}$
+    \item $\overline{\text{Dioph}}$
+    \item $\{\godel{M} \mid M \text{ verwirft alle Eingaben}\}$
+    \item $\{\godel{M_1}\godel{M_2} \mid L(M_1) \cap L(M_2) \neq \Sigma^*\}$ (HA 8.3)
+\end{itemize}
+
+\newpage
+
+\section*{Probleme in \textsf{P}}
+
+\begin{itemize}
+    \item SORTIEREN
+    \item Graphzusammenhang
+    \item Primzahltest
+    \item Eulerkreis
+    \item Minimaler Spannbaum
+    \item Maximaler Fluss
+    \item Maximum Matching
+    \item ggT
+    \item Konvexe Hülle in 2D
+\end{itemize}
+
+\section*{Probleme in \textsf{NP}}
+
+\begin{itemize}
+    \item SAT
+    \item 3-SAT
+    \item CLIQUE
+    \item INDEP-SET
+    \item MATCHING
+    \item VERTEX-COVER
+    \item DOMINATING-SET
+    \item COLORING
+    \item HAM-CYCLE
+    \item GI
+    \item TSP
+    \item COMPOSITE
+    \item EX-COVER
+    \item SUBSET-SUM
+    \item PARTITION
+    \item KNAPSACK
+    \item BPP
+\end{itemize}
+
+\newpage
+
+\section*{Definitionen}
+
+\textbf{SAT}
+\\[5pt]
+Eingabe: Eine Aussagenlogische Formel $\varphi$ in CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.
+\\[5pt]
+Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
+
+\strut
+
+\textbf{3-SAT}
+\\[5pt]
+Eingabe: Eine Aussagenlogische Formel $\varphi$ in 3-CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.\\
+\strut\qquad Dabei ist 3-CNF wie CNF, nur dass jede Klausul exakt 3 Literale haben muss.
+\\[5pt]
+Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
+
+\strut
+
+\textbf{CLIQUE}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ eine Clique (vollständiger Teilgraph) mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{INDEP-SET}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ eine unabhängige Menge ($S \subseteq V$ pw. nicht adjazent) mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{MATCHING} ($\leq$  INDEP-SET)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ ein Matching mit $\geq k$ Kanten?\\[5pt]
+(Matching $M \subseteq E$: Keine 2 Kanten in M haben gemeinsame Knoten).
+
+
+\strut
+
+\textbf{VERTEX-COVER}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
+
+\strut
+
+\textbf{DOMINATING-SET} ($\leq$ VERTEX-COVER)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ ein Dominating-Set mit $\leq k$ Knoten?\\[5pt]
+(Dominating-Set $D \subseteq V$: Jeder Knoten ist in $D$ enthalten oder zu einem in $D$ benachbart).
+
+\newpage
+
+\textbf{COLORING}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Gibt es eine Färbung $c : V \to [1,k]$ sodass $\forall e \in E : c(e_1) \neq c(e_2)$?
+
+\strut
+
+\textbf{HAM-CYCLE}
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$
+\\[5pt]
+Frage: Besitzt $G$ einen Hamiltonkreis (geschl. Pfad, der jeden Knoten genau einmal enthält)?
+
+\strut
+
+\textbf{GI}
+\\[5pt]
+Eingabe: Zwei ungerichtete Graphen $G_1= (V_1,E_1), G_2=(V_2,E_2)$.
+\\[5pt]
+Frage: Ist $G_1 \cong G_2$, d.h. ex Bijektion $f:V_1 \to V_2$ mit $e \in E_1 \iff (f(e_1),f(e_2)) \in E_2$?
+
+\strut
+
+\textbf{TSP}
+\\[5pt]
+Eingabe: Städte $1,\dots,n$, Distanzen $d(i,j) \in \mathbb{N}$ und $\gamma \in \mathbb{N}$.
+\\[5pt]
+Frage: Gibt es eine Rundreise (TSP-Tour) mit Länge $\leq \gamma$?
+
+\strut
+
+\textbf{COMPOSITE}
+\\[5pt]
+Eingabe: $n \in \mathbb{N}$ (kodiert als Binärzahl).
+\\[5pt]
+Frage: Ist $n$ keine Primzahl?
+
+\strut
+
+\textbf{EX-COVER}
+\\[5pt]
+Eingabe: Eine endliche Menge $X$ und $S_1,\cdots,S_M \subseteq X$
+\\[5pt]
+Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von $X$ ist?
+
+\strut
+
+\textbf{SUBSET-SUM}
+\\[5pt]
+Eingabe: $a \in \mathbb{N}^k, b \in \mathbb{N}$
+\\[5pt]
+Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = b$?
+
+\newpage
+
+\textbf{KNAPSACK}
+\\[10pt]
+Eingabe: $w,p \in \mathbb{N}^k$ und $b\in \mathbb{N}$ (und $\gamma \in \mathbb{N}$)
+\\[10pt]
+Zulässige Lösung: Menge $K \subseteq [1,n]$ mit $w(K) := \sum_{i \in K} w_i \leq b$
+\\[10pt]
+Optimierungsziel: Maximiere $p(K) := \sum_{i \in K} p_i$
+\\[10pt]
+Als Entscheidungsproblem: Existiert $K$ sodass $p(k) \geq \gamma$?
+
+\strut
+
+\textbf{BPP}
+\\[10pt]
+Eingabe: $b \in \mathbb{N}$ und $w \in [1,b]^n$ (und $\gamma \in \mathbb{N}$)
+\\[10pt]
+Zulässige Lösung: $k \in \mathbb{N}$ und $f : [1,n] \to [1,k]$ sodass
+$\displaystyle\forall i \in [1,k]: \sum_{j \in f^{-1}(i)} w_j \leq b$\\
+(Zuordnung von Gewichten zu Kisten, sodass Tragkraft $b$ der Kisten nicht überschritten wird)
+\\[10pt]
+Optimierungsziel: Minimiere $k$ (= Anzahl Kisten)
+\\[10pt]
+Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $k \leq \gamma$?
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+    \LARGE \textbf{VL-Stoff}
+\end{center}
+
 \section{Turing Maschinen I}
 
 \begin{itemize}
@@ -95,6 +342,9 @@ Weiteres:
     \\
     \item TM $M$ \textbf{entscheidet} $L \subset \Sigma^*$ wenn $M$ $w \in L$ akzeptiert und $w \notin L$ verwirft
         (hält stets)
+    \\
+    \item Jede TM kann durch eine TM mit einseitig beschränktem Band (benutzt nie Positionen $p<0$) simuliert werden.
+        Dies hat nur konstanten Overhead. (Siehe HA 2.3)
 \end{itemize}
 \strut
 
@@ -346,13 +596,19 @@ Wissenswertes:
     \item Wenn $M$ abzählbar unendlich, gibt es eine Bijektion zwischen $\mathbb{N}$ und $M$.
     \item $\mathbb{N}, \mathbb{Z}, \mathbb{Q}$ abzählbar.
     \item $\{0,1\}^*$ ist abzählbar in der \textbf{kanonischen Reihenfolge}
-        $\eps, 0,1, 00, 01, 10, 11, 000, \dots$
+        $\eps, 0,1, 00, 01, 10, 11, 000, \dots$.
     \item Damit Menge der Gödelnummern und Menge der TM's ist abzählbar.
     \\
-    \item $i$-tes Wort der kanonischen Reihenfolge über $\{0,1\}$ ist $w_i$
-    \item $i$-te TM der kanonischen Reihenfolge der Gödelnummern ist $M_i$
+    \item $i$-tes Wort der kanonischen Reihenfolge über $\{0,1\}$ ist $w_i$.
+    \item $i$-te TM der kanonischen Reihenfolge der Gödelnummern ist $M_i$.
     \\
-    \item $\mathcal{P}(\mathbb{N})$ ist überabzählbar (Diagonalargument)
+    \item $\mathcal{P}(\mathbb{N})$ ist überabzählbar (Diagonalargument).
+    \item $\mathbb{N}^* = \bigcup_{n \in \mathbb{N}}\mathbb{N}^n$ ist abzählbar. (Codiere binär
+        wie Gödelnr, dann Teilmenge von $\{0,1\}^*$)
+    \item Die Menge aller entscheidbaren Sprachen ist abzählbar (da TM's abzählbar).
+    \item Die Menge der unentscheidbaren Sprachen ist überabzählbar.
+    \item Die Menge aller Funktionen $f : \mathbb{N} \to \mathbb{N}$ ist überabzählbar
+        (Nachkommastellen in $(0,1)_\mathbb{R}$)
 \end{itemize}
 
 \strut
@@ -597,6 +853,10 @@ $$
     (L_1 \leq L_2) \land (L_1 \text{ nicht entscheidbar / rek. aufzählbar})
     \,\Longrightarrow\, L_1 \text{ nicht entscheidbar / rek. aufzählbar}
 $$
+ferner haben wir
+$$
+    L_1 \leq L_2 \,\Longrightarrow\, \overline{L_1} \leq \overline{L_2}
+$$
 
 \strut
 
@@ -798,6 +1058,7 @@ In jedem Schritt passiert dann:
     \item LOOP-Programme
     \item WHILE
     \item WHILE ist Turing-mächtig
+    \item LOOP-WHILE
 \end{itemize}
 
 \textbf{Definition:} Die Programmiersprache LOOP
@@ -825,15 +1086,14 @@ $[P] : \mathbb{N}^k \to \mathbb{N}^k$.
     \item $x_0 := x_1 + x_2$ via LOOP-Konstrukt ($x_j := x_j + 1$ einfach $x_k$ mal)
     \item $x_0 := x_1 \cdot x_2$ via LOOP-Konstrukt ($x_0$ Anfangs 0 und dann $x_0 := x_0 + x_1$ genau $x_2$ mal)
     \item $x_0 := x_1 \up{-}{\large.} x_2 = \max(x_1-x_2,0)$
-    \item $x_0 := x_1 \text{ DIV } x_2$
-    \item $x_0 := x_1 \text{ MOD } x_2$
-    \item IF $x_1 = 0$ THEN $P_1$ ELSE $P_2$ ENDIF wie folgt:
+    \item $x_0 := x_1 \text{ DIV } x_2$\quad und\quad $x_0 := x_1 \text{ MOD } x_2$
+    \item IF $x_1 = 0$ THEN $P_1$ ELSE $P_2$ ENDIF wie folgt: (IF $x_1 = c$ auch möglich)
 
         $x_2 := 1; x_3 := 0$;\\
         LOOP $x_1$ DO $x_2 := 0;x_3 := 1$ ENDLOOP;\\
         LOOP $x_2$ DO $P_1$ ENDLOOP;\\
         LOOP $x_3$ DO $P_2$ ENDLOOP;\\
-    \item IF $x_1 = c$ THEN $P_1$ ELSE $P_2$ ENDIF auch möglich.
+    \item max, min
 \end{itemize}
 
 \newpage
@@ -861,6 +1121,16 @@ Jedes LOOP-Programm kann durch ein WHILE-Programm simuliert werden.
 
 Eine äußere Schleife WHILE Zustand $\neq 0$ DO, und dadrin dann mit if-Abfragen $\delta$ simuliert.
 (benötigt explizit sogar nur die äußerste While-Schleife, alles andere könnte mit LOOP simuliert werden).
+
+\strut
+
+\textbf{Definition} LOOP-WHILE (HA 7.3)
+
+Die Programmiersprache LOOP-WHILE darf alle LOOP-keywords benutzen, und höchstens einmal
+eine WHILE-Schleife.
+
+\textbf{LOOP-WHILE ist Turing-mächtig}, da zur Simulation der Turingmaschine nur effektiv eine WHILE-Schleife
+benötigt wird (die äußeste, WHILE Zustand $\neq$ Endzustand DO ...)
 
 \newpage
 
