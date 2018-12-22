@@ -64,7 +64,6 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item $H$
     \item $H_\eps$
     \item $\overline{D}$
-    \item PCP und MPCP
     \item Dioph
 \end{itemize}
 
@@ -75,7 +74,6 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item $H_{tot}$ und $\overline{H_{tot}}$
     \item $H_{never}$
     \item $D$
-    \item $\overline{\text{PCP}}$ und $\overline{\text{MPCP}}$
     \item $\overline{\text{Dioph}}$
     \item $\{\godel{M} \mid M \text{ verwirft alle Eingaben}\}$
     \item $\{\godel{M_1}\godel{M_2} \mid L(M_1) \cap L(M_2) \neq \Sigma^*\}$ (HA 8.3)
@@ -365,7 +363,8 @@ wenn es eine TM gibt welche stets terminiert und $w \in \Sigma^*$ akzeptiert gdw
 
 Eine Konfiguration einer TM ist ein String $\alpha q \beta$, wobei $\alpha,\beta \in \Gamma^*,q \in Q$
 wobei $\beta \neq \eps$.\\
-$\alpha$ entspricht dem Wort links vom Kopf, 1. Symbol von $\beta$ unter dem Kopf (evtl. $B$), rest rechts.
+$\alpha$ entspricht dem Wort links vom Kopf, 1. Symbol von $\beta$ unter dem Kopf (evtl. $B$), Rest von $\beta$ rechts vom Kopf. Blanks werden dabei ausgelassen (außer es steht unter
+dem Kopf).
 
 $\alpha'q'\beta'$ ist \textbf{direkte Nacholgerkonfiguration} von $\alpha q \beta$,\\
 wenn sie in einem Rechenschritt aus $\alpha q \beta$ entsteht. Man schreibt $\alpha q\beta \vdash \alpha'q'\beta'$.
@@ -414,7 +413,8 @@ $$
 
 \textbf{Definition:} $k$-Band-TM
 
-Besitzt $k \in \mathbb{N}_{>0}$ Arbeitsbänder mit unabhängigen Köpfen. Zustandsübergangsfkt ist dann
+Besitzt $k \in \mathbb{N}_{>0}$ Arbeitsbänder mit unabhängigen Köpfen.
+Zustandsübergangsfunktion ist dann
 $$
     \delta : (Q\setminus \{\overline{q}\}) \times \Gamma^k \to Q \times \Gamma^k \times \{R,L,N\}^k
 $$
@@ -429,11 +429,12 @@ in Zeitbedarf $\mathcal{O}(t^2(n))$ und Platzbedarf $\mathcal{O}(s(n))$ simulier
 
 Also \textbf{quadratischer Zeitverlust} und \textbf{konstanter Speicherverlust}.
 
-Bewies vie $2k$ Spuren; Inhalt der Bänder und Positionen der Köpfe (markiert mit \#).\\
+Bewies via $2k$ Spuren; Inhalt der Bänder und Positionen der Köpfe (markiert mit \#).\\
 Jeder Rechenschritt von $M$ wird wie folgt durch $M'$ simuliert:
 \begin{itemize}
     \item Kopf steht auf linkestem \#, $M'$ kennt Zustand von $M$.
-    \item Laufe nach rechts und speichere alle Zeichen and den Kopfpositionen auf den zugeh. Bändern
+    \item Laufe nach rechts und speichere alle Zeichen an den Kopfpositionen auf den
+        zugehörigen Bändern
         im Zustand.
     \item Werte damit $\delta_M$ aus
     \item Laufe zurück und verändere entsprechend Kopfpositionen / Bandinhalte
@@ -455,7 +456,8 @@ Die Gödelnummer einer TM $M$ wird durch $\langle M \rangle$ bezeichnet.
     \item Man beschränkt sich auf TM's mit $Q= \{q_1,q_2,\cdots,q_t\}, t \geq 2$\\
         wobei $q_1,q_2$ Anfangs-/Endzustand sind. Ferner soll $\Gamma = \{0,1,B\}$.
 
-        Man kodiert den $t$-ten Übergang mit $code(t)$ in der Form $0^a10^b10^c10^d10^e$.\\
+        Man kodiert den $t$-ten Übergang mit $code(t)$ in der Form $0^a10^b10^c10^d10^e$
+        (Siehe Folien).\\
         Dann kodiert man die TM $M$ mit $s$ Übergängen durch:
         $$
             \langle M \rangle = 111code(1)11code(2)11\dots 11code(s)111
@@ -481,7 +483,7 @@ Daher (in dieser Vorlesung)
 $$
     \text{berechenbare Funktion} = \text{TM-berechenbare Funktion} = \text{rekursive Funktion}
 $$$$
-    \text{enstschiedbare Sprache} = \text{TM-entscheidbare Sprache} = \text{rekursive Sprache}
+    \text{entscheidbare Sprache} = \text{TM-entscheidbare Sprache} = \text{rekursive Sprache}
 $$
 
 \newpage
@@ -510,12 +512,12 @@ GOTO, END
 
 \begin{itemize}
     \item Inhalt des Speichers sind Elemente von $\mathbb{N}$ (beliebig groß)
-    \item Eingabe ebenfalls in $\mathbb{N}^*$, zu Beginn in den ersten Registern
+    \item Eingabe ebenfalls in $\mathbb{N}^*$, zu Beginn ''in den ersten Registern''.
     \item Andere Register mit 0 initialisiert.
     \item Befehlszähler startet mit 1. Als nächstes wird immer die Zeile, auf die der Befehlszähler
         verweist, ausgeführt.
     \item Rechnung stoppt sobald END ausgeführt wird.
-    \item Ausgabe befindet sich dann in den ersten Registern.
+    \item Ausgabe befindet sich dann ''in den ersten Registern''.
 \end{itemize}
 
 \strut
@@ -552,10 +554,9 @@ $$$$
     \qquad \text{(logarithmisches Kostenmaß)}
 $$
 
-Beweisidee: \textbf{O.E. einseitig beschränktes Band} (Positionen $\mathbb{N}_0$ anstatt
-$\mathbb{Z}$).\\
+Beweisidee: O.E. TM mit einseitig beschränktem Band.
 Reg. 1 für Index des Kopfes, Reg. 2 für Zustand, andere für Bandinhalt.
-Programm ist if-abfragen nach Zustand und gelesenem ($\delta$ Modellierung).
+Programm ist if-abfragen nach Zustand und gelesenem Symbol ($\delta$ Modellierung).
 
 \strut
 
@@ -616,11 +617,11 @@ Wissenswertes:
 \textbf{Bemerkungen:} Entscheidungsprobleme
 
 \begin{itemize}
-    \item Jedes Entscheidungsproblem mit binär kodierter Eingabe entspricht
-        einem $L \subseteq \Sigma^*$
+    \item Jedes $L \subseteq \{0,1\}^*$ entspricht Entscheidungsproblem über binär-codiertem
+        Alphabet.
     \item Dann ist $\mathcal{L} = \mathcal{P}(\{0,1\}^*)$ Menge aller Entscheidungsprobleme
-        überabzählbar
-    \item Da TM's abzählbar, gibt es unentscheidbare Probleme
+        überabzählbar.
+    \item Da TM's abzählbar, gibt es unentscheidbare Probleme.
 \end{itemize}
 
 \newpage
@@ -758,13 +759,13 @@ Weitere Anwendungsbsp:
         Da $\varnothing \neq \mathcal{S} \subsetneq \mathcal{R}$ ist $L_{17}$ unentscheidbar.
     \item Der Satz von Rice \textbf{sagt nichts über Verhalten der TM aus}.\\
         (Zustand / Anzahl Schritte / genauere Implementierungsdetails).
-    \item Konsequenzen: Es ist nicht möglich, ob ein gegebenes Programm in einer
+    \item Konsequenzen: Es ist unentscheidbar, ob ein gegebenes Programm in einer
         Turing-mächtigen Sprache eine gegebene nicht-triviale Spezifikation erfüllt.
 \end{itemize}
 
 \newpage
 
-\section{Rerkursive Aufzählbarkeit}
+\section{Rekursive Aufzählbarkeit}
 
 \begin{itemize}
     \item TM erkennt / Semi-Entscheidbarkeit
@@ -781,10 +782,10 @@ Weitere Anwendungsbsp:
 Eine Sprache $L$ wird von einer TM $M$ erkannt, wenn $M$ jedes Wort aus $L$ akzeptiert
 und $M$ kein Wort akzeptiert, welches nicht in $L$ liegt.
 \begin{itemize}
-    \item ''Also: Die von $M$ erkannte Sprache ist genau $L(M)$.''
+    \item ''Also: Die von $M$ erkannte Sprache ist genau $L(M)$''.
     \item Wenn eine TM existiert, die eine Sprache $L$ erkennt, so ist $L$ semi-entscheidbar.
     \item Insbesondere gilt $L$ entscheidbar $\,\Longrightarrow\,$ $L$ semi-entscheidbar.
-    \item Bsp: Das Halteproblem ist semi-entscheidbar. Einfach simulieren.
+    \item Bsp: Das Halteproblem ist semi-entscheidbar. (Einfach simulieren).
 \end{itemize}
 
 \strut
@@ -795,7 +796,7 @@ Ein Aufzähler für eine Sprache $L \subseteq \Sigma^*$ ist eine TM mit Drucker.
 Die TM wird ohne Eingabe mit leerem Band gestartet und gibt mit der Zeit alle Wörter in $L$
 aus (mögl. Wiederholungen).
 
-Ausgegebene Wörter werden durch ein Trennzeihen $\# \notin \Sigma$ separiert.
+Ausgegebene Wörter werden durch ein Trennzeichen $\# \notin \Sigma$ separiert.
 
 Der Drucker druckt ausschließlich Wörter aus $L$.
 
@@ -831,7 +832,7 @@ $$
 
 \strut
 
-\textbf{Definition:} Reduzierbarkeit
+\textbf{Definition:} Reduktion
 
 Seien $L_1,L_2$ Sprachen über einem Alphabet $\Sigma$. Dann heißt $L_1$ auf $L_2$ reduzierbar ($L_1 \leq L_2$)\\
 wenn es eine berechenbare Funktion $f : \Sigma^* \to \Sigma^*$ gibt mit
@@ -911,8 +912,6 @@ Die Modizierte Version, das MPCP verlangt nur, dass $I$ mit $i_1 = 1$ beginnt.
 
 Das PCP und MPCP sind \textbf{unentscheidbar}, dazu zeigt man $H$ $\leq$ MPCP $\leq$ PCP.\\
 (Details siehe VL).
-
-Aus diesen Reduktionen folgt jedoch die \textbf{rekursive Aufzählbarkeit} von MPCP und PCP.
 
 \strut
 
@@ -1028,7 +1027,7 @@ Die \textbf{Mini-RAM ist Turing-mächtig}.
 \textbf{Bemerkungen:} Turing-mächtige Beispiele
 \begin{itemize}
     \item Lambda Calculus von Alonzo Church
-    \item $\mu$-rekursiven Funktion von Stephen Kleene
+    \item $\mu$-rekursive Funktionen von Stephen Kleene
     \item Alle gängigen höheren Programmiersprachen (C, Java, etc.)
     \item Postscript, Tex, Latex
     \item Power-Point (wegen Animationen)
@@ -1039,7 +1038,7 @@ Die \textbf{Mini-RAM ist Turing-mächtig}.
 \textbf{Definition:} Conway's Game of Life (1970)
 
 Conway's Game of Life ist ein zellulärer Automat, der auf einem unendlichen 2-dimensionalen Gitter
-arbeitet. Zu jedem Zeitpunkt ist jede Zelle entweder lebend oder tod.
+arbeitet. Zu jedem Zeitpunkt ist jede Zelle entweder lebend oder tot.
 
 In jedem Schritt passiert dann:
 \begin{itemize}
@@ -1052,7 +1051,7 @@ In jedem Schritt passiert dann:
 
 \newpage
 
-\section{LOOP und WHILE Programm I}
+\section{LOOP und WHILE Programme I}
 \begin{itemize}
     \item LOOP
     \item LOOP-Programme
@@ -1192,7 +1191,8 @@ Zu einem LOOP-Programm $P$ und Inputs $a \in \mathbb{N}^k$ definiert man
 $
     f_P(a) := \sum_{i=1}^{k} b_i
 $
-als die Summe der Ergebniswerte $b = [P](a)$. Die Wachstumsfunktion ist dann gegeben durch:
+als die Summe der Ergebniswerte von $P$ bei Eingabe $a$, also $b = [P](a)$.
+Die Wachstumsfunktion ist dann gegeben durch:
 $$
     F_P(n) := \max\left\{f_P(a) \mid a \in \mathbb{N}^k, \sum_{i=1}^{k} a_i \leq n\right\}
 $$
@@ -1213,7 +1213,7 @@ Beweisidee: Zeige via (algebraische) Induktion, dass:
 \end{itemize}
 
 Es folgt, dass \textbf{LOOP-Programme nicht Turing-mächtig} sind, da die Ackermann TM-berechenbar,
-aber nicht LOOP-berechenbar ist.
+aber nicht LOOP-berechenbar ist. (wächst zu krass)
 
 \newpage
 
@@ -1221,7 +1221,7 @@ aber nicht LOOP-berechenbar ist.
 
 
 \begin{itemize}
-    \item Primitive-rekursive Funktionen
+    \item Primitiv-rekursive Funktionen
     \item Prädikatsfunktion
     \item Weitere primitiv-rekursive Funktionen
     \item Bijektion $\mathbb{N}^2 \to \mathbb{N}$
@@ -1232,8 +1232,8 @@ aber nicht LOOP-berechenbar ist.
 
 \textbf{Definition:} Primitiv-rekursive Funktionen
 
-Die primitiv-rekursiven Funktionen setzen sich aus Basifunktionen mittles 2 Operationen zsm.
-und bilden eine Unterklasse der Funktionen $\mathbb{N}^k \to \mathbb{N}$.
+Die primitiv-rekursiven Funktionen setzen sich aus Basifunktionen mittles 2 Operationen
+zusammen und bilden eine Unterklasse der Funktionen $\mathbb{N}^k \to \mathbb{N}$.
 
 Die Basisfunktionen sind:
 \begin{itemize}
@@ -1329,7 +1329,7 @@ Beweisidee: LOOP in prim.-rek.:
             P = [\textsc{LOOP } x_i \textsc{ DO } Q \textsc{ ENDLOOP}]
             \qquad\text{durch}\qquad
         $$$$
-            g_P(x) := g_Q^{x_i}(x) = g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))
+            g_P(x) := g_Q^{x_i}(x) = \underbrace{g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))}_{x_i}
         $$
 \end{itemize}
 
@@ -1340,7 +1340,7 @@ Rückrichtung: prim.-rek. in LOOP: (Erinnerung: Ausgabe bei LOOP-Programm ist $x
     \item Konstante Funktionen durch $x_0 := c$.
     \item Projektion $\pi_{k,j}$ durch $x_0 := x_j$.
     \item Nachfolgerfunktion $succ(x_j)$ durch $x_0 := x_j + 1$.
-    \item Komposition durch ''geeignetes Hintereinanderausführen''
+    \item Komposition durch ''geeignetes Hintereinanderausführen''.
     \item Primitive Rekursion (siehe def., gleiche Fkt im folgenden) durch ''bottom-up'':
 
         $x_0 := g(x_1,\cdots,x_k)$;\\
@@ -1384,7 +1384,8 @@ und abgeschlossen unter Komposition, primitiver-rekursion und des $\mu$-Operator
 Die Menge der $\mu$-rekursiven Funktionen fällt mit der Menge der WHILE-/TM-/RAM-berechenbaren Funktionen
 zusammen.
 
-Beweisidee: Es genügt zu zeigen, dass WHILE-Schleifen und $\mu$-Operatoren sich gegenseitig simulieren können.
+Beweisidee: Es genügt zu zeigen, dass WHILE-Schleifen und $\mu$-Operatoren sich gegenseitig simulieren können (da restliche Befehle wie bei LOOP sind und schon von primitiv-rekursiven
+Funktionen abgedeckt werden).
 
 Man simuliert ein Programm $P$ der Form WHILE $x_i \neq 0$ DO $Q$ ENDWHILE durch
 $$
@@ -1394,9 +1395,9 @@ $$
 $$
 Dies benutzt den $\mu$-Operator, um das kleinste $n \in \mathbb{N}$ zu finden,
 sodass nach $\pi_{k,i}(g_Q^n(x)) = 0$ gilt, also die $i$-te Variable nach $n$-maligem Ausführen von $g_Q$
-gleich 0 ist. Dies kann auch $\bot$ sein, wenn die While-Schleife nicht terminiert.
+gleich 0 ist (was ja gerade die Abbruchbedingung der While-Schleife ist). Dies kann auch $\bot$ sein, wenn die While-Schleife nicht terminiert.
 
-Das LOOP-Programm zu einer Funktion,
+Das WHILE-Programm zu einer Funktion,
 welche aus Anwendung des $\mu$-Operators auf ein $g: \mathbb{N}^{k+1} \to \mathbb{N}$ entstanden ist,
 lautet wie folgt:
 
@@ -1405,7 +1406,7 @@ $y := g(0,x_1,\cdots,x_k)$;\\
 WHILE $y\neq 0$ DO\\
 \strut\qquad$x_0 := x_0 +1$;\\
 \strut\qquad$y := g(x_0,x_1\cdots,x_k)$;\\
-ENDLOOP;
+ENDWHILE;
 
 \newpage
 
@@ -1415,7 +1416,7 @@ ENDLOOP;
     \item Worst Case Laufzeit
     \item Polynomielle Algorithmen
     \item Komplexitätsklasse \textsf{P}
-    \item Non-deterministische Turingmaschinene (NTM's)
+    \item Non-deterministische Turingmaschinen (NTM's)
     \item Laufzeit einer NTM
     \item Komplexitätsklasse \textsf{NP}
     \item CLIQUE
@@ -1424,7 +1425,7 @@ ENDLOOP;
 
 \textbf{Definition:} Worst Case Laufzeit
 
-Die Wort Case Laufzeit eines Algorithmus $A$ mit die maximalen Laufzeitkosten
+Die Wort Case Laufzeit eines Algorithmus $A$ sind die maximalen Laufzeitkosten
 auf Eingaben der Länge $n$ bezüglich des logarithmischen Kostenmaßes der RAM.
 Wir schreiben dazu $t_A(n)$.
 
@@ -1452,17 +1453,17 @@ Einziger Unterschied ist die Zustandsübergangs\textbf{relation}, für die nun
 $$
     \delta \subseteq ((Q\setminus \{\overline{q}\}) \times \Gamma) \times (Q \times \Gamma \times \{L,R,N\})
 $$
-
-Die mögl. Rechenwege einer NTM können in einem Berechnungsbaum zsmgefasst werden. Dabei entsprechen
-Knoten Konfigurationen, die Wurzel der Startkonfig., die Kinder einer Konfig alle mögl. Nachfolgekonfigurationen.
+Die mögl. Rechenwege einer NTM können in einem Berechnungsbaum zsmgefasst werden.
+Dabei entsprechen Knoten Konfigurationen, die Wurzel der Startkonfiguration,
+die Kinder einer Konfiguration allen möglichen Nachfolgekonfigurationen.
 
 Wir definieren den maximalen Verzweigungsgrad
 $$
     \Delta := \max\{|\delta(q,a)| : q \in Q \setminus \{\overline{q}\}, a \in \Gamma\}
 $$
-
-Eine NTM $M$ akzeptiert eine Eingabe $x \in \Sigma^*$, falls es \textbf{mindestens} einen Rechenweg
-von $M$, indem $M$ die Eingabe $x$ akzeptiert (im Sinne einer normalen TM). Dann ist in diesem Sinne:
+Eine NTM $M$ akzeptiert eine Eingabe $x \in \Sigma^*$,
+falls es \textbf{mindestens} einen Rechenweg von $M$ gibt,
+indem $M$ die Eingabe $x$ akzeptiert (im Sinne einer normalen TM). Dann ist in diesem Sinne:
 $$
     L(M) := \{x \in \Sigma^* \mid M \text{ akzeptiert } x\}
 $$
@@ -1572,7 +1573,8 @@ Beweisidee:
 \begin{itemize}
     \item Sei $L \in \textsf{NP}$. Benutze Zertifikat-Charakterisierung und erhalte Verifizierer $V \in \textsf{P}$.
     \item Nummeriere alle möglichen Zertifikate $y \in \{0,1\}^*$  mit $|y| \leq p(|x|)$ und teste jedes mit $V$.
-    \item Es gibt ca. $2^{p(|x|)}$ von diesen, und $V$ ist polynomiell in $|x| + |y|$
+    \item Es gibt ca. $2^{p(|x|)}$ von diesen möglichen Zertifikaten,
+        und $V$ ist polynomiell in $|x| + |y|$
     \item Damit ist die Gesamtzeit ca. $poly(|x|)\cdot 2^{p(|x|)}$
 \end{itemize}
 
@@ -1581,7 +1583,7 @@ Beweisidee:
 \textbf{Definition:} Polynomielle Reduktionen
 
 Es seien $L_1,L_2 \subseteq \Sigma^*$. Dann ist $L_1$ polynomiell reduzierbar auf $L_2$, geschrieben $L_1 \leq_p L_2$,
-wenn ein polynomiell berechenbares $f : \Sigma^* \to \Sigma^+$ existiert sodass:
+wenn ein polynomiell berechenbares $f : \Sigma^* \to \Sigma^*$ existiert sodass:
 $$
     \forall x \in \Sigma^* : x \in L_1 \Iff f(x) \in L_2
 $$
@@ -1658,7 +1660,8 @@ Beweisidee:
     \item (Reduktionsabbildung): Man konstruiere eine Funktion $f$, die Instanzen von $L^*$ auf
         Instanzen von $L$ abbildet.
     \item (Polynomielle Zeit): Man zeige, dass $f$ polynomiell beschränkt ist.
-    \item (Korrektheit): Man beweise, dass $f$ tatsächlich eine Reduktion ist.
+    \item (Korrektheit): Man beweise, dass $f$ tatsächlich eine Reduktion ist
+        (also $L^* \leq_p L$).
 \end{enumerate}
 
 \strut
