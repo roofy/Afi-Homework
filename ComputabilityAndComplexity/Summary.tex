@@ -49,12 +49,14 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item PCP, MPCP und PCP mit 5 oder mehr als 7 Dominos
     \\
     \item Besitzt eine elementare Funktion eine elementare Stammfunktion? (Satz von Richardson)
-    \item Dioph $:= \{\godel{p} \mid p \text{ Polynom über $\mathbb{Z}$ mit Nullstelle in $\mathbb{Z}$}\}$
+    \item Dioph $:= \{\godel{p} \mid p \text{ multivariates Polynom über $\mathbb{Z}$ mit Nullstelle in $\mathbb{Z}$}\}$
     \\
     \item Gegeben $\godel{M}$, ist $L(M) = \Sigma^*$  / leer / (un)endlich / regulär / kontext-frei?
     \item Gegeben CFG $\godel{G}$, ist $G$ eindeutig / $L(G) = \Sigma^*$ / $L(G)$ regulär?
     \item Gegeben CFG $\godel{G}$, enthält $L(G)$ ein Palindrom?
     \item Gegeben CFGs $\godel{G_1}, \godel{G_2}$, ist $L(G_1) \subseteq L(G_2)$ / $L(G_1) \cap L(G_2) = \varnothing$?
+    \\
+    \item Alle nicht-rekursiv-aufzählbaren Probleme (siehe unten).
 \end{itemize}
 
 \newpage
@@ -65,6 +67,8 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item $H_\eps$
     \item $\overline{D}$
     \item Dioph
+    \item $\{\godel{M}\mid w \in L(M)\}$ für festes Wort $w$.
+        (Einfach $M$ auf $w$ simulieren)
 \end{itemize}
 
 \section*{Nicht rekursiv-aufzählbare Probleme}
@@ -76,7 +80,19 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item $D$
     \item $\overline{\text{Dioph}}$
     \item $\{\godel{M} \mid M \text{ verwirft alle Eingaben}\}$
-    \item $\{\godel{M_1}\godel{M_2} \mid L(M_1) \cap L(M_2) \neq \Sigma^*\}$ (HA 8.3)
+    \item $\{\godel{M_1}\godel{M_2} \mid L(M_1) \cap L(M_2) \neq \Sigma^*\}$ (HA 8.3)\\
+    \\ Folgende aus Arbeitsheft, beweis via Varianten von Rice.
+    \item $\{\godel{M} \mid L(M) = \varnothing\}$
+    \item $\{\godel{M} \mid L(M) = \{0,1\}^*\}$
+    \item $\{\godel{M} \mid \eps \notin L(M)\}$
+    \item $\{\godel{M} \mid L(M) \text{ enthält alle Worte gerader Länge aus }\{0,1\}^* \}$
+    \item $\{\godel{M} \mid L(M) \text{ ist regulär}\}$
+    \item $\{\godel{M} \mid L(M) \text{ ist nicht regulär}\}$
+    \item $\{\godel{M} \mid L(M) \text{ ist rekursiv}\}$
+    \item $\{\godel{M} \mid L(M) \text{ ist nicht rekursiv}\}$
+    \item $\{\godel{M} \mid |L(M)| = 1\}$
+    \item $\{\godel{M} \mid |L(M)| \leq 1\}$
+    \item $\{\godel{M} \mid |L(M)| = \infty\}$
 \end{itemize}
 
 \newpage
@@ -761,7 +777,28 @@ Weitere Anwendungsbsp:
         (Zustand / Anzahl Schritte / genauere Implementierungsdetails).
     \item Konsequenzen: Es ist unentscheidbar, ob ein gegebenes Programm in einer
         Turing-mächtigen Sprache eine gegebene nicht-triviale Spezifikation erfüllt.
+    \item \textbf{Variante} (Arbeitsheft). Sei $\mathcal{E}$ eine Eigenschaft, sodass
+        rekursiv aufzählbare Sprachen $L_1 \subset L_2$ existieren mit:
+        $L_1$ erfüllt $\mathcal{E}$, $L_2$ erfüllt $\mathcal{E}$ nicht. Dann folgt schon, dass
+        $$
+            L_\mathcal{E} := \{\godel{M} \mid L(M) \text{ erfüllt } \mathcal{E}\}
+        $$
+        nicht rekursiv aufzählbar ist.
+    \item \textbf{Variante} (Arbeitsheft) Sei $\mathcal{E}$ eine Eigenschaft, sodass
+        eine unendliche rekursive Aufzählbare Sprache $L$ existiert, welche
+        die Eigenschaft $\mathcal{E}$ hat. Weiter soll
+        $$
+            \forall L' \subseteq L: L \text{ endlich}
+            \,\Longrightarrow\,
+            L \text{ erfüllt } \mathcal{E} \text{ nicht}
+        $$
+        Dann ist die Sprache
+        $$
+            L(\mathcal{E}) := \{\godel{M} \mid L(M) \text{ erfüllt }\mathcal{E}\}
+        $$
+        nicht rekursiv aufzählbar.
 \end{itemize}
+
 
 \newpage
 
@@ -985,8 +1022,7 @@ Es ist unentscheidbar, ob eine gegebene elementare Funktion eine elementare Stam
 
 Hilberts zehntes Problem handelt von diophantischen Gleichungen und ist beschrieben durch:
 $$
-    \text{Dioph} =  \{\godel{p} \mid p \text{ ist ein Polynom mit ganzzahligen Koeffizienten und mit
-    einer ganzzahligen Nullstelle}\}
+    \text{Dioph} =  \{\godel{p} \mid p \text{ ist multivariates Polynom mit ganzzahligen Koeffizienten und ganzzahliger Nullstelle}\}
 $$
 Nach dem \textbf{Satz von Matiyasevich}(1970) ist \textbf{Dioph unentscheidbar}.
 
