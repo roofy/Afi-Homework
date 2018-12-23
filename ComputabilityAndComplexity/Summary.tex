@@ -545,19 +545,32 @@ GOTO, END
 \textbf{Logarithmisches Kostenmaß:} Die Laufzeitkosten eines Schrittes sind Maximum der\\
 Logarithmen der involvierten Zahlen. (Maximale Zahlenlänge)
 
-\strut
+\newpage
 
 \textbf{Satz:} Simulation von RAM durch TM
 
 Für jede im logarithmischen Kostenmass $t(n)$-zeitbeschränkte RAM $R$ gibt es ein Polynom $q$
 und eine $q(n + t(n))$-zeitbeschränkte TM $M$, welche $R$ simuliert.
 
-Simulation hat also \textbf{polynomiellen Overhead}.
+Simulation hat also \textbf{polynomiellen Overhead}. Beweisidee:
+\begin{itemize}
+    \item 2-Band-TM. Band 1 für Unterprogramme, Band 2 Inhalt der Register.
+    \item Unterprogramme für Initialisierung, Ergebnisausgabe und jede Programmzeile.
+    \item Befehlszähler im Zustand speichern.
+    \item Simulation von einem Schritt: Sei $b$ Zustand.
+        \begin{enumerate}
+            \item Kopiere inhalt der in Programmzeile $b$ angesprochenen Registern auf Band 1.
+            \item Führe via Unterprogramm der Zeile $b$ entsprechende Operationen durch.
+            \item Kopiere Ergebnisse zurück in die in $b$ angegebenen Register auf Band 2.
+            \item Aktualisiere Programmzähler (Inkrement oder GOTO)
+        \end{enumerate}
+    \item Alle Unterprogramme Laufzeit polynomiell in der Länge von Band 2 (benutzte
+        Register). Also: Eine Laufzeit polynomiell in $n + t(n)$.
+    \item Dank Abschlusseigenschaften ist die Gesamtlaufzeit dann
+        auch polynomiell in $n+ t(n)$.
+\end{itemize}
 
-Beweisidee: Verwende 2 Bänder, Unterprogramme für einzelne Zeilen des Programmes auf dem 1.
-Dann Registerinhalte auf dem 2.
-
-\newpage
+\strut
 
 \textbf{Satz:} Simulation von TM durch RAM
 
@@ -569,10 +582,19 @@ $$$$
     \mathcal{O}((t(n)+n)\cdot \log(t(n)+n))
     \qquad \text{(logarithmisches Kostenmaß)}
 $$
-
-Beweisidee: O.E. TM mit einseitig beschränktem Band.
-Reg. 1 für Index des Kopfes, Reg. 2 für Zustand, andere für Bandinhalt.
-Programm ist if-abfragen nach Zustand und gelesenem Symbol ($\delta$ Modellierung).
+Beweisidee:
+\begin{itemize}
+    \item O.b.d.A. TM mit 1-seitig beschränktem Band. (Positionen $\mathbb{N}$)
+    \item Nummeriere Zustände und Symbole zum Speichern in Registern.
+    \item Reg 1 für Index des Kopfes, Reg 2 für Zustand,
+        Reg $n+3$ für Bandinhalt an Pos. $n$, $n \in \mathbb{N}$.
+    \item Programm besteht aus if-Abfragen von Zustand und gelesenem Symbol, die
+        dann entsprechende Register verändern (Nachahmen von $\delta$).
+    \item UNIFORM: Initialisierung in $\mathcal{O}(n)$, ein Schritt hat konstante Laufzeit,
+        also $\mathcal{O}(n+t(n))$
+    \item LOG: Banspositionen beschränkt durch $\mathcal{O}(\log(t(n)+n))$,
+        also $\mathcal{O}((t(n)+n)\log(t(n)+n))$.
+\end{itemize}
 
 \strut
 
