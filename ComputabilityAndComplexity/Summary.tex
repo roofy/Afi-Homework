@@ -1003,11 +1003,17 @@ Beweisidee:
     \item Es seien $a,b,c \notin x_i,y_i \forall i \in [1,n]$.
     \item Konstruiere CFG's $G_1,G_2$ mit folgenden Regeln:
         $$
-            G_1:\quad S\mapsto x_1Sa^1b \mid x_2 Sa^2b \mid \dots \mid x_n S^nb \mid c
+            G_1:\quad S\mapsto x_1Sa^1b \mid x_2 Sa^2b \mid \dots \mid x_n S^na^nb \mid c
             \qquad
-            G_2:\quad S\mapsto y_1Sa^1b \mid y_2 Sa^2b \mid \dots \mid y_n S^nb \mid c
+            G_2:\quad S\mapsto y_1Sa^1b \mid y_2 Sa^2b \mid \dots \mid y_n S^na^nb \mid c
         $$
-    \item PCP lösbar genau dann, wenn $L_1(G) \cap L_2(G) \neq \varnothing$.
+    \item PCP lösbar genau dann, wenn $L_1(G) \cap L_2(G) \neq \varnothing$. Bspw.
+        wenn folgende Ableitungen gleich sind:
+        $$
+            G_1 : S \up{\to}{*} x_1x_4x_2x_5x_1x_4\,c\,a^4ba^1ba^5ba^2ba^4ba^1b
+        $$$$
+            G_2 : S \up{\to}{*} y_1y_4y_2y_5y_1y_4\,c\,a^4ba^1ba^5ba^2ba^4ba^1b
+        $$
 \end{itemize}
 
 \newpage
