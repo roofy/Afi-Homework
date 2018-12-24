@@ -111,24 +111,24 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item Konvexe Hülle in 2D
 \end{itemize}
 
-\section*{Probleme in \textsf{NP}}
+\section*{Probleme in \textsf{NP} ({\color{red}\textsf{NP}-vollständig})}
 
 \begin{itemize}
-    \item SAT
-    \item 3-SAT
-    \item CLIQUE
-    \item INDEP-SET
+    \item[\color{red}$\bullet$] SAT
+    \item[\color{red}$\bullet$] 3-SAT
+    \item[\color{red}$\bullet$] CLIQUE
+    \item[\color{red}$\bullet$] INDEP-SET
     \item MATCHING
-    \item VERTEX-COVER
+    \item[\color{red}$\bullet$] VERTEX-COVER
     \item DOMINATING-SET
-    \item COLORING
+    \item[\color{red}$\bullet$] COLORING
     \item HAM-CYCLE
     \item GI
     \item TSP
     \item COMPOSITE
-    \item EX-COVER
-    \item SUBSET-SUM
-    \item PARTITION
+    \item[\color{red}$\bullet$] EX-COVER
+    \item[\color{red}$\bullet$] SUBSET-SUM
+    \item[\color{red}$\bullet$] PARTITION
     \item KNAPSACK
     \item BPP
 \end{itemize}
@@ -1126,7 +1126,8 @@ In jedem Schritt passiert dann:
 
 \textbf{Definition:} Die Programmiersprache LOOP
 \begin{itemize}
-    \item Variablen: $x_1,x_2,x_3,\dots$
+    \item Variablen: $x_1,x_2,x_3,\dots$ und $x_0$ zur Ausgabe.
+        Eingabe in $x_1,\cdots,x_m$ (mit 0 initialisiert).
     \item Konstanten: 0 und 1
     \item Symbole: :=, +, ;
     \item Keywords: LOOP, DO, ENDLOOP
@@ -1163,7 +1164,8 @@ $[P] : \mathbb{N}^k \to \mathbb{N}^k$.
 
 \textbf{Definition:} Die Programmiersprache WHILE
 \begin{itemize}
-    \item Variablen: $x_1,x_2,x_3,\dots$
+    \item Variablen: $x_1,x_2,x_3,\dots$ und $x_0$ zur Ausgabe.
+        Eingabe in $x_1,\cdots,x_m$ (mit 0 initialisiert).
     \item Konstanten: 0 und 1
     \item Symbole: :=, +, ;, {\color{red}$\neq$}
     \item Keywords: WHILE, DO, ENDWHILE
@@ -1550,8 +1552,9 @@ $$
 
 \textbf{Definition:} Komplexitätsklasse \textsf{NP}
 
-\textsf{NP} ist die Klasse alle Entscheidungsprobleme, die durch eine NTM $M$ erkannt werden,
-derne Worst Case Laufzeit $t_M(n)$ polynomiell beschränkt ist.
+\textsf{NP} ist die Klasse alle Entscheidungsprobleme,
+die durch eine NTM $M$ erkannt werden,
+deren Worst Case Laufzeit $t_M(n)$ polynomiell beschränkt ist.
 
 \strut
 
@@ -1746,6 +1749,13 @@ Beweisidee:
         $$
     \item Offensichtlich polynomiell und korrekt.
 \end{itemize}
+
+\strut
+
+\textbf{Bemerkung} Richard Manning Karp's Liste mit 21 \textsf{NP}-vollständigen Problemen
+
+Die Probleme dieser Liste, welche in der VL drankamen, sind zu Anfang des Dokuments
+in der Liste der \textsf{NP}-Probleme {\color{red} rot markiert}.
 
 \newpage
 
