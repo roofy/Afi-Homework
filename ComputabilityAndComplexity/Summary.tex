@@ -124,13 +124,13 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item[\color{red}$\bullet$] COLORING
     \item HAM-CYCLE
     \item GI
-    \item TSP
     \item COMPOSITE
     \item[\color{red}$\bullet$] EX-COVER
     \item[\color{red}$\bullet$] SUBSET-SUM
     \item[\color{red}$\bullet$] PARTITION
     \item KNAPSACK
     \item BPP
+    \item TSP
 \end{itemize}
 
 \newpage
@@ -221,14 +221,6 @@ Frage: Ist $G_1 \cong G_2$, d.h. ex Bijektion $f:V_1 \to V_2$ mit $e \in E_1 \if
 
 \strut
 
-\textbf{TSP}
-\\[5pt]
-Eingabe: Städte $1,\dots,n$, Distanzen $d(i,j) \in \mathbb{N}$ und $\gamma \in \mathbb{N}$.
-\\[5pt]
-Frage: Gibt es eine Rundreise (TSP-Tour) mit Länge $\leq \gamma$?
-
-\strut
-
 \textbf{COMPOSITE}
 \\[5pt]
 Eingabe: $n \in \mathbb{N}$ (kodiert als Binärzahl).
@@ -276,6 +268,20 @@ $\displaystyle\forall i \in [1,k]: \sum_{j \in f^{-1}(i)} w_j \leq b$\\
 Optimierungsziel: Minimiere $k$ (= Anzahl Kisten)
 \\[10pt]
 Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $k \leq \gamma$?
+
+\strut
+
+\textbf{TSP}
+\\[5pt]
+Eingabe: $d(i,j) \in \mathbb{N}$ für $1 \leq i \neq j \leq n$ (und $\gamma \in \mathbb{N}$)
+\\[5pt]
+Zulässige Lösung: Permutation $\pi \in S_n$.
+\\[5pt]
+Optimierungsziel: Minimiere $\displaystyle d(\pi) := \sum_{i=1}^{n-1} d(\pi_i,\pi_{i+1}) + d(\pi_n, \pi_1)$ 
+\\[5pt]
+Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $d(\pi) \leq \gamma$?
+\strut
+
 
 
 \newpage
