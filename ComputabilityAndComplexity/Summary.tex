@@ -122,7 +122,7 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item[\color{red}$\bullet$] VERTEX-COVER
     \item DOMINATING-SET
     \item[\color{red}$\bullet$] COLORING
-    \item HAM-CYCLE
+    \item[\color{red}$\bullet$] (D-)HAM-CYCLE
     \item GI
     \item COMPOSITE
     \item[\color{red}$\bullet$] EX-COVER
@@ -130,14 +130,14 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item[\color{red}$\bullet$] PARTITION
     \item KNAPSACK
     \item BPP
-    \item TSP
+    \item[\color{red}$\bullet$] TSP ($\Delta$-TSP, $\{1,2\}$-TSP)
 \end{itemize}
 
 \newpage
 
 \section*{Definitionen}
 
-\textbf{SAT}
+\textbf{SAT} (\textsf{NP}-vollständig; Satz von Cook und Levin)
 \\[5pt]
 Eingabe: Eine Aussagenlogische Formel $\varphi$ in CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.
 \\[5pt]
@@ -145,7 +145,7 @@ Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1
 
 \strut
 
-\textbf{3-SAT}
+\textbf{3-SAT} (\textsf{NP}-vollständig; SAT $\leq_p$ 3-SAT)
 \\[5pt]
 Eingabe: Eine Aussagenlogische Formel $\varphi$ in 3-CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.\\
 \strut\qquad Dabei ist 3-CNF wie CNF, nur dass jede Klausul exakt 3 Literale haben muss.
@@ -154,7 +154,7 @@ Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1
 
 \strut
 
-\textbf{CLIQUE}
+\textbf{CLIQUE} (\textsf{NP}-vollständig; SAT $\leq_p$ CLIQUE)
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -162,7 +162,7 @@ Frage: Enthält $G$ eine Clique (vollständiger Teilgraph) mit $\geq k$ Knoten?
 
 \strut
 
-\textbf{INDEP-SET}
+\textbf{INDEP-SET} (\textsf{NP}-vollständig; CLIQUE $\leq_p$ INDEP-SET)
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -170,7 +170,15 @@ Frage: Enthält $G$ eine unabhängige Menge ($S \subseteq V$ pw. nicht adjazent)
 
 \strut
 
-\textbf{MATCHING} ($\leq$  INDEP-SET)
+\textbf{VERTEX-COVER} (\textsf{NP}-vollständig; INDEP-SET $\leq_p$ VERTEX-COVER)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
+
+\strut
+
+\textbf{MATCHING}
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -180,15 +188,7 @@ Frage: Enthält $G$ ein Matching mit $\geq k$ Kanten?\\[5pt]
 
 \strut
 
-\textbf{VERTEX-COVER}
-\\[5pt]
-Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
-\\[5pt]
-Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
-
-\strut
-
-\textbf{DOMINATING-SET} ($\leq$ VERTEX-COVER)
+\textbf{DOMINATING-SET}
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -205,7 +205,15 @@ Frage: Gibt es eine Färbung $c : V \to [1,k]$ sodass $\forall e \in E : c(e_1) 
 
 \strut
 
-\textbf{HAM-CYCLE}
+\textbf{D-HAM-CYCLE} (\textsf{NP}-vollständig; SAT $\leq_p$ D-HAM-CYCLE)
+\\[5pt]
+Eingabe: Ein gerichteter Graph $G = (V,A)$
+\\[5pt]
+Frage: Besitzt $G$ einen gerichteten Hamiltonkreis?
+
+\strut
+
+\textbf{HAM-CYCLE} (\textsf{NP}-vollständig; D-HAM-CYCLE $\leq_p$ HAM-CYCLE)
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$
 \\[5pt]
@@ -271,7 +279,23 @@ Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $k \leq \gamma$?
 
 \strut
 
-\textbf{TSP}
+$\{1,2\}$-\textbf{TSP} (\textsf{NP}-vollständig, HAM-CYCLE $\leq_p \{1,2\}$-TSP)
+\\[5pt]
+Eingabe: Städte $1,...,n$; symm. Dist. $d(i,j) \in \{1,2\}$; $\gamma \in \mathbb{N}$
+\\[5pt]
+Frage: Gibt es eine Rundreise mit Länge höchstens $\gamma$?
+
+\strut
+
+$\Delta$-\textbf{TSP} (\textsf{NP}-vollständig, folgt aus $\{1,2\}$-TSP)
+\\[5pt]
+Eingabe: Städte $1,...,n$; symm. Dist. $d(i,j)$, welche Dreiecksungleichung erfüllen; $\gamma \in \mathbb{N}$
+\\[5pt]
+Frage: Gibt es eine Rundreise mit Länge höchstens $\gamma$?
+
+\strut
+
+\textbf{TSP} (\textsf{NP}-vollständig, folgt aus $\{1,2\}$-TSP)
 \\[5pt]
 Eingabe: $d(i,j) \in \mathbb{N}$ für $1 \leq i \neq j \leq n$ (und $\gamma \in \mathbb{N}$)
 \\[5pt]
@@ -280,8 +304,6 @@ Zulässige Lösung: Permutation $\pi \in S_n$.
 Optimierungsziel: Minimiere $\displaystyle d(\pi) := \sum_{i=1}^{n-1} d(\pi_i,\pi_{i+1}) + d(\pi_n, \pi_1)$ 
 \\[5pt]
 Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $d(\pi) \leq \gamma$?
-\strut
-
 
 
 \newpage
@@ -1762,6 +1784,71 @@ Beweisidee:
 
 Die Probleme dieser Liste, welche in der VL drankamen, sind zu Anfang des Dokuments
 in der Liste der \textsf{NP}-Probleme {\color{red} rot markiert}.
+
+\newpage
+
+\section{\textsf{NP}-vollständige Graphprobleme}
+
+
+\begin{itemize}
+    \item CLIQUE ist \textsf{NP}-vollständig
+    \item INDEP-SET ist \textsf{NP}-vollständig
+    \item VERTEX-COVER ist \textsf{NP}-vollständig
+    \item D-HAM-CYCLE ist \textsf{NP}-vollständig
+    \item HAM-CYCLE ist \textsf{NP}-vollständig
+    \item TSP, $\Delta$-TSP und $\{1,2\}$-TSP sind \textsf{NP}-vollständig
+\end{itemize}
+
+
+\textbf{Satz:} CLIQUE ist \textsf{NP}-vollständig
+
+Beweisidee: Man reduziert SAT $\leq_p$ CLIQUE.
+
+\begin{itemize}
+    \item Jedes Literal wird mit der aussagenlogischen Formel entspricht einem Knoten
+    \item Knoten haben eine Kante gdw. Sie in verschied. Klauseln vorkommen
+        und sich nicht widersprechen ($x_2, \lnot x_2$ würde sich widersprechen).
+    \item Bei $m$ Klauseln sucht man nun eine CLIQUE von $m$ Knoten in dem resultierenden Graph,
+        die Eingabe $k$ für CLIQUE wird also auf $m$ gesetzt.
+    \item Die Reduktion ist offensichtlich polynomiell.
+\end{itemize}
+
+\strut
+
+\textbf{Satz:} INDEP-SET ist \textsf{NP}-vollständig
+
+Beweisidee: Zeige CLIQUE $\leq_p$ INDEP-SET via $f(V,E,k) := (V,V^2 \setminus E, k)$.
+
+\strut
+
+\textbf{Satz:} VERTEX-COVER ist \textsf{NP}-vollständig
+
+Beweisidee: Zeige INDEP-SET $\leq_p$ VERTEX-COVER via $f(V,E,k) := (V,E,|V|-k)$.
+
+\strut
+
+\textbf{Satz:} D-HAM-CYCLE ist \textsf{NP}-vollständig
+
+Beweisidee: Diamantengadgets, siehe VL-Folien für mehr Details.
+
+\strut
+
+\textbf{Satz:} HAM-CYCLE ist \textsf{NP}-vollständig
+
+Beweisidee: Zeige D-HAM-CYCLE $\leq_p$ HAM-CYCLE, indem man jeden Knoten
+des gerichteten Graphen auf 3 Knoten (input, mid, output) des ungerichteten Graphen abbildet.
+
+\newpage
+
+\textbf{Satz:} TSP, $\Delta$-TSP und $\{1,2\}$-TSP sind \textsf{NP}-schwer.
+
+Beweisidee: Es genügt zu zeigen, dass $\{1,2\}$-TSP \textsf{NP}-schwer ist. 
+\begin{itemize}
+    \item Zeige HAM-CYCLE $\leq_p \{1,2\}$-TSP.
+    \item Jeder Knoten des Eingabegraphen wird zu einer ''Stadt''
+    \item Setze $\forall u,v \in \text{Städte}: d(u,v) := \begin{cases}1 &, (u,v) \in E\\ 2 &, (u,v) \notin E\end{cases}$
+    \item Graph hat Hamiltonkreis gdw. TSP-Instanz eine Tour mit Länge $\leq |V_G|$ hat.
+\end{itemize}
 
 \newpage
 
