@@ -128,8 +128,8 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item[\color{red}$\bullet$] EX-COVER
     \item[\color{red}$\bullet$] SUBSET-SUM
     \item[\color{red}$\bullet$] PARTITION
-    \item KNAPSACK
-    \item BPP
+    \item[\color{red}$\bullet$] KNAPSACK
+    \item[\color{red}$\bullet$] BPP
     \item[\color{red}$\bullet$] TSP ($\Delta$-TSP, $\{1,2\}$-TSP)
 \end{itemize}
 
@@ -197,7 +197,7 @@ Frage: Enthält $G$ ein Dominating-Set mit $\leq k$ Knoten?\\[5pt]
 
 \newpage
 
-\textbf{COLORING}
+\textbf{COLORING} (\textsf{NP}-vollständig; nicht in VL)
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -237,7 +237,7 @@ Frage: Ist $n$ keine Primzahl?
 
 \strut
 
-\textbf{EX-COVER}
+\textbf{EX-COVER} (\textsf{NP}-vollständig; nicht in VL)
 \\[5pt]
 Eingabe: Eine endliche Menge $X$ und $S_1,\cdots,S_M \subseteq X$
 \\[5pt]
@@ -245,15 +245,23 @@ Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von 
 
 \strut
 
-\textbf{SUBSET-SUM}
+\textbf{SUBSET-SUM} (\textsf{NP}-vollständig; 3-SAT $\leq_p$ SUBSET-SUM)
 \\[5pt]
 Eingabe: $a \in \mathbb{N}^k, b \in \mathbb{N}$
 \\[5pt]
 Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = b$?
 
+\strut
+
+\textbf{PARITION} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ PARTITION)
+\\[5pt]
+Eingabe: $a \in \mathbb{N}^k$ mit $\sum a_i = 2A, A \in \mathbb{N}$.
+\\[5pt]
+Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = A$?
+
 \newpage
 
-\textbf{KNAPSACK}
+\textbf{KNAPSACK} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ KP)
 \\[10pt]
 Eingabe: $w,p \in \mathbb{N}^k$ und $b\in \mathbb{N}$ (und $\gamma \in \mathbb{N}$)
 \\[10pt]
@@ -265,7 +273,7 @@ Als Entscheidungsproblem: Existiert $K$ sodass $p(k) \geq \gamma$?
 
 \strut
 
-\textbf{BPP}
+\textbf{BPP} (\textsf{NP}-vollständig; PARTITION $\leq_p$ BPP)
 \\[10pt]
 Eingabe: $b \in \mathbb{N}$ und $w \in [1,b]^n$ (und $\gamma \in \mathbb{N}$)
 \\[10pt]
@@ -1849,6 +1857,137 @@ Beweisidee: Es genügt zu zeigen, dass $\{1,2\}$-TSP \textsf{NP}-schwer ist.
     \item Setze $\forall u,v \in \text{Städte}: d(u,v) := \begin{cases}1 &, (u,v) \in E\\ 2 &, (u,v) \notin E\end{cases}$
     \item Graph hat Hamiltonkreis gdw. TSP-Instanz eine Tour mit Länge $\leq |V_G|$ hat.
 \end{itemize}
+
+\newpage
+
+\section{\textsf{NP}-vollständige Zahlprobleme}
+
+
+\begin{itemize}
+    \item SUBSET-SUM ist \textsf{NP}-vollständig
+    \item PARTITION ist \textsf{NP}-vollständig
+    \item BPP ist \textsf{NP}-vollständig
+    \item KP ist \textsf{NP}-vollständig
+    \item Kodierungen
+    \item Number
+    \item Pseudo-polynomielle Zeit
+    \item Stark \textsf{NP}-schwer
+    \item THREE-PARTITION + stark \textsf{NP}-schwer
+\end{itemize}
+
+\textbf{Satz:} SUBSET-SUM ist \textsf{NP}-vollständig
+
+Beweisidee: Man zeigt 3-SAT $\leq_p$ SUBSET-SUM.
+\begin{itemize}
+    \item Codierte Zahlen mit $n+m$ Ziffern, wo wir $n$ Variablen und $m$ Klauseln haben.
+    \item Für jede Variable $x_i$ erstelle 2 Zahlen $a_i^+, a_i^-$, dessen $i-te$ Ziffer
+        1 ist, sonst 0. Ferner hat jede der erstellten Ziffern eine 1 im Ziffernbereich $n+j, j \in [1,m]$
+        wenn die zugehörige Variable in Klausel $c_j$ vorkommt. Man führt noch 2 dummy-variablen $d_j,d_j'$
+        für jede Klausel ein, welche nur an Ziffer $n+j$ eine 1 haben (eine Klausel kann 3 mal die gleiche Variable enthalten bspw.)
+    \item Die Zielsumme lautet dann $b = \underbrace{11...1}_{n}\underbrace{33...3}_{m}$.
+    \item Für $i \in [1,n]$ kann die $i$-te Ziffern nur von $a_i^+,a_i^-$ auf 1 gebracht werden,
+        insbesondere muss genau eine der beiden Zahlen gewählt werden. Somit wird implizit auch
+        jede Klausel mindestens einmal gewählt, was genügt um mit den Dummy-Variablen auf den Wert 3 zu kommen.
+    \item Polynomiell da Eingabe $n+m$ Dinge (Variablen / Klauseln) hat und damit Länge $\geq n+m$.
+        Die konstruierte Instant benötigt $\mathcal{O}(n+m)$ Zahlen der Länge $n+m$. Die Reduktion erfolgt
+        also in $\mathcal{O}((n+m)^2)$.
+\end{itemize}
+
+\newpage
+
+\textbf{Satz:} PARTITION ist \textsf{NP}-vollständig
+
+Beweisidee: Man zeige SUBSET-SUM $\leq_p$ PARTITION.
+\begin{itemize}
+    \item Bilde Instanz $(a_1,...,a_n,b)$ von SUBSET-SUM auf $(a_1,...,a_n,a_{n+1},a_{n+2},b)$ mit
+        $a_{n+1} := 2S - b, a_{n+2} := S + b$, wobei $S := \sum_{i=1}^{n} a_i$.
+        Dann ist $\sum_{i=1}^{n+2} a_i = 4S$.
+    \item Wenn es eine Lösung zur SUBSET-SUM Instanz gibt, fügen wir $a_{n+1} = 2S-b$ hinzu
+        und erhalten den gesuchten Summenwert $2S = 4S/2$.
+    \item Wenn es eine Lösung zur PARTITION Instanz gibt, so sind $a_{n+1},a_{n+2}$ nicht in der
+        selben Teilmenge, da $a_{n+1}+a_{n+2} > 2S$. Da die Teilmenge mit $a_{n+1} = 2S-b$
+        die Gesamtsumme $2S$ hat, gibt es also eine Teilmenge der $a_i, i\in [1,n]$ mit Gesamtsumme
+        $2S - a_{n+1} = b$.
+\end{itemize}
+
+\strut
+
+\textbf{Satz:} BPP ist \textsf{NP}-vollständig
+
+Beweisidee: Man zeige PARTITION $\leq_p$ BPP. Die Instanz $a_1,...,a_n$ mit $\sum_{i=1}^{n} a_i = 2A$
+bildet man auf die BPP Instanz mit Gewichten $w_i = a_i$, maximaler Tragkraft $B = A$ und maximaler
+Anzahl an Kisten $\gamma = 2$ ab.
+
+\strut
+
+\textbf{Satz:} KP ist \textsf{NP}-vollständig
+
+Beweisidee: Man zeige SUBSET-SUM $\leq_p$ KP. Die Instanz $a_1,...,a_n,b$ von SUBSET-SUM
+bildet man auf die KP Instant mit Gewichten $w_i = a_i$, Profiten $p_i = a_i$, sowie Tragkraft
+$B$ und minimaler Gesamtprofit $\gamma = B = b$. Die Gewichte überschreiten $b$ nicht,
+was $\sum a_i \leq b$ versichert, und der Profit soll mindestens $b$ sein, was dann
+$\sum a_i \geq b$ garantiert.
+
+\strut
+
+\textbf{Anmerkung:} Kodierungen
+\begin{itemize}
+    \item Kodierungslänge einer Instanz eines Problems ist die Anzahl der Symbole in
+        einer ''vernünftigen'' Beschreibung. Polynomiell große Änderungen
+        in dieser sind für die Resultate der VL irrelevant.
+    \item Bspw Graphen; Adjazenzlisten $\ell_1(G) = \mathcal{O}(|E| \log |V|)$ und
+        Adjazenzmatrizen $\ell_2(G) = \mathcal{O}(|V|^2)$. Dann ist $\ell_1(G)$ polynomiell
+        beschränkt in $\ell_2(G)$ und vice versa.
+    \item Zahlen: $\log_a(n) = \underbrace{\log_a(b)}_{\text{konst. Faktor}} \cdot \log_b(n)$ für $a,b > 1$.
+    \item Wert eine Zahl $n$ hängt \textbf{exponentiell} von seiner Kodierungslänge ab.
+\end{itemize}
+
+\newpage
+
+\textbf{Definition:} Number
+
+Für eine Instanz $I$ eines Entscheidungsproblems ist $Number(I)$ der \textbf{Wert} der größten
+in $I$ vorkommenden Zahl. Bspw für TSP die längste Distanz, für SUBSET-SUM $\max\{a_1,...,a_n,b\}$
+und für SAT $\max\{n,m\}$.\\
+Der Parameter ist eher irrelevant in Problemen ohne Zahlen, wie bspw SAT.
+
+\strut
+
+\textbf{Definition:} Pseudo-polynomielle Zeit
+
+Ein Algorithmus $A$ löst ein Problem $X$ in pseudo-polynomieller Zeit, falls die Laufzeit von
+$A$ auf Instanzen $I$ von $X$ polynomiell in $|I|$ und $Number(I)$ beschränkt ist.
+
+\strut
+
+\textbf{Anmerkung:} SUBSET-SUM, PARTITION, KP sind pseudo-polynomiell lösbar
+
+\strut
+
+\textbf{Definition:} Stark \textsf{NP}-schwer
+
+Ein Entscheidungsproblem $X$ ist stark \textsf{NP}-schwer, wenn es ein Polynom $p : \mathbb{N}\to \mathbb{N}$
+gibt, sodass $X$ eingeschränkt auf Instanzen $I$ mit $Number(I) \leq p(|I|)$ immernoch \textsf{NP}-schwer ist.\\
+(obwohl in diesem Fall alle Zahlenwerte der Instanz $I$ nur polynomiell in $|I|$ sind).\\
+Stark \textsf{NP}-schwere Probleme sind bspw: SAT, HAM-CYCLE, TSP, BPP.
+
+\strut
+
+\textbf{Satz:} Beweismethode \textsf{P = NP}
+
+Es sei $X$ ein stark \textsf{NP}-schweres Entscheidungsproblem. Falls $X$ pseudo-polynomiell lösbar ist,
+so gilt \textsf{P = NP}.A\\
+Dies liegt
+
+\strut
+
+\textbf{Problem:} THREE-PARTITION + stark \textsf{NP}-schwer
+
+Eingabe: Positive ganze Zahlen $a_1,...,a_n,b_1,...,b_n,c_1,...,c_n$ mit $\sum (a_i+b_i+c_i) = nS$.\\[5pt]
+Frage: Gibt es zwei Permutationen $\pi,\sigma \in S_n$ sodass $a_{\pi(i)} + b_{\sigma(i)} + c_i = S$
+für $i \in [1,n]$ ?
+
+Dieses Problem ist stark \textsf{NP}-schwer.
 
 \newpage
 
