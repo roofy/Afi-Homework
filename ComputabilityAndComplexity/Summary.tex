@@ -120,7 +120,7 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item[\color{red}$\bullet$] INDEP-SET
     \item MATCHING
     \item[\color{red}$\bullet$] VERTEX-COVER
-    \item DOMINATING-SET
+    \item[\color{red}$\bullet$] DOMINATING-SET
     \item[\color{red}$\bullet$] COLORING
     \item[\color{red}$\bullet$] (D-)HAM-CYCLE
     \item GI
@@ -188,7 +188,7 @@ Frage: Enthält $G$ ein Matching mit $\geq k$ Kanten?\\[5pt]
 
 \strut
 
-\textbf{DOMINATING-SET}
+\textbf{DOMINATING-SET} (\textsf{NP}-vollständig; 3-SAT $\leq_p$ DOMINATING-SET)
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
@@ -1991,6 +1991,66 @@ Dieses Problem ist stark \textsf{NP}-schwer.
 
 \newpage
 
-\section{}
+\section{Jenseits von \textsf{P} und \textsf{NP}}
+
+\textbf{Anmerkung}
+
+Viele Optimierungsprobleme, welche im echten Leben auftauchen sind \textsf{NP}-schwer. In vielen
+fällen lässt sich das Problem dennoch vernünftig bewältigen - da man sich oft auf eine gewisse Variante
+einschränken kann. Wichtige Strategien sind:
+\begin{itemize}
+    \item Ausnutzen der Eingabestruktur durch spezielle Algorithmen.
+    \item Parametrisierte Algorithmen
+    \item Approximationslagorithmen und Heuristiken
+    \item Zerteilen in geeignete Unterprobleme
+\end{itemize}
+
+\strut
+
+\textbf{Definition:} \textsf{coNP}
+
+Ein Entscheidungsproblem $L \subseteq \Sigma^*$ liegt in \textsf{coNP}, wenn für
+jedes Wort $x \notin L$ ein polynomiell langes Zertifikat $y$ existiert, welches
+zusammen mit $x$ in polynomieller Zeit (deterministisch) verifiziert werden kann.
+
+Das Zertifikat symbolisiert eine kurze Widerlegung. Für \textsf{NP} muss man JA-Instanzen
+kurz beweisen, für \textsf{coNP} NEIN-Instanzen.
+
+\strut
+
+\textbf{\textsf{coNP} Probleme:}
+\begin{itemize}
+    \item Hat ein gegebener ungerichteter Graph keinen Hamiltonkreis?\\[5pt]
+        \textsf{coNP}-Zertifikat: Hamiltonkreis.
+    \item Ist eine gegebene boolesche Formel in CNF nicht erfüllbar?\\[5pt]
+        \textsf{coNP}-Zertifikat: erfüllende Variablenbelegung.
+    \item Ist eine gegebene boolesche Formel in DNF eine Tautologie?\\[5pt]
+        \textsf{coNP}-Zertifikat: falsifizierende Variablenbelegung.
+\end{itemize}
+
+\newpage
+
+\textbf{Problem:} Lineare Programmierung (LP)
+
+Eingabe: $A \in \mathbb{R}^{m \times n}, b \in \mathbb{R}^m, c \in \mathbb{R}^n, \gamma \in \mathbb{R}$.
+\\[10pt]
+Optimierungsvariante Primal: Für $x \in \mathbb{R}^n_{\geq 0}$ maximiere $c^{tr}x$ sodass $Ax \leq b$.
+\\[10pt]
+Optimierungsvariante Dual: Für $y \in \mathbb{R}^m_{\geq 0}$ minimiere $b^{tr}y$ sodass $yA \geq c$.
+\\[10pt]
+Entscheidungsvariante: Existiert $x \in \mathbb{R}^n$ mit $x \geq 0\ \land\ Ax \leq b\ \land\ c^{tr}x \geq y$?
+\\[30pt]
+Der \textbf{Starke Dualitätssatz} besagt, dass wenn beide OptimierungsLP's zulässige Lösungen haben,
+diese den selben optimalen Zielfunktionswert ($c^{tr}x$ bzw. $b^{tr}y$) haben.
+
+Es ist LP $\in \textsf{NP}$ mit einem Vektor $x$ sodass $c^{tr}x \geq \gamma$ als Zertifikat für das primale LP.
+
+Ebenso ist LP $\in \textsf{coNP}$ mit einem $y$ sodass $b^{tr}y < \gamma$ als Zertifiakt für das duale LP.
+\\[30pt]
+Es folgt $\text{LP} \in \textsf{NP} \cap \textsf{coNP}$.
+
+Ferner sagt ein Satz von \textbf{Leonid Genrikhovich Khachiyan} dass $\text{LP} \in \textsf{P}$
+
+
 
 \end{document}
