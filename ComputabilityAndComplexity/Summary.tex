@@ -2020,13 +2020,17 @@ kurz beweisen, für \textsf{coNP} NEIN-Instanzen.
 
 \textbf{\textsf{coNP} Probleme:}
 \begin{itemize}
-    \item Hat ein gegebener ungerichteter Graph keinen Hamiltonkreis?\\[5pt]
+    \item Non-Ham-Cycle:\\
+        Hat ein gegebener ungerichteter Graph keinen Hamiltonkreis?\\[5pt]
         \textsf{coNP}-Zertifikat: Hamiltonkreis.
-    \item Ist eine gegebene boolesche Formel in CNF nicht erfüllbar?\\[5pt]
+    \item UNSAT:\\
+        Ist eine gegebene boolesche Formel in CNF nicht erfüllbar?\\[5pt]
         \textsf{coNP}-Zertifikat: erfüllende Variablenbelegung.
-    \item Ist eine gegebene boolesche Formel in DNF eine Tautologie?\\[5pt]
+    \item TAUTOLOGY:\\
+        Ist eine gegebene boolesche Formel in DNF eine Tautologie?\\[5pt]
         \textsf{coNP}-Zertifikat: falsifizierende Variablenbelegung.
 \end{itemize}
+Diese 3 Probleme sind insbesondere \textsf{coNP}-vollständig (s.u.).
 
 \newpage
 
@@ -2051,6 +2055,130 @@ Es folgt $\text{LP} \in \textsf{NP} \cap \textsf{coNP}$.
 
 Ferner sagt ein Satz von \textbf{Leonid Genrikhovich Khachiyan} dass $\text{LP} \in \textsf{P}$
 
+\strut\\
+
+\textbf{Definition:} \textsf{coNP}-vollständigkeit
+
+Ein Entscheidungsproblem $X \in \textsf{coNP}$ ist \textsf{coNP}-vollständig, wenn $Y \leq_p X$ für jedes
+$Y \in \textsf{coNP}$.
+
+\strut
+
+\textbf{Satz:} Zusammenhang \textsf{NP}- bzw. \textsf{coNP}-vollständig
+
+Beim Komplement eines Entscheidungsproblems werden JA und NEIN Instanzen vertauscht.
+Es gilt $X \in \textsf{NPC} \,\Longrightarrow\, \overline{X} \in \textsf{coNPC}$.
+
+\strut
+
+\textbf{Satz:} $\textsf{P} \subseteq \textsf{NP} \cap \textsf{coNP}$
+
+Beweis: $\textsf{NP} \supseteq \textsf{P} = \textsf{coP} \subseteq \textsf{coNP}$.
+
+\strut
+
+\textbf{Satz:}
+
+$X \in \textsf{NPC} \land X \in \textsf{coNP} \,\Longrightarrow\, \textsf{NP} = \textsf{coNP}$.\\
+Beweis:
+$$
+    X \in \textsf{NPC}
+    \quad \Longrightarrow\quad \forall L \in \textsf{NP}: L \leq_p X \in \textsf{coNP}
+    \quad \Longrightarrow\quad \textsf{NP} \subseteq \textsf{coNP}
+$$
+Analog gilt
+$$
+    X \in \textsf{NPC}
+    \quad \Longrightarrow\quad  \forall L \in \textsf{NP}: L \leq_p X
+    \quad \Longrightarrow\quad  \forall K \in \textsf{coNP}: K \leq_p \overline{X} \in \textsf{NP}
+    \quad \Longrightarrow\quad  \textsf{coNP} \subseteq \textsf{NP}
+$$
+
+\newpage
+
+\textbf{Anmerkung}
+
+Viele Mathematiker denken, dass $\textsf{NP} \cap \textsf{coNP} = \textsf{P}$. Es sind 3 Probleme
+aus $\textsf{NP} \cap\textsf{coNP}$ bekannt: LP, PRIMES, PARITY-GAME. Davon sind LP,PRIMES auch in $\textsf{P}$
+und der Status für PARITY-GAME ist ungeklärt.
+
+\strut
+
+\textbf{Problem:} GRAPH-ISOMORPHUS (GI)
+
+Eingabe: Zwei ungerichtete Graphen $G_1, G_2$.
+\\[5pt]
+Frage: Gibt es einen Isomorphismus von $G_1$ nach $G_2$?
+
+Das Problem liegt in \textsf{NP}: Man verwende den Isomorphismnus als Zertifikat.
+
+\textbf{Ungeklärt} ist, ob $\text{GI} \in \textsf{P},\quad \text{GI} \in \textsf{NPC},\quad \text{GI} \in \textsf{coNP}$?
+\\[20pt]
+\textbf{Satz von Laszlo Babai}: GI kann auf Graphen mit $n$ Knoten in $2^{p(\log n)}$ Zeit gelöst werden,
+für $p$ Polynom.
+
+\strut\\
+
+\textbf{ETH:} Exponential Time Hypothesis
+
+''Es existiert eine reelle Zahl $\delta > 0$,
+sodass kein Algorithmus 3-SAT in Zeit $\mathcal{O}(2^{\delta n})$ löst.''
+
+Diese Aussage ist \textbf{unbewiesen} und impliziert $\textsf{P} \neq \textsf{NP}$.\\
+Falls $\text{GI} \in \textsf{NPC}$, so ist die Hypothese falsch.
+
+\strut
+
+\textbf{Definition:} \textsf{NP}-intermediate
+
+Ein Entscheidungsproblem $L$ heißt \textsf{NP}-intermediate, wenn
+$$
+    L \in \textsf{NP} \quad \land \quad L \notin \textsf{P} \quad \land \quad L \notin \textsf{NPC}
+$$
+Der \textbf{Satz von Ladner} sagt,
+$\textsf{P} \neq \textsf{NP} \,\Longrightarrow\, \exists L: L \text{ ist \textsf{NP}-intermediate.}$
+
+\strut
+
+\textbf{Definition:} \textsf{PSPACE} und \textsf{NPSPACE}
+
+\textsf{PSPACE} (\textsf{NPSPACE}) ist die Klasse aller Entscheidungsprobleme, welche von einer
+DTM (NTM) entschieden werden, deren Worst-Case Speicherplatzbedarf polynomiell beschränkt ist.
+
+\textbf{Satz von Savitch:} $\textsf{PSPACE} = \textsf{NPSPACE}$.
+
+Ferner gilt $\textsf{NP} \subseteq \textsf{NPSPACE} = \textsf{PSPACE} \subseteq \textsf{EXPTIME}$.
+Letzteres, da eine Speicherplatzbeschränkung $s(n)$ die Anzahl der Konfigurationen und damit die Laufzeit
+durch $2^{\mathcal{O}(s(n))}$ beschränkt.
 
 
+\newpage
+
+\textbf{Problem:} Q-SAT
+
+Eingabe: Eine Boolesche Formel $\varphi$ in CNF über Variablenmenge $\{x_1,...,x_n,y_1,...,y_n\}$.
+\\[10pt]
+Frage: $\exists x_1 \forall y_1 \exists x_2 \forall y_2 \cdots \exists x_n \forall y_n : \varphi$?
+\\[10pt]
+Q-SAT ist \textsf{PSPACE}-vollständig
+
+\strut
+
+\textbf{Problem:} $k$-Schritt-HALTEPROBLEM
+
+Eingabe: Eine DTM $M$, $k \in \mathbb{N}$.
+\\[10pt]
+Frage: Hält $M$ auf $\eps$ nach höchstens $k$ Schritten?
+\\[10pt]
+Dieses Problem ist \textsf{EXPTIME}-vollständig.
+
+\strut
+
+\textbf{Bemerkung} Zusammenfassung Komplexitätsklassen
+
+Es gilt
+$$
+    \textsf{P}\ \subseteq\ \textsf{NP}\ \subseteq\ \textsf{NPSPACE}\ =\ \textsf{PSPACE}\ \subseteq\ \textsf{EXPTIME}
+$$
+Wir wissen, dass $\textsf{P} \neq \textsf{EXPTIME}$. Alle anderen Verhältnisse sind unbekannt.
 \end{document}
