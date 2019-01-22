@@ -111,27 +111,43 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item Konvexe Hülle in 2D
 \end{itemize}
 
-\section*{Probleme in \textsf{NP} ({\color{red}\textsf{NP}-vollständig})}
+\begin{minipage}{.5\textwidth}
+\section*{Probleme in \textsf{NP}}
 
 \begin{itemize}
-    \item[\color{red}$\bullet$] SAT
-    \item[\color{red}$\bullet$] 3-SAT
-    \item[\color{red}$\bullet$] CLIQUE
-    \item[\color{red}$\bullet$] INDEP-SET
+    \item SAT
+    \item 3-SAT
+    \item (HALF-)CLIQUE
+    \item KANTEN-AUFSPANNEN
+    \item INDEP-SET
     \item MATCHING
-    \item[\color{red}$\bullet$] VERTEX-COVER
-    \item[\color{red}$\bullet$] DOMINATING-SET
-    \item[\color{red}$\bullet$] COLORING
-    \item[\color{red}$\bullet$] (D-)HAM-CYCLE
+    \item VERTEX-COVER
+    \item DOMINATING-SET
+    \item COLORING
+    \item (D-)HAM-CYCLE
     \item GI
     \item COMPOSITE
-    \item[\color{red}$\bullet$] EX-COVER
-    \item[\color{red}$\bullet$] SUBSET-SUM
-    \item[\color{red}$\bullet$] PARTITION
-    \item[\color{red}$\bullet$] KNAPSACK
-    \item[\color{red}$\bullet$] BPP
-    \item[\color{red}$\bullet$] TSP ($\Delta$-TSP, $\{1,2\}$-TSP)
+    \item EX-COVER
+    \item SUBSET-SUM
+    \item PARTITION
+    \item KNAPSACK
+    \item BPP
+    \item TSP ($\Delta$-TSP, $\{1,2\}$-TSP)
+    \item LP / $\{-1,0,1\}$-R.I.P.
 \end{itemize}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+    \section*{Probleme in \textsf{coNP}}
+
+    \begin{itemize}
+        \item Non-Ham-Cycle
+        \item UNSAT
+        \item TAUTOLOGY
+        \item LP
+        \item (Jedes Problem in NP, gleiches Zertifikat)
+    \end{itemize}
+
+\end{minipage}
 
 \newpage
 
@@ -141,14 +157,13 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
 \\[5pt]
 Eingabe: Eine Aussagenlogische Formel $\varphi$ in CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.
 \\[5pt]
-Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
+Frage: Ist $\varphi$ erfüllbar?
 
 \strut
 
 \textbf{3-SAT} (\textsf{NP}-vollständig; SAT $\leq_p$ 3-SAT)
 \\[5pt]
-Eingabe: Eine Aussagenlogische Formel $\varphi$ in 3-CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.\\
-\strut\qquad Dabei ist 3-CNF wie CNF, nur dass jede Klausul exakt 3 Literale haben muss.
+Eingabe: Eine Aussagenlogische Formel $\varphi$ in 3-CNF über einer Variablenmenge $X = \{x_1,\cdots,x_n\}$.
 \\[5pt]
 Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1$)?
 
@@ -159,6 +174,23 @@ Frage: Ist $\varphi$ erfüllbar (ex. Variablenbelegung, sodass $\varphi \equiv 1
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
 Frage: Enthält $G$ eine Clique (vollständiger Teilgraph) mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{HALF-CLIQUE} (\textsf{NP}-vollständig; CLIQUE $\leq_p$ HALF-CLIQUE)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ mit $|V| = 2k, k \in \mathbb{N}$
+\\[5pt]
+Frage: Enthält $G$ eine Clique mit $\geq k$ Knoten?
+
+\strut
+
+\textbf{KANTEN-AUFSPANNEN} (\textsf{NP}-vollständig; CLIQUE $\leq_p$ KANTEN-AUFSPANNEN)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $r,s \in \mathbb{N}$
+\\[5pt]
+Frage: Existiert $R \subseteq V, |R| = r$, was $\geq s$ Kanten aufspannt?\\
+($e_1,e_2 \in R \,\Longrightarrow\, (e_1,e_2) \in E$ aufgespannt von $R$)
 
 \strut
 
@@ -176,15 +208,14 @@ Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
 Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
 
-\strut
+\newpage
 
 \textbf{MATCHING}
 \\[5pt]
 Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
-Frage: Enthält $G$ ein Matching mit $\geq k$ Kanten?\\[5pt]
+Frage: Enthält $G$ ein Matching mit $\geq k$ Kanten?\\
 (Matching $M \subseteq E$: Keine 2 Kanten in M haben gemeinsame Knoten).
-
 
 \strut
 
@@ -195,7 +226,7 @@ Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 Frage: Enthält $G$ ein Dominating-Set mit $\leq k$ Knoten?\\[5pt]
 (Dominating-Set $D \subseteq V$: Jeder Knoten ist in $D$ enthalten oder zu einem in $D$ benachbart).
 
-\newpage
+\strut
 
 \textbf{COLORING} (\textsf{NP}-vollständig; nicht in VL)
 \\[5pt]
@@ -243,7 +274,7 @@ Eingabe: Eine endliche Menge $X$ und $S_1,\cdots,S_M \subseteq X$
 \\[5pt]
 Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von $X$ ist?
 
-\strut
+\newpage
 
 \textbf{SUBSET-SUM} (\textsf{NP}-vollständig; 3-SAT $\leq_p$ SUBSET-SUM)
 \\[5pt]
@@ -253,13 +284,13 @@ Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = b
 
 \strut
 
-\textbf{PARITION} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ PARTITION)
+\textbf{PARTITION} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ PARTITION)
 \\[5pt]
 Eingabe: $a \in \mathbb{N}^k$ mit $\sum a_i = 2A, A \in \mathbb{N}$.
 \\[5pt]
 Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = A$?
 
-\newpage
+\strut
 
 \textbf{KNAPSACK} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ KP)
 \\[10pt]
@@ -301,7 +332,7 @@ Eingabe: Städte $1,...,n$; symm. Dist. $d(i,j)$, welche Dreiecksungleichung erf
 \\[5pt]
 Frage: Gibt es eine Rundreise mit Länge höchstens $\gamma$?
 
-\strut
+\newpage
 
 \textbf{TSP} (\textsf{NP}-vollständig, folgt aus $\{1,2\}$-TSP)
 \\[5pt]
@@ -312,6 +343,47 @@ Zulässige Lösung: Permutation $\pi \in S_n$.
 Optimierungsziel: Minimiere $\displaystyle d(\pi) := \sum_{i=1}^{n-1} d(\pi_i,\pi_{i+1}) + d(\pi_n, \pi_1)$ 
 \\[5pt]
 Als Entscheidungsproblem: Existiert eine zulässige Lösung mit $d(\pi) \leq \gamma$?
+
+\strut
+
+\textbf{LP}
+
+Eingabe: $A \in \mathbb{R}^{m \times n}, b \in \mathbb{R}^m, c \in \mathbb{R}^n, \gamma \in \mathbb{R}$.
+
+Optimierungsvariante Primal: Für $x \in \mathbb{R}^n_{\geq 0}$ maximiere $c^{tr}x$ sodass $Ax \leq b$.
+
+Optimierungsvariante Dual: Für $y \in \mathbb{R}^m_{\geq 0}$ minimiere $b^{tr}y$ sodass $yA \geq c$.
+
+Entscheidungsvariante: Existiert $x \in \mathbb{R}^n$ mit $x \geq 0\ \land\ Ax \leq b\ \land\ c^{tr}x \geq y$?
+
+(Für weiteres siehe VL 17)
+
+\strut
+
+\textbf{$\{-1, 0, 1\}$ Restricted Integer Programming} (\textsf{NP}-vollständig; 3-SAT $\leq_p \{-1,0,1\}$-R.I.P.)
+
+Eingabe: $A \in \{-1,0,1\}^{m \times n}, b \in \{-1,0,1\}^{m\times 1}$
+
+Frage: Existiert $x \in \{0, 1\}^{n \times 1}$ sodass $Ax \geq b$?
+
+
+\strut
+
+\textbf{Q-SAT} (\textsf{PSPACE}-vollständig)
+
+Eingabe: Eine Boolesche Formel $\varphi$ in CNF über Variablenmenge $\{x_1,...,x_n,y_1,...,y_n\}$.
+
+Frage: $\exists x_1 \forall y_1 \exists x_2 \forall y_2 \cdots \exists x_n \forall y_n : \varphi$?
+
+\strut
+
+\textbf{$k$-Schritt-HALTEPROBLEM} (\textsf{EXPTIME}-vollständig)
+
+Eingabe: Eine DTM $M$, $k \in \mathbb{N}$.
+
+Frage: Hält $M$ auf $\eps$ nach höchstens $k$ Schritten?
+
+\strut
 
 
 \newpage
@@ -1993,6 +2065,16 @@ Dieses Problem ist stark \textsf{NP}-schwer.
 
 \section{Jenseits von \textsf{P} und \textsf{NP}}
 
+\begin{itemize}
+    \item \textsf{coNP} + Probleme
+    \item Lineare Programmierung (LP)
+    \item \textsf{coNP}-vollständigkeit + zsmhang \textsf{NP}-vollständigkeit
+    \item Mengenbeziehungen \textsf{P}, \textsf{NP}, \textsf{coNP}
+    \item GRAPH-ISOMORPHUS + Satz von Laszlo Babai
+    \item Exponential Time Hypothesis (ETH)
+    \item \textsf{NP}-intermediate, \textsf{PSPACEP}, \textsf{NPSPACE} + Probleme
+\end{itemize}
+
 \textbf{Anmerkung}
 
 Viele Optimierungsprobleme, welche im echten Leben auftauchen sind \textsf{NP}-schwer. In vielen
@@ -2004,8 +2086,6 @@ einschränken kann. Wichtige Strategien sind:
     \item Approximationslagorithmen und Heuristiken
     \item Zerteilen in geeignete Unterprobleme
 \end{itemize}
-
-\strut
 
 \textbf{Definition:} \textsf{coNP}
 
