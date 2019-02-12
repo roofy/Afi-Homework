@@ -414,9 +414,7 @@ Frage: Hält $M$ auf $\eps$ nach höchstens $k$ Schritten?
     \item Turingmaschinen
     \item rekursive / berechenbare Funktionen \& Sprachen
     \item Konfigurationen
-    \item Programmiertechniken: Speicher im Zustandsraum
-    \item Programmiertechniken: Mehrspurmaschinen
-    \item Programmiertechniken: Weiteres
+    \item Programmiertechniken von TM's
 \end{itemize}
 
 \textbf{Definition:} Probleme
@@ -428,7 +426,8 @@ Frage: Hält $M$ auf $\eps$ nach höchstens $k$ Schritten?
     \item \textbf{Problem als Entscheidungsproblem}: Form $f : \Sigma^* \to \{0,1\}$
     \item $L := f^{-1}(1) \subseteq \Sigma^*$ ist Sprache vom durch $f$ definiertem Entscheidungsproblem.
 \end{itemize}
-\newpage
+
+\strut
 
 \textbf{Definition:} Turingmaschine (TM)
 
@@ -474,7 +473,7 @@ wenn es eine TM gibt welche bei Eingabe $x \in \Sigma^*$ den Wert $f(x)$ berechn
 Eine Sprache $L \subseteq \Sigma^*$ heißt rekursiv bzw. (T-)entscheidbar,\\
 wenn es eine TM gibt welche stets terminiert und $w \in \Sigma^*$ akzeptiert $\iff w \in L$.
 
-\newpage
+\strut
 
 \textbf{Definition:} Konfiguration
 
@@ -492,33 +491,26 @@ Analog schreibt man für endlich viele (auch 0) Rechenschritte $\alpha q \beta \
 
 \strut
 
-\textbf{Techniken zur Programmierung TM's (1):} Speicher im Zustandsraum
+\textbf{Techniken zur Programmierung TM's}
 
-Speichere $k \in \mathbb{N}_{>0}$ Symbole im Zustandsraum:
-$$
-    Q_{neu} := Q \times \Gamma^k
-$$
-Bspw sind neue Zustände für $k = 2$ dann $(q_0, BB)$ oder $(q_1, 01)$ (wenn $0,1 \in \Gamma$).
-
-\strut
-
-\textbf{Techniken zur Programmierung TM's (2):} Mehrspurmaschinen
-
-$k$-spurige TM: TM mit zusätzlichen Vektoren in $\Gamma^k$ als Symbole. Man setzt
-$$
-    \Gamma_{neu} := \Gamma \cup \Gamma^k
-$$
-
-\strut
-
-\textbf{Techniken zur Programmierung TM's (3):} Weiteres
 \begin{itemize}
-    \item Variablen: pro Variable eine Spur
-    \item Arrays: ebenfalls in einer Spur möglich
-    \item Unterprogramme: eine Spur als Prozedurstack benutzen
+    \item  Speichere $k \in \mathbb{N}_{>0}$ Symbole im Zustandsraum:
+        $$
+            Q_{neu} := Q \times \Gamma^k
+        $$
+        Bspw sind neue Zustände für $k = 2$ dann $(q_0, BB)$ oder $(q_1, 01)$ (wenn $0,1 \in \Gamma$).\\
+
+    \item $k$-spurige TM: TM mit zusätzlichen Vektoren in $\Gamma^k$ als Symbole. Man setzt
+        $$
+            \Gamma_{neu} := \Gamma \cup \Gamma^k
+        $$
 \end{itemize}
 
+
+
 \newpage
+
+
 
 \section{Turing Maschinen II}
 \begin{itemize}
@@ -613,7 +605,11 @@ $$$$
     \text{entscheidbare Sprache} = \text{TM-entscheidbare Sprache} = \text{rekursive Sprache}
 $$
 
+
+
 \newpage
+
+
 
 \section{Registermaschinen}
 
@@ -718,7 +714,10 @@ $$
 $$
 
 
+
 \newpage
+
+
 
 \section{Unentscheidbarkeit I}
 
@@ -797,7 +796,11 @@ wir $i \in \mathbb{N}$ mit $w = w_i$ und lassen $M_H$ auf $\langle M_i \rangle w
 Wenn es verwirft (also $M_i$ nicht auf $w_i$ hält), verwerfen wir, sonst lassen wir einfach
 $M_i$ auf $w_i$ laufen und übernehmen den Output.
 
+
+
 \newpage
+
+
 
 \section{Unentscheidbarkeit II}
 
@@ -909,7 +912,10 @@ Anmerkungen
 \end{itemize}
 
 
+
 \newpage
+
+
 
 \section{Rekursive Aufzählbarkeit}
 
@@ -1023,7 +1029,10 @@ Letzteres trivial mit Reduktion, bilde $\godel{M}$ auf $\godel{M'}$ ab, wobei $M
 und $M$ mit Eingabe $\eps$ simuliert. Bilde ausserdem Müll auf Müll ab.
 
 
+
 \newpage
+
+
 
 \section{Postsches Correspondenzproblem}
 
@@ -1082,7 +1091,10 @@ Für weitere Details siehe VL.
 \end{itemize}
 
 
+
 \newpage
+
+
 
 \section{Turing-Mächtigkeit}
 
@@ -1121,7 +1133,7 @@ Beweisidee:
         $$
 \end{itemize}
 
-\newpage
+\strut
 
 \textbf{Satz:} Satz von Richardson (1968), (Integration in geschlossener Form)
 
@@ -1139,7 +1151,7 @@ Nach dem \textbf{Satz von Matiyasevich}(1970) ist \textbf{Dioph unentscheidbar}.
 
 Jedoch ist \textbf{Dioph rekursiv aufzählbar}, was aus der Abzählbarkeit von $\mathbb{Z}^n$ folgt.
 
-\strut
+\newpage
 
 \textbf{Satz:} Satz von Davis, Robinson, Putnam, Matiyasevich. (Ganzzahlige Polynome und TM's)
 
@@ -1169,8 +1181,6 @@ LOAD, STORE, CLOAD, CADD, CSUB, GOTO, IF $c(0) > 0$ THEN GOTO, END.
 
 Die \textbf{Mini-RAM ist Turing-mächtig}.
 
-\newpage
-
 \textbf{Bemerkungen:} Turing-mächtige Beispiele
 \begin{itemize}
     \item Lambda Calculus von Alonzo Church
@@ -1196,12 +1206,16 @@ In jedem Schritt passiert dann:
 
 \textbf{Conway's Game of Life ist Turing-mächtig}.
 
+
+
 \newpage
+
+
 
 \section{LOOP und WHILE Programme I}
 \begin{itemize}
     \item LOOP
-    \item LOOP-Programme
+    \item Nützliche LOOP-Programme
     \item WHILE
     \item WHILE ist Turing-mächtig
     \item LOOP-WHILE
@@ -1210,7 +1224,8 @@ In jedem Schritt passiert dann:
 \textbf{Definition:} Die Programmiersprache LOOP
 \begin{itemize}
     \item Variablen: $x_1,x_2,x_3,\dots$ und $x_0$ zur Ausgabe.
-        Eingabe in $x_1,\cdots,x_m$ (mit 0 initialisiert).
+        Eingabe in $x_1,\cdots,x_m$.\\
+        Restliche Variablen mit 0 initialisiert.
     \item Konstanten: 0 und 1
     \item Symbole: :=, +, ;
     \item Keywords: LOOP, DO, ENDLOOP
@@ -1247,14 +1262,10 @@ $[P] : \mathbb{N}^k \to \mathbb{N}^k$.
 
 \textbf{Definition:} Die Programmiersprache WHILE
 \begin{itemize}
-    \item Variablen: $x_1,x_2,x_3,\dots$ und $x_0$ zur Ausgabe.
-        Eingabe in $x_1,\cdots,x_m$ (mit 0 initialisiert).
-    \item Konstanten: 0 und 1
+    \item Praktisch wie LOOP. Unterschiede:
     \item Symbole: :=, +, ;, {\color{red}$\neq$}
     \item Keywords: WHILE, DO, ENDWHILE
     \\
-    \item $x_i := x_j + c$ für $i,j \in \mathbb{N}, c\in {0,1}$ ist ein WHILE-Programm.
-    \item Wenn $P_1,P_2$ WHILE-Programme sind, dann ist $P_1;P_2$ ein WHILE-Programm.
     \item Falls $P$ ein WHILE-Programm ist, dann ist WHILE $x_i \neq 0$ DO $P$ ENDWHILE ein WHILE-Programm.
 \end{itemize}
 
@@ -1268,7 +1279,8 @@ Jedes LOOP-Programm kann durch ein WHILE-Programm simuliert werden.
 \textbf{Satz:} While-Programme sind Turing-mächtig
 
 Eine äußere Schleife WHILE Zustand $\neq 0$ DO, und dadrin dann mit if-Abfragen $\delta$ simuliert.
-(benötigt explizit sogar nur die äußerste While-Schleife, alles andere könnte mit LOOP simuliert werden).
+Konfigurationen werden in Dezimalzahlen kodiert, wobei $\Gamma = \{1,2,B\}$ und $B$ durch 0 kodiert wird.
+Bewegung des Kopfes durch modifizieren der Konfigurationsvariablen via MOD und DIV.
 
 \strut
 
@@ -1280,10 +1292,13 @@ eine WHILE-Schleife.
 \textbf{LOOP-WHILE ist Turing-mächtig}, da zur Simulation der Turingmaschine nur effektiv eine WHILE-Schleife
 benötigt wird (die äußeste, WHILE Zustand $\neq$ Endzustand DO ...)
 
+
+
 \newpage
 
-\section{LOOP und WHILE Programme II}
 
+
+\section{LOOP und WHILE Programme II}
 
 \begin{itemize}
     \item Ackermann-Funktion
@@ -1334,6 +1349,14 @@ Es gilt:
 
 \newpage
 
+\textbf{Satz:} Monotonieverhalten der Ackermannfunktion
+
+$$
+    \forall m,n \in \mathbb{N}: A(m,n) < A(m,n+1) \leq A(m+1,n)
+$$
+
+\strut
+
 \textbf{Definition:} Wachstumsfunktion
 
 Zu einem LOOP-Programm $P$ und Inputs $a \in \mathbb{N}^k$ definiert man
@@ -1343,7 +1366,8 @@ $
 als die Summe der Ergebniswerte von $P$ bei Eingabe $a$, also $b = [P](a)$.
 Die Wachstumsfunktion ist dann gegeben durch:
 $$
-    F_P(n) := \max\left\{f_P(a) \mid a \in \mathbb{N}^k, \sum_{i=1}^{k} a_i \leq n\right\}
+    F_P(n) := \max\left\{f_P(a) : a \in \mathbb{N}^k, \sum_{i=1}^{k} a_i \leq n\right\}
+    = \max\{||[P](a)||_1 : a \in \mathbb{N}^k, ||a||_1 \leq n\}
 $$
 
 \strut
@@ -1354,7 +1378,7 @@ Sei $P$ ein LOOP-Programm. Dann gilt:
 $$
     \exists m_P \in \mathbb{N} : \forall n \in \mathbb{N} : F_P(n) < A(m_P,n)
 $$
-Beweisidee: Zeige via (algebraische) Induktion, dass:
+Genauer ist
 \begin{itemize}
     \item $m_{x_i := x_j + c} = 2$.
     \item Zu LOOP-Programmen $P,Q$ ist $m_{P;Q} = \max(m_P,m_Q)+1$.
@@ -1362,17 +1386,19 @@ Beweisidee: Zeige via (algebraische) Induktion, dass:
 \end{itemize}
 
 Es folgt, dass \textbf{LOOP-Programme nicht Turing-mächtig} sind, da die Ackermann TM-berechenbar,
-aber nicht LOOP-berechenbar ist. (wächst zu krass)
+aber nicht LOOP-berechenbar ist.
+
+
 
 \newpage
 
-\section{Primitiv-rekursive Funktionen}
 
+
+\section{Primitiv-rekursive Funktionen}
 
 \begin{itemize}
     \item Primitiv-rekursive Funktionen
-    \item Prädikatsfunktion
-    \item Weitere primitiv-rekursive Funktionen
+    \item Nützliche primitiv-rekursive Funktionen
     \item Bijektion $\mathbb{N}^2 \to \mathbb{N}$
     \item Äquivalenz primitiv-rekursiv und LOOP
     \item Kleenscher $\mu$-Operator
@@ -1418,7 +1444,7 @@ Wir schreiben $[x \geq 1]$ für $f : \mathbb{N} \to \{0,1\}, x \mapsto \begin{ca
 
 \newpage
 
-\textbf{Bemerkung:} Weitere primitiv-rekursive Funktionen
+\textbf{Bemerkung:} Nützliche primitiv-rekursive Funktionen
 
 \begin{minipage}{.5\textwidth}
 \begin{itemize}
@@ -1445,12 +1471,15 @@ Wir schreiben $[x \geq 1]$ für $f : \mathbb{N} \to \{0,1\}, x \mapsto \begin{ca
 
 Wir haben eine \textbf{primitiv-rekursive} Bijektion $\beta : \mathbb{N}^2 \to \mathbb{N}$, gegeben durch
 $$
-    \beta(x,y) := \binom{x+y+1}{2}+x
+    \beta(x,y) := \binom{x+y+1}{2}+x = \frac{1}{2}(x+y)(x+y+1)
 $$
-Aus dieser lässt sich eine primitiv-rekursive Bijektion $\Omega : \mathbb{N}^{k} \to \mathbb{N}$ bauen, gegeben durch
+Aus dieser lässt sich eine primitiv-rekursive Bijektion $\langle\cdot\rangle : \mathbb{N}^{k} \to \mathbb{N}$ bauen, gegeben durch
 $$
-    \Omega(x_1,\cdots,x_k) := \beta(x_1,\beta(x_2,\beta(x_3,\cdots,\beta(x_{k-1},x_k)\cdots)))
+    \langle x_1,\cdots,x_k\rangle := \beta(x_1,\beta(x_2,\beta(x_3,\cdots,\beta(x_{k-1},x_k)\cdots)))
 $$
+Ferner gibt es primitiv-rekursive Umkehrfunktionen
+$\gamma,\delta$ mit $\forall n \in \mathbb{N}: \beta(\gamma(n),\delta(n)) = n$.
+Aus diesen lassen sich primitiv-rekursive Umkehrfunktionen $u_1,\cdots,u_k$ für $\langle\cdot\rangle$ bauen.
 
 \strut
 
@@ -1458,39 +1487,43 @@ $$
 
 Die Menge der primitiv-rekursiven Funktionen fällt mit der Menge der LOOP-berechenbaren zusammen.
 
-Beweisidee: LOOP in prim.-rek.:
-
+Beweisidee: LOOP in prim.-rek.: Für jedes Programm $P$ eine Funktion $g_P : \mathbb{N} \to \mathbb{N}$, sodass
+$$
+    P[a] = b \iff g_P(\langle a \rangle) = \langle b \rangle
+$$
 \begin{itemize}
     \item Zuweisungen via entsprechender Veränderung des Eingabetupels, also
         $$
-            P = [x_i := x_j + c] \qquad\text{durch}
+            P \equiv x_i := x_j + c \qquad\text{durch}
         $$$$
-            g_P(x) := \Omega(\pi_{k,1}(x),\cdots,\pi_{k,i-1}(x),\pi_{k,j}(x) + c, \pi_{k,i+1}(x), \cdots, \pi_{k,k}(x))
+            g_P(x) := \langle u_0(x),\cdots, u_{i-1}(x), u_j(x)+c, u_{i+1}(x),\cdots,u_k(x)\rangle
         $$
-        Wobei $\Omega:\mathbb{N}^k \to \mathbb{N}$ bijektiv.
     \item Hintereinanderausführung via Komposition, also
         $$
-            P = [Q;R] \qquad\text{durch}\qquad g_P(x) := g_R(g_Q(x))
+            P \equiv Q;R \qquad\text{durch}\qquad g_P(x) := g_R(g_Q(x))
         $$
         Für LOOP-Programme $Q,R$.
     \item LOOPS durch wiederholtes Hintereinanderausführen:
         $$
-            P = [\textsc{LOOP } x_i \textsc{ DO } Q \textsc{ ENDLOOP}]
+            P \equiv \textsc{LOOP } x_i \textsc{ DO } Q \textsc{ ENDLOOP}
             \qquad\text{durch}\qquad
         $$$$
-            g_P(x) := g_Q^{x_i}(x) = \underbrace{g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))}_{x_i}
+            g_P(x) := h_{g_Q}(x_i,x) = \underbrace{g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))}_{x_i}
         $$
+        Wobei $h_{g_Q}(0,x) := x$ und $h_{g_Q}(n+1,x) := g_Q(h(n,x))$ primitiv rekursiv.
+    \item Mit $m \leq k$ Eingabevariablen ist die Simulation dann
+        $u_0(g_P(\langle 0, x_1,\cdots,x_m,\underbrace{0,\cdots,0}_{k-m}\rangle))$.
 \end{itemize}
 
 \newpage
 
-Rückrichtung: prim.-rek. in LOOP: (Erinnerung: Ausgabe bei LOOP-Programm ist $x_0$)
+Rückrichtung: prim.-rek. in LOOP:
 \begin{itemize}
     \item Konstante Funktionen durch $x_0 := c$.
     \item Projektion $\pi_{k,j}$ durch $x_0 := x_j$.
     \item Nachfolgerfunktion $succ(x_j)$ durch $x_0 := x_j + 1$.
     \item Komposition durch ''geeignetes Hintereinanderausführen''.
-    \item Primitive Rekursion (siehe def., gleiche Fkt im folgenden) durch ''bottom-up'':
+    \item Primitive Rekursion durch ''bottom-up'':
 
         $x_0 := g(x_1,\cdots,x_k)$;\\
         $s := 0$;\\
@@ -1502,9 +1535,9 @@ Rückrichtung: prim.-rek. in LOOP: (Erinnerung: Ausgabe bei LOOP-Programm ist $x
 
 \strut
 
-\textbf{Definition:} Der Kleen'sche $\mu$-Operator
+\textbf{Definition:} Der Kleen'scher $\mu$-Operator
 
-Es gilt im folgenden $\min \varnothing = \bot$.
+Es gilt im folgenden $\min \varnothing = \bot$. (Weiter ist implizit vereinbart dass $f(\bot) = \bot$ für jedes $f$)
 
 Es sei $g: \mathbb{N}^{k+1} \to \mathbb{N}$ eine (partielle oder totale) Funktion.
 Der $\mu$-Operator ist definiert durch:
@@ -1533,18 +1566,19 @@ und abgeschlossen unter Komposition, primitiver-rekursion und des $\mu$-Operator
 Die Menge der $\mu$-rekursiven Funktionen fällt mit der Menge der WHILE-/TM-/RAM-berechenbaren Funktionen
 zusammen.
 
-Beweisidee: Es genügt zu zeigen, dass WHILE-Schleifen und $\mu$-Operatoren sich gegenseitig simulieren können (da restliche Befehle wie bei LOOP sind und schon von primitiv-rekursiven
-Funktionen abgedeckt werden).
+Beweisidee: Es genügt zu zeigen, dass WHILE-Schleifen und $\mu$-Operatoren sich gegenseitig simulieren können.
+Restliche Befehle sind analog zu LOOP-Programmen.
 
-Man simuliert ein Programm $P$ der Form WHILE $x_i \neq 0$ DO $Q$ ENDWHILE durch
+Man simuliert ein Programm $P \equiv$ WHILE $x_i \neq 0$ DO $Q$ ENDWHILE durch
 $$
-    g_P(x_1, \cdots, x_k)
-    := g_Q^{\mu \pi_{k,i}(g_Q^n(x))}(x)
-    = \underbrace{g_Q(g_Q(g_Q(\cdots g_Q(x)\cdots)))}_{\mu \pi_{k,i}(\underbrace{g_Q(\cdots g_Q(x)\cdots)}_{n})}
+    g_P(x)
+    := h_{g_Q}(\mu (u_i\circ h_{g_Q})(x), x)
 $$
-Dies benutzt den $\mu$-Operator, um das kleinste $n \in \mathbb{N}$ zu finden,
-sodass nach $\pi_{k,i}(g_Q^n(x)) = 0$ gilt, also die $i$-te Variable nach $n$-maligem Ausführen von $g_Q$
-gleich 0 ist (was ja gerade die Abbruchbedingung der While-Schleife ist). Dies kann auch $\bot$ sein, wenn die While-Schleife nicht terminiert.
+Wobei $h_{g_Q}(n,x) = g_Q(g_Q(\cdots g_Q(x)\cdots))$ wie oben. Man benutzt $\mu$ um das minimale $n$ zu
+finden, sodass $u_i(h_{g_Q}(n,x)) = 0$, also $x_i = 0$ nach $n$-maligem Anwenden von $Q$, was eben
+die WHILE-Schleife darstellt.
+
+\strut
 
 Das WHILE-Programm zu einer Funktion,
 welche aus Anwendung des $\mu$-Operators auf ein $g: \mathbb{N}^{k+1} \to \mathbb{N}$ entstanden ist,
@@ -1557,7 +1591,11 @@ WHILE $y\neq 0$ DO\\
 \strut\qquad$y := g(x_0,x_1\cdots,x_k)$;\\
 ENDWHILE;
 
+
+
 \newpage
+
+
 
 \section{P versus NP}
 
