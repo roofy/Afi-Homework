@@ -1,0 +1,414 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+\newcommand{\eps}[0]{\varepsilon}
+\newcommand{\godel}[1]{\langle #1 \rangle}
+\newcommand{\Iff}[0]{\,\Longleftrightarrow\,}
+
+\begin{document}
+
+\begin{center}
+    \LARGE \textbf{Lösungsvorschlag Arbeitsheft 1}
+\end{center}
+
+\section{Der Rice Trick}
+
+\textbf{a)}
+
+Zuerst baut man eine TM $M'$ aus $M$ und $M_2$, welche bei Eingabe $x \in \Sigma^*$ mithilfe der
+Universellen TM dann $M$ bei Eingabe $\eps$ simuliert und darauf, falls dieser Vorgang terminiert, die TM $M_2$
+bei Eingabe $x$ simuliert und dessen Ausgabe übernimmt. Da hier $\godel{M}, \godel{M_2}$ beim Bau von $M'$
+schon feststehen, kann man diese als Konstanten in $\godel{M'}$ speichern. Dann ist $M'$ letztendlich nur
+die Universelle TM, mit einem Unterprogramm, welches nach der ersten Simulation alle Bänder löscht und
+die Simulation von $M_2$ auf $x$ vorbereitet.
+
+Die TM $M''$ sei nun als 2-Band-TM aufgefasst, wobei man auf Band 1 eben $M_1$ auf der Eingabe simuliert,
+und auf Band2 eben $M'$ auf der Eingabe parallel simuliert. Diese Parallelität kann mit einer Art
+Produktkonstruktion der DFA's von $M_1$ und $M'$ geschehen, welche dann auf dem Zustandsraum $Q_{M_1} \times Q_{M'}$
+arbeitet und eine entsprechend angepasste Übergangsfunktion besitzt.
+
+Schließlich können wir $M^+$ als Simulation von $M''$ ansehen, wobei wir zwischen jedem Simulationsschritt
+die Akzeptanz von $M_1$ und $M'$ überprüfen.
+
+\strut
+
+\textbf{b)}
+
+Durch $\godel{M} \in H_\eps$ wird $M'$ stets terminieren. Wenn also die Eingabe $x \in \Sigma^*$ nicht in $L_1$
+ist, so wird trotzdem nach endlicher Zeit noch $x \in L_2$ geprüft. Es gilt also
+$$
+    \godel{M} \in H_\eps \,\Longrightarrow\, L(M^+) = L_1 \cup L_2
+$$
+
+\textbf{c)}
+
+Durch $\godel{M} \notin H_\eps$ wird $M'$ niemals dazu kommen, $x \in L_2$ für die Eingabe $x \in \Sigma^*$ zu
+überprüfen. Es folgt
+$$
+    \godel{M} \notin H_\eps \,\Longrightarrow\, L(M^+) = L_1
+$$
+
+\strut
+
+\textbf{d)}
+Aus den beiden obigen Fällen folgt mit $L_1 = \varnothing$ gut und $L_2$ schlecht sofort, dass
+$$
+    \godel{M} \in H_\eps \,\Longrightarrow\, L(M^+) = L_1 \cup L_2 = L_2 \,\Longrightarrow\, \godel{M^+} \notin L_\mathcal{E}
+$$
+sowie dass
+$$
+    \godel{M} \notin H_\eps \,\Longrightarrow\, L(M^+) = L_1 = \varnothing \,\Longrightarrow\, \godel{M^+} \in L_\mathcal{E}
+$$
+Folglich akzeptiert $T(\mathcal{E})$ die Gödelnummer $\godel{M^+}$ \textbf{genau dann}, wenn $\godel{M} \notin H_\eps$.
+
+\newpage
+
+\textbf{e)}
+
+Gäbe es eine solche TM $T(\mathcal{E})$, so könnte man mit dieser als Unterprogramm $H_\eps$ entscheiden, indem
+man zu den festen $\godel{M_1},\godel{M_2}$ mit den beschriebenen Eigenschaften und gegebener Eingabe
+$\godel{M}$ die TM $\godel{M^+}$ konstruiert und das Akzeptanzverhalten von $T(\mathcal{E})$ auf $\godel{M^+}$
+invertiert.
+
+\strut
+
+\textbf{f)}
+
+Was wir von den Sprachen $L_1,L_2$ benötigen, damit die Argumentation so bestehen kann, ist, dass
+genau eine der Sprachen $L_1$ und $L_1 \cup L_2$ gut ist. Wenn also $L_1$ schlecht ist, so benötigen
+wir nur eine gute Sprache $L_2$. Wenn wir nun $M^+$ zu diesen so wie zuvor konstruieren haben wir
+analog zu $d)$, dass
+$$
+    \godel{M} \in H_\eps \,\Longleftrightarrow\, \godel{M^+} \in L_\mathcal{E}
+$$
+also dass wir wie in e) beschrieben $H_\eps$ entscheiden können (nur diesmal ohne das Akzeptanzverhalten von $T(\mathcal{E})$ zu invertieren).
+
+\strut
+
+\textbf{g)}
+
+Dies ist analog zu d), da wenn $\godel{M} \notin H_\eps$, die TM $M'$ aus der Konstruktion von $M^+$ (siehe a))
+niemals halten wird, also $M^+$ genau $L_1$ entscheidet. Damit $\godel{M^+} \in L_\mathcal{E}$, $T(\mathcal{E})$
+akzeptiert $\godel{M^+}$.
+
+\strut
+
+\textbf{h)}
+
+Ebenfalls analog zu d) und g), da wenn $\godel{M} \in H_\eps$ dann $M^+$ genau $L_1 \cup L_2 = L_2$ entscheidet,
+also $\godel{M^+} \notin L_\mathcal{E}$ und $T(\mathcal{E})$ akzeptiert $\godel{M^+}$ nicht.
+
+\strut
+
+\textbf{i)}
+
+Aus g) und h) folgt, dass für eine feste TM $A$ mit $\godel{A} \in L_\mathcal{E}$ nun
+$$
+    f : \Sigma^* \to \Sigma^*, w \mapsto \begin{cases}
+        \godel{M^+} &, w = \godel{M} \text{ für eine TM $M$}\\
+        \godel{A} &, w \text{ keine Gödelnummer}
+    \end{cases}
+$$
+eine (berechenbare!) Reduktion $\overline{H_\eps} \leq L_\mathcal{E}$ darstellt. Denn wenn $w \in \Sigma^*$ keine Gödelnummer ist,
+so ist schonmal $w \in \overline{H_\eps}$ und $f(w) = \godel{A} \in L_\mathcal{E}$. Ist $w = \godel{M}$ für
+eine TM $M$, so ist nach g) und h) nun
+$$
+    f(w) = \godel{M^+} \in L_\mathcal{E} \iff w \in \overline{H_\eps}
+$$
+Damit haben wir also eine korrekte Reduktion $\overline{H_\eps} \leq L_\mathcal{E}$. Der Widerspruch ergibt sich,
+durch die Annahme, dass $L(\mathcal{E})$ rekursiv aufzählbar ist. Denn dann wäre auch $\overline{H_\eps}$
+rekursiv aufzählbar, und da nach VL schon $H_\eps$ rekursiv aufzählbar ist, wäre dann $H_\eps$ entscheidbar.
+
+\newpage
+
+\textbf{j)}
+Die 8 nicht-rekursiv-aufzählbaren Mengen, für die das Werkzeug benutzbar ist:
+\begin{enumerate}
+    \item $\{\godel{M} \mid L(M) = \varnothing\}$ mit $\varnothing = L_1 \subseteq L_2 = \Sigma^*$
+    \item $\{\godel{M} \mid \eps \notin L(M)\}$ mit $\varnothing = L_1 \subseteq L_2 = \Sigma^*$
+    \item $\{\godel{M} \mid L(M) \text{ regulär}\}$ mit
+        $\varnothing = L_1 \subseteq L_2 = \{0^n1^n \mid n \in \mathbb{N}\}$ kontextfrei also
+        rek. aufzählbar
+    \item $\{\godel{M} \mid L(M) \text{ nicht regulär}\}$ mit $\{0^n1^n \mid n \in \mathbb{N}\} = L_1 \subseteq L_2 = \Sigma^*$
+    \item $\{\godel{M} \mid L(M) \text{ rekursiv}\}$ mit $\varnothing = L_1 \subseteq L_2 = H_\eps$
+    \item $\{\godel{M} \mid L(M) \text{ nicht rekursiv}\}$ mit $H_\eps = L_1 \subseteq L_2 = \Sigma^*$
+    \item $\{\godel{M} \mid |L(M)| = 1\}$ mit $\{0\} = L_1 \subseteq L_2 = \{0,1\}$
+    \item $\{\godel{M} \mid |L(M)| \leq 3\}$ mit $\varnothing = L_1 \subseteq L_2 = \{0,1,00,11\}$
+\end{enumerate}
+
+\strut
+
+\textbf{k)}
+
+Das ist analog zu d), f), g) und h). Mit $\godel{M} \in H_\eps$ folgt $L(\godel{M^+}) = L_1 \cup L_2 = L_2$,
+also $\godel{M^+} \in L_\mathcal{E}$ da $L_2$ nun gut ist. Ebenso ist mit $\godel{M} \notin H_\eps$ dann
+$L(\godel{M^+}) = L_1$, also $\godel{M^+} \notin L_\mathcal{E}$, da $L_1$ hier schlecht.
+Damit folgt die Behauptung.
+
+\strut
+
+\textbf{l)}
+
+Mit analoger Argumentation zu i) erhält man eine Reduktion $H_\eps \leq L_\mathcal{E}$. Da wir bereits
+aus der VL wissen, dass $H_\eps$ rekursiv aufzählbar ist, gibt es hier keinen Widerspruch.
+
+\strut
+
+\textbf{m)}
+
+Wir zeigen die rekursive Aufzählbarkeit von $L := \{\godel{M} \mid L(M) \neq \varnothing\}$.
+
+Wie im Beweis dass semi-entscheidbare Sprachen rekursiv aufzählbar sind (VL 6) können wir
+zu einer Eingabe nach einem Syntaxcheck in ''Runden'' arbeiten; Da die Eingabe nun in der Form $\godel{M}$ ist,
+können wir in der $i$-ten Runde $M$ auf den ersten $i$ Worten der kanonischen Aufzählung von $\{0,1\}^*$
+für jeweils $i$ Schritte simulieren. Dies führen wir für jedes $i \in \mathbb{N}$ durch und akzeptieren
+sobald eines der Worte von $M$ akzeptiert wird.
+
+Wenn nun $L(M) \neq \varnothing$, so existieren $w \in \{0,1\}^*$ und $j,k \in \mathbb{N}$ sodass
+$w = w_j$ und $w$ von $M$ in $k$ Schritten akzeptiert wird. Damit wird $w$ von $M$ in der $i = \max(j,k)$-ten
+Runde akzeptiert und wir akzeptieren $\godel{M}$.
+
+Andererseits wird es kein Wort geben welches von $M$ akzeptiert wird, sodass wir Berechnung für ewig
+weiterläuft, also $\godel{M}$ auch nicht akzeptiert wird.
+
+Damit ist also $L$ rekursiv aufzählbar. Die gesuchten Sprachen sind bspw. $L_1 = \varnothing, L_2 = \{0\}$.
+
+\newpage
+
+\section{Ein weiterer Rice Trick}
+
+\textbf{a)}
+
+Ähnlich wie in der a) vom letzten Kapitel baut man eine Art Produktkonstruktion welche auf 2 Bändern
+parallel arbeitet. Dabei wird auf Band 1 eine Universelle TM, welche $M_4$ auf der Eingabe $x$ simuliert,
+ausgeführt und auf Band 2 eine modifizierte Universelle TM, welche $M$ für $|x|$ Schritte auf $\eps$ simuliert,
+ausgeführt. Da wir nicht frühzeitig abbrechen müssen, können wir hier akzeptieren, sobald beide ''Unterprogramme''
+akzeptiert haben (wobei die 2. Berechnung eben akzeptiert, wenn der Endzustand von $M$ nicht erreicht wird).
+
+\strut
+
+\textbf{b)}
+
+Im Fall $\godel{M} \notin H_\eps$ wird die zweite Berechnung nie den Endzustand von $M$ erreichen, sodass
+wir nur die Akzeptanz der ersten Berechnung, welche $x \in L_4$ überprüft, benötigen, um zu akzeptieren.
+Es gilt also
+$$
+    \godel{M} \notin H_\eps \,\Longrightarrow\, L(M^{++}) = L_4
+$$
+
+\textbf{c)}
+
+Im Fall $\godel{M} \in H_\eps$ wird $M$ auf $\eps$ in $k \in \mathbb{N}$ Schritten halten.
+Folglich haben wir für Eingaben $x \in \Sigma^*$ mit $|x| < k$ das Szenario b) erhalten,
+und für die restlichen Eingaben $x$ mit $|x| \geq k$ wird $M^{++}$ verwerfen. Es folgt
+$$
+    \godel{M} \in H_\eps \,\Longrightarrow\, L(M^{++}) = L_4 \cap \bigcup_{i=0}^{k-1} \Sigma^i
+    = \{x \in L_4 : |x| < k\}
+$$
+wobei $k = \min\{n \in \mathbb{N} \mid M \text{ hält auf $\eps$ in $n$ Schritten}\}$.
+Da $\Sigma$ stets endlich ist kann es nur endlich viele Wörter mit höchstens Länge $k$ geben, sodass
+$L(M^{++})$ eine endliche Teilmenge von $L_4$ darstellt und damit nach dem gegebenen Szenario nicht gut ist.
+
+\strut
+
+\textbf{d)}
+
+Dies folgt sofort aus b):
+$$
+    \godel{M} \notin H_\eps \,\Longrightarrow\, L(M^{++}) = L_4 \,\Longrightarrow\, \godel{M^{++}} \in L_\mathcal{E}
+$$
+Also akzeptiert $T(\mathcal{E})$ auch $\godel{M^{++}}$.
+
+\strut
+
+\textbf{e)}
+
+Analog zu d) folgt dies aus c):
+$$
+    \godel{M} \in H_\eps \,\Longrightarrow\, L(M^{++}) \text{ endliche Teilmenge von $L_4$}
+    \,\Longrightarrow\, \godel{M^{++}} \notin L_\mathcal{E}
+$$
+Also wird $\godel{M^{++}}$ nicht von $T(\mathcal{E})$ akzeptiert.
+
+\newpage
+
+\textbf{f)}
+
+Wie in Aufgabe i) des letzten Kapitels bekommt man nun eine Reduktion $\overline{H_\eps} \leq L_\mathcal{E}$,
+woraus mit der Annahme, dass $L_\mathcal{E}$ rekursiv aufzählbar ist, die Entscheidbarkeit von $H_\eps$
+folgt. Widerspruch.
+
+\strut
+
+\textbf{g)}
+
+Die nicht-rekursiv-aufzählbaren Mengen, für die das Werkzeug benutzbar ist:
+
+\begin{itemize}
+    \item $\{\godel{M} \mid L(M) = \{0,1\}^*\}$
+    \item $\{\godel{M} \mid L(M) \text{ enthält alle Worte in $\{0,1\}^*$ mit gerader Länge}\}$
+    \item $\{\godel{M} \mid L(M) \text{ ist nicht regulär}\}$ da endliche Mengen stets regulär.
+    \item $\{\godel{M} \mid L(M) \text{ ist nicht rekursiv}\}$ da endliche Mengen stets rekursiv.
+    \item $\{\godel{M} \mid |L(M)| = \infty\}$
+\end{itemize}
+
+\strut
+
+\textbf{h)}
+
+Übrig auf der Liste sind
+\begin{enumerate}
+    \item $\{\godel{M} \mid L(M) \neq \varnothing\}$ 
+    \item $\{\godel{M} \mid \eps \in L(M)\}$
+    \item $\{\godel{M} \mid 11101 \in L(M)\}$
+    \item $\{\godel{M} \mid |L(M)| \geq 3\}$
+\end{enumerate}
+
+Die erste Menge wurde im letzten Kapitel, Aufgabe m) als rekursiv aufzählbar bewiesen.
+
+Mengen 2 und 3 Lassen sich trivialerweise semi-entscheiden, indem wir einfach nach einem Syntaxcheck
+die gegebene TM auf $\eps$ bzw. 11101 simulieren und die Ausgabe übernehmen.
+
+Menge 4 lässt sich analog zu 1 entscheiden, nur dass wir erst akzeptieren, sobald mindestens 3 Wörter
+akzeptiert wurden.
+
+Damit sind alle übrig-gebliebenen Mengen rekursiv-aufzählbar.
+
+\newpage
+
+\section{Unentscheidbarkeit für context-freie Grammatiken}
+
+\textbf{a)}
+
+\newpage
+
+\section{Das zehnte Hilbert'sche Problem}
+
+\textbf{a)}
+
+Siehe HA 7.1. Man benutzt zu einer Instanz $p \in \mathbb{Z}[x_1,\cdots,x_k]$ dann
+$$
+    f(p(x_1,\cdots,x_k))
+    := p'(x_1,x'_1,\cdots,x_k,x'_k)
+    := p(x_1 - x'_1, \cdots, x_k - x'_k)
+$$
+Da $\forall z \in \mathbb{Z}: \exists n,m \in \mathbb{N} : z = n-m$ ist $f$ eine funktionierende Reduktion.
+
+\strut
+
+\textbf{d)}
+
+Sei also $f : \Sigma^* \to \Sigma^*$ eine Abbildung, welche Müll auf Müll abbildet. Zu einem korrekt-kodiertem
+Polynom $p \in \mathbb{Z}[x_1,\cdots,x_k]$ definieren wir
+$$
+    f(p(x_1,\cdots,x_k)) := p'(x_{1,1},x_{1,2},x_{1,3},x_{1,4},\cdots,x_{k,1},x_{k,2},x_{k,3},x_{k,4})
+$$
+wobei
+$$
+    p'(x_{1,1},x_{1,2},x_{1,3},x_{1,4},\cdots,x_{k,1},x_{k,2},x_{k,3},x_{k,4})
+    := p(\sum_{i=1}^{4} x_{1,i}^2, \cdots ,\sum_{i=1}^{4} x_{k,i}^2)
+$$
+Offensichtlich ist $p'$ ebenfalls ein Polynom und $f$ ist berechenbar. Falls $(a_1,\cdots,a_k) \in \mathbb{N}^k$
+eine Nullstelle von $p$ ist, so gilt nach Lagrange, dass $\forall a_i: \exists b_{1,1},b_{1,2},b_{1,3},b_{1,4} \in \mathbb{N}: \sum_{i=1}^{4} b_{1,i}^i = a_i$.
+Damit ist dann $(b_{1,1},b_{1,2},b_{1,3},b_{1,4},\cdots,b_{k,1},b_{k,2},b_{k,3},b_{k,4}) \in \mathbb{Z}^{4k}$
+eine Nullstelle von $p'$.
+
+Für die Rückrichtung sei nun
+$(b_{1,1},b_{1,2},b_{1,3},b_{1,4},\cdots,b_{k,1},b_{k,2},b_{k,3},b_{k,4}) \in \mathbb{Z}^{4k}$
+eine Nullstelle von $p'$. Dann ist zu $a_i := \sum_{j=1}^{4} b_{i,j}^2 \in \mathbb{N}$ für $i\in[1,k]_{\mathbb{N}}$ nun
+$(a_1,\cdots,a_k) \in \mathbb{N}^k$ eine Nullstelle von $p$.
+
+\strut
+
+\textbf{e)}
+
+Zu $q_1,\cdots,q_k \in \mathbb{Z}[x_1,\cdots,x_n]$ gilt
+$$
+    \forall i \in [1,k]_{\mathbb{N}}: q_i(x) = 0
+    \qquad\iff\qquad
+    \underbrace{\sum_{i=1}^{k} q_i(x)^2}_{\in \mathbb{Z}[x_1,\cdots,x_n]} = 0
+$$
+
+\newpage
+
+\textbf{f)}
+
+Wir gehen systematisch vor und starten mit dem gegebenen Gleichungssystem $p(x) = 0$.
+\begin{enumerate}
+    \item Solange es Gleichungen $g(x) = a$ mit $g(x) = q(x) + r(x)$ mit
+        $\deg(q) > 2, 0 \leq \deg(r) \leq 2$ gibt, ersetze die Gleichung $g(x) = a$ durch
+        $$
+            q(x) = b \qquad r(x) = c \qquad b+c = a
+        $$
+    \item Solange es Gleichungen $g(x) = a$ mit $g(x) = q(x)\cdot r(x)$ mit
+        $\deg(q) \geq 2, \deg(r) = 1$ gibt, ersetze die Gleichung $g(x) = a$ durch
+        $$
+            q(x) = b \qquad r(x) = c \qquad bc = a
+        $$
+    \item Ersetze alle Gleichungen der Form $g(x) = a$ durch $g(x) - a = 0$.
+\end{enumerate}
+Beispiel: $p \in \mathbb{Z}[x,y,z]$ mit $p(x,y,z) = 4x^2y-yz^2+1$. Wir formen $p(x,y,z) = 0$ um und erhalten
+$$
+    4x^2y-yz^2+1 = 0
+$$
+$$
+    4x^2y = a \qquad -yz^2 + 1 = b \qquad a+b = 0
+$$
+$$
+    4x^2y = a \qquad -yz^2  = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
+$$
+$$
+    4x^2 = e \qquad y = f \qquad ef = a \qquad -yz^2  = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
+$$
+$$
+    4x^2 = e \qquad y = f \qquad ef = a \qquad z^2 = g \qquad -y = h \qquad gh = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
+$$
+Zu guter letzt haben wir dann das Gleichungssystem:
+
+\begin{minipage}{.3\textwidth}
+$4x^2 - e = 0$\\
+$y-f = 0$\\
+$ef -a = 0$\\
+$z^2 - g = 0$\\
+$-y -h = 0$\\
+$gh - c = 0$\\
+$1 - d = 0$\\
+$c+d - b = 0$\\
+$a+b = 0$
+\end{minipage}
+\begin{minipage}{.7\textwidth}
+    Da dies alles Äquivalenzumformungen waren, stimmen die Lösungsmengen
+    der ursprünglichen Gleichung und des Gleichungssystems überein.
+    Im Beispiel haben wir unter anderem:
+    $$
+        x = 0\qquad
+        y= 1\qquad
+        z = 1
+    $$
+    Bzw im Gleichungssystem
+    $$
+        x = a = b = e = 0 \qquad
+        y = z = d = f = g = 1\qquad
+        c = h = -1
+    $$
+\end{minipage}
+\end{document}
