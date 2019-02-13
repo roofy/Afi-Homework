@@ -297,9 +297,186 @@ Damit sind alle übrig-gebliebenen Mengen rekursiv-aufzählbar.
 
 \section{Unentscheidbarkeit für context-freie Grammatiken}
 
+Wir nehmen im folgenden an, dass die Definition der Grammatiken $S_i$ fehlerhaft sind, und eigentlich die folgenden
+Produktionsregelen gemeint sind:
+$$
+    S_1 \to d_1[S_1]x_1 \mid d_2[S_1]x_2 \mid d_3[S_1]x_3 \mid \cdots \mid d_k[S_1]x_k
+$$$$
+    S_2 \to d_1[S_2]y_1 \mid d_2[S_2]y_2 \mid d_3[S_2]y_3 \mid \cdots \mid d_k[S_2]y_k
+$$
+wobei hier die standard EBNF-Schreibweise verwendet wird, dass $X \to \alpha[\beta]\gamma$ als optionales
+$\beta$, also $X \to \alpha\beta\gamma \mid \alpha\gamma$ zu verstehen ist.
+
 \textbf{a)}
 
+Halt nen DPDA schreiben, ich kehre nicht.
+
+\strut
+
+\textbf{b)}
+
+Deterministisch-kontextfreie Sprachen sind unter Komplementbildung abgeschlossen. Folglich sind
+$\overline{L(G_1)}$ und $\overline{L(G_2)}$ deterministisch-kontextfreie Sprachen und es gibt einen Algorithmus
+der Grammatiken $G'_1$ und $G'_2$ berechnet, sodass $L(G'_i) = \overline{L(G_i)}$ für $i=1,2$.
+
+\strut
+
+\textbf{c)}
+
+Kontextfreie Sprachen sind unter Vereinigung abgeschlossen, und deterministisch-kontextfreie Sprachen sind eine
+echte Unterklasse der kontextfreien Sprachen. Folglich sind
+$$
+    L_3 := L(G_1) \cup L(G'_2)
+    \qquad\text{und}\qquad
+    L_4 := L(G_1') \cup L(G_2)
+$$
+beides kontextfreie Sprachen. Damit existieren kontextfreie Grammatiken $G_i$ mit $L(G_i) = L_i$ für $i=3,4$,
+welche durch einen Algorithmus berechnet werden können. (Bspw neues Startsymbol und Auswahl zwischen
+Startsymbolen der beiden Grammatiken; $S_{new} \to S_{G_1} \mid S_{G'_2}$)
+
+\strut
+
+\textbf{d)}
+
+Angenommen die gegebene PCP-Instanz hat einen Lösung $i_1,\cdots,i_n \in [1,k]_\mathbb{N}$.\\
+Dann haben wir $x_{i_1}\cdots x_{i_n} = y_{i_1} \cdots y_{i_n}$. Folglich kann man aus $S_1$ und $S_2$
+das selbe Wort
+$$
+    S_j
+    \vdash d_{i_1}S_jx_{i_1}
+    \vdash d_{i_1}d_{i_2}S_jx_{i_2}x_{i_1}\quad
+    \vdash^*\quad d_{i_1}\cdots d_{i_k}S_jx_{i_k}\cdots x_{i_1}
+    \quad=\quad d_{i_1}\cdots d_{i_k}S_j y_{i_k}\cdots y_{i_1}
+$$
+ableiten, wobei $j=1,2$. Damit ist $L(G_1) \cap L(G_2) \neq \varnothing$.
+
+Sei nun $L(G_1) \cap L(G_2) \neq \varnothing$. Dann existiert ein Wort $w \in L(G_1) \cap L(G_2)$.
+Per Definition von $G_1,G_2$ ist dann
+$w = d_{i_1}\cdots d_{i_n}x_{i_n}\cdots x_{i_1} = d_{i_1}\cdots d_{i_n}y_{i_n}\cdots y_{i_1}$ für
+$i_1,\cdots,i_n \in [1,k]_\mathbb{N}$. Damit ist dann $i_1,\cdots,i_n$ eine Lösung der PCP-Instanz.
+
+Folglich ist es unentscheidbar, ob zwei gegebene kontextfreie Sprachen leeren Schnitt haben, da
+man sonst das PCP entscheiden könnte (Konstruktionen der Grammatiken sind berechenbar).
+
 \newpage
+
+\textbf{e)}
+
+Angenommen es gilt $L(G_1) \cap L(G_2) \neq \varnothing$. Das ist nach d) äquivalent dazu, dass
+zu $w \in L(G_1) \cap L(G_2)$ eine Lösung $i = i_1\cdots,i_n$ der gegebenen PCP-Instanz existiert.
+Insbesondere ist aber dann auch
+$$
+    i^j
+    := \underbrace{i,i,\cdots,i}_{j \text{ mal}}
+    := \underbrace{i_1,\cdots,i_n,\quad\cdots\quad,i_1,\cdots,i_n}_{j \text{ mal } i_1,\cdots,i_n}
+$$
+eine Lösung für jedes $j \in \mathbb{N}$. Folglich haben PCP-Instanzen unendlich viele Lösungen
+sobald sie eine Lösung haben. Ferner gibt es zu jeder dieser Lösungen genau 1 Wort in $L(G_1) \cap L(G_2)$:
+$$
+    i^j
+    \quad\text{korrespondiert zu}\quad
+    D_i^jX_i^j \in L(G_1) \cap L(G_2)
+$$
+wobei $D_i^j := (d_{i_1}d_{i_2}\cdots d_{i_n})^j
+:= \underbrace{d_{i_1},\cdots,d_{i_n},\quad\cdots\quad,d_{i_1},\cdots,d_{i_n}}_{j \text{ mal } d_{i_1},\cdots,d_{i_n}}$
+und analoges für\\
+$X_i^j := (x_{i_n},x_{i_{n-1}},\cdots,x_{i_1})^j = (y_{i_n},y_{i_{n-1}},\cdots,y_{i_1})^j$ gilt.
+Also ist
+$$
+    L(G_1) \cap L(G_2) \neq \varnothing \iff |L(G_1) \cap L(G_2)| = \infty
+$$
+Damit ist es unentscheidbar, ob zwei gegebene kontextfreie Grammatiken unendlich viele gemeinsame Worte erzeugen,
+da wir sonst das Schnittproblem aus d) entscheiden könnten.
+
+\strut
+
+\textbf{f)}
+
+Dies ist simple Mengenlehre; für Mengen $A,B$ gilt stets:
+$$
+    \varnothing
+    = A \cap B
+    = A \cap \overline{\overline{B}}
+    = A \setminus \overline{B}
+    \quad\iff\quad
+    A \subseteq \overline{B}
+$$
+Damit folgt aus d), dass das Inklusionsproblem für kontextfreie Sprachen unentscheidbar ist.
+
+\strut
+
+\textbf{g)}
+
+Wieder simple Mengenlehre; Auch aus f) folgt für Mengen $A,B$, dass
+$$
+    A \cup \overline{B} = \overline{B}
+    \quad\iff\quad
+    A \subseteq \overline{B}
+    \quad\iff\quad
+    A \cap B = \varnothing
+$$
+Damit folgt aus d), dass das Äquivalenzproblem für kontextfreie Sprachen unentscheidbar ist.
+
+\strut
+
+\textbf{h)}
+
+Wieder simple Mengenlehre; für Mengen $A,B \subseteq \Omega$ gilt stets:
+$$
+    \Omega = \overline{A} \cup \overline{B}
+    \qquad\iff\qquad
+    \overline{\Omega} = \overline{\overline{A} \cup \overline{B}} = A \cap B
+$$
+Da in unserem Beispiel $\Omega = \Sigma^*$ und daher $\overline{\Omega} = \varnothing$ folgt die Behauptung
+wieder aus d).
+
+\newpage
+
+\textbf{i)}
+
+Eine Solche Grammatik könnte wie folgt berechnet konstruiert werden:
+$$
+    S_5 \to S' \mid S''
+    \qquad
+    S' \to S_{\Sigma^*}\$S_{L_0}
+    \qquad
+    S'' \to S_{L_4}\$S_{\Sigma^*}
+$$
+wobei $S_{\Sigma^*}, S_{L_0}, S_{L_4}$ die Startsymbole der kontextfreien Grammatiken für $\Sigma^*, L_0$ und $L_4$
+sind. Da sich $G_4$ mit $L(G_4) = L_4$ nach a),b),c) aus der gegebenen PCP-Instanz berechnen lässt,
+ist also auch $G_5$ eine berechenbare kontextfreie Grammatik.
+
+\strut
+
+\textbf{j)}
+
+Da $L_0 \subseteq \Sigma^*$ folgt sofort
+$$
+    L_4 = L(G_4) = \Sigma^*
+    \quad\Longrightarrow\quad L(G_5) = \Sigma^*\$L_0 \cup L_4\$\Sigma^* = \Sigma^*\$L_0 \cup \Sigma^*\$\Sigma^*
+    = \Sigma^*\$\Sigma^*
+$$
+wobei letzteres trivialerweise regulär ist, da es schon als regulärer Ausdruck gegeben ist.
+
+Sei nun $\Sigma^* \setminus L_4 \neq \varnothing$. Dann existiert ein $p \in \Sigma^* \setminus L_4$.
+Angenommen $L_5$ ist regulär. Dann gibt es einen DFA $D$, welcher $L_5$ entscheidet.
+Hat man nun ein Wort $w \in \Sigma^*$ gegeben, so können wir das Wort $p\$w$ dem DFA $D$ übergeben
+und damit entscheiden, ob $w \in L_0$. Folglich gäbe es einen DFA welcher $L_0$ entscheidet, was
+die Regularität von $L_0$ zeigen würde, Widerspruch.
+
+\strut
+
+\textbf{k)}
+
+Aus h) und j) folgt nun die Unentscheidbarkeit des Regularitätsproblems für kontextfreie Grammatiken;
+Könnten wir die Regularität von $L_5$ entscheiden, so könnte man (durch invertieren des Ergebnisses)
+entscheiden, ob $L_4 = \Sigma^*$, was nach h) unentscheidbar ist.
+
+
+
+\newpage
+
+
 
 \section{Das zehnte Hilbert'sche Problem}
 
@@ -314,6 +491,46 @@ $$
 Da $\forall z \in \mathbb{Z}: \exists n,m \in \mathbb{N} : z = n-m$ ist $f$ eine funktionierende Reduktion.
 
 \strut
+
+\textbf{b)}
+
+Zu einem gegebenen Polynom $p \in \mathbb{Z}[x_1,\cdots,x_n]$ konstruieren wir das Polynom
+$$
+    q = \prod_{w \in \{0,1\}^n} p_w
+    \qquad\text{mit}\qquad
+    p_w(x_1,\cdots,x_n) := p(x_1+w_1, x_2+w_2, \cdots, x_n+w_n)
+$$
+Ist nun $a \in \mathbb{N}^n$ mit $p(a) = 0$, so gilt $p_w(b) = 0$ wobei $w_i := \begin{cases}0 &, a_i\text{ gerade}\\
+1 &, a_i \text{ ungerade}\end{cases}$ und $b_i := a_i - w_i$. Offensichtlich sind alle $b_i \in \mathbb{N}$
+gerade, und $b$ eine Nullstelle von $q$.
+
+Ist hingegen $b \in \mathbb{N}^n$ mit $q(b) = 0$ und $b_i$ gerade, so existiert ein $w \in \{0,1\}^n$ mit $p_w(b) = 0$.
+Definiere dann $a_i := b_i + w_i \in \mathbb{N}$, dann gilt $p(a) = 0$. Folglich gilt
+$$
+    \godel{p} \in \text{Dioph}(\mathbb{N}) \iff \godel{q} \in \text{Dioph}(\mathbb{N}_g)
+$$
+sodass wir (mit noch einem Syntaxcheck) eine Reduktion Dioph($\mathbb{N}$) $\leq$ Dioph($\mathbb{N}_g$) haben.
+Da Dioph($\mathbb{N}$) unentscheidbar, folgt dies nun auch für Dioph($\mathbb{N}_g$).
+
+\strut
+
+\textbf{c)}
+
+Zu einem gegebenen Polynom $p \in \mathbb{Z}[x_1,\cdots,x_n]$ konstruieren wir das Polynom
+$$
+    q(x_1,\cdots,x_n) := p(x_1 - 1,\cdots,x_n-1)
+$$
+Ist nun $a \in \mathbb{N}^n$ mit $a_i$ gerade und $p(a) = 0$, so ist $q(b) = 0$ für $b_i := a_i+1 \in \mathbb{N}$ ungerade.
+
+Analog ist zu $b \in \mathbb{N}^n$ mit $b_i$ ungerade und $q(b) = 0$ dann $p(a) = 0$ für $a_i := b_i - 1 \in \mathbb{N}$ gerade.
+Folglich gilt
+$$
+    \godel{p} \in \text{Dioph}(\mathbb{N}_g) \iff \godel{q} \in \text{Dioph}(\mathbb{N}_u)
+$$
+sodass wir (mit noch einem Syntaxcheck) eine Reduktion Dioph($\mathbb{N}_g$) $\leq$ Dioph($\mathbb{N}_u$) haben.
+Da Dioph($\mathbb{N}_g$) unentscheidbar, folgt dies nun auch für Dioph($\mathbb{N}_u$).
+
+\newpage
 
 \textbf{d)}
 
@@ -348,8 +565,6 @@ $$
     \underbrace{\sum_{i=1}^{k} q_i(x)^2}_{\in \mathbb{Z}[x_1,\cdots,x_n]} = 0
 $$
 
-\newpage
-
 \textbf{f)}
 
 Wir gehen systematisch vor und starten mit dem gegebenen Gleichungssystem $p(x) = 0$.
@@ -366,23 +581,7 @@ Wir gehen systematisch vor und starten mit dem gegebenen Gleichungssystem $p(x) 
         $$
     \item Ersetze alle Gleichungen der Form $g(x) = a$ durch $g(x) - a = 0$.
 \end{enumerate}
-Beispiel: $p \in \mathbb{Z}[x,y,z]$ mit $p(x,y,z) = 4x^2y-yz^2+1$. Wir formen $p(x,y,z) = 0$ um und erhalten
-$$
-    4x^2y-yz^2+1 = 0
-$$
-$$
-    4x^2y = a \qquad -yz^2 + 1 = b \qquad a+b = 0
-$$
-$$
-    4x^2y = a \qquad -yz^2  = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
-$$
-$$
-    4x^2 = e \qquad y = f \qquad ef = a \qquad -yz^2  = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
-$$
-$$
-    4x^2 = e \qquad y = f \qquad ef = a \qquad z^2 = g \qquad -y = h \qquad gh = c \qquad 1 = d \qquad c+d = b \qquad a+b = 0
-$$
-Zu guter letzt haben wir dann das Gleichungssystem:
+Beispiel: $p \in \mathbb{Z}[x,y,z]$ mit $p(x,y,z) = 4x^2y-yz^2+1$. Man erhält nach ausführen der Schritte:
 
 \begin{minipage}{.3\textwidth}
 $4x^2 - e = 0$\\
@@ -411,4 +610,26 @@ $a+b = 0$
         c = h = -1
     $$
 \end{minipage}
+
+\textbf{g)}
+
+Sei $p \in \mathbb{Z}[x_1,\cdots,x_k]$ also ein gegebenes Polynom. Dann gilt $p(x)^2 = q(x) - r(x)$
+für $q,r$ polynome mit positiven ganzzahligen Koeffizienten. Da stets $q(x) \geq r(x)$ gilt nun
+$$
+    \exists a \in \mathbb{Z}^k: p(a) = 0
+    \iff
+    p(a)^2 = 0
+    \iff
+    q(a) \not> r(a)
+$$
+Offensichtlich sind $q,r$ aus $p$ berechenbar. Damit könnten wir also entscheiden ob $p$ eine ganzzahlige
+Nullstelle hat; falls $\forall x \in \mathbb{Z}^k : q(x) > r(x)$ so ist $\godel{p} \notin$ Dioph,
+andernfalls ist $\godel{p} \in$ Dioph. Folglich kann das gegebene Problem nicht entscheidbar sein.
+
+Beispiel für univariate: $p,q,r \in \mathbb{Z}[x]$ mit $p(x) = -x^2+2x+3$ also $p(x)^2 = x^4-4x^3-2x^2+12x+9$.
+Dann sind $q(x) = x^4+12x+9$ und $r(x) = 4x^3+2x^2$. Und wir haben
+$$
+    \{x \in \mathbb{Z} \mid q(x) \not> r(x)\} = \{-1,3\} = \{x \in \mathbb{Z} \mid p(x) = 0\}
+$$
+
 \end{document}
