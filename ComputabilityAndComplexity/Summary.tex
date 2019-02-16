@@ -135,11 +135,11 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \item MATCHING
     \item VERTEX-COVER
     \item DOMINATING-SET
-    \item COLORING
     \item (D-)HAM-CYCLE
-    \item GI
+    \item GRAPH-ISOMORPHISMUS
     \item COMPOSITE
     \item EX-COVER
+    \item COLORING
     \item SUBSET-SUM
     \item PARTITION
     \item KNAPSACK
@@ -152,11 +152,10 @@ Komplemente werden im folgenden weggelassen, da offensichtlich auch unentschiedb
     \section*{Probleme in \textsf{coNP}}
 
     \begin{itemize}
-        \item Non-Ham-Cycle
         \item UNSAT
         \item TAUTOLOGY
         \item LP
-        \item (Jedes Problem in NP, gleiches Zertifikat)
+        \item (Komplement von $L \in \textsf{NP}$, (JA- und NEIN-Instanzen vertauscht, gleiches Zertifikat)
     \end{itemize}
 
 \end{minipage}
@@ -220,7 +219,23 @@ Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
 \\[5pt]
 Frage: Enthält $G$ ein Vertex-Cover ($S \subseteq V$ berührt alle Kanten) mit $\leq k$ Knoten?
 
-\newpage
+\strut
+
+\textbf{D-HAM-CYCLE} (\textsf{NP}-vollständig; SAT $\leq_p$ D-HAM-CYCLE)
+\\[5pt]
+Eingabe: Ein gerichteter Graph $G = (V,A)$
+\\[5pt]
+Frage: Besitzt $G$ einen gerichteten Hamiltonkreis?
+
+\strut
+
+\textbf{HAM-CYCLE} (\textsf{NP}-vollständig; D-HAM-CYCLE $\leq_p$ HAM-CYCLE)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$
+\\[5pt]
+Frage: Besitzt $G$ einen Hamiltonkreis (geschl. Pfad, der jeden Knoten genau einmal enthält)?
+
+\strut
 
 \textbf{MATCHING}
 \\[5pt]
@@ -240,31 +255,7 @@ Frage: Enthält $G$ ein Dominating-Set mit $\leq k$ Knoten?\\[5pt]
 
 \strut
 
-\textbf{COLORING} (\textsf{NP}-vollständig; nicht in VL)
-\\[5pt]
-Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
-\\[5pt]
-Frage: Gibt es eine Färbung $c : V \to [1,k]$ sodass $\forall e \in E : c(e_1) \neq c(e_2)$?
-
-\strut
-
-\textbf{D-HAM-CYCLE} (\textsf{NP}-vollständig; SAT $\leq_p$ D-HAM-CYCLE)
-\\[5pt]
-Eingabe: Ein gerichteter Graph $G = (V,A)$
-\\[5pt]
-Frage: Besitzt $G$ einen gerichteten Hamiltonkreis?
-
-\strut
-
-\textbf{HAM-CYCLE} (\textsf{NP}-vollständig; D-HAM-CYCLE $\leq_p$ HAM-CYCLE)
-\\[5pt]
-Eingabe: Ein ungerichteter Graph $G = (V,E)$
-\\[5pt]
-Frage: Besitzt $G$ einen Hamiltonkreis (geschl. Pfad, der jeden Knoten genau einmal enthält)?
-
-\strut
-
-\textbf{GI}
+\textbf{GRAPH-ISOMORPHISMUS}
 \\[5pt]
 Eingabe: Zwei ungerichtete Graphen $G_1= (V_1,E_1), G_2=(V_2,E_2)$.
 \\[5pt]
@@ -284,9 +275,13 @@ Frage: Ist $n$ keine Primzahl?
 \\[5pt]
 Eingabe: Eine endliche Menge $X$ und $S_1,\cdots,S_M \subseteq X$
 \\[5pt]
-Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von $X$ ist?
+Frage: Existiert $I \subseteq [1,m]$ sodass $(S_i)_{i \in I}$ eine Parition von $X$ ist?\\
 
-\newpage
+\textbf{COLORING} (\textsf{NP}-vollständig; nicht in VL)
+\\[5pt]
+Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$
+\\[5pt]
+Frage: Gibt es eine Färbung $c : V \to [1,k]$ sodass $\forall e \in E : c(e_1) \neq c(e_2)$?\\
 
 \textbf{SUBSET-SUM} (\textsf{NP}-vollständig; 3-SAT $\leq_p$ SUBSET-SUM)
 \\[5pt]
@@ -294,7 +289,7 @@ Eingabe: $a \in \mathbb{N}^k, b \in \mathbb{N}$
 \\[5pt]
 Frage: Existiert $I \subseteq [1,k]$ sodass $\displaystyle \sum_{i \in I}a_i = b$?
 
-\strut
+\newpage
 
 \textbf{PARTITION} (\textsf{NP}-vollständig; SUBSET-SUM $\leq_p$ PARTITION)
 \\[5pt]
@@ -344,7 +339,7 @@ Eingabe: Städte $1,...,n$; symm. Dist. $d(i,j)$, welche Dreiecksungleichung erf
 \\[5pt]
 Frage: Gibt es eine Rundreise mit Länge höchstens $\gamma$?
 
-\newpage
+\strut
 
 \textbf{TSP} (\textsf{NP}-vollständig, folgt aus $\{1,2\}$-TSP)
 \\[5pt]
@@ -378,6 +373,21 @@ Eingabe: $A \in \{-1,0,1\}^{m \times n}, b \in \{-1,0,1\}^{m\times 1}$
 
 Frage: Existiert $x \in \{0, 1\}^{n \times 1}$ sodass $Ax \geq b$?
 
+\strut
+
+\textbf{UNSAT} (\textsf{coNP}-vollständig)
+
+Eingabe: Eine Boolesche Formel $\varphi$ in CNF über Variablenmenge $\{x_1,...,x_n\}$.
+
+Frage: Ist $\varphi$ nicht erfüllbar?
+
+\strut
+
+\textbf{TAUTOLOGY} (\textsf{coNP}-vollständig)
+
+Eingabe: Eine Boolesche Formel $\varphi$ in {\color{red}\textbf{D}}NF über Variablenmenge $\{x_1,...,x_n\}$.
+
+Frage: Wird $\varphi$ von allen Variablenbelegungen erfüllt?
 
 \strut
 
@@ -723,7 +733,6 @@ $$
 
 \begin{itemize}
     \item Abzählbarkeit
-    \item Entscheidungsprobleme
     \item Diagonalsprache
     \item Unterprogrammtechnik
     \item Komplement und Entscheidbarkeit
@@ -1100,7 +1109,6 @@ Für weitere Details siehe VL.
 
 
 \begin{itemize}
-    \item Kontext-freie Grammatik (CFG)
     \item Leerheit Schnitt zweier CFG's
     \item Satz von Richardson
     \item Hilberts 10. Problem / Satz von Matiyasevich
@@ -1606,7 +1614,6 @@ ENDWHILE;
     \item Non-deterministische Turingmaschinen (NTM's)
     \item Laufzeit einer NTM
     \item Komplexitätsklasse \textsf{NP}
-    \item CLIQUE
     \item Zertifikat-Charakterisierung von \textsf{NP}
 \end{itemize}
 
@@ -1679,21 +1686,6 @@ deren Worst Case Laufzeit $t_M(n)$ polynomiell beschränkt ist.
 
 \strut
 
-\textbf{Problem:} CLIQUE
-
-Eingabe: Ein ungerichteter Graph $G = (V,E)$ und $k \in \mathbb{N}$.\\
-Frage: Enthält $G$ eine Clique (vollständigen Teilgraph) mit $\geq k$ Knoten?
-
-Es gilt CLIQUE $\in \textsf{NP}$. Beweisidee: Eine NTM $M$ mit $L(M) = $ CLIQUE geht wie folgt vor:
-\begin{itemize}
-    \item Syntaxcheck
-    \item Rate non-deterministisch einen 0-1-String $y$ der Länge $|V|$.
-    \item M akzeptiert, falls der String $y$ mindestens $k$ Einsen enthält und die Knotenmenge
-        $C := \{i \in V \mid y_i = 1\}$ eine Clique bildet.
-\end{itemize}
-
-\strut\\
-
 \textbf{Satz:} Zertifikat Charakterisierung von \textsf{NP}
 
 Eine Sprache $L \subseteq \Sigma^*$ liegt genau dann in \textsf{NP}, wenn es
@@ -1703,7 +1695,11 @@ $$
 $$
 $V$ heißt hier Verifizierer, das Wort $y \in \{0,1\}^*$ Zertifikat.
 
+
+
 \newpage
+
+
 
 \section{Polynomielle Reduktionen}
 
@@ -1735,7 +1731,7 @@ Diese Probleme lassen sich oft in ''sehr ähnliche'' Entscheidungsprobleme umwan
 Hierbei fügt man dem Problem eine Schranke hinzu und fragt dann, ob es eine Lösung gibt,
 welche dieser Schranke genügt.
 
-Am Beispiel KP (Rucksackproblem): Angenommen $A \in \textsc{P}$ löst das zugehörige Entscheidungsproblem
+Am Beispiel KP (Rucksackproblem): Angenommen $A \in \textsf{P}$ löst das zugehörige Entscheidungsproblem
 \begin{itemize}
     \item Bestimme mit binärer Suche den optimalen Zielfunktionswert\\
         (min. Profit 0, max. Summe aller Profite). Dies ist immernoch polynomiell
@@ -1780,7 +1776,11 @@ $$
     (L_2 \in \textsf{P}) \land (L_1 \leq_p L_2) \,\Longrightarrow\, L_1 \in \textsf{P}
 $$
 
+
+
 \newpage
+
+
 
 \section{Satz von Cook und Levin}
 
@@ -1871,14 +1871,11 @@ Beweisidee:
     \item Offensichtlich polynomiell und korrekt.
 \end{itemize}
 
-\strut
 
-\textbf{Bemerkung} Richard Manning Karp's Liste mit 21 \textsf{NP}-vollständigen Problemen
-
-Die Probleme dieser Liste, welche in der VL drankamen, sind zu Anfang des Dokuments
-in der Liste der \textsf{NP}-Probleme {\color{red} rot markiert}.
 
 \newpage
+
+
 
 \section{\textsf{NP}-vollständige Graphprobleme}
 
@@ -1898,12 +1895,11 @@ in der Liste der \textsf{NP}-Probleme {\color{red} rot markiert}.
 Beweisidee: Man reduziert SAT $\leq_p$ CLIQUE.
 
 \begin{itemize}
-    \item Jedes Literal wird mit der aussagenlogischen Formel entspricht einem Knoten
+    \item Jedes Literal entspricht einem Knoten
     \item Knoten haben eine Kante gdw. Sie in verschied. Klauseln vorkommen
         und sich nicht widersprechen ($x_2, \lnot x_2$ würde sich widersprechen).
-    \item Bei $m$ Klauseln sucht man nun eine CLIQUE von $m$ Knoten in dem resultierenden Graph,
+    \item Bei $m$ Klauseln sucht man nun eine CLIQUE von (mindestens) $m$ Knoten in dem resultierenden Graph,
         die Eingabe $k$ für CLIQUE wird also auf $m$ gesetzt.
-    \item Die Reduktion ist offensichtlich polynomiell.
 \end{itemize}
 
 \strut
@@ -1943,10 +1939,13 @@ Beweisidee: Es genügt zu zeigen, dass $\{1,2\}$-TSP \textsf{NP}-schwer ist.
     \item Graph hat Hamiltonkreis gdw. TSP-Instanz eine Tour mit Länge $\leq |V_G|$ hat.
 \end{itemize}
 
+
+
 \newpage
 
-\section{\textsf{NP}-vollständige Zahlprobleme}
 
+
+\section{\textsf{NP}-vollständige Zahlprobleme}
 
 \begin{itemize}
     \item SUBSET-SUM ist \textsf{NP}-vollständig
@@ -1964,28 +1963,24 @@ Beweisidee: Es genügt zu zeigen, dass $\{1,2\}$-TSP \textsf{NP}-schwer ist.
 
 Beweisidee: Man zeigt 3-SAT $\leq_p$ SUBSET-SUM.
 \begin{itemize}
-    \item Codierte Zahlen mit $n+m$ Ziffern, wo wir $n$ Variablen und $m$ Klauseln haben.
+    \item Codierte Dezimalzahlen mit $n+m$ Ziffern, wobei wir $n$ Variablen und $m$ Klauseln haben.
     \item Für jede Variable $x_i$ erstelle 2 Zahlen $a_i^+, a_i^-$, dessen $i-te$ Ziffer
         1 ist, sonst 0. Ferner hat jede der erstellten Ziffern eine 1 im Ziffernbereich $n+j, j \in [1,m]$
-        wenn die zugehörige Variable in Klausel $c_j$ vorkommt. Man führt noch 2 dummy-variablen $d_j,d_j'$
+        wenn die zugehörige Variable in Klausel $c_j$ vorkommt. Man führt noch 2 Dummy-Zahlen $d_j,d_j'$
         für jede Klausel ein, welche nur an Ziffer $n+j$ eine 1 haben (eine Klausel kann 3 mal die gleiche Variable enthalten bspw.)
-    \item Die Zielsumme lautet dann $b = \underbrace{11...1}_{n}\underbrace{33...3}_{m}$.
-    \item Für $i \in [1,n]$ kann die $i$-te Ziffern nur von $a_i^+,a_i^-$ auf 1 gebracht werden,
-        insbesondere muss genau eine der beiden Zahlen gewählt werden. Somit wird implizit auch
-        jede Klausel mindestens einmal gewählt, was genügt um mit den Dummy-Variablen auf den Wert 3 zu kommen.
     \item Polynomiell da Eingabe $n+m$ Dinge (Variablen / Klauseln) hat und damit Länge $\geq n+m$.
-        Die konstruierte Instant benötigt $\mathcal{O}(n+m)$ Zahlen der Länge $n+m$. Die Reduktion erfolgt
+        Die konstruierte Instanz benötigt $\mathcal{O}(n+m)$ Zahlen der Länge $n+m$. Die Reduktion erfolgt
         also in $\mathcal{O}((n+m)^2)$.
 \end{itemize}
 
-\newpage
+\strut
 
 \textbf{Satz:} PARTITION ist \textsf{NP}-vollständig
 
 Beweisidee: Man zeige SUBSET-SUM $\leq_p$ PARTITION.
 \begin{itemize}
     \item Bilde Instanz $(a_1,...,a_n,b)$ von SUBSET-SUM auf $(a_1,...,a_n,a_{n+1},a_{n+2},b)$ mit
-        $a_{n+1} := 2S - b, a_{n+2} := S + b$, wobei $S := \sum_{i=1}^{n} a_i$.
+        $a_{n+1} := 2S - b, a_{n+2} := S + b$, wobei ObdA $b \leq S := \sum_{i=1}^{n} a_i$.
         Dann ist $\sum_{i=1}^{n+2} a_i = 4S$.
     \item Wenn es eine Lösung zur SUBSET-SUM Instanz gibt, fügen wir $a_{n+1} = 2S-b$ hinzu
         und erhalten den gesuchten Summenwert $2S = 4S/2$.
@@ -2027,7 +2022,7 @@ $\sum a_i \geq b$ garantiert.
     \item Wert eine Zahl $n$ hängt \textbf{exponentiell} von seiner Kodierungslänge ab.
 \end{itemize}
 
-\newpage
+\strut
 
 \textbf{Definition:} Number
 
@@ -2058,11 +2053,11 @@ Stark \textsf{NP}-schwere Probleme sind bspw: SAT, HAM-CYCLE, TSP, BPP.
 
 \strut
 
-\textbf{Satz:} Beweismethode \textsf{P = NP}
+\textbf{Satz:} Beweismethode \textsf{P = NP} (Bzw. Auschlusskriterium \text{NP}-schwer und pseudopolynomiell)
 
 Es sei $X$ ein stark \textsf{NP}-schweres Entscheidungsproblem. Falls $X$ pseudo-polynomiell lösbar ist,
-so gilt \textsf{P = NP}.A\\
-Dies liegt
+so gilt \textsf{P = NP}. Denn wir könnten dann das \textsf{NP}-schwere $X_q$ polynomiell in der Eingabelänge $|I|$
+lösen.
 
 \strut
 
@@ -2172,7 +2167,7 @@ Beweis: $\textsf{NP} \supseteq \textsf{P} = \textsf{coP} \subseteq \textsf{coNP}
 
 \textbf{Satz:}
 
-$X \in \textsf{NPC} \land X \in \textsf{coNP} \,\Longrightarrow\, \textsf{NP} = \textsf{coNP}$.\\
+$X \in \textsf{NPC} \cap\textsf{coNP} \,\Longrightarrow\, \textsf{NP} = \textsf{coNP}$.\\
 Beweis:
 $$
     X \in \textsf{NPC}
@@ -2216,6 +2211,11 @@ für $p$ Polynom.
 
 ''Es existiert eine reelle Zahl $\delta > 0$,
 sodass kein Algorithmus 3-SAT in Zeit $\mathcal{O}(2^{\delta n})$ löst.''
+
+Oder auch
+$$
+    \exists \delta > 0 : \forall A: \text{$A$ löst 3-SAT} \,\Longrightarrow\, t_A(n) \notin \mathcal{O}(2^{\delta n})
+$$
 
 Diese Aussage ist \textbf{unbewiesen} und impliziert $\textsf{P} \neq \textsf{NP}$.\\
 Falls $\text{GI} \in \textsf{NPC}$, so ist die Hypothese falsch.
