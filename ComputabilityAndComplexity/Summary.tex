@@ -1519,7 +1519,7 @@ $$
         $$$$
             g_P(x) := h_{g_Q}(x_i,x) = \underbrace{g_Q(g_Q(\cdots g_Q(g_Q(x))\cdots))}_{x_i}
         $$
-        Wobei $h_{g_Q}(0,x) := x$ und $h_{g_Q}(n+1,x) := g_Q(h(n,x))$ primitiv rekursiv.
+        Wobei $h_{g_Q}(0,x) := x$ und $h_{g_Q}(n+1,x) := g_Q(h_{g_Q}(n,x))$ primitiv rekursiv.
     \item Mit $m \leq k$ Eingabevariablen ist die Simulation dann
         $u_0(g_P(\langle 0, x_1,\cdots,x_m,\underbrace{0,\cdots,0}_{k-m}\rangle))$.
 \end{itemize}
@@ -1692,7 +1692,7 @@ deren Worst Case Laufzeit $t_M(n)$ polynomiell beschränkt ist.
 Eine Sprache $L \subseteq \Sigma^*$ liegt genau dann in \textsf{NP}, wenn es
 einene polynomiellen deterministischen Algorithmus $V$ und ein Polynom $p$ gibt, sodass:
 $$
-    x \in L \Iff \exists y \in \{0,1\}^*, |y| \leq p(|x|): y\#x \in L(V)
+    \forall x \in \Sigma^*: x \in L \Iff \exists y \in \{0,1\}^*, |y| \leq p(|x|): y\#x \in L(V)
 $$
 $V$ heißt hier Verifizierer, das Wort $y \in \{0,1\}^*$ Zertifikat.
 
@@ -1967,7 +1967,7 @@ Beweisidee: Man zeigt 3-SAT $\leq_p$ SUBSET-SUM.
     \item Codierte Dezimalzahlen mit $n+m$ Ziffern, wobei wir $n$ Variablen und $m$ Klauseln haben.
     \item Für jede Variable $x_i$ erstelle 2 Zahlen $a_i^+, a_i^-$, dessen $i-te$ Ziffer
         1 ist, sonst 0. Ferner hat jede der erstellten Ziffern eine 1 im Ziffernbereich $n+j, j \in [1,m]$
-        wenn die zugehörige Variable in Klausel $c_j$ vorkommt. Man führt noch 2 Dummy-Zahlen $d_j,d_j'$
+        wenn das zugehörige Literal ($x_i, \overline{x_i}$) in Klausel $c_j$ vorkommt. Man führt noch 2 Dummy-Zahlen $d_j,d_j'$
         für jede Klausel ein, welche nur an Ziffer $n+j$ eine 1 haben (eine Klausel kann 3 mal die gleiche Variable enthalten bspw.)
     \item Polynomiell da Eingabe $n+m$ Dinge (Variablen / Klauseln) hat und damit Länge $\geq n+m$.
         Die konstruierte Instanz benötigt $\mathcal{O}(n+m)$ Zahlen der Länge $n+m$. Die Reduktion erfolgt
