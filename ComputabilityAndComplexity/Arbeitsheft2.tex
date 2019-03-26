@@ -1,0 +1,260 @@
+\documentclass[a4paper,graphics,11pt]{article}
+\pagenumbering{arabic}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath, tabu}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{complexity}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{graphicx,color,curves,epsf,float,rotating}
+\usepackage{tasks}
+\usepackage{delarray}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newcommand{\up}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny #2}}}{#1}}}
+\newcommand{\vect}[5]{\begin{pmatrix}#1\\#2\\#3\\#4\\#5\end{pmatrix}}
+\newcommand{\eps}[0]{\varepsilon}
+\newcommand{\godel}[1]{\langle #1 \rangle}
+\newcommand{\Iff}[0]{\,\Longleftrightarrow\,}
+
+\begin{document}
+
+\begin{center}
+    \LARGE \textbf{Lösungsvorschlag Arbeitsheft 2}
+\end{center}
+
+\section{Kern-Mengen in gerichteten Graphen}
+
+Eine Kernmenge $K \subseteq V$ eines gerichteten Graphen $G = (V,E)$ erfüllt folgende Eigenschaften:
+\begin{equation}
+    K^2 \cap E = \varnothing
+    \qquad\text{bzw.}\qquad
+    \forall k \in K: Succ(k) \cap K = \varnothing
+\end{equation}
+\begin{equation}
+    \forall v \in V \setminus K: Succ(v) \cap K \neq \varnothing
+\end{equation}
+Dabei ist $Succ(v) := \{w \in V: (v,w) \in E\}$ die Menge Nachfolger eines Knotens.
+
+
+\textbf{a)}
+
+Sei also $n \in \mathbb{N}$, $V = [1,n], E = \{(i,j) \in V^2 \mid i \neq j\}$ und $G = (V,E)$ gerichtet.\\
+Setze $K = \{1\}$. Es gilt:
+$$
+    (1,1) \notin E \,\Longrightarrow\, (1)
+$$
+$$
+    (V\setminus K) \times \{1\} \subset E \,\Longrightarrow\, (2)
+$$
+Folglich erfüllt $K$ beide Eigenschaften einer Kernmenge.
+
+\strut
+
+\textbf{b)}
+
+Im folgenden Schreiben wir $[a]_n$ anstatt $k \text{ (mod $n$)}$ für Lesbarkeit.
+
+Sei $C_n := ([1,n], \{(i, [i+1]_n) \mid i \in [1,n]\})$ der gerichtete Kreis mit $n$ Knoten.
+
+Sei nun $n = 2\ell \geq 3$ für $\ell \in \mathbb{N}$. Setze $K := 2[1,\ell] = \{2,4,6,\cdots,2\ell\} \subset V_{C_n}$. Dann gilt:
+$$
+    \forall k \in K: Succ(k) = \{(k, [k+1]_n)\} \not\subset K^2 \,\Longrightarrow\, (1)
+$$
+$$
+    \forall v \in V_{C_n}\setminus K: Succ(v) = \{(v, v+1)\} \in V_{C_n} \times K \,\Longrightarrow\, (2)
+$$
+Damit ist $K$ eine Kernmenge von $C_n$.
+
+Sei nun $n = 2\ell+1 \geq 3$ für $\ell \in \mathbb{N}$. Angenommen $K \subseteq V_{C_n}$ wäre eine Kernmenge.
+
+Offensichtlich muss dann $K \neq \varnothing$. Sei nun $v \in V_{C_n}$. Dann:
+$$
+    v \in K \,\Longrightarrow\, (1) \land Succ(v) = \{[v+1]_n\} \,\Longrightarrow\, [v+1]_n \notin K
+$$
+$$
+    v \notin K \,\Longrightarrow\, (2) \land Succ(v) = \{[v+1]_n\} \,\Longrightarrow\, [v+1]_n \in K
+$$
+Sei nun $k \in K$. Wenn man obige Resultate endlich oft iteriert anwendet, so erhält man
+$$
+    k \in K
+    \,\Longrightarrow\, [k+1]_n \notin K
+    \,\Longrightarrow\, [k+2]_n \in K
+    \,\Longrightarrow\, \cdots
+    \,\Longrightarrow\, [k+2\ell]_n \in K
+$$
+Jedoch ist $[k+2\ell]_n = [k-1]_n$. Ferner gilt $Succ([k-1]_n) = \{k\}$, damit
+ist aber (1) verletzt, und $K$ kann keine Kernmenge sein.
+
+Insgesamt haben genau die gerichteten Kreise mit einer geraden Anzahl an Knoten, $C_{2\ell}, \ell \in \mathbb{N}$
+eine Kernmenge.
+
+\newpage
+
+\textbf{c)}
+
+Wir beweisen dies durch Angabe eines Algorithmus und dessen Korrektheitsbeweis.
+
+Der Algorithmus wird die Knoten des Baumes in $V$ färben mit $c: V \to \{0,1,2\}$, wobei $0$ für nicht gefärbt steht.
+$c(v) = 1$ soll dabei $v \in K$ bedeuten, und $c(v) = 2$ dann $v \notin K$, wobei $K$ die gesuchte Kernmenge ist.
+
+\begin{enumerate}
+    \item Solange $c^{-1}(0) \neq \varnothing$, es also ungefärbte Knoten gibt:
+        \begin{enumerate}
+            \item Setze $c(k) := 1$ für alle $k \in \{v \in c^{-1}(0) \mid Succ(v) = \varnothing\}$.\\
+                Knoten ohne Nachfolger müssen in $K$ liegen.\\
+
+            \item Setze $c(v) := 2$ für alle $v \in c^{-1}(0)$ mit $Succ(v) \cap c^{-1}(1) \neq \varnothing$.\\
+                Knoten mit Nachfolgern in $K$ können wegen (1) nicht in $K$ sein.\\
+
+            \item Setze $c(k) := 1$ für $k \in \{v \in c^{-1}(0) \mid \forall w \in Succ(v): c(w) = 2\}$.\\
+                Knoten die nur Nachfolger haben, welche (schon festgelegt) nicht in $K$ liegen, dürfen in $K$ liegen.
+        \end{enumerate}
+\end{enumerate}
+
+Wir zeigen dass zu jeder Zeit $c^{-1}(1)$ eine Kernmenge von $c^{-1}(\{1,2\})$ bildet.
+Ferner sagen wir, dass $\varnothing$ eine korrekte Kernmenge von $\varnothing$ ist.
+
+Sei nun $c^{-1}(1)$ eine Korrekte Kernmenge von $c^{-1}(\{1,2\})$.\\
+Durch anwenden von (a) werden beide Eigenschaften (1) und (2)
+einer Kernmenge erhalten, denn:
+\begin{itemize}
+    \item Für (1): Sei $k \in V$ einer der gerade gefärbten Knoten, also $c(k) = 1$ und $Succ(k) = \varnothing$.
+        Wegen letzterem, gilt schonmal $Succ(k) \cap K = \varnothing$, also kann $k$ nicht (1) verletzen.
+
+        Betrachte nun $v \in \{w \in c^{-1}(\{1,2\}) \mid k \in Succ(w)\}$ insofern nichtleer. Wäre $c(v) = 1$, so müsste
+        $v$ durch die Schritte $(a)$ oder $(c)$ des Algorithmus gefärbt worden sein.
+        Wegen $Succ(v) \neq \varnothing$ kann es nicht durch $(a)$ gewesen sein. Da $k$ bis vor kurzem
+        ungefärbt und nun mit 1, also insbesondere nie $c(k) = 2$ gegolten hat, kann dies auch nicht
+        durch Schritt $(c)$ passiert sein.
+        Folglich muss $c(v) = 2$, und damit ist Bedingung (1) nicht verletzt.
+
+    \item Für (2) spielt das 1-färben (hinzufügen von Knoten zur Kernmenge) keine Rolle.
+\end{itemize}
+Folglich ist nach anwenden von (a) $c^{-1}(1)$ immernoch eine korrekte Kernmenge von $c^{-1}(\{1,2\})$.
+
+\newpage
+
+Wir untersuchen nun Schritt (b). Sie wieder $c^{-1}(1)$ eine korrekte Kernmenge von $c^{-1}(\{1,2\})$.
+Es werden durch anwenden von (b) wieder die Bedingungen erhalten:
+\begin{itemize}
+    \item Für (1) spielt das 2-färben (hinzufügen zu $V \setminus K$) keine Rolle.
+
+    \item Für (2): Da jeder der gerade 2-gefärbten Knoten per Vorraussetzung von (b) einen Nachfolger in $c^{-1}(1)$ hat,
+        bleibt die Bedingung (2) für $c^{-1}(\{1,2\})$ erhalten.
+\end{itemize}
+Folglich ist nach anwenden von (b) $c^{-1}(1)$ immernoch eine korrekte Kernmenge von $c^{-1}(\{1,2\})$.
+
+\strut\\
+
+Wir untersuchen nun Schritt (c). Sie wieder $c^{-1}(1)$ eine korrekte Kernmenge von $c^{-1}(\{1,2\})$.
+Es werden durch anwenden von (c) wieder die Bedingungen erhalten:
+\begin{itemize}
+    \item Für (1): Sei $k \in V$ einer der gerade gefärbten Knoten, also $c(k) = 1$ und $\forall w \in Succ(k): c(w) = 2$.
+        Wegen letzterem kann $k$ nicht selbst die Bedingung (1) verletzen.
+
+        Betrachte nun $v \in \{w \in c^{-1}(\{1,2\}) \mid k \in Succ(w)\}$ insofern nichtleer. Wäre $c(v) = 1$, so müsste
+        $v$ durch die Schritte $(a)$ oder $(c)$ des Algorithmus gefärbt worden sein.
+        Wegen $Succ(v) \neq \varnothing$ kann es nicht durch $(a)$ gewesen sein. Da $k$ bis vor kurzem
+        ungefärbt und nun mit 1, also insbesondere nie $c(k) = 2$ gegolten hat, kann dies auch nicht
+        durch Schritt $(c)$ passiert sein.
+        Folglich muss $c(v) = 2$, und damit ist Bedingung (1) nicht verletzt.
+
+    \item Für (2) spielt das 1-färben (hinzufügen von Knoten zur Kernmenge) keine Rolle.
+
+\end{itemize}
+Folglich ist nach anwenden von (c) $c^{-1}(1)$ immernoch eine korrekte Kernmenge von $c^{-1}(\{1,2\})$.
+
+\strut\\
+
+Wir zeigen nun dass in jeder Iteration mindestens ein Knoten gefärbt werden kann:
+
+Es ist klar, dass jeder (endliche) orientierte Baum mindestens einen Knoten besitzt, welcher keine Nachfolger hat.
+Andererseits hätte man einen Pfad, in welchem jeder Knoten einen Nachfolger hat. Da Bäume per Definition aber
+azyklisch sind, hätte man damit per trivialer Induktion einen unendlich langen Pfad in dem orientiertem Baum,
+was grundsätzlich nicht möglich ist.
+
+Folglich können wir zu beginn mindestens einen Knoten 1-färben (zur Kernmenge hinzufügen).
+
+Sei $c^{-1}(0) \neq \varnothing$, da wir sonst fertig sind, und $Succ(v) \neq \varnothing$ für $v \in c^{-1}(0)$,
+da Knoten ohne Nachfolger beim ersten (a) gefärbt werden.
+
+Dann gibt es ein $v \in c^{-1}(0)$ mit $Succ(v) \subseteq c^{-1}(\{1,2\})$, also einen ungefärbten Knoten, welcher
+nur gefärbte Nachfolger hat, da sonst jeder Knoten einen ungefärbten Nachfolger hat und wir damit einen Zykel oder einen
+unendlichen Pfad in $c^{-1}(0)$ hätten.
+
+Falls nun $Succ(v) \subseteq c^{-1}(2)$, so lässt sich (c) anwenden, andernfalls (b).
+
+Insgesamt lässt sich mindestens ein Knoten in jeder Iteration färben. Da wir von endlichen Eingabebäumen ausgegangen sind,
+wird der Algorithmus also nach endlich vielen Schritten terminieren. Dann ist aber auch $V = c^{-1}(\{1,2\})$
+und wir haben die Kernmenge $c^{-1}(1)$ von $V$.
+
+\newpage
+
+\textbf{d)}
+
+Das Zertifikat ist einfach eine Kodierung der Kernmenge selbst. Dies ist offensichtlich kürzer als die Eingabe da
+$K \subseteq V$. Ferner lässt sich dies in polynomieller Zeit verifizieren, indem man für alle Knoten
+alle Nachfolger betrachtet und je nach Knoten die Bedingung (1) oder (2) überprüft. Dies geht in quadratischer Zeit.
+
+\textbf{e)}
+Nein, dies würde Bedingung (1) widersprechen.
+
+\textbf{f)}
+Nein, dies würde Bedingung (2) verletzen, da $A(x_i)$ und $A(\overline{x_i})$ nur einen ausgehenden Pfeil zum jeweils
+anderen haben. Wenn beide nicht in der Kernmenge wären, hätten sie keinen Pfeil zu einem Knoten in der Kernmenge.
+
+\textbf{g)} k.
+
+\textbf{h)}
+Bei $m$ Klauseln werden $3m$ der $B_j(c_i)$-Knoten eingeführt. Für $n$ Variablen werden $2n$ Knoten eingeführt (1 pro Literal).
+Folglich ist $|V_{G(\Phi)}| = 3m+2n \leq 3(m+n)$ also polynomiell in $m+n$.
+
+\textbf{i)}
+Wir haben $2n$ ausgehende Pfeile der Literal-Knoten (1 pro Literal). Jeder der $B_j(c_i)$-Knoten hat pro Literal in Klausel $c_i$
+genau 1 ausgehenden Pfeil zum entsprechendem Literal, also $3$ Pfeile pro $B_j(c_i)$-Knoten, von denen es $3m$ gibt, was
+$9m$ ausgehende Pfeile der $B_j(c_i)$-Knoten macht. Insgesamt haben wir $9m + 2n$ Pfeile, was polynomiell in $m+n$ beschränkt ist.
+
+\textbf{j)}
+Die Anzahl der Kanten / Pfeile in einem Graphen $G = (V,E)$ ist beschränkt durch $|V|^2$.
+Wenn also $|V|$ schon polynomiell beschränkt in der Eingabe ist, so ist dies auch $|V|^2$.
+
+\textbf{k)}
+Da jeder Literal-Knoten genau einen ausgehenden Pfeil hat, folgt mit e) und f) schon, dass die Bedingung (1) einer Kernmenge
+erfüllt ist, da diese nur durch die Knoten der Kernmenge (also hier die Literalknoten) verletzt werden kann.
+
+Der jeweils andere Literalknoten, welcher nicht in der Kernmenge liegt, verletzt die (2) Bedingung nicht, da sein
+einziger ausgehender Pfeil eben auf sein entsprechendes gegenüber in der Kernmenge zeigt.
+
+Alle Klauselknoten haben Pfeile zu den Literalen, welche die Klausel wahrmachen (und damit in der Kernmenge liegen). Insgesamt ist also Bedingung (2) auch
+im Graphen erfüllt. Daher bildet die gegebene Menge der Literalknoten eine Kernmenge für $G(\Phi)$.
+
+\textbf{l)}
+Eine Wahrheitsbelegung weißt jeder Variable $x$ einen Wert zu. Dann hat genau eines der Literale $x$ und $\overline{x}$
+den Wahrheitswert 1, sodass per Definition der Kernmenge genau einer der Literalknoten $A(x), A(\overline{x})$ in dieser liegt.
+
+\textbf{m)}
+Die 3 Klauselknoten $B_1(c),B_2(c),B_3(c)$ einer Klausel $c$ bilden einen $C_3$. Wären mindestens $2$ dieser in der Kernmenge,
+also $B_i, B_j$ mit $i \neq j$, so hätten wir wegen $B_1 \rightarrow B_2 \rightarrow B_3 \rightarrow B_1$ eine Verletzung
+der Bedingung (1) einer Kernmenge. Folglich darf höchstens einer der 3 Klauselknoten in $K$ liegen.
+
+\textbf{n)}
+Sei also $c = (\ell_1 \lor \ell_2 \lor \ell_3)$ eine der Klausel. Angenommen $A(\ell_i) \notin K$ für $i=1,2,3$.
+Nach $m)$ existiert ein $j \in \{1,2,3\}$ sodass $B_j(c) \notin K$ keinen Pfeil auf einen Klauselknoten in $K$ hat.
+Da $B_j(c)$ aber sonst nur ausgehende Pfeile zu $A(\ell_i)$ für $i=1,2,3$ hat, wäre dann Bedingung (2) der Kernmenge
+verletzt. Folglich $\exists j \in \{1,2,3\}: A(\ell_j) \in K$.
+
+\textbf{o)}
+Die Wahrheitsbelegung $\varphi: X \to \{0,1\}$ ist $\varphi(x) := \begin{cases}1 &, A(x) \in K\quad (\up{\iff}{e} A(\overline{x}) \notin K)\\ 0 &, \text{sonst}\\\end{cases}$
+\newpage
+
+\section{Drei-Färbbarkeit von Graphen}
+
+\end{document}
