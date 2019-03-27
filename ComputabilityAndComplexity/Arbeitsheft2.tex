@@ -15,6 +15,8 @@
 \usepackage{graphicx,color,curves,epsf,float,rotating}
 \usepackage{tasks}
 \usepackage{delarray}
+\usepackage{tikz}
+
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
@@ -256,5 +258,267 @@ Die Wahrheitsbelegung $\varphi: X \to \{0,1\}$ ist $\varphi(x) := \begin{cases}1
 \newpage
 
 \section{Drei-Färbbarkeit von Graphen}
+
+Im folgenden betrachten wir ungerichtete Graphen $G = (V,E)$.
+Sei für $v \in V$ dann
+$$
+    Adj(v) := \{w \in V \mid (v,w) \in E \quad\lor\quad (w,v) \in E\}
+$$
+
+\textbf{a)}
+
+Wir betrachten $C_n$ für $n \geq 3$. Wir schreiben wieder $[k]_n$ für $k$ (mod n).\\
+Entsprechend ist $V_{C_n} = [0,n-1]$.
+
+\textbf{Fall 1:} $n = 2\ell$ für $\ell \in \mathbb{N}$:\\
+Hier lässt sich $C_n$ sogar 2-färben, indem man $c(1+2k) := 1$ für $k \in [0,\ell-1]$ setzt, also alle ungeraden
+Knoten in $V_{C_n}$ mit 1 färbt. Alle anderen färbt man mit 2, also $c(2k) := 2$ für $k \in [0,\ell-1]$.
+Dann folgt für $k \in V_{C_n}$ sofort, dass $c([k-1]_n) \neq c(k) \neq c([k+1]_n)$, und da $Adj(k) = \{[k-1]_n, [k+1]_n\}$, damit $c$ eine 2-Färbung
+von $C_n$ ist.
+
+\textbf{Fall 2:} $n = 2\ell+1$ für $\ell \in \mathbb{N}$:\\
+Wir setzen $c(0) := 3$. Dann analog zum oberen Fall färben wir die restlichen ungeraden Knoten mit 1, die geraden mit 2, also
+$$
+    c(1+2k) := 1\quad\text{für $k \in [0,\ell-1]$}
+    \qquad\text{sowie}\qquad
+    c(2k) := 2\quad\text{für $k \in [1,\ell-1]$}
+$$
+Dann ist für $c(n) \neq c(0) \neq c(1)$ und $Adj(0) = \{n,1\}$. Ferner gilt für $k \in [1,n]$, dass $c([k-1]_n) \neq c(k) \neq c([k+1]_n)$ und $Adj(k) = \{[k-1]_n, [k+1]_n\}$, also Insgesamt $c$ eine 3-Färbung von $C_n$ ist.
+
+Folglich lässt sich $C_n$ in jedem Fall 3-Färben.
+
+
+\textbf{b)}
+
+Wir betrachten einen endlichen Baum $T = (V,E)$ mit maximaler Tiefe $d \in \mathbb{N}$.
+Sei $D(v) \in [0,d]$ die Ebene bzw Tiefe eines Knotens $v \in V$. $T$ lässt sich 2-färben, indem man
+$$
+    \forall v \in \{w \in V \mid D(v) \text{ gerade}\}: c(v) := 1
+    \quad\text{und}\quad
+    \forall v \in \{w \in V \mid D(v) \text{ ungerade}\}: c(v) := 2
+$$
+setzt. Dank der Struktur des Baumes gilt
+$$
+    \forall v \in V: \forall w \in Adj(v): [D(w)]_2 \neq [D(v)]_2
+$$
+also dass alle zu $v$ adjazenten Knoten auf ebenen mit anderer Parität als $v$ liegen.
+
+Seien nun $u,v \in V$. Wir fügen die Kante $(u,v)$ zu $E$ hinzu. Falls $c(u) \neq c(v)$, so muss nichts geändert werden.
+Falls jedoch $c(u) = c(v)$ so setzen wir $c(u) := 3$, und benutzen unsere dritte Farbe.
+Dann ist $c$ eine korrekte 3-Färbung des veränderten $T$.
+
+\newpage
+
+\textbf{c)}
+
+\begin{center}
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black,fill=red] (A) at (0,0)     {};
+        \node[shape=circle,draw=black,fill=blue] (B) at (0,-1)    {};
+        \node[shape=circle,draw=black,fill=red] (C) at (2,-1.5)  {};
+        \node[shape=circle,draw=black,fill=red] (D) at (-2,-1.5)   {};
+        \node[shape=circle,draw=black,fill=blue] (E) at (-3,-2.5)   {};
+        \node[shape=circle,draw=black,fill=green] (F) at (3,-2.5)  {};
+        \node[shape=circle,draw=black,fill=blue] (G) at (-1.3,1)  {};
+        \node[shape=circle,draw=black,fill=blue] (H) at (1.3,1)  {};
+        \node[shape=circle,draw=black,fill=green] (I) at (2.5,.8)  {};
+        \node[shape=circle,draw=black,fill=green] (J) at (-2.5,.8)  {};
+        \node[shape=circle,draw=black,fill=red] (K) at (-.7,2.5)  {};
+        \node[shape=circle,draw=black,fill=green] (L) at (.7,2.5)  {};
+        \node[shape=circle,draw=black,fill=blue] (M) at (-3.3,2.5)  {};
+        \node[shape=circle,draw=black,fill=red] (N) at (-4.5,3)  {};
+        \node[shape=circle,draw=black,fill=blue] (O) at (3.3,2.5)  {};
+        \node[shape=circle,draw=black,fill=red] (P) at (4.5,3)  {};
+        \node[shape=circle,draw=black,fill=green] (Q) at (0,6)  {};
+        \node[shape=circle,draw=black,fill=blue] (R) at (0,5)  {};
+        \node[shape=circle,draw=black,fill=green] (S) at (-1.5,3.3)  {};
+        \node[shape=circle,draw=black,fill=red] (T) at (1.5,3.3)  {};
+
+        \path [-] (A) edge node[left] {} (B);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (A) edge node[left] {} (H);
+        \path [-] (F) edge node[left] {} (E);
+        \path [-] (D) edge node[left] {} (E);
+        \path [-] (D) edge node[left] {} (B);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (G) edge node[left] {} (J);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (J) edge node[left] {} (D);
+        \path [-] (I) edge node[left] {} (C);
+        \path [-] (K) edge node[left] {} (G);
+        \path [-] (K) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (H);
+        \path [-] (N) edge node[left] {} (M);
+        \path [-] (M) edge node[left] {} (J);
+        \path [-] (N) edge node[left] {} (E);
+        \path [-] (O) edge node[left] {} (P);
+        \path [-] (O) edge node[left] {} (I);
+        \path [-] (P) edge node[left] {} (F);
+        \path [-] (N) edge node[left] {} (Q);
+        \path [-] (Q) edge node[left] {} (P);
+        \path [-] (Q) edge node[left] {} (R);
+        \path [-] (R) edge node[left] {} (S);
+        \path [-] (R) edge node[left] {} (T);
+        \path [-] (S) edge node[left] {} (K);
+        \path [-] (S) edge node[left] {} (M);
+        \path [-] (T) edge node[left] {} (L);
+        \path [-] (T) edge node[left] {} (O);
+    \end{tikzpicture}
+\end{center}
+
+\textbf{d)}
+Das Zertfikat ist einfach die 3-partition der Knoten hintereinandergeschrieben, welches offensichtlich als
+permutation der Knoteneingabe der Länge her polynomiell in der Eingabelänge beschränkt ist.
+Zuerst überprüft man das Zertifikat auf Vollständigkeit, dass auch wirklich jeder Knoten genau 1 mal vorkommt.
+Dann betrachtet man der Reihe nach die Knoten einer Farbe und überprüft für jeden, dass sie nicht adjazent zu einem
+der Knoten mit der selben Farbe sind. Dies dauert maximal $\mathcal{O}(|V|^2)$ Operationen.
+
+\textbf{e)}
+
+\begin{center}
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black] (A) at (-4,0)     {$y_2$};
+        \node[shape=circle,draw=black] (B) at (-2,0)    {$y_1$};
+        \node[shape=circle,draw=black] (C) at (-3,2)   {$y_3$};
+        \node[shape=circle,draw=black] (D) at (2,0)  {$y_4$};
+        \node[shape=circle,draw=black] (E) at (4,0)   {$y_5$};
+        \node[shape=circle,draw=black] (F) at (3,2)  {$y_6$};
+        \node[shape=circle,draw=black] (G) at (4,-1.5)   {$\gamma$};
+        \node[shape=circle,draw=black] (H) at (-5.5,0)   {$\alpha$};
+        \node[shape=circle,draw=black] (I) at (-4.5,2)   {$\beta$};
+
+        \path [-] (A) edge node[left] {} (B);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (D);
+        \path [-] (E) edge node[left] {} (G);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (I) edge node[left] {} (C);
+    \end{tikzpicture}
+\end{center}
+
+\textbf{f)}
+
+Sei also $c(\alpha) = c(\beta) = c(\gamma) = 1$. Dann muss $c(y_1) = 1$, da $\{c(y_2), c(y_3)\} = \{2,3\}$.
+Folglich ist $c(y_4) \in \{2,3\}$, wodurch mit $c(\gamma) = 1$ dann auch $\{c(y_4), c(y_5)\} = \{2,3\}$ folgt.
+Also bleibt nur die Wahl $c(y_6) = 1$.
+
+\newpage
+
+\textbf{g)}
+Betrachte einfach alle Fälle:
+
+
+\begin{minipage}{.5\textwidth}
+\begin{tabular}{*8{c|}c}
+    $\alpha$ & $\beta$ & $\gamma$ & $y_1$ & $y_2$ & $y_3$ & $y_4$ & $y_5$ & $y_6$\\
+    \hline
+    1 & 1 & 1 & 1 & 2 & 3 & 2 & 3 & 1\\
+    \hline
+    1 & 1 & 2 & 1 & 2 & 3 & 2 & 3 & 1\\
+    \hline
+    1 & 1 & 3 & 1 & 2 & 3 & 3 & 2 & 1\\
+    \hline
+    1 & 2 & 1 & 3 & 2 & 1 & 2 & 3 & 1\\
+    \hline
+    1 & 2 & 2 & 3 & 2 & 1 & 2 & 3 & 1\\
+    \hline
+    1 & 2 & 3 & 3 & 2 & 1 & 3 & 2 & 1\\
+    \hline
+    1 & 3 & 1 & 2 & 3 & 1 & 2 & 3 & 1\\
+    \hline
+    1 & 3 & 2 & 2 & 3 & 1 & 2 & 3 & 1\\
+    \hline
+    1 & 3 & 3 & 2 & 3 & 1 & 3 & 2 & 1\\
+    \hline
+    2 & 1 & 1 & 3 & 1 & 2 & 2 & 3 & 1\\
+\end{tabular}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{tabular}{*8{c|}c}
+    $\alpha$ & $\beta$ & $\gamma$ & $y_1$ & $y_2$ & $y_3$ & $y_4$ & $y_5$ & $y_6$\\
+    \hline
+    2 & 1 & 2 & 3 & 1 & 2 & 2 & 3 & 1\\
+    \hline
+    2 & 1 & 3 & 2 & 1 & 3 & 3 & 2 & 1\\
+    \hline
+    2 & 2 & 1 & 2 & 1 & 3 & 3 & 2 & 1\\
+    \hline
+    2 & 3 & 1 & 1 & 3 & 2 & 2 & 3 & 1\\
+    \hline
+    3 & 1 & 1 & 2 & 1 & 3 & 3 & 2 & 1\\
+    \hline
+    3 & 1 & 2 & 2 & 1 & 3 & 2 & 3 & 1\\
+    \hline
+    3 & 1 & 3 & 2 & 1 & 3 & 3 & 2 & 1\\
+    \hline
+    3 & 2 & 1 & 1 & 2 & 3 & 2 & 3 & 1\\
+    \hline
+    3 & 3 & 1 & 3 & 1 & 2 & 2 & 3 & 1\\
+\end{tabular}
+\end{minipage}
+
+
+\textbf{h)}
+Offensichtlich und auch schon öfters benutzt.
+
+\textbf{i)}
+Folgt aus h), da $A(x_i), A(\overline{x_i}), DUMMY$ ein Dreieck bilden.
+
+\textbf{j)} k.
+
+\textbf{k)}
+Es gibt $2n$ Variablenknoten sowie $m$ Gadgets mit jeweils 6 Knoten ($\alpha,\beta,\gamma$ werden verschmolzen).
+Dazu haben wir die 3 Knoten WAHR,FALSCH,DUMMY.
+Insgesamt gibt es also $2n+6m+3 \in \mathcal{O}(m+n)$ Knoten.
+
+\textbf{l)}
+Es gibt pro Variable 3 Kanten; zwischen den entsprechenden Literalknoten und von beiden zu DUMMY. Ein Gadget hat 10 Kanten
+an sich. Ferner kommen pro Gadget 2 Kanten hinzu; von $y_6$ zu FALSCH und DUMMY.
+Damit haben wir insgesamt $3n+12m \in \mathcal{O}(m+n)$ Kanten.
+
+\textbf{m)}
+Sei also $c = (\ell_1 \lor \ell_2 \lor \ell_3)$ eine Klausel aus $\Phi$ und $\varphi$ die erfüllende Variablenbelegung.\\
+Dann ex. $i \in \{1,2,3\}: \varphi(\ell_i) = 1$. Da dann $A(\ell_i)$ mit einem der $\alpha,\beta,\gamma$ Knoten aus $G_9(c)$
+verschmolzen ist, folgt mit g), dass es eine 3-Färbung gibt in der $y_6$ die Farbe WAHR hat.
+Da verschiedene Gadgets abgesehen von den Literalknoten nicht miteinander verbunden sind, haben wir damit
+eine korrekte 3-Färbung von $G(\Phi)$.
+
+\textbf{n)}
+Dies folgt aus h), da die Knoten $y_6$, DUMMY, FALSCH ein Dreieck bilden.
+
+\textbf{o)}
+Da die Knoten $\alpha,\beta,\gamma$ eines Gadgets $G_9(c)$ mit den Literalknoten $A(\ell_1),A(\ell_2),A(\ell_3)$ verschmolzen
+sind, können diese nicht die Farbe DUMMY annehmen. Wenn also keiner der 3 WAHR ist, so müssen alle 3 FALSCH sein.
+Nach f) müsste dann aber $y_6$ ebenfalls FALSCH sein, Widerspruch. Folglich muss mindestens einer der 3 Literalknoten WAHR sein.
+
+\textbf{p)}
+Wenn also $G(\Phi)$ eine 3-Färbung hat, so ist $G_9(c)$ für jede Klausel $c$ der Eingabeformel korrekt gefärbt.
+Nach o) ist dann mindestens einer der 3 Knoten $\alpha,\beta,\gamma$, welche mit den entsprechenden Literalknoten der Klausel $c$
+verschmolzen sind, WAHR gefärbt. Die Wahrheitsbelegung $\varphi : X \to \{0,1\}$ ist dann
+$$
+    \varphi(x) := \begin{cases}
+        1 &, A(x) \text{ hat Farbe WAHR}\\
+        0 &,\text{sonst}
+    \end{cases}
+$$
+Dann ist nämlich pro Klausel mindestens eines der vorkommenden Literale erfüllt und damit $\Phi$ erfüllt.
+
+\newpage
+
+\textbf{q)}
+Wir gehen von endlichen Graphen aus.
+Man kann sich pro Zusammenhangskomponente des Graphen einen beliebigen ''Startknoten'' $v \in V$ wählen.
+Wir setzen o.B.d.A $c(v) := 0$. Sei nun $k \in V$ gefärbt. Dann setzen wir $c(\ell) := [c(k)+1]_2$ für alle noch nicht
+gefärbten Knoten $\ell \in Adj(k)$.
+Nach endlich vielen Schritten werden alle Knoten gefärbt sein. Nun kann man in polynomieller Zeit testen, ob der Graph
+korrekt gefärbt ist.
+Da das vertauschen von Farben semantisch keine Rolle spielt, gibt es praktisch nur diese eine Möglichkeit den Graphen zu 2-färben.
+Damit lässt sich also in polynomieller Zeit entscheiden, ob ein endlicher Graph 2-färbbar ist.
+
 
 \end{document}
