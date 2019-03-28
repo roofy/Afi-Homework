@@ -520,5 +520,528 @@ korrekt gefärbt ist.
 Da das vertauschen von Farben semantisch keine Rolle spielt, gibt es praktisch nur diese eine Möglichkeit den Graphen zu 2-färben.
 Damit lässt sich also in polynomieller Zeit entscheiden, ob ein endlicher Graph 2-färbbar ist.
 
+\newpage
+
+\section{Drei-Färbbarktei von planaren Graphen}
+
+
+\textbf{a)}
+Mit $n$ Knoten hat der Vollständige Graph $K_n$ dann $\binom{n}{2} = \frac{n(n-1)}{2}$ Knoten.
+Für $n > 5$ ist dann
+$$
+    0 < (n-3)(n-4) = n^2-7n+12
+    \quad\Longrightarrow\quad |E| = \frac{n(n-1)}{2} > 3n-6
+$$
+was dem Eulerschen Polyedersatz widerspricht, also $K_n$ nicht planar sein kann.
+Die Fälle $n=3,4$ sind wie folgt:\\
+
+\begin{minipage}{.5\textwidth}
+\begin{center}
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black] (A) at (-1,0)     {};
+        \node[shape=circle,draw=black] (B) at (1,0)    {};
+        \node[shape=circle,draw=black] (C) at (0,1.5)   {};
+
+        \path [-] (A) edge node[left] {} (B);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (A);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\begin{center}
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black] (A) at (-1,0)     {};
+        \node[shape=circle,draw=black] (B) at (1,0)    {};
+        \node[shape=circle,draw=black] (C) at (1,1)   {};
+        \node[shape=circle,draw=black] (D) at (-1,1)   {};
+
+        \path [-] (A) edge node[left] {} (B);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (C);
+        \path [-] (D) edge [out looseness = 3, bend right = 120] node[left] {} (B);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{b)}
+
+Man kann einen Baum mit maximalem fan-out von $\Delta := \max\{|Adj(v)|-1 : v \in V\} \in \mathbb{N}$
+in die Euklidische Ebene ''quetschen'', indem man die Kinder eines Knoten $v$ in der $n$-ten Ebene des Baumes
+auf ein Liniensegment der Länge $\frac{1}{\Delta^n}$ eine Längeneinheit unter $v$ gleichverteilt.
+Der Einfachheit halber nehmen wir $\Delta = 2k+1 \geq 3$ für ein $k\in \mathbb{N}$ an, da Plätze für nicht vorhandene
+Kinder kein Problem darstellen.
+
+Wir geben der Wurzel $r \in V$ die Koordinaten $P(r) := (0,0)$.
+Die Kinder eines Knotens $v \in V$ mit Koordinaten $P(v) = (x,n) \in \mathbb{Q}\times \mathbb{N}$ werden dann auf
+die Positionen
+$$
+    \mathcal{P}_v := [x-\frac{1}{\Delta^n}, x+\frac{1}{\Delta^n}, \frac{2}{\Delta^n(\Delta - 1)}] \times \{n+1\}
+    = \{(x-\frac{1}{\Delta^n}, n+1), \cdots, (x,n+1), \cdots, (x+\frac{1}{\Delta^n}, n+1)\}
+$$
+verteilt, wobei $[a,b,c] := \{a+nc \mid n \in \mathbb{N}, a+nc \leq b\}$ die lineare Gleichverteilung zwischen $a$ und $b$ mit
+Distanz $c$ darstellt.
+Die Kanten bleiben geraden von Knoten zu Knoten.
+
+Seien $v,w \in V$ mit $P(v) = (x,n+1), P(w) = (y,n+1)$. Sei o.B.d.A. $x < y$. Dann gilt
+$$
+    |(y-\frac{1}{\Delta^{n+2}}) - (x+\frac{1}{\Delta^{n+2}})| = y-x \geq \frac{2}{\Delta^{n+1}(\Delta -1)} > 0
+$$
+sodass die ''Kinderbereiche'' $\mathcal{P}_v, \mathcal{P}_w$ zweier Knoten der selben Ebene sich niemals überschneiden bzw. überlappen.
+Damit sind Bäume also planar. Man könnte dies auch mit dem Satz von Kuratowski zeigen, was aber weniger anschaulich ist.
+
+\textbf{c)}
+
+Wir geben ein Gegenbeispiel. Folgender Graph hat 6 Knoten und 9 Kanten, also $|E| = 9 \leq 12 = 3|V|-6$, ist jedoch ein
+bekanntes Beispiel für nicht-planare Graphen:
+
+\begin{center}
+    \begin{tikzpicture}
+        \node[shape=circle,draw=black] (A) at (0,1)     {};
+        \node[shape=circle,draw=black] (B) at (0,-1)    {};
+        \node[shape=circle,draw=black] (F) at (-2,1)   {};
+        \node[shape=circle,draw=black] (C) at (-2,-1)   {};
+        \node[shape=circle,draw=black] (D) at (2,1)   {};
+        \node[shape=circle,draw=black] (E) at (2,-1)   {};
+
+        \path [-] (A) edge node[left] {} (B);
+        \path [-] (A) edge node[left] {} (C);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (D) edge node[left] {} (B);
+        \path [-] (D) edge node[left] {} (C);
+        \path [-] (D) edge node[left] {} (E);
+        \path [-] (F) edge node[left] {} (B);
+        \path [-] (F) edge node[left] {} (C);
+        \path [-] (F) edge node[left] {} (E);
+    \end{tikzpicture}
+\end{center}
+
+\newpage
+
+\textbf{d)}
+Auf offensichtliche weise gilt PLANAR-3-COLORING $\leq_p$ 3-COLORING $\in \textsf{NP}$ und damit
+auch PLANAR-3-COLORING $\in \textsf{NP}$.
+
+
+\begin{minipage}{.5\textwidth}
+\textbf{e)}
+\begin{center}
+    \begin{tikzpicture}[scale=.5]
+        \node[shape=circle,draw=black,fill=green] (A) at (2,0)     {};
+        \node[shape=circle,draw=black,fill=red] (B) at (0,0)     {};
+        \node[shape=circle,draw=black,fill=green] (C) at (-2,0)    {};
+
+        \node[shape=circle,draw=black,fill=green] (D) at (2,-2)    {};
+        \node[shape=circle,draw=black,fill=blue] (E) at (0,-2)    {};
+        \node[shape=circle,draw=black,fill=blue] (F) at (-2,-2)   {};
+
+        \node[shape=circle,draw=black,fill=blue] (G) at (2,2)     {};
+        \node[shape=circle,draw=black,fill=blue] (H) at (0,2)     {};
+        \node[shape=circle,draw=black,fill=green] (I) at (-2,2)    {};
+
+        \node[shape=circle,draw=black,fill=red] (J) at (0,5)     {};
+        \node[shape=circle,draw=black,fill=red] (K) at (-5,0)    {};
+        \node[shape=circle,draw=black,fill=red] (L) at (5,0)     {};
+        \node[shape=circle,draw=black,fill=red] (M) at (0,-5)    {};
+
+
+        \path [-] (B) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (K);
+        \path [-] (A) edge node[left] {} (L);
+        \path [-] (B) edge node[left] {} (H);
+        \path [-] (B) edge node[left] {} (E);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (H);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (E) edge node[left] {} (D);
+        \path [-] (H) edge node[left] {} (J);
+        \path [-] (E) edge node[left] {} (M);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (K) edge node[left] {} (I);
+        \path [-] (I) edge node[left] {} (J);
+        \path [-] (J) edge node[left] {} (G);
+        \path [-] (G) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (M);
+        \path [-] (M) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (K);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+\textbf{f)}
+\begin{center}
+    \begin{tikzpicture}[scale=.5]
+        \node[shape=circle,draw=black,fill=red] (A) at (2,0)     {};
+        \node[shape=circle,draw=black,fill=green] (B) at (0,0)     {};
+        \node[shape=circle,draw=black,fill=red] (C) at (-2,0)    {};
+
+        \node[shape=circle,draw=black,fill=green] (D) at (2,-2)    {};
+        \node[shape=circle,draw=black,fill=blue] (E) at (0,-2)    {};
+        \node[shape=circle,draw=black,fill=green] (F) at (-2,-2)   {};
+
+        \node[shape=circle,draw=black,fill=green] (G) at (2,2)     {};
+        \node[shape=circle,draw=black,fill=blue] (H) at (0,2)     {};
+        \node[shape=circle,draw=black,fill=green] (I) at (-2,2)    {};
+
+        \node[shape=circle,draw=black,fill=red] (J) at (0,5)     {};
+        \node[shape=circle,draw=black,fill=blue] (K) at (-5,0)    {};
+        \node[shape=circle,draw=black,fill=blue] (L) at (5,0)     {};
+        \node[shape=circle,draw=black,fill=red] (M) at (0,-5)    {};
+
+
+        \path [-] (B) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (K);
+        \path [-] (A) edge node[left] {} (L);
+        \path [-] (B) edge node[left] {} (H);
+        \path [-] (B) edge node[left] {} (E);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (H);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (E) edge node[left] {} (D);
+        \path [-] (H) edge node[left] {} (J);
+        \path [-] (E) edge node[left] {} (M);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (K) edge node[left] {} (I);
+        \path [-] (I) edge node[left] {} (J);
+        \path [-] (J) edge node[left] {} (G);
+        \path [-] (G) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (M);
+        \path [-] (M) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (K);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+
+\textbf{g)}
+Sei die Benennung wie folgt:
+\begin{center}
+    \begin{tikzpicture}[scale=.5]
+        \node[shape=circle,draw=black] (A) at (2,0)     {a};
+        \node[shape=circle,draw=black] (B) at (0,0)     {b};
+        \node[shape=circle,draw=black] (C) at (-2,0)    {c};
+
+        \node[shape=circle,draw=black] (D) at (2,-2)    {d};
+        \node[shape=circle,draw=black] (E) at (0,-2)    {e};
+        \node[shape=circle,draw=black] (F) at (-2,-2)   {f};
+
+        \node[shape=circle,draw=black] (G) at (2,2)     {g};
+        \node[shape=circle,draw=black] (H) at (0,2)     {h};
+        \node[shape=circle,draw=black] (I) at (-2,2)    {i};
+
+        \node[shape=circle,draw=black] (J) at (0,5)     {u};
+        \node[shape=circle,draw=black] (L) at (5,0)     {v'};
+        \node[shape=circle,draw=black] (O) at (0,-5)    {u'};
+        \node[shape=circle,draw=black] (P) at (-5,0)    {v};
+
+
+        \path [-] (B) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (P);
+        \path [-] (A) edge node[left] {} (L);
+        \path [-] (B) edge node[left] {} (H);
+        \path [-] (B) edge node[left] {} (E);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (H);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (E) edge node[left] {} (D);
+        \path [-] (H) edge node[left] {} (J);
+        \path [-] (E) edge node[left] {} (O);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (P) edge node[left] {} (I);
+        \path [-] (I) edge node[left] {} (J);
+        \path [-] (J) edge node[left] {} (G);
+        \path [-] (G) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (O);
+        \path [-] (O) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (P);
+    \end{tikzpicture}
+\end{center}
+
+Sei also eine 3-Färbung $c$ gegeben. Wir sagen o.B.d.A. $c(b) = 1, c(a)=c(c)=2, c(e)=c(h) = 3$.
+Angenommen $c(u) \neq c(u')$. Wieder o.B.d.A. $c(u) = 1, c(u') = 2$. Es muss $c(d) = 1, c(g) = 3$.
+Nun haben wir also $c(g) = 3, c(a) = 2, c(d) = 1$ somit kann $c(v')$ nicht korrekt sein.
+
+Folglich müssen $u,u'$ in jeder 3-Färbung die selbe Farbe haben. Das selbe gilt für $v,v'$, da der Graph
+mit vertauschten $u$'s und $v$'s der gleiche wäre.
+
+\textbf{h)}
+Offensichtlich kann man die Strecken so wählen, dass 2 Strecken höchstens 1 Schnittpunkt haben.
+Schneidet sich eine Strecke mir mehreren anderen im selben Punkt, so können die Schnittpunkte um
+vielfache eines geeigneten $\eps > 0$ verschoben werden sodass die Schnittpunkte disjunkt sind.
+Man hat prakitsch $|\mathbb{R}|$ mögliche Schnittpunkte für jede Kante, was reichen sollte.
+
+\textbf{i)}
+Seien also $S,S'$ zwei Streckenzüge mit Anfangs und Endknoten $S=(a,b), S'=(x,y)$ und einem Schnittpunkt $p \in \mathbb{R}^2$. Es lässt sich ein $\eps > 0$
+finden sodass $K_\eps(p)$ keine weiteren Schnittpunkte enthält. Dieser Kreis wird nun ''ausgestanzt'' und wir fügen
+das Kreuzungsgadget hinein, wobei wir $u$ mit $a$ und $v$ mit $x$ verschmelzen, und die Kanten $(u',b),(v',y)$
+hinzufügen, sodass sich keine neuen Schnittpunkte bilden:
+
+\begin{minipage}{.5\textwidth}
+\begin{center}
+    \begin{tikzpicture}[scale=.45]
+        \node[shape=circle,draw=black] (N) at (0,7)     {b};
+        \node[shape=circle,draw=black] (O) at (0,-7)    {a};
+        \node[shape=circle,draw=black] (P) at (-7,0)    {x};
+        \node[shape=circle,draw=black] (Q) at (7,0)     {y};
+
+        \path [-] (P) edge node[left] {} (Q);
+        \path [-] (N) edge node[left] {} (O);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+$\longrightarrow$
+\begin{minipage}{.5\textwidth}
+\begin{center}
+    \begin{tikzpicture}[scale=.45]
+        \node[shape=circle,draw=black] (A) at (2,0)     {};
+        \node[shape=circle,draw=black] (B) at (0,0)     {};
+        \node[shape=circle,draw=black] (C) at (-2,0)    {};
+
+        \node[shape=circle,draw=black] (D) at (2,-2)    {};
+        \node[shape=circle,draw=black] (E) at (0,-2)    {};
+        \node[shape=circle,draw=black] (F) at (-2,-2)   {};
+
+        \node[shape=circle,draw=black] (G) at (2,2)     {};
+        \node[shape=circle,draw=black] (H) at (0,2)     {};
+        \node[shape=circle,draw=black] (I) at (-2,2)    {};
+
+        \node[shape=circle,draw=black] (J) at (0,5)     {u'};
+        \node[shape=circle,draw=black] (L) at (5,0)     {v'};
+
+        \node[shape=circle,draw=black] (N) at (0,7)     {b};
+        \node[shape=circle,draw=black] (O) at (0,-7)    {a+u};
+        \node[shape=circle,draw=black] (P) at (-7,0)    {x+v};
+        \node[shape=circle,draw=black] (Q) at (7,0)    {y};
+
+        \path [-] (B) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (P);
+        \path [-] (A) edge node[left] {} (L);
+        \path [-] (B) edge node[left] {} (H);
+        \path [-] (B) edge node[left] {} (E);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (H);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (E) edge node[left] {} (D);
+        \path [-] (H) edge node[left] {} (J);
+        \path [-] (E) edge node[left] {} (O);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (P) edge node[left] {} (I);
+        \path [-] (I) edge node[left] {} (J);
+        \path [-] (J) edge node[left] {} (G);
+        \path [-] (G) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (O);
+        \path [-] (O) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (P);
+
+        \path [-] (N) edge node[left] {} (J);
+        \path [-] (Q) edge node[left] {} (L);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+Denn da $u,u'$ und $v,v'$ stets bei einer korrekten 3-Färbung die selbe Farbe haben, wird damit gesichert, dass
+$a,b$ und $x,y$ jeweils verschiedene Farben haben. Falls jedoch mehrere Kreuzungsgadgets auf einem Streckenzug von
+Knoten $x$ zu Knoten $y$ sind, wird das $v$ des ersten Gadgets mit $x$ verschmolzen, und das $v'$ des letzten
+gadgets mit $y$ verbunden, und alle $v,v'$ dazwischen je paarweise miteinander verschmolzen, also
+das $v'$ des $i$-ten Gadgets mit dem $v$ des $i+1$-ten:
+
+\begin{center}
+    \begin{tikzpicture}[scale=.45]
+        \node[shape=circle,draw=black] (A) at (2,0)     {};
+        \node[shape=circle,draw=black] (B) at (0,0)     {};
+        \node[shape=circle,draw=black] (C) at (-2,0)    {};
+
+        \node[shape=circle,draw=black] (D) at (2,-2)    {};
+        \node[shape=circle,draw=black] (E) at (0,-2)    {};
+        \node[shape=circle,draw=black] (F) at (-2,-2)   {};
+
+        \node[shape=circle,draw=black] (G) at (2,2)     {};
+        \node[shape=circle,draw=black] (H) at (0,2)     {};
+        \node[shape=circle,draw=black] (I) at (-2,2)    {};
+
+        \node[shape=circle,draw=black] (J) at (0,5)     {};
+        \node[shape=circle,draw=black] (L) at (5,0)     {};
+
+        \node[shape=circle,draw=black] (N) at (0,7)     {};
+        \node[shape=circle,draw=black] (O) at (0,-7)    {};
+        \node[shape=circle,draw=black] (P) at (-7,0)    {x+v};
+
+        \node[shape=circle,draw=black] (A2) at (12,0)     {};
+        \node[shape=circle,draw=black] (B2) at (10,0)     {};
+        \node[shape=circle,draw=black] (C2) at (8,0)    {};
+
+        \node[shape=circle,draw=black] (D2) at (12,-2)    {};
+        \node[shape=circle,draw=black] (E2) at (10,-2)    {};
+        \node[shape=circle,draw=black] (F2) at (8,-2)   {};
+
+        \node[shape=circle,draw=black] (G2) at (12,2)     {};
+        \node[shape=circle,draw=black] (H2) at (10,2)     {};
+        \node[shape=circle,draw=black] (I2) at (8,2)    {};
+
+        \node[shape=circle,draw=black] (J2) at (10,5)     {};
+        \node[shape=circle,draw=black] (L2) at (15,0)     {};
+
+        \node[shape=circle,draw=black] (N2) at (10,7)     {};
+        \node[shape=circle,draw=black] (O2) at (10,-7)    {};
+
+        \node[shape=circle,draw=black] (A3) at (22,0)     {};
+        \node[shape=circle,draw=black] (B3) at (20,0)     {};
+        \node[shape=circle,draw=black] (C3) at (18,0)    {};
+
+        \node[shape=circle,draw=black] (D3) at (22,-2)    {};
+        \node[shape=circle,draw=black] (E3) at (20,-2)    {};
+        \node[shape=circle,draw=black] (F3) at (18,-2)   {};
+
+        \node[shape=circle,draw=black] (G3) at (22,2)     {};
+        \node[shape=circle,draw=black] (H3) at (20,2)     {};
+        \node[shape=circle,draw=black] (I3) at (18,2)    {};
+
+        \node[shape=circle,draw=black] (J3) at (20,5)     {};
+        \node[shape=circle,draw=black] (L3) at (25,0)     {v'};
+
+        \node[shape=circle,draw=black] (N3) at (20,7)     {};
+        \node[shape=circle,draw=black] (O3) at (20,-7)    {};
+        \node[shape=circle,draw=black] (Q3) at (27,0)    {y};
+
+
+
+        \path [-] (B) edge node[left] {} (A);
+        \path [-] (B) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (P);
+        \path [-] (A) edge node[left] {} (L);
+        \path [-] (B) edge node[left] {} (H);
+        \path [-] (B) edge node[left] {} (E);
+        \path [-] (H) edge node[left] {} (A);
+        \path [-] (A) edge node[left] {} (E);
+        \path [-] (E) edge node[left] {} (C);
+        \path [-] (C) edge node[left] {} (H);
+        \path [-] (H) edge node[left] {} (I);
+        \path [-] (A) edge node[left] {} (G);
+        \path [-] (E) edge node[left] {} (D);
+        \path [-] (H) edge node[left] {} (J);
+        \path [-] (E) edge node[left] {} (O);
+        \path [-] (C) edge node[left] {} (F);
+        \path [-] (P) edge node[left] {} (I);
+        \path [-] (I) edge node[left] {} (J);
+        \path [-] (J) edge node[left] {} (G);
+        \path [-] (G) edge node[left] {} (L);
+        \path [-] (L) edge node[left] {} (D);
+        \path [-] (D) edge node[left] {} (O);
+        \path [-] (O) edge node[left] {} (F);
+        \path [-] (F) edge node[left] {} (P);
+        \path [-] (N) edge node[left] {} (J);
+
+        \path [-] (B2) edge node[left] {} (A2);
+        \path [-] (B2) edge node[left] {} (C2);
+        \path [-] (C2) edge node[left] {} (L);
+        \path [-] (A2) edge node[left] {} (L2);
+        \path [-] (B2) edge node[left] {} (H2);
+        \path [-] (B2) edge node[left] {} (E2);
+        \path [-] (H2) edge node[left] {} (A2);
+        \path [-] (A2) edge node[left] {} (E2);
+        \path [-] (E2) edge node[left] {} (C2);
+        \path [-] (C2) edge node[left] {} (H2);
+        \path [-] (H2) edge node[left] {} (I2);
+        \path [-] (A2) edge node[left] {} (G2);
+        \path [-] (E2) edge node[left] {} (D2);
+        \path [-] (H2) edge node[left] {} (J2);
+        \path [-] (E2) edge node[left] {} (O2);
+        \path [-] (C2) edge node[left] {} (F2);
+        \path [-] (L) edge node[left] {} (I2);
+        \path [-] (I2) edge node[left] {} (J2);
+        \path [-] (J2) edge node[left] {} (G2);
+        \path [-] (G2) edge node[left] {} (L2);
+        \path [-] (L2) edge node[left] {} (D2);
+        \path [-] (D2) edge node[left] {} (O2);
+        \path [-] (O2) edge node[left] {} (F2);
+        \path [-] (F2) edge node[left] {} (L);
+        \path [-] (N2) edge node[left] {} (J2);
+
+        \path [-] (B3) edge node[left] {} (A3);
+        \path [-] (B3) edge node[left] {} (C3);
+        \path [-] (C3) edge node[left] {} (L2);
+        \path [-] (A3) edge node[left] {} (L3);
+        \path [-] (B3) edge node[left] {} (H3);
+        \path [-] (B3) edge node[left] {} (E3);
+        \path [-] (H3) edge node[left] {} (A3);
+        \path [-] (A3) edge node[left] {} (E3);
+        \path [-] (E3) edge node[left] {} (C3);
+        \path [-] (C3) edge node[left] {} (H3);
+        \path [-] (H3) edge node[left] {} (I3);
+        \path [-] (A3) edge node[left] {} (G3);
+        \path [-] (E3) edge node[left] {} (D3);
+        \path [-] (H3) edge node[left] {} (J3);
+        \path [-] (E3) edge node[left] {} (O3);
+        \path [-] (C3) edge node[left] {} (F3);
+        \path [-] (L2) edge node[left] {} (I3);
+        \path [-] (I3) edge node[left] {} (J3);
+        \path [-] (J3) edge node[left] {} (G3);
+        \path [-] (G3) edge node[left] {} (L3);
+        \path [-] (L3) edge node[left] {} (D3);
+        \path [-] (D3) edge node[left] {} (O3);
+        \path [-] (O3) edge node[left] {} (F3);
+        \path [-] (F3) edge node[left] {} (L2);
+        \path [-] (N3) edge node[left] {} (J3);
+
+        \path [-] (L3) edge node[left] {} (Q3);
+    \end{tikzpicture}
+\end{center}
+Dann müssen $x+v$ und $v'$ immernoch die selbe Farbe haben bei einer korrekten 3-Färbung, und die oben diskutierten Eigenschaften
+bleiben erhalten.
+
+\textbf{j)}
+Der resultierende Graph ist planar, da sich in dem ursprünglichen Graphen in jedem Punkt höchstens 2 Streckenzüge
+geschnitten haben, und die Schnittpunkte nun durch planare Kreuzungsgadgets ersetzt wurden. Damit schneiden sich
+keine 2 Streckenzüge des resultierenden Graphen.
+
+\textbf{k)}
+Die Größe eines Kreuzungsgadgets ist konstant. Ferner können sich die Strecken des (sinnvollen) Eingabegraphen in höchstens $|E|^2$
+Punkten schneiden (jede Kante jeder andere höchstens 1 mal) sodass wir höchstens $|E|^2$ der Kreuzungsgadgets
+hinzufügen müssen. Die Schnittpunkte selbst lassen sich auch in polynomieller Zeit,
+im Notfall mit numerischen Methoden bis auf Maschinengenauigkeit (wo wir dann das Gadget ''einstanzen'' können), finden.
+
+\textbf{l)}
+Angenommen der Eingabegraph hat eine 3-Färbung. Die Knoten im planaren Graphen, welche aus dem Eingabegraphen stammen
+können ihre Farbe übernehmen. In einem Kreuzungsgadget übernehmen die 4 Knoten $u,u',v,v'$ die Farbe des gegenüberliegende Knoten,
+insofern dieser gerade gefärbt wurde. Mit den Variablennamen der obigen Skizze: Damit hat der Knoten $x+v$ die Farbe von
+$x$ im Eingabegraphen, und alle verschmolzenen Knoten auf dem Weg durch die 3 Gadgets übernehmen diese Farbe, inklusive
+dem letzten dieser Knoten, $v'$. Dies stellt kein Problem für die Kante $(v',y)$ dar, da ja $(x,y)$ eine Kante im Eingabegraphen
+war und damit $c(v') = c(x) \neq c(y)$. Also lässt sich nach e),f) die 3-Färbung auf die restlichen Knoten der Kreuzungsgadgets
+erweitern.
+
+Nun angenommen wir haben eine 3-Färbung des resultierenden planaren Graphen $G'$. Da $V \subseteq V'$, also alle Knoten
+des Eingabegraphen in $V'$ vorkommen, können wir einfach die Farben übernehmen. Für $x,y \in V$ mit $(x,y) \in E$ haben wir dann:
+
+\textbf{Fall 1:} $x$ und $y$ sind durch eine Kante in $G'$ verbunden, ohne Gadget (also $(x,y) \in E'$).\\
+Dann folgt aber schon sofort $c(x) \neq c(y)$, da $c$ ja eine korrekte 3-Färbung von $G'$ ist.
+
+\textbf{Fall 2:} $x$ und $y$ haben Kreuzungsgadget(s) zwischen sich (also $(x,y) \notin E$).\\
+Dann haben wir einen Fall wie in der Skizze oben, und es folgt dass $y$ zu einem Knoten $v'$ adjazent ist,
+der per Kontruktion die selbe Farbe wie $x$ haben muss. Folglich $c(y) \neq c(v') = c(x)$, da $c$ eine Korrekte
+3-Färbung von $G'$ ist.
+
+Damit folgt in beiden Fällen aber, dass $c(x) \neq c(y)$. Also haben wir eine korrekte 3-Färbung des Eingabegraphen $G$
+durch Einschränkung von c auf $V$.
+
 
 \end{document}
