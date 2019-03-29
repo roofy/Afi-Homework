@@ -1043,5 +1043,149 @@ der per Kontruktion die selbe Farbe wie $x$ haben muss. Folglich $c(y) \neq c(v'
 Damit folgt in beiden Fällen aber, dass $c(x) \neq c(y)$. Also haben wir eine korrekte 3-Färbung des Eingabegraphen $G$
 durch Einschränkung von c auf $V$.
 
+\newpage
+
+\section{Prozessplanung mit Deadlines}
+
+\textbf{a)}
+\begin{center}
+\begin{tabular}{c|c|c|c}
+    Prozess $P_i$ & Start & Finish & Strafkosten\\
+    \hline
+    1   & 0 & 1 & 0\\
+    2   & 1 & 3 & 0\\
+    3   & 3 & 6 & 0\\
+    5   & 6 & 11 & 0\\
+    6   & 11 & 17 & 0\\
+    4   & 17 & 21 & 1
+\end{tabular}
+\end{center}
+Damit haben wir einen Prozessplan mit Strafkosten 1. Da alle Strafkoste $s_i \geq 1$ sind, und die Summe der Prozesszeiten
+$\sum_{i=1}^{6} P_i = 21$ die höchste Deadline $\max\{d_i \mid i \in 1..6\} = 19$ überschreitet, wird man immer
+Strafkosten $s \geq 0$ zahlen müssen. Folglich habe wir damit eine optimale Lösung.
+
+\textbf{b)}
+
+Sei also eine Instanz mit Prozesszeiten $t_1,\cdots,t_n$, Deadline $d_1,\cdots,d_n$ und Strafkosten $s_1,\cdots,s_n$
+sowie eine Optimallösung $\pi \in S_n$ gegeben. Wir definieren
+$$
+    S_{\pi}(i) := \sum_{k \in [1,n], \pi(k) < \pi(i)}t_{k}
+    \qquad\qquad
+    V_\pi(i) :\iff S_\pi(i) + t_i > d_i
+    \qquad\qquad
+    K_{\pi}(i) := \begin{cases}
+        s_i &, V_\pi(i)\\
+        0 &, \lnot V_\pi(i)
+    \end{cases}
+$$
+Dabei ist $S_\pi(i)$ die Startzeit von $P_i$ in der Optimallösung. $V_\pi(i)$ ist genau dann wahr, wenn $P_i$ in $\pi$ verspätet ist,
+und $K_\pi(i)$ sind die zu zahlenden Strafkosten für $P_i$ in der Lösung $\pi$.
+
+Insofern $\forall i \in [1,n]: \lnot V_\pi(i)$, also kein Prozess verspätet ist, ist nichts zu zeigen.
+
+Es gelte also $\exists i \in [1,n]: V_\pi(i)$. Falls nun
+$$
+    \forall i \in [1,n]: \bigg(V_\pi(i) \,\Longrightarrow\, (\forall j \in [1,n], \pi(j) > \pi(i): V_\pi(j))\bigg)
+$$
+also alle verspäteten Prozesse am Ende der abgehandelt werden, ist ebenso nichts zu zeigen.
+
+Also angenommen wir haben $i,j \in [1,n]$ mit $\pi(i) < \pi(j)$ sowie $V_\pi(i)$ aber $\lnot V_\pi(j)$. Das heißt,
+$P_j$ wird nach dem verspäteten Prozess $P_i$ abgearbeitet, ist aber selbst nicht verspätet.
+
+Da nun offensichtlich $S_\pi(i) < S_\pi(j)$, da $\pi(i) < \pi(j)$, folgt damit wegen $S_\pi(j) + t_j \leq d_j$
+auch, dass $S_\pi(i) + t_j < S_\pi(j) +t_j \leq d_j$. Folglich gilt für $\sigma := (i,j)\pi \in S_n$ dann
+ebenfalls $S_\sigma(j) + t_j = S_\pi(i) + t_j \leq d_j$, also $\lnot V_\sigma(j)$. Andererseits bleibt $V_\sigma(i)$,
+da $S_\sigma(i) + t_i = S_\pi(j) + t_i > S_\pi(i) + t_i > d_i$.
+Folglich, da $V_-$ eine Invariante die Permutation der Prozesse $P_i$ und $P_j$ durch $\sigma$ ist,
+gilt dann auch $\sum_{i=1}^{n} K_\pi(i) = \sum_{i=1}^{n} K_\sigma(i)$, also ist $\sigma$ ebenfalls eine Optimallösung.
+
+Da $n \in \mathbb{N}$ können wir durch endlich maliges anwenden von Permutation obiger Art die verspäteten Prozesse
+ans Ende der ursprünglichen Optimallösung $\pi$ Permutieren, ohne die Optimalität zu zerstören.
+
+Insgesamt gibt es immer eine Optimallösung, in der zuerst alle pünktlichen Prozesse und danach erst alle verspäteten Prozesse
+bearbeitet werden.
+
+\newpage
+
+\textbf{c)}
+
+Man benutzt die selbe Argumentation wie in b)
+
+\textbf{d)}
+
+Folgt aus c) mit endlich vielen Permutationen der Prozesse, sodass die Deadlines nachher aufsteigend sind.
+
+\textbf{e)}
+
+Entscheidungsvariante: DEADLINES (in Notation von b))
+
+Eingabe: $n,S \in \mathbb{N}, t,d,s \in \mathbb{N}^n$.
+
+Frage: Existiert $\pi \in S_n$ sodass $\sum_{i=1}^{n} K_\pi(i) \leq S$, also eine Reihenfolge für die Abbarbeitung der
+Prozesse, sodass maximal $S$ Strafkosten gezahlt werden müssen?
+
+\textbf{f)}
+
+Es ist DEADLINE $\in \textsf{NP}$, da wir als Zertifikat einfach die Permutation $\pi$ nehmen können, so kodiert
+dass wir die Zahlen 1 bis $n$ in der entsprechenden Reihenfolge auflisten. Das Zertifikat bestehs aus $n$ Zahlen,
+welche je durch $\log(n)$ in ihrer Länge beschränkt sind. Also ist die Länge des Zertifikats polynomiell in der Eingabelänge.
+
+Zuerst verifizieren wir, dass das Zertifikat wirklich eine Permutation von $[1,n]$ ist, was mit $n$ Speicherzellen
+in linearer Zeit geht.
+Daraufhin haben wir Variablen $K,T$, die jeweils momentane Strafkosten und Zeit darstellen.
+Anfangs ist $T := 0$. Dann gehen wir der Reihe nach die Permutation durch. Für ein $i \in [1,n]$ setzen wir dann
+$$
+    T := T + t_i
+    \qquad\text{sowie}\qquad
+    K := \begin{cases}
+        K + s_i &, T > d_i\\
+        K&, \text{sonst}
+    \end{cases}
+$$
+Sodass wir für jeden prozess überprüfen, ob er wenn er an der angegebenen Position startet dann auch vor seiner Deadline
+fertig wird. Falls dem nicht so ist erhöhen wir die Strafkostenvariable entsprechend. Dies geht in polynomieller Zeit
+für jede der Prozesse, also insgesamt auch in polynomieller Zeit. Zuletzt überprüfen wir noch ob $K \leq S$,
+und akzeptieren genau dann wenn dem so ist.
+
+\textbf{h)}
+Es gilt also $\sum_{i=1}^{n} a_i = 2A$. Wir haben $t_i := a_i, s_i := a_i, d_i = A$. Da wir die $a$'s ja eben in
+zwei Teilsummen mit jeweiliger Summe $A$ aufteilen wollen, bietet es sich an die Strafkostenschranke $S := A$ zu definieren.
+
+\textbf{i)}
+Also angenommen die PARTITION-Instanz ist lösbar, d.h. es existiert $I \subset [1,n]$ sodass $\sum_{i\in I} a_i = A$.
+Dann können wir eine Lösungspermutation konstruieren, indem wir als erstes die Prozesse aus $I$, und danach
+die Prozesse aus $[1,n]\setminus I$ bearbeiten. Denn dann werden ja alle Prozesse aus $I$ unabhängig von ihrer
+Reihenfolge genau zum Zeitpunkt $A$ fertig, da dies die Summe ihrer Laufzeiten ist. Die restlichen Prozesse
+sind dann zwangsläufig alle verspätet und haben dann in der Summe die Strafkosten $\sum_{i \in [1,n]\setminus I} a_i = A \leq S$.
+Damit haben wir eine korrekte Instanz von DEADLINE.
+
+\newpage
+
+\textbf{j)}
+Nun angenommen die DEADLINE-Instanz besitzt einen Bearbeitungsplan $\pi \in S_n$, sodass $\sum_{i=1}^{n} K_\pi(i) \leq S = A$.
+Dann definiere $I := \{i \in [1,n] \mid V_\pi(i)\}$. Da die Instanz bezüglich der Schranke $S = A$ korrekt ist
+haben wir schonmal $\sum_{i\in I} K_\pi(i) \leq A$.
+
+Ferner gilt nun, da ja $\forall i \in [1,n]: \bigg(t_i = a_i = s_i\bigg) \land \bigg(V_\pi(i) \iff i \in I\bigg)$, dass
+$$
+    A = S \geq \sum_{i=1}^{n} K_\pi(i) = \sum_{i \in I} K_\pi(i) = \sum_{i \in I} a_i
+$$
+Sei $J := [1,n] \setminus I$. Angenommen es gilt $A > \sum_{i\in I} a_i$. Dann folgt $A < \sum_{j \in J} a_j$.
+Ferner gilt aber auch $\forall j \in J: \lnot V_\pi(j)$, sodass also alle Prozesse $P_j$ pünktlich sind.
+Ebenso haben wir aber wegen $t_j = a_j$, dass $\sum_{j \in J} t_j > A$. Dies ist ein Widerspruch,
+da es nicht möglich ist alle Prozesse sequentiell abzuarbeiten sodass alle vor ihrer Deadline $A$ fertig werden,
+wenn die Summe ihrer Bearbeitungszeiten $\sum_{j \in J} t_j$ eben diese Schranke $A$ überschreitet.
+
+Folglich muss $A = \sum_{i \in I} a_i$. Dann folgt aber sofort auch $\sum_{j \in J} a_j = 2A$.
+Damit haben wir unsere gesuchte PARTITION-Instanz $\{I,J\}$.
+
+\textbf{k)}
+Nein, da PARTITION nicht stark \textsf{NP}-schwer ist.
+
+\textbf{l)}
+Nein, analog zu Hausaufgabe 12.1, wo wir PARTITION $\leq_p$ PARTITION-INTO-THREE-SETS gezeigt haben,
+musste man nochmal extra zeigen, dass letzteres in pseudopolynomieller Zeit gelöst werden kann, und damit
+nicht stark \textsf{NP}-schwer ist. Beispielsweise existiert auch eine Reduktion PARTITION $\leq_p$ THREE-PARTITION,
+wobei letzteres stark \textsf{NP}-schwer ist.
 
 \end{document}
